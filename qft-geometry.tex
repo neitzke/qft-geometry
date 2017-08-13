@@ -1,0 +1,338 @@
+\documentclass[12pt,letterpaper,reqno]{article}
+
+% \usepackage{mathtools}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{indentfirst}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage[letterpaper,margin=1in,headheight=15pt]{geometry}
+\usepackage{mathpazo}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{framed}
+\usepackage{float}
+\usepackage{thmtools}
+\usepackage{dashrule}
+\usepackage[missing=]{gitinfo2}
+\usepackage{fancyhdr}
+
+\definecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\definecolor{darkred}{rgb}{0.5,0.1,0.1}
+\definecolor{darkgreen}{rgb}{0.0,0.42,0.06}
+\hypersetup{colorlinks=true,urlcolor=darkred,linkcolor=darkblue,citecolor=darkred}
+\definecolor{shadecolor}{rgb}{0.85,0.85,0.85}
+
+% Bibliography formatting
+\usepackage[bibstyle=authoryear-comp,labeldate=false,defernumbers=true,maxnames=20,uniquename=init,dashed=false,backend=biber,sorting=none]{biblatex}
+
+\DeclareNameAlias{sortname}{first-last}
+
+\DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat[inproceedings]{pages}{\lowercase{pp.}#1}
+\DeclareFieldFormat[incollection]{pages}{\lowercase{pp.}#1}
+\DeclareFieldFormat[article]{volume}{\textbf{#1}}
+\DeclareFieldFormat[article]{number}{(#1)}
+\DeclareFieldFormat[article]{title}{\MakeCapital{#1}}
+\DeclareFieldFormat[inproceedings]{title}{#1}
+\DeclareFieldFormat{shorthandwidth}{#1}
+
+% Don't use "In:" in bibliography. Omit urls from journal articles.
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor}%
+  \setunit{\labelnamepunct}\newblock
+  \MakeSentenceCase{\usebibmacro{title}}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+%  \usebibmacro{in:}%
+  \usebibmacro{journal+issuetitle}%
+  \newunit\newblock
+  \printfield{note}%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}
+  \newunit\newblock
+  \usebibmacro{eprint}
+  \newunit\newblock
+  \printfield{addendum}%
+  \newunit\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}}
+
+% Remove dot between volume and number in journal articles.
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}
+    {\newunit
+     \printfield{series}%
+     \setunit{\addspace}}%
+  \printfield{volume}%
+%  \setunit*{\adddot}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue+date}%
+  \newunit\newblock
+  \usebibmacro{issue}%
+  \newunit}
+
+
+% Bibliography categories
+\def\makebibcategory#1#2{\DeclareBibliographyCategory{#1}\defbibheading{#1}{\section*{#2}}}
+\makebibcategory{books}{Books}
+\makebibcategory{papers}{Refereed research papers}
+\makebibcategory{chapters}{Book chapters}
+\makebibcategory{conferences}{Papers in conference proceedings}
+\makebibcategory{techreports}{Unpublished working papers}
+\makebibcategory{bookreviews}{Book reviews}
+\makebibcategory{editorials}{Editorials}
+\makebibcategory{phd}{PhD thesis}
+\makebibcategory{subpapers}{Submitted papers}
+\makebibcategory{curpapers}{Current projects}
+
+\setlength{\bibitemsep}{2.65pt}
+\setlength{\bibhang}{.8cm}
+\renewcommand{\bibfont}{\small}
+
+\renewcommand*{\bibitem}{\addtocounter{papers}{1}\item \mbox{}\hskip-0.85cm\hbox to 0.85cm{\hfill\arabic{papers}.~~}}
+\defbibenvironment{bibliography}
+{\list{}
+  {\setlength{\leftmargin}{\bibhang}%
+   \setlength{\itemsep}{\bibitemsep}%
+   \setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\bibitem}
+
+\newenvironment{publications}{\section{\LARGE Publications}\label{papersstart}\vspace*{0.2cm}\small
+\titlespacing{\section}{0pt}{1.5ex}{1ex}\itemsep=0.00cm
+}{\label{papersend}\addtocounter{sumpapers}{-1}\refstepcounter{sumpapers}\label{sumpapers}}
+
+\def\printbib#1{\printbibliography[category=#1,heading=#1]\lastref{sumpapers}}
+
+% Counters for keeping track of papers
+\newcounter{papers}\setcounter{papers}{0}
+\newcounter{sumpapers}\setcounter{sumpapers}{0}
+\def\lastref#1{\addtocounter{#1}{\value{papers}}\setcounter{papers}{0}}
+
+% theorem environments
+\declaretheoremstyle[spaceabove=0.25cm,spacebelow=0.25cm,notefont=\normalfont\bfseries, notebraces={(}{)}]{theorem}
+\declaretheoremstyle[spaceabove=0.25cm,spacebelow=0.25cm,bodyfont=\normalfont,notefont=\normalfont\bfseries, notebraces={(}{)}]{noital}
+\declaretheoremstyle[spaceabove=0.25cm,spacebelow=0.25cm,bodyfont=\normalfont\color{darkgreen},notefont=\normalfont\bfseries, notebraces={(}{)}]{green}
+\declaretheoremstyle[spaceabove=0.25cm,spacebelow=0.25cm,bodyfont=\normalfont,notefont=\normalfont\bfseries,qed=$\qedsymbol$,notebraces={(}{)}]{proofstyle}
+
+\declaretheorem[name=Theorem,numberwithin=section,style=theorem]{thm}
+\declaretheorem[name=Proposition,sibling=thm,style=theorem]{prop}
+\declaretheorem[name=Corollary,sibling=thm,style=theorem]{cor}
+\declaretheorem[name=Lemma,sibling=thm,style=theorem]{lem}
+\declaretheorem[name=Definition,sibling=thm,style=noital]{defn}
+\declaretheorem[name=Example,sibling=thm,style=noital]{example}
+\declaretheorem[name=Exercise,numberwithin=section,style=green]{exercise}
+\declaretheorem[name=Proof,style=proofstyle,numbered=no]{pf}
+
+\numberwithin{equation}{section}
+
+
+% macros for convenience
+\newcommand{\tops}{\texorpdfstring}
+
+\newcommand{\nid}{\noindent}
+
+\newcommand{\fa}{{\mathfrak a}}
+\newcommand{\fp}{{\mathfrak p}}
+\newcommand{\fk}{{\mathfrak k}}
+\newcommand{\fg}{{\mathfrak g}}
+\newcommand{\fh}{{\mathfrak h}}
+\newcommand{\fn}{{\mathfrak n}}
+\newcommand{\fq}{{\mathfrak q}}
+\newcommand{\fm}{{\mathfrak m}}
+\newcommand{\fr}{{\mathfrak r}}
+\newcommand{\fu}{{\mathfrak u}}
+\newcommand{\fG}{{\mathfrak G}}
+
+\newcommand{\cC}{\ensuremath{\mathcal C}}
+\newcommand{\cG}{\ensuremath{\mathcal G}}
+\newcommand{\cB}{\ensuremath{\mathcal B}}
+\newcommand{\cL}{\ensuremath{\mathcal L}}
+\newcommand{\cS}{\ensuremath{\mathcal S}}
+\newcommand{\cF}{\ensuremath{\mathcal F}}
+\newcommand{\cK}{\ensuremath{\mathcal K}}
+\newcommand{\cZ}{\ensuremath{\mathcal Z}}
+\newcommand{\cM}{\ensuremath{\mathcal M}}
+\newcommand{\cN}{\ensuremath{\mathcal N}}
+\newcommand{\cO}{\ensuremath{\mathcal O}}
+\newcommand{\cH}{\ensuremath{\mathcal H}}
+\newcommand{\cX}{\ensuremath{\mathcal X}}
+\newcommand{\cY}{\ensuremath{\mathcal Y}}
+\newcommand{\cA}{\ensuremath{\mathcal A}}
+\newcommand{\cI}{\ensuremath{\mathcal I}}
+
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\C}{\ensuremath{\mathbb C}}
+\newcommand{\PP}{\ensuremath{\mathbb P}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\Q}{\ensuremath{\mathbb Q}}
+\newcommand{\A}{\ensuremath{\mathbb A}}
+\newcommand{\bbH}{\ensuremath{\mathbb H}}
+\newcommand{\bbI}{\ensuremath{\mathbb I}}
+\newcommand{\bS}{\ensuremath{\mathbb S}}
+
+\newcommand{\half}{\ensuremath{\frac{1}{2}}}
+\newcommand{\qtr}{\ensuremath{\frac{1}{4}}}
+\newcommand{\bq}{{\mathbf q}}
+\newcommand{\N}{{\mathcal N}}
+\newcommand{\F}{{\mathcal F}}
+\newcommand{\HH}{{\mathcal H}}
+\newcommand{\LL}{{\mathcal L}}
+\newcommand{\RR}{{\mathcal R}}
+\newcommand{\V}{{\mathcal V}}
+\newcommand{\dirac}{\!\!\not\!\partial}
+\newcommand{\Dirac}{\!\!\not\!\!D}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\vs}{\not\!v}
+\newcommand{\kahler}{K\"ahler\xspace}
+\newcommand{\kq}{/\!\!/}
+\newcommand{\kql}[1]{/\!\!/\!\!_#1\,}
+\newcommand{\hk}{hyperk\"ahler\xspace}
+\newcommand{\Hk}{Hyperk\"ahler\xspace}
+\newcommand{\hkq}{/\!\!/\!\!/\!\!/}
+\newcommand{\hkql}[1]{/\!\!/\!\!/\!\!/\!\!_#1\,}
+\newcommand{\del}{\ensuremath{\partial}}
+\newcommand{\delbar}{\ensuremath{\overline{\partial}}}
+\newcommand{\I}{{\mathrm i}}
+\newcommand{\J}{{\mathrm j}}
+\newcommand{\K}{{\mathrm k}}
+\newcommand{\e}{{\mathrm e}}
+\newcommand\bid{{\mathbf 1}}
+\newcommand{\de}{\mathrm{d}}
+\newcommand{\ab}{\mathrm{ab}}
+\newcommand{\vol}{\mathrm{vol}}
+\renewcommand{\sf}{\mathrm{sf}}
+\newcommand{\inst}{\mathrm{inst}}
+\newcommand{\eff}{\mathrm{eff}}
+\newcommand{\dR}{\mathrm{dR}}
+\newcommand{\closed}{\mathrm{closed}}
+\newcommand{\exact}{\mathrm{exact}}
+
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\IP}[1]{\langle#1\rangle}
+\newcommand{\DIP}[1]{\langle\!\langle#1\rangle\!\rangle}
+\newcommand{\dwrt}[1]{\frac{\partial}{\partial#1}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\simarrow}{\xrightarrow\sim}
+
+\newcommand{\mmaref}[1]{}
+
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Bun}{Bun}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Hol}{Hol}
+\DeclareMathOperator{\gr}{gr}
+
+\newcommand{\insfig}[2]{
+
+\medskip
+\noindent
+\begin{minipage}{\linewidth}
+
+\makebox[\linewidth]{\includegraphics[keepaspectratio=true,scale=#2]{figures/#1-crop.pdf}}
+
+\end{minipage}
+\medskip
+
+}
+
+
+% \newcommand{\insfig}[2]{\begin{figure}[htbp] \centering \includegraphics[scale=#2]{figures/#1-crop.pdf} \label{fig:#1} \end{figure}}
+% syntax: \insfig{name}{0.5}{caption}
+
+\newcommand{\fixme}[1]{{\color{orange}{[#1]}}}
+\newcommand{\currentposition}{{\color{blue} \noindent\makebox[\linewidth]{\hdashrule{\paperwidth}{1pt}{3mm}}}}
+
+% \mathtoolsset{showonlyrefs}
+
+\bibliography{qft-geometry}
+
+\begin{document}
+
+\pagestyle{fancy}
+\lhead{{\tiny \color{gray} \tt \gitAuthorIsoDate}}
+\chead{\tiny \ti{Applications of QFT to Geometry, \tb{preliminary} and \tb{incomplete} draft}}
+\rhead{{\tiny \color{gray} \tt \gitAbbrevHash}}
+\renewcommand{\headrulewidth}{0.5pt}
+
+
+\begin{center}
+\tb{Applications of QFT to Geometry} \\
+Andrew Neitzke \\
+\tb{Preliminary} and \tb{incomplete} draft
+\end{center}
+
+{These are the notes for a Fall 2017
+course at UT Austin, \ti{in progress}. 
+They are extremely incomplete, unreliable, full
+of mistakes and omissions.
+The latest PDF can always be found
+at
+\begin{center}
+\small \url{http://ma.utexas.edu/users/neitzke/teaching/392C-qft-geometry/qft-geometry.pdf}
+\end{center}
+Please send corrections/improvements to
+\begin{center}
+\small \tt\href{mailto:neitzke@math.utexas.edu}{neitzke@math.utexas.edu}
+\end{center}
+or as pull requests to the source repository hosted at
+\begin{center}
+\small \url{http://github.com/neitzke/qft-geometry}
+\end{center}
+}
+
+% \tableofcontents
+% \renewcommand{\listtheoremname}{Quick reference}
+% \listoftheorems[onlynamed]
+
+\newpage
+
+%\setcounter{page}{1}
+
+\section{Introductory motivation}
+
+
+\printbibliography
+
+\end{document}
