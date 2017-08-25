@@ -138,6 +138,7 @@
 \declaretheoremstyle[spaceabove=0.25cm,spacebelow=0.25cm,bodyfont=\normalfont,notefont=\normalfont\bfseries,qed=$\qedsymbol$,notebraces={(}{)}]{proofstyle}
 
 \declaretheorem[name=Theorem,numberwithin=section,style=theorem]{thm}
+\declaretheorem[name=Fact,numberwithin=section,style=theorem]{fact}
 \declaretheorem[name=Proposition,sibling=thm,style=theorem]{prop}
 \declaretheorem[name=Corollary,sibling=thm,style=theorem]{cor}
 \declaretheorem[name=Lemma,sibling=thm,style=theorem]{lem}
@@ -326,11 +327,36 @@ or as pull requests to the source repository hosted at
 % \renewcommand{\listtheoremname}{Quick reference}
 % \listoftheorems[onlynamed]
 
-\newpage
+% \newpage
 
 %\setcounter{page}{1}
 
 \section{Introductory motivation}
+
+\subsection{Linear equations} 
+Suppose we are interested in studying smooth manifolds $X$.
+One simple and powerful tool for this purpose: fix a Riemannian metric $g$ on $X$.
+This allows us to define the \ti{form Laplacian}
+\begin{equation}
+  \Delta = [\de, \de^*]
+\end{equation}
+and consider the space of \ti{harmonic forms}
+\begin{equation}
+  \cH_k = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
+\end{equation}
+The equation $\Delta \omega = 0$ is a \ti{linear} equation over $\R$.
+Thus the resulting $\cH_k$ is a \ti{vector space}.
+If $X$ is compact, then $\cH_k$ is moreover finite-dimensional (a consequence of
+the fact that $\Delta$ is an \ti{elliptic} operator). Thus we can define
+positive integers by
+\begin{equation}
+  b_k = \dim_\R \cH_k.
+\end{equation}
+There is a remarkable fact about these integers:
+\begin{fact} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
+structure on $X$; instead they are invariants of the underlying topological manifold.
+\end{fact}
+
 
 
 \printbibliography
