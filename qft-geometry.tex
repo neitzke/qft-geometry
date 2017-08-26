@@ -342,22 +342,139 @@ This allows us to define the \ti{form Laplacian}
 \end{equation}
 and consider the space of \ti{harmonic forms}
 \begin{equation}
-  \cH_k = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
+  \cH^k(X) = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
 \end{equation}
-The equation $\Delta \omega = 0$ is a \ti{linear} equation over $\R$.
-Thus the resulting $\cH_k$ is a \ti{vector space}.
-If $X$ is compact, then $\cH_k$ is moreover finite-dimensional (a consequence of
+The equation 
+\begin{equation} \label{eq:laplace}
+\Delta \omega = 0  
+\end{equation}
+is a \ti{linear} equation over $\R$.
+Thus $\cH^k(X)$ is a \ti{vector space}.
+If $X$ is compact, then $\cH^k(X)$ is moreover finite-dimensional (a consequence of
 the fact that $\Delta$ is an \ti{elliptic} operator). Thus we can define
 positive integers by
 \begin{equation}
-  b_k = \dim_\R \cH_k.
+  b_k(X) = \dim_\R \cH^k(X).
 \end{equation}
 There is a remarkable fact about these integers:
 \begin{fact} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
-structure on $X$; instead they are invariants of the underlying topological manifold.
+structure on $X$; instead they are invariants of the underlying topological manifold 
+(the \ti{Betti numbers}).
 \end{fact}
 
+This is a consequence of a stronger, ``categorified'' fact:
+\begin{fact} There is a canonical isomorphism
+\begin{equation}
+  \cH^k(X) \simeq H^k(X,\R)
+\end{equation}
+(singular cohomology).
+\end{fact}
 
+If $X$ is an oriented $4n$-manifold then there is a small refinement of the 
+middle Betti number $b_{2n}$:
+we have the ``Hodge star'' operator
+\begin{equation}
+  \star: \Omega^{2n}(X) \to \Omega^{2n}(X)
+\end{equation}
+which has the crucial properties 
+\begin{itemize}
+  \item $\star^2 = 1$,
+  \item $[\star, \Delta] = 0$.
+\end{itemize}
+The first property says we can decompose into eigenspaces for $\star$:
+\begin{equation}
+  \Omega^n(X) = \Omega^{n,+}(X) \oplus \Omega^{n,-}(X)
+\end{equation}
+and the second says that the harmonic forms also decompose:
+\begin{equation}
+  \cH_{2n}(X) = \cH_{2n}^+(X) \oplus \cH_{2n}^-(X), \qquad b_{2n}(X) = b_{2n}^+(X) + b_{2n}^-(X).
+\end{equation}
+
+\begin{exercise} Suppose instead that $X$ has 
+dimension $4n+2$. Here the story is a bit different, because in dimension $k = 2n+1$
+we have $\star^2 = -1$.
+Show that in this case the Betti number $b_{2n+1}(X)$ is even.
+\end{exercise}
+
+
+
+\subsection{Nonlinear equations}
+
+A new source of topological (or more precisely smooth) invariants was discovered
+by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
+
+The first key idea is to replace the linear equation
+\eqref{eq:laplace} by a \ti{nonlinear} equation.
+Fix a compact Lie group $G$ and let $E$ denote a principal $G$-bundle over $X$. Then
+we consider \ti{connections} in $E$. Such a connection is locally written
+\begin{equation}
+  D = \de + A, \qquad A \in \Omega^1(\fg),
+\end{equation}
+and has a curvature $2$-form $F \in \Omega^2(\ad E)$, locally written
+\begin{equation} \label{eq:curvature}
+  F = \de A + A \wedge A \in \Omega^2(\fg),
+\end{equation}
+which again we can decompose under $\star$ as
+\begin{equation}
+  F = F^+ + F^-.
+\end{equation}
+Now the \ti{self-dual Yang-Mills equation} is
+\begin{equation} \label{eq:sdym}
+  F^+ = 0.
+\end{equation}
+For $G$ abelian (e.g. for $G = U(1)$) the equation \eqref{eq:sdym} is linear.
+% It simply says
+% \begin{equation}
+%   \de A = \star \de A.
+% \end{equation}
+% \begin{exercise}
+% ...
+% \end{exercise}
+For $G$ nonabelian (e.g. for $G = SU(2)$) this
+equation is \ti{nonlinear}, because of the quadratic part in \eqref{eq:curvature}.
+
+\begin{exercise} Write out \eqref{eq:sdym} in detail in components, in two cases:
+\begin{itemize}
+  \item For $G = U(1)$: in this case you should get a system of $6$ linear equations for $4$ functions $A_i$
+  ($i \in \{1,2,3,4\}$).
+  \item For $G = SU(2)$: in this case you should get a system of $9$ coupled nonlinear equations for
+  $12$ functions $A^a_i$ ($i \in \{1,2,3,4\}$, $a \in \{1,2,3\}$).
+\end{itemize}
+\end{exercise}
+
+% From now on we specialize to the interesting case $G = SU(2)$.
+We consider
+\begin{equation}
+  \cM = \{ \text{solutions of \eqref{eq:sdym}} \} / \fG
+\end{equation}
+where $\fG$ is the infinite-dimensional group of \ti{gauge transformations} ie
+sections of $\Aut(E)$, acting on connections by
+\begin{equation}
+  D \mapsto g D g^{-1}.
+\end{equation}
+
+\begin{exercise}
+Verify that $\fG$ acts on the space of solutions of \eqref{eq:sdym}. Write out this action 
+explicitly in components, when $G = U(1)$ or $G = SU(2)$.
+\end{exercise}
+
+\begin{exercise}
+Show that when $G = U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case 
+$\cM$ actually \ti{is} a vector space. \fixme{warning: needs Hodge theory}
+\end{exercise}
+
+When $G$ is nonabelian, the situation is much more difficult.
+$\cM$ is not a vector space. Nevertheless it has some reasonable geometric
+structure:
+\begin{fact}
+When $G = SU(2)$, $\cM$ has the natural structure of a ``manifold away from some singular points''
+\fixme{...}
+\end{fact}
+
+Donaldson's idea was to extract interesting invariants of $X$ by studying the space $\cM$. The 
+\ti{dimension} of $\cM$ turns out not to be so interesting: it is determined by 
+$c_2(E)$, which has little to do with $X$. What is more interesting is to compute 
+certain \ti{integrals} over $\cM$.
 
 \printbibliography
 
