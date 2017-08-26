@@ -21,6 +21,7 @@
 \usepackage{dashrule}
 \usepackage[missing=]{gitinfo2}
 \usepackage{fancyhdr}
+\usepackage{slashed}
 
 \definecolor{darkblue}{rgb}{0.1,0.1,0.7}
 \definecolor{darkred}{rgb}{0.5,0.1,0.1}
@@ -264,6 +265,7 @@
 \DeclareMathOperator{\Jac}{Jac}
 \DeclareMathOperator{\Hol}{Hol}
 \DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Spin}{Spin}
 
 \newcommand{\insfig}[2]{
 
@@ -400,11 +402,16 @@ Show that in this case the Betti number $b_{2n+1}(X)$ is even.
 
 \subsection{Nonlinear equations}
 
-A new source of topological (or more precisely smooth) invariants was discovered
+Now we will replace the linear equation
+\eqref{eq:laplace} by a \ti{nonlinear} equation.
+Unlike linear equations --- which in some sense behave uniformly
+in the dimension --- nonlinear equations tend to behave very
+differently in different dimensions. With this in mind
+we now specialize to the case $\dim X = 4$.
+In this case, a new source of topological 
+(or more precisely smooth) invariants was discovered
 by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
 
-The first key idea is to replace the linear equation
-\eqref{eq:laplace} by a \ti{nonlinear} equation.
 Fix a compact Lie group $G$ and let $E$ denote a principal $G$-bundle over $X$. Then
 we consider \ti{connections} in $E$. Such a connection is locally written
 \begin{equation}
@@ -476,7 +483,64 @@ Donaldson's idea was to extract interesting invariants of $X$ by studying the sp
 \begin{equation}
   \dim \cM = 8k - \frac32 (\chi(X) + \sigma(X)), \qquad k = \int_X p_1(E)
 \end{equation}
+Here $\chi(X)$ is the Euler characteristic,
+\begin{equation}
+  \chi(X) = b_0(X) - b_1(X) + b_2(X) - b_3(X) + b_4(X),
+\end{equation}
+and $\sigma(X)$ is the signature,
+\begin{equation}
+  \sigma(X) = b_2^+(X) - b_2^-(X).
+\end{equation}
 But because $\cM$ is nonlinear there is more to it than just its dimension.
+\fixme{Donaldson invariants}
+\fixme{technically difficult because of noncompactness}
+\fixme{again they're topological invariants, at least for 
+$b_2^+ > 1$}
+
+\subsection{QFT and Donaldson invariants}
+
+In 1988, 
+Witten in \cite{Witten:1988ze} found a remarkable new way of thinking about
+the Donaldson invariants: he interpreted the
+Riemannian $4$-manifold $X$ as
+a \ti{spacetime} for a certain $4$-dimensional quantum field theory
+(\ti{topologically twisted $\N=2$ supersymmetric Yang-Mills theory}),
+and indentified the Donaldson invariants as
+\ti{correlation functions} in that quantum field theory.
+
+One of the aims of this course is to give some meaning to these
+phrases. Suffice now to say that a quantum field theory is a
+rather complicated object, with much more structure than was
+at first apparent in Donaldson theory.
+
+For aficionados, here is
+the \ti{action} defining this QFT:
+\begin{multline}
+ S = \frac{1}{g^2} \int_X \Tr\left( - \frac14 F \wedge \star F + \nabla_\mu \bar\phi \nabla^\mu \phi - \I \delta^{vw} \IP{\lambda_v^-, \slashed\nabla \lambda_w^+} + \frac14 \delta^{vv'} \delta^{ww'} D_{vw} D_{v'w'} - \half [\phi, \bar\phi]^2 \right. \\ \left. - \I \sqrt{2} \eps^{vw} \IP{\lambda_v^-, [\bar\phi, \lambda_w^-]} + \I \sqrt{2} \eps^{vw} \IP{\lambda_v^+, [\phi,\lambda_w^+]} \right) \\ + \frac{\I \vartheta}{4\pi^2} \int_X \Tr (F \wedge F),
+\end{multline}
+where the fields are:
+\begin{itemize}
+\item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
+\item $\phi \in \Gamma(\fg_{\C,P})$,
+\item $\lambda^\pm \in \Pi \Gamma(S^\pm \otimes \fg_{\C,P} \otimes R)$,
+\item $D \in \Gamma(\fg_{\C,P} \otimes \Sym^2 R)$,
+\end{itemize}
+with $R$ an auxiliary $2$-dimensional vector space carrying
+Hermitian structure $\delta: R \otimes \overline R \to \C$
+and volume form $\eps \in \wedge^2(R)$, and
+$S^\pm$ the $2$-dimensional spin representations of $\Spin(4)$.
+
+Impressive as this discovery was, it did not lead to any immediate
+breakthroughs in Donaldson theory as far as I know: 
+the formulas one could directly
+derive from the QFT perspective were just the \ti{same} formulas
+already written down by Donaldson.
+
+
+\subsection{Effective field theory}
+
+The real breakthrough came with the work of Seiberg and Witten
+seven years later, in 1995 \cite{Seiberg:1994rs}.
 \fixme{...}
 
 
