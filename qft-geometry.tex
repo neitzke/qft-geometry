@@ -336,8 +336,11 @@ or as pull requests to the source repository hosted at
 \section{Introductory motivation}
 
 \subsection{Linear equations} 
-Suppose we are interested in studying smooth manifolds $X$.
-One simple and powerful tool for this purpose: fix a Riemannian metric $g$ on $X$.
+Suppose we are interested in studying
+the topology of smooth manifolds $X$.
+One powerful tool for this purpose is to
+introduce an ingredient which at first seems alien to the
+problem: namely we fix a Riemannian metric $g$ on $X$.
 This allows us to define the \ti{form Laplacian}
 \begin{equation}
   \Delta = [\de, \de^*]
@@ -346,7 +349,8 @@ and consider the space of \ti{harmonic forms}
 \begin{equation}
   \cH^k(X) = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
 \end{equation}
-The equation 
+
+The equation
 \begin{equation} \label{eq:laplace}
 \Delta \omega = 0  
 \end{equation}
@@ -359,12 +363,20 @@ positive integers by
   b_k(X) = \dim_\R \cH^k(X).
 \end{equation}
 There is a remarkable fact about these integers:
-\begin{fact} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
+\begin{fact} \label{fact:betti-numbers-are-topological} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
 structure on $X$; instead they are invariants of the underlying topological manifold 
 (the \ti{Betti numbers}).
 \end{fact}
 
-This is a consequence of a stronger, ``categorified'' fact:
+\begin{exercise} Work out explicitly the spaces $\cH^k(X)$ and
+Betti numbers $b_k(X)$ for some of the following: $X = S^1, T^2, S^2$. 
+(In each case choose a convenient Riemannian metric; of course the $b_k$
+are independent of which metric you choose, though the $\cH^k(X)$
+naively are not.)
+\end{exercise}
+
+\autoref{fact:betti-numbers-are-topological} 
+is a consequence of a stronger, ``categorified'' statement:
 \begin{fact} There is a canonical isomorphism
 \begin{equation}
   \cH^k(X) \simeq H^k(X,\R)
@@ -452,7 +464,7 @@ equation is \ti{nonlinear}, because of the quadratic part in \eqref{eq:curvature
 % From now on we specialize to the interesting case $G = SU(2)$.
 We consider
 \begin{equation}
-  \cM = \{ \text{solutions of \eqref{eq:sdym}} \} / \fG
+  \cM = \{ \text{connections on $E$ obeying \eqref{eq:sdym}} \} / \fG
 \end{equation}
 where $\fG$ is the infinite-dimensional group of \ti{gauge transformations} ie
 sections of $\Aut(E)$, acting on connections by
@@ -474,7 +486,7 @@ When $G$ is nonabelian, the situation is much more difficult.
 $\cM$ is not a vector space. Nevertheless it has some reasonable geometric
 structure:
 \begin{fact}
-When $G = SU(2)$, $\cM$ has the natural structure of a ``manifold away from some singular points''
+When $G = SU(2)$, $\cM$ has the natural structure of a ``finite-dimensional manifold away from some singular points''
 \fixme{...}
 \end{fact}
 
@@ -509,26 +521,10 @@ and indentified the Donaldson invariants as
 \ti{correlation functions} in that quantum field theory.
 
 One of the aims of this course is to give some meaning to these
-phrases. Suffice now to say that a quantum field theory is a
+phrases. It must suffice now to say: a quantum field theory is a
 rather complicated object, with much more structure than was
-at first apparent in Donaldson theory.
-
-For aficionados, here is
-the \ti{action} defining this QFT:
-\begin{multline}
- S = \frac{1}{g^2} \int_X \Tr\left( - \frac14 F \wedge \star F + \nabla_\mu \bar\phi \nabla^\mu \phi - \I \delta^{vw} \IP{\lambda_v^-, \slashed\nabla \lambda_w^+} + \frac14 \delta^{vv'} \delta^{ww'} D_{vw} D_{v'w'} - \half [\phi, \bar\phi]^2 \right. \\ \left. - \I \sqrt{2} \eps^{vw} \IP{\lambda_v^-, [\bar\phi, \lambda_w^-]} + \I \sqrt{2} \eps^{vw} \IP{\lambda_v^+, [\phi,\lambda_w^+]} \right) \\ + \frac{\I \vartheta}{4\pi^2} \int_X \Tr (F \wedge F),
-\end{multline}
-where the fields are:
-\begin{itemize}
-\item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
-\item $\phi \in \Gamma(\fg_{\C,P})$,
-\item $\lambda^\pm \in \Pi \Gamma(S^\pm \otimes \fg_{\C,P} \otimes R)$,
-\item $D \in \Gamma(\fg_{\C,P} \otimes \Sym^2 R)$,
-\end{itemize}
-with $R$ an auxiliary $2$-dimensional vector space carrying
-Hermitian structure $\delta: R \otimes \overline R \to \C$
-and volume form $\eps \in \wedge^2(R)$, and
-$S^\pm$ the $2$-dimensional spin representations of $\Spin(4)$.
+at first apparent in Donaldson theory, and correlation functions
+are one of the basic objects of study in quantum field theory.
 
 Impressive as this discovery was, it did not lead to any immediate
 breakthroughs in Donaldson theory as far as I know: 
@@ -537,11 +533,63 @@ derive from the QFT perspective were just the \ti{same} formulas
 already written down by Donaldson.
 
 
-\subsection{Effective field theory}
+\subsection{The action}
+
+For aficionados, here is
+the standard way that a physicist would define 
+$\N=2$ supersymmetric Yang-Mills theory.
+One fixes a compact Lie group $G$, a coupling $g \in \R_+$ and
+$\vartheta \in \R / 2 \pi \Z$, and considers ``fields''
+\begin{itemize}
+\item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
+\item $\phi \in \Gamma(\fg_{\C,P})$,
+\item $\lambda^\pm \in \Pi \Gamma(S^\pm \otimes \fg_{\C,P} \otimes R)$,
+\item $D \in \Gamma(\fg_{\C,P} \otimes \Sym^2 R)$,
+\end{itemize}
+where $R$ is an auxiliary $2$-dimensional vector space carrying
+Hermitian structure $\delta: R \otimes \overline R \to \C$
+and volume form $\eps \in \wedge^2(R)$, and
+$S^\pm$ are the $2$-dimensional spin representations of $\Spin(4)$.
+One then introduces the \ti{action}, a functional on fields:
+\begin{multline}
+ S = \frac{1}{g^2} \int_X \Tr\left( - \frac14 F \wedge \star F + \nabla_\mu \bar\phi \nabla^\mu \phi - \I \delta^{vw} \IP{\lambda_v^-, \slashed\nabla \lambda_w^+} + \frac14 \delta^{vv'} \delta^{ww'} D_{vw} D_{v'w'} - \half [\phi, \bar\phi]^2 \right. \\ \left. - \I \sqrt{2} \eps^{vw} \IP{\lambda_v^-, [\bar\phi, \lambda_w^-]} + \I \sqrt{2} \eps^{vw} \IP{\lambda_v^+, [\phi,\lambda_w^+]} \right) \\ + \frac{\I \vartheta}{4\pi^2} \int_X \Tr (F \wedge F).
+\end{multline}
+\fixme{...}
+
+
+\subsection{Effective field theory: an analogy}
 
 The real breakthrough came with the work of Seiberg and Witten
 seven years later, in 1995 \cite{Seiberg:1994rs}.
-\fixme{...}
+In this work Seiberg and Witten answered a fundamental 
+question about $\cN=2$ supersymmetric Yang-Mills theory:
+\ti{how does the theory behave at low energies?}
+
+To understand how important this question is, let us make a quick
+analogy. Suppose that we want to study a pond full of water and how
+it will respond to, say, a gentle breeze, or a small toy boat.
+One approach to this problem which we could imagine would be to say 
+to ourselves: well, the pond is made of about $10^{30}$ protons,
+neutrons and electrons; let's write down equations governing those objects,
+put them on the bigger supercomputer we can find, make a model for the
+perturbation we want to study, and then have the computer solve the 
+equations and tell us what will happen. This (if it could be done) 
+would be in some sense the most \ti{direct} method.
+Of course it is also completely hopeless.
+
+In practice, we know that the relevant physical laws 
+governing a pond full of water are the Navier-Stokes equations. These
+describe the dynamics of new ``effective''
+variables (velocity, pressure, density, viscosity), whose relation
+to the underlying $10^{30}$ particles would be complicated
+to describe directly. Nevertheless Navier-Stokes is really the
+description we want, for our practical purpose of studying boats
+interacting with our pond. (It is probably \ti{not} the
+relevant description if we want to know what will happen if we shoot the 
+pond with a high-intensity laser!)
+
+Now, what Seiberg and Witten did in \cite{Seiberg:1994rs} 
+can be summarized in a table: \fixme{...}
 
 
 \printbibliography
