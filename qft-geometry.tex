@@ -333,6 +333,15 @@ or as pull requests to the source repository hosted at
 
 %\setcounter{page}{1}
 
+\section{Background}
+
+Here I collect a little background material for convenience.
+
+\subsection{Spinors}
+
+\fixme{...}
+
+
 \section{Introductory motivation}
 
 \subsection{Linear equations} 
@@ -341,7 +350,7 @@ the topology of smooth manifolds $X$.
 One powerful tool for this purpose is to
 introduce an ingredient which at first seems alien to the
 problem: namely we fix a Riemannian metric $g$ on $X$.
-This allows us to define the \ti{form Laplacian}
+This allows us to define the \ti{form Laplacian} \fixme{note graded}
 \begin{equation}
   \Delta = [\de, \de^*]
 \end{equation}
@@ -395,20 +404,23 @@ which has the crucial properties
   \item $\star^2 = 1$,
   \item $[\star, \Delta] = 0$.
 \end{itemize}
-The first property says we can decompose into eigenspaces for $\star$:
+The first property says we can decompose into the $\pm 1$-eigenspaces
+for $\star$:
 \begin{equation}
   \Omega^n(X) = \Omega^{n,+}(X) \oplus \Omega^{n,-}(X)
 \end{equation}
-and the second says that the harmonic forms also decompose:
+(concretely $\omega = \half(1 + \star) \omega + \half(1 - \star) \omega $).
+The second property implies that the harmonic forms also decompose:
 \begin{equation}
   \cH_{2n}(X) = \cH_{2n}^+(X) \oplus \cH_{2n}^-(X), \qquad b_{2n}(X) = b_{2n}^+(X) + b_{2n}^-(X).
 \end{equation}
 
-\begin{exercise} Suppose instead that $X$ has 
-dimension $4n+2$. Here the story is a bit different, because in dimension $k = 2n+1$
+\begin{exercise} Suppose instead that $X$ is an oriented  $(4n+2)$-manifold. Here the story is a bit different, because in dimension $k = 2n+1$
 we have $\star^2 = -1$.
 Show that in this case the Betti number $b_{2n+1}(X)$ is even.
+(Is this still true if $X$ is not orientable?)
 \end{exercise}
+
 
 
 
@@ -416,6 +428,7 @@ Show that in this case the Betti number $b_{2n+1}(X)$ is even.
 
 Now we will replace the linear equation
 \eqref{eq:laplace} by a \ti{nonlinear} equation.
+
 Unlike linear equations --- which in some sense behave uniformly
 in the dimension --- nonlinear equations tend to behave very
 differently in different dimensions. With this in mind
@@ -437,7 +450,7 @@ which again we can decompose under $\star$ as
 \begin{equation}
   F = F^+ + F^-.
 \end{equation}
-Now the \ti{self-dual Yang-Mills equation} is
+Now the \ti{anti-self-dual Yang-Mills equation} is
 \begin{equation} \label{eq:sdym}
   F^+ = 0.
 \end{equation}
@@ -462,7 +475,7 @@ equation is \ti{nonlinear}, because of the quadratic part in \eqref{eq:curvature
 \end{exercise}
 
 % From now on we specialize to the interesting case $G = SU(2)$.
-We consider
+We consider the \ti{instanton moduli space}
 \begin{equation}
   \cM = \{ \text{connections on $E$ obeying \eqref{eq:sdym}} \} / \fG
 \end{equation}
@@ -484,24 +497,18 @@ $\cM$ actually \ti{is} a vector space. \fixme{warning: needs Hodge theory}
 
 When $G$ is nonabelian, the situation is much more difficult.
 $\cM$ is not a vector space. Nevertheless it has some reasonable geometric
-structure:
+structure. Let $\cM^\circ \subset \cM$ be the subset consisting of
+\ti{irreducible} connections. Then:
 \begin{fact}
-When $G = SU(2)$, $\cM$ has the natural structure of a ``finite-dimensional manifold away from some singular points''
-\fixme{...}
+$\cM^\circ$ is a finite-dimensional manifold.
 \end{fact}
+The full $\cM$ is thus a sort of ``manifold with singularities.''
+These singularities are the source of some trouble but can be controlled. \fixme{...}
 
-Donaldson's idea was to extract interesting invariants of $X$ by studying the space $\cM$. The most direct analogue of Betti numbers is to consider the 
-\ti{dimension} of $\cM$: it turns out to be 
+Donaldson's idea was to extract interesting invariants of $X$ by studying the space $\cM$. The direct analogue of the Betti numbers is the 
+\ti{dimension} of $\cM$: it turns out to be (for $X$ connected)
 \begin{equation}
-  \dim \cM = 8k - \frac32 (\chi(X) + \sigma(X)), \qquad k = \int_X p_1(E)
-\end{equation}
-Here $\chi(X)$ is the Euler characteristic,
-\begin{equation}
-  \chi(X) = b_0(X) - b_1(X) + b_2(X) - b_3(X) + b_4(X),
-\end{equation}
-and $\sigma(X)$ is the signature,
-\begin{equation}
-  \sigma(X) = b_2^+(X) - b_2^-(X).
+  \dim \cM = 8k - 3 (1 - b_1(X) + b_2^+(X)), \qquad k = \int_X p_1(E)
 \end{equation}
 But because $\cM$ is nonlinear there is more to it than just its dimension.
 \fixme{Donaldson invariants}
@@ -511,20 +518,43 @@ $b_2^+ > 1$}
 
 \subsection{QFT and Donaldson invariants}
 
-In 1988, 
-Witten in \cite{Witten:1988ze} found a remarkable new way of thinking about
-the Donaldson invariants: he interpreted the
-Riemannian $4$-manifold $X$ as
-a \ti{spacetime} for a certain $4$-dimensional quantum field theory
-(\ti{topologically twisted $\N=2$ supersymmetric Yang-Mills theory}),
-and indentified the Donaldson invariants as
-\ti{correlation functions} in that quantum field theory.
+In 1988, following some provocative suggestions of Atiyah,
+Witten found a remarkable new way of thinking about
+the Donaldson invariants \cite{Witten:1988ze}: he interpreted the
+Riemannian $4$-manifold $X$ in terms of a certain quantum
+field theory (QFT),
+\ti{topologically twisted $\N=2$ supersymmetric Yang-Mills theory}.
 
-One of the aims of this course is to give some meaning to these
-phrases. It must suffice now to say: a quantum field theory is a
-rather complicated object, with much more structure than was
-at first apparent in Donaldson theory, and correlation functions
-are one of the basic objects of study in quantum field theory.
+Very roughly, this means Witten imagined $X$ to be the ``spacetime''
+in some hypothetical universe, where the laws of physics are governed
+by topologically twisted $\N=2$ supersymmetric Yang-Mills theory,
+and then imagined 
+making some ``experimental measurements'' in that universe.
+According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an 
+important and widely studied class of QFT's, which feature prominently
+(for good reason) in one's early QFT education. Nevertheless, not 
+all QFTs are of this sort; for QFTs which are not Lagrangian, one 
+needs other tools for computing the correlation functions.}
+such measurements --- called \ti{correlation functions} --- 
+are supposed to be identified 
+with integrals over an infinite-dimensional space $\cC$,
+schematically of the form
+\begin{equation} \label{eq:correlator}
+ \IP{\cO_\alpha} = \int_\cC \Phi_\alpha \e^{-S},
+\end{equation}
+where $S: \cC \to \R$ is the ``action'' of the theory,
+and $\Phi_\alpha: \cC \to \R$ are the ``classical observables.''
+
+In this particular theory, however, there is a remarkable
+\ti{localization} phenomenon which reduces the desired
+integrals \eqref{eq:correlator} to the simpler
+finite-dimensional integrals \eqref{...} above.
+
+% One of the aims of this course is to give some meaning to these
+% phrases. It must suffice now to say: a quantum field theory is a
+% rather complicated object, with much more structure than was
+% at first apparent in Donaldson theory, and correlation functions
+% are one of the basic objects of study in quantum field theory.
 
 Impressive as this discovery was, it did not lead to any immediate
 breakthroughs in Donaldson theory as far as I know: 
@@ -539,7 +569,7 @@ For aficionados, here is
 the standard way that a physicist would define 
 $\N=2$ supersymmetric Yang-Mills theory.
 One fixes a compact Lie group $G$, a coupling $g \in \R_+$ and
-$\vartheta \in \R / 2 \pi \Z$, and considers ``fields''
+$\vartheta \in \R / 2 \pi \Z$. Then $\cC$ is the space of fields:
 \begin{itemize}
 \item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
 \item $\phi \in \Gamma(\fg_{\C,P})$,
@@ -550,12 +580,16 @@ where $R$ is an auxiliary $2$-dimensional vector space carrying
 Hermitian structure $\delta: R \otimes \overline R \to \C$
 and volume form $\eps \in \wedge^2(R)$, and
 $S^\pm$ are the $2$-dimensional spin representations of $\Spin(4)$.
-One then introduces the \ti{action}, a functional on fields:
-\begin{multline}
+
+The \ti{action} is:
+\begin{multline} \label{eq:n=2sym-action}
  S = \frac{1}{g^2} \int_X \Tr\left( - \frac14 F \wedge \star F + \nabla_\mu \bar\phi \nabla^\mu \phi - \I \delta^{vw} \IP{\lambda_v^-, \slashed\nabla \lambda_w^+} + \frac14 \delta^{vv'} \delta^{ww'} D_{vw} D_{v'w'} - \half [\phi, \bar\phi]^2 \right. \\ \left. - \I \sqrt{2} \eps^{vw} \IP{\lambda_v^-, [\bar\phi, \lambda_w^-]} + \I \sqrt{2} \eps^{vw} \IP{\lambda_v^+, [\phi,\lambda_w^+]} \right) \\ + \frac{\I \vartheta}{4\pi^2} \int_X \Tr (F \wedge F).
 \end{multline}
-\fixme{...}
 
+As described here, the theory only makes sense on $X = \R^4$.
+Later we will describe Witten's modification of the 
+theory (topological twisting)
+which we will use when we put it on a general Riemannian $4$-manifold $X$.
 
 \subsection{Effective field theory: an analogy}
 
@@ -584,12 +618,78 @@ variables (velocity, pressure, density, viscosity), whose relation
 to the underlying $10^{30}$ particles would be complicated
 to describe directly. Nevertheless Navier-Stokes is really the
 description we want, for our practical purpose of studying boats
-interacting with our pond. (It is probably \ti{not} the
+interacting with a pond. (It is probably \ti{not} the
 relevant description if we want to know what will happen if we shoot the 
 pond with a high-intensity laser!)
 
-Now, what Seiberg and Witten did in \cite{Seiberg:1994rs} 
-can be summarized in a table: \fixme{...}
+The really hard and important problem is to go from the high-energy
+description (elementary particles) to the low-energy description
+(Navier-Stokes equations). Once this problem has been solved once,
+we can then use the low-energy description to answer the questions
+we care about.
+
+
+\subsection{Seiberg-Witten equations}
+
+Seiberg and Witten in \cite{Seiberg:1994rs}  
+solved the analogous problem for $\cN=2$
+supersymmetric Yang-Mills theory. Beginning with the action
+\eqref{eq:n=2sym-action} (high-energy description) for $G = SU(2)$, 
+they completely determined the low-energy description.
+It turned out that this description is also in terms of gauge theory,
+but this time gauge theory for the group $G' = U(1)$ (coupled to matter):
+the nonabelian group $SU(2)$, with all its attendant
+nonlinearities, is gone!
+
+Then one can try to compute the results of experiments, now using this
+effective low-energy description. 
+As before, the answer turns out to localize on some simple equations;
+but now instead of \eqref{eq:sdym} the equations are
+\begin{subequations} \label{eq:sw}
+\begin{align}
+  F^+ &= q(\psi, \bar\psi), \\
+  \slashed{D} \psi &= 0,
+\end{align}
+\end{subequations}
+where the fields are:
+\begin{itemize}
+\item $D$ is a connection in a $U(1)$-bundle $E$
+(more precisely $E$ is the determinant line of a $\Spin^c$-structure on $X$),
+\item $\psi$ is a section of $S^+$, with $S^+$ the spinor bundle
+attached to the $\Spin^c$-structure,
+\end{itemize}
+and $q$ is a certain
+quadratic map $S^+ \otimes S^+ \to \wedge^2_+(T^* X)$.
+
+In our analogy to the physics of a pond, 
+\eqref{eq:sw} is the moral analogue 
+of the Navier-Stokes equations.
+What all this suggests is that \eqref{eq:sw} should be 
+just as powerful in $4$-manifold topology as was
+\eqref{eq:sdym}, but in some sense easier to work with,
+since in passing to \eqref{eq:sw} we have gotten rid
+of some irrelevant complexity.
+This turns out indeed to be the case. In particular,
+the moduli space 
+\begin{equation}
+  \widetilde\cM = \{ \text{pairs $(D,\psi)$ obeying \eqref{eq:sw}} \} / \fG'
+\end{equation}
+is \ti{compact}, which leads to a vast simplification in the analysis. 
+This was the
+beginning of a revolution in $4$-manifold topology which continues
+to the present day.
+
+
+\subsection{Our goals}
+
+Finally we come to our goals in this course. \fixme{...}
+
+
+\begin{center}
+\begin{tabular}{c|c}
+
+\end{tabular}
+\end{center}
 
 
 \printbibliography
