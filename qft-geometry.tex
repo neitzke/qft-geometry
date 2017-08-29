@@ -312,7 +312,7 @@ Andrew Neitzke \\
 \end{center}
 
 {These are the notes for a Fall 2017
-course at UT Austin, \ti{in progress}. 
+course at UT Austin, \ti{in progress}.
 They are extremely incomplete, unreliable, full
 of mistakes and omissions.
 The latest PDF can always be found
@@ -341,7 +341,7 @@ or as pull requests to the source repository hosted at
 
 \section{Introductory motivation}
 
-\subsection{Linear equations} 
+\subsection{Linear equations}
 Suppose we are interested in studying
 the topology of smooth manifolds $X$.
 One powerful tool for this purpose is to
@@ -355,7 +355,7 @@ and consider the space of \ti{harmonic forms}
 
 The equation
 \begin{equation} \label{eq:laplace}
-\Delta \omega = 0  
+\Delta \omega = 0
 \end{equation}
 is a \ti{linear} equation over $\R$.
 Thus $\cH^k(X)$ is a \ti{vector space}.
@@ -367,18 +367,18 @@ positive integers by
 \end{equation}
 There is a remarkable fact about these integers:
 \begin{fact} \label{fact:betti-numbers-are-topological} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
-structure on $X$; instead they are invariants of the underlying topological manifold 
+structure on $X$; instead they are invariants of the underlying topological manifold
 (the \ti{Betti numbers}).
 \end{fact}
 
 \begin{exercise} Work out explicitly the spaces $\cH^k(X)$ and
-Betti numbers $b_k(X)$ for some of the following: $X = S^1, T^2, S^2$. 
+Betti numbers $b_k(X)$ for some of the following: $X = S^1, T^2, S^2$.
 (In each case choose a convenient Riemannian metric; of course the $b_k$
 are independent of which metric you choose, though the $\cH^k(X)$
 naively are not.)
 \end{exercise}
 
-\autoref{fact:betti-numbers-are-topological} 
+\autoref{fact:betti-numbers-are-topological}
 is a consequence of a stronger, ``categorified'' statement:
 \begin{fact} There is a canonical isomorphism
 \begin{equation}
@@ -387,13 +387,13 @@ is a consequence of a stronger, ``categorified'' statement:
 (singular cohomology).
 \end{fact}
 
-If $X$ is an oriented $4n$-manifold then there is a small refinement of the 
+If $X$ is an oriented $4n$-manifold then there is a small refinement of the
 middle Betti number $b_{2n}$:
 we have the ``Hodge star'' operator
 \begin{equation}
   \star: \Omega^{2n}(X) \to \Omega^{2n}(X)
 \end{equation}
-which has the crucial properties 
+which has the crucial properties
 \begin{itemize}
   \item $\star^2 = 1$,
   \item $[\star, \Delta] = 0$.
@@ -424,13 +424,13 @@ Unlike linear equations --- which in some sense behave uniformly
 in the dimension --- nonlinear equations tend to behave very
 differently in different dimensions. With this in mind
 we now specialize to the case $\dim X = 4$.
-In this case, a new source of topological 
+In this case, a new source of topological
 (or more precisely smooth) invariants was discovered
 by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
 
 Fix a compact Lie group $G$ and let $P$ denote a principal $G$-bundle over $X$. Then
 we consider \ti{connections} in $P$. For background on connections see \fixme{...}.
-A connection in $P$ is locally written\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we 
+A connection in $P$ is locally written\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we
 have chosen a local trivialization of the bundle $P$.''}
 \begin{equation}
   D = \de + A, \qquad A \in \Omega^1(\fg),
@@ -442,7 +442,7 @@ by the transition functions of $P$. Some people would call this bundle $\ad P$.}
   F = \de A + A \wedge A \in \Omega^2(\fg).
 \end{equation}
 
-Now, since $F$ is a $2$-form and we are in $4$ dimensions, 
+Now, since $F$ is a $2$-form and we are in $4$ dimensions,
 we can decompose $F$ under $\star$ as
 \begin{equation}
   F = F^+ + F^-.
@@ -484,12 +484,12 @@ sections of $\Aut(P)$, acting on connections by
 \end{equation}
 
 \begin{exercise}
-Verify that $\fG$ acts on the space of solutions of \eqref{eq:sdym}. Write out this action 
+Verify that $\fG$ acts on the space of solutions of \eqref{eq:sdym}. Write out this action
 explicitly in components, when $G = \U(1)$ or $G = \SU(2)$.
 \end{exercise}
 
 \begin{exercise}
-Show that when $G = \U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case 
+Show that when $G = \U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case
 $\cM$ is a vector space. \fixme{warning: needs Hodge theory}
 \end{exercise}
 
@@ -510,15 +510,15 @@ to reducible solutions of \eqref{eq:sdym}.)
 
 \subsection{Donaldson invariants}
 
-Donaldson's idea was to extract information about $X$ from 
-the study of $\cM$. The direct nonlinear analogue of the Betti numbers is the 
+Donaldson's idea was to extract information about $X$ from
+the study of $\cM$. The direct nonlinear analogue of the Betti numbers is the
 \ti{dimension} of $\cM$: it turns out to be (for $X$ connected)
 \begin{equation}
   \dim \cM = 8k - 3 (1 - b_1(X) + b_2^+(X)).
 \end{equation}
 But because $\cM$ is nonlinear there is more to it than just its dimension.
-Donaldson introduced an \ti{orientation} on $\cM$ 
-and a family of canonically defined 
+Donaldson introduced an \ti{orientation} on $\cM$
+and a family of canonically defined
 closed differential forms $\tau_\alpha \in \Omega^*(\cM)$,
 labeled by classes $\alpha \in H_*(X,\Z)$.
 Then he defined new invariants $\IP{\cO_{\alpha_1} \cdots \cO_{\alpha_k}}$
@@ -547,17 +547,17 @@ field theory (QFT),
 Very roughly, this means Witten imagined $X$ to be the ``spacetime''
 in some hypothetical universe, where the laws of physics are governed
 by topologically twisted $\N=2$ supersymmetric Yang-Mills theory,
-and then imagined 
+and then imagined
 making some ``experimental measurements'' in that universe.
-According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an 
+According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an
 important and widely studied class of QFTs, which feature prominently
-(for good reason) in one's early QFT education. Nevertheless, not 
-all QFTs are of this sort; for QFTs which are not Lagrangian, one 
+(for good reason) in one's early QFT education. Nevertheless, not
+all QFTs are of this sort; for QFTs which are not Lagrangian, one
 needs other tools for computing the correlation functions. Many of the
-most interesting mathematical and physical applications of QFT 
+most interesting mathematical and physical applications of QFT
 involve non-Lagrangian QFTs.}
-such measurements --- called \ti{correlation functions} --- 
-are supposed to be identified 
+such measurements --- called \ti{correlation functions} ---
+are supposed to be identified
 with integrals over an infinite-dimensional space $\cC$,
 schematically of the form
 \begin{equation} \label{eq:correlator}
@@ -580,7 +580,7 @@ finite-dimensional integrals \eqref{eq:donaldson-integral} above.
 % are one of the basic objects of study in quantum field theory.
 
 Impressive as this discovery was, it did not lead to any immediate
-breakthroughs in Donaldson theory as far as I know: 
+breakthroughs in Donaldson theory as far as I know:
 the formulas one could directly
 derive from the QFT perspective were just the \ti{same} formulas
 already written down by Donaldson.
@@ -589,7 +589,7 @@ already written down by Donaldson.
 \subsection{The action}
 
 For aficionados, here is
-the standard way that a physicist would define 
+the standard way that a physicist would define
 $\N=2$ supersymmetric Yang-Mills theory, in Euclidean signature,
 on the spacetime $X = \R^4$.
 
@@ -619,7 +619,7 @@ The \ti{action} is:
 \end{multline}
 
 As described here, the theory only makes sense on $X = \R^4$.
-Later we will describe Witten's modification of the 
+Later we will describe Witten's modification of the
 theory (topological twisting)
 which we will use when we put it on a general Riemannian $4$-manifold $X$.
 
@@ -627,23 +627,23 @@ which we will use when we put it on a general Riemannian $4$-manifold $X$.
 
 The real breakthrough came with the work of Seiberg and Witten
 seven years later, in 1995 \cite{Seiberg:1994rs}.
-In this work Seiberg and Witten answered a fundamental 
+In this work Seiberg and Witten answered a fundamental
 question about $\cN=2$ supersymmetric Yang-Mills theory:
 \ti{how does the theory behave at low energies?}
 
 To understand how important this question is, let us make a quick
 analogy. Suppose that we want to study a pond full of water and how
 it will respond to, say, a gentle breeze, or a small toy boat.
-One approach to this problem which we could imagine would be to say 
+One approach to this problem which we could imagine would be to say
 to ourselves: well, the pond is made of about $10^{30}$ protons,
 neutrons and electrons; let's write down equations governing those objects,
 put them on the bigger supercomputer we can find, make a model for the
-perturbation we want to study, and then have the computer solve the 
-equations and tell us what will happen. This (if it could be done) 
+perturbation we want to study, and then have the computer solve the
+equations and tell us what will happen. This (if it could be done)
 would be in some sense the most \ti{direct} method.
 Of course it is also completely hopeless.
 
-In practice, we know that the relevant physical laws 
+In practice, we know that the relevant physical laws
 governing a pond full of water are the Navier-Stokes equations. These
 describe the dynamics of new ``effective''
 variables (velocity, pressure, density, viscosity), whose relation
@@ -651,7 +651,7 @@ to the underlying $10^{30}$ particles would be complicated
 to describe directly. Nevertheless Navier-Stokes is really the
 description we want, for our practical purpose of studying boats
 interacting with a pond. (It is probably \ti{not} the
-relevant description if we want to know what will happen if we shoot the 
+relevant description if we want to know what will happen if we shoot the
 pond with a high-intensity laser!)
 
 The really hard and important problem is to go from the high-energy
@@ -663,10 +663,10 @@ we care about.
 
 \subsection{Seiberg-Witten equations}
 
-Seiberg and Witten in \cite{Seiberg:1994rs}  
+Seiberg and Witten in \cite{Seiberg:1994rs}
 solved the analogous problem for $\cN=2$
 supersymmetric Yang-Mills theory. Beginning with the action
-\eqref{eq:n=2sym-action} (high-energy description) for $G = \SU(2)$, 
+\eqref{eq:n=2sym-action} (high-energy description) for $G = \SU(2)$,
 they completely determined the low-energy description.
 It turned out that this description is also in terms of gauge theory,
 but this time gauge theory for the group $G' = \U(1)$ (coupled to matter):
@@ -674,7 +674,7 @@ the nonabelian group $\SU(2)$, with all its attendant
 nonlinearities, is gone!
 
 Then one can try to compute the results of experiments, now using this
-effective low-energy description. 
+effective low-energy description.
 As before, the answer turns out to localize on some simple equations;
 but now instead of \eqref{eq:sdym} the equations are
 \begin{subequations} \label{eq:sw}
@@ -693,20 +693,20 @@ attached to the $\Spin^c$-structure,
 and $q$ is a certain
 quadratic map $S^+ \otimes S^+ \to \wedge^2_+(T^* X)$.
 
-In our analogy to the physics of a pond, 
-\eqref{eq:sw} is the moral analogue 
+In our analogy to the physics of a pond,
+\eqref{eq:sw} is the moral analogue
 of the Navier-Stokes equations.
-What all this suggests is that \eqref{eq:sw} should be 
+What all this suggests is that \eqref{eq:sw} should be
 just as powerful in $4$-manifold topology as was
 \eqref{eq:sdym}, but in some sense easier to work with,
 since in passing to \eqref{eq:sw} we have gotten rid
 of some irrelevant complexity.
 This turns out indeed to be the case. In particular,
-the moduli space 
+the moduli space
 \begin{equation}
   \widetilde\cM = \{ \text{pairs $(D,\psi)$ obeying \eqref{eq:sw}} \} / \fG'
 \end{equation}
-is \ti{compact}, which leads to a vast simplification in the analysis. 
+is \ti{compact}, which leads to a vast simplification in the analysis.
 This was the
 beginning of a revolution in $4$-manifold topology which continues
 to the present day.
@@ -714,7 +714,27 @@ to the present day.
 
 \subsection{Our goals}
 
-Finally we come to our goals in this course. \fixme{...}
+In this course we are going to explore various geometric applications of quantum
+field theory, emphasizing the two really nontrivial ingredients which have appeared
+above:
+\begin{itemize}
+\item \ti{Localization}: the mechanism by which the formal
+integrals over infinite-dimensional spaces which appear in quantum field theory
+get related to finite-dimensional integrals which can be defined and computed.
+One derives (in the physicist's sense) nontrivial facts about the finite-dimensional integrals,
+using the infinite-dimensional integrals (i.e. the QFT) at some intermediate
+stages.
+\item \ti{Effective field theory}: the reduction from a complicated ``high-energy'' description
+to a simple ``low-energy'' description of a physical system (say, a QFT).
+\end{itemize}
+Very roughly speaking, QFTs get more complicated as the dimension of spacetime increases.
+Dimension $0$ and $1$ are relatively tractable --- even mathematically rigorous,
+with some effort. In dimension $2$ there are still many rigorous things that can be said,
+but already we begin facing difficulties, and these become more serious in dimensions $3$ and $4$.
+
+I expect that we will study dimension $0$, dimension $1$, maybe a short stop in dimension $2$,
+then jump to dimension $4$, in order that we can say something about the original motivation
+of the Donaldson / Seiberg-Witten relation.
 
 
 % \begin{center}
@@ -726,7 +746,8 @@ Finally we come to our goals in this course. \fixme{...}
 
 \section{Background}
 
-Here I collect a little background material for convenience.
+Here I collect a little background material for convenience; I will probably
+not lecture on this material.
 
 \subsection{Spinors}
 
@@ -751,7 +772,7 @@ of $T(V)$ by the two-sided ideal generated by the relation
   v \otimes v = -\IP{v,v}, \qquad v \in V.
 \end{equation}
 \end{defn}
-More informally we could say $\Cliff(V)$ is the free algebra on $V$ 
+More informally we could say $\Cliff(V)$ is the free algebra on $V$
 subject to the single relation \eqref{eq:clifford-relation}.
 This relation violates the $\Z$-grading but preserves a residual $\Z/2\Z$.
 Thus $\Cliff(V)$ is a $\Z/2\Z$-graded algebra:
@@ -775,7 +796,7 @@ a \ti{deformation} of $\wedge^*(V)$.
 
 \begin{defn}[Pin group] $\Pin(V)$ is the group of all elements
 \begin{equation}
- v_1 \otimes v_2 \otimes \cdots \otimes v_n \in \Cliff(V) 
+ v_1 \otimes v_2 \otimes \cdots \otimes v_n \in \Cliff(V)
 \end{equation}
 where all $v_i$ have $\norm{v_i}^2 = \pm 1$.
 \end{defn}
