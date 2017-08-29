@@ -428,25 +428,31 @@ In this case, a new source of topological
 (or more precisely smooth) invariants was discovered
 by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
 
-Fix a compact Lie group $G$ and let $E$ denote a principal $G$-bundle over $X$. Then
-we consider \ti{connections} in $E$. For background on connections see \fixme{...}.
-A connection in $E$ is locally written
+Fix a compact Lie group $G$ and let $P$ denote a principal $G$-bundle over $X$. Then
+we consider \ti{connections} in $P$. For background on connections see \fixme{...}.
+A connection in $P$ is locally written\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we 
+have chosen a local trivialization of the bundle $P$.''}
 \begin{equation}
   D = \de + A, \qquad A \in \Omega^1(\fg),
 \end{equation}
-and has a curvature $2$-form $F \in \Omega^2(\ad E)$, locally written
+and has a curvature $2$-form $F \in \Omega^2(\fg_P)$,\footnote{$\fg_P$ means the \ti{associated bundle} to $P$ using the
+adjoint action of $G$ on $\fg$. It locally looks like $\fg$ but globally twisted
+by the transition functions of $P$. Some people would call this bundle $\ad P$.} locally written
 \begin{equation} \label{eq:curvature}
-  F = \de A + A \wedge A \in \Omega^2(\fg),
+  F = \de A + A \wedge A \in \Omega^2(\fg).
 \end{equation}
-which again we can decompose under $\star$ as
+
+Now, since $F$ is a $2$-form and we are in $4$ dimensions, 
+we can decompose $F$ under $\star$ as
 \begin{equation}
   F = F^+ + F^-.
 \end{equation}
-Now the \ti{anti-self-dual Yang-Mills equation} is
+The \ti{anti-self-dual Yang-Mills equation} is
 \begin{equation} \label{eq:sdym}
   F^+ = 0.
 \end{equation}
-For $G$ abelian (e.g. for $G = U(1)$) the equation \eqref{eq:sdym} is linear.
+We view this as a condition on the connection $A$.
+For $G$ abelian (e.g. for $G = U(1)$) the equation \eqref{eq:sdym} is linear in $A$.
 % It simply says
 % \begin{equation}
 %   \de A = \star \de A.
@@ -455,13 +461,13 @@ For $G$ abelian (e.g. for $G = U(1)$) the equation \eqref{eq:sdym} is linear.
 % ...
 % \end{exercise}
 For $G$ nonabelian (e.g. for $G = SU(2)$) this
-equation is \ti{nonlinear}, because of the quadratic part in \eqref{eq:curvature}.
+equation is \ti{nonlinear} in $A$, because of the quadratic part in \eqref{eq:curvature}.
 
 \begin{exercise} Write out \eqref{eq:sdym} in detail in components, in two cases:
 \begin{itemize}
-  \item For $G = U(1)$: in this case you should get a system of $3$ linear equations for $4$ functions $A_i$
+  \item For $G = \U(1)$: in this case you should get a system of $3$ linear equations for $4$ functions $A_i$
   ($i \in \{1,2,3,4\}$).
-  \item For $G = SU(2)$: in this case you should get a system of $9$ coupled nonlinear equations for
+  \item For $G = \SU(2)$: in this case you should get a system of $9$ coupled nonlinear equations for
   $12$ functions $A^a_i$ ($i \in \{1,2,3,4\}$, $a \in \{1,2,3\}$).
 \end{itemize}
 \end{exercise}
@@ -469,10 +475,10 @@ equation is \ti{nonlinear}, because of the quadratic part in \eqref{eq:curvature
 % From now on we specialize to the interesting case $G = SU(2)$.
 We consider the \ti{instanton moduli space}
 \begin{equation}
-  \cM = \{ \text{connections on $E$ obeying \eqref{eq:sdym}} \} / \fG
+  \cM = \{ \text{connections on $P$ obeying \eqref{eq:sdym}} \} / \fG
 \end{equation}
 where $\fG$ is the infinite-dimensional group of \ti{gauge transformations} ie
-sections of $\Aut(E)$, acting on connections by
+sections of $\Aut(P)$, acting on connections by
 \begin{equation}
   D \mapsto g D g^{-1}.
 \end{equation}
@@ -484,22 +490,25 @@ explicitly in components, when $G = \U(1)$ or $G = \SU(2)$.
 
 \begin{exercise}
 Show that when $G = \U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case 
-$\cM$ actually \ti{is} a vector space. \fixme{warning: needs Hodge theory}
+$\cM$ is a vector space. \fixme{warning: needs Hodge theory}
 \end{exercise}
 
 When $G$ is nonabelian, the situation is much more difficult.
 $\cM$ is not a vector space. Nevertheless it has some reasonable geometric
 structure.
 From now on let us specialize to the case $G = \SU(2)$.
-In this case $E$ is classified by the integer
+In this case $P$ is classified by the integer \fixme{explain what's $p_1$}
 \begin{equation}
-  k = \int_X p_1(E).
+  k = \int_X p_1(P).
 \end{equation}
 \begin{fact}
 If $k>0$ and the metric $g$ on $X$ is generic, then $\cM$ is a finite-dimensional manifold.
 \end{fact}
 (For non-generic $g$, $\cM$ may develop singularities corresponding
 to reducible solutions of \eqref{eq:sdym}.)
+
+
+\subsection{Donaldson invariants}
 
 Donaldson's idea was to extract information about $X$ from 
 the study of $\cM$. The direct nonlinear analogue of the Betti numbers is the 
@@ -521,7 +530,7 @@ and proved that they are independent of the Riemannian metric
 $g$ (under the technical
 assumption $b_2^+(X) > 1$.)
 
-These invariants proved very powerful but also very technically
+These invariants proved very powerful \fixme{explain something proved using them?} but also very technically
 difficult to control, particularly because $\cM$ is typically
 \ti{noncompact}.
 
@@ -541,10 +550,12 @@ by topologically twisted $\N=2$ supersymmetric Yang-Mills theory,
 and then imagined 
 making some ``experimental measurements'' in that universe.
 According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an 
-important and widely studied class of QFT's, which feature prominently
+important and widely studied class of QFTs, which feature prominently
 (for good reason) in one's early QFT education. Nevertheless, not 
 all QFTs are of this sort; for QFTs which are not Lagrangian, one 
-needs other tools for computing the correlation functions.}
+needs other tools for computing the correlation functions. Many of the
+most interesting mathematical and physical applications of QFT 
+involve non-Lagrangian QFTs.}
 such measurements --- called \ti{correlation functions} --- 
 are supposed to be identified 
 with integrals over an infinite-dimensional space $\cC$,
@@ -579,19 +590,28 @@ already written down by Donaldson.
 
 For aficionados, here is
 the standard way that a physicist would define 
-$\N=2$ supersymmetric Yang-Mills theory.
-One fixes a compact Lie group $G$, a coupling $g \in \R_+$ and
-$\vartheta \in \R / 2 \pi \Z$. Then $\cC$ is the space of fields:
+$\N=2$ supersymmetric Yang-Mills theory, in Euclidean signature,
+on the spacetime $X = \R^4$.
+
+First, we need to fix a compact Lie group $G$ and two couplings: $g \in \R_+$ and
+$\vartheta \in \R / 2 \pi \Z$. The QFT we want to describe depends on these
+data.
+
+We fix also an auxiliary $2$-dimensional complex vector space $R$, carrying
+Hermitian structure $\delta: R \otimes \overline R \to \C$
+and volume form $\eps \in \wedge^2(R)$. (Concretely, you may as well pick
+$R = \C^2$ with its standard Hermitian structure and volume form. The main reason for
+calling it $R$ now is that later we will replace it by a rank $2$ Hermitian
+vector bundle over $X$.)
+
+Then we let $\cC$ be the space of fields:
 \begin{itemize}
 \item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
 \item $\phi \in \Gamma(\fg_{\C,P})$,
 \item $\lambda^\pm \in \Pi \Gamma(S^\pm \otimes \fg_{\C,P} \otimes R)$,
 \item $D \in \Gamma(\fg_{\C,P} \otimes \Sym^2 R)$,
 \end{itemize}
-where $R$ is an auxiliary $2$-dimensional vector space carrying
-Hermitian structure $\delta: R \otimes \overline R \to \C$
-and volume form $\eps \in \wedge^2(R)$, and
-$S^\pm$ are the $2$-dimensional spin representations of $\Spin(4)$.
+where $S^\pm$ are the spin representations of $\Spin(4)$.
 
 The \ti{action} is:
 \begin{multline} \label{eq:n=2sym-action}
