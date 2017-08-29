@@ -677,6 +677,11 @@ Then one can try to compute the results of experiments, now using this
 effective low-energy description.
 As before, the answer turns out to localize on some simple equations;
 but now instead of \eqref{eq:sdym} the equations are
+the \ti{Seiberg-Witten equations}\footnote{Some authors, including Witten in \cite{Witten:1994cg},
+call \eqref{eq:sw} the \ti{monopole equations}. I think it is a good idea to avoid this name in order
+not to confuse \eqref{eq:sw} with the \ti{Bogomolny equations} whose solutions are
+monopoles: the relation between the field $\psi$ and the monopoles described by
+Bogomolny equations is rather subtle. We will explore it later in the course.}
 \begin{subequations} \label{eq:sw}
 \begin{align}
   F^+ &= q(\psi, \bar\psi), \\
@@ -700,16 +705,23 @@ What all this suggests is that \eqref{eq:sw} should be
 just as powerful in $4$-manifold topology as was
 \eqref{eq:sdym}, but in some sense easier to work with,
 since in passing to \eqref{eq:sw} we have gotten rid
-of some irrelevant complexity.
-This turns out indeed to be the case. In particular,
-the moduli space
-\begin{equation}
-  \widetilde\cM = \{ \text{pairs $(D,\psi)$ obeying \eqref{eq:sw}} \} / \fG'
-\end{equation}
-is \ti{compact}, which leads to a vast simplification in the analysis.
+of some irrelevant complexity. This point of view was
+advocated by Witten in the paper \cite{Witten:1994cg}
+and it turned out to be correct.
 This was the
 beginning of a revolution in $4$-manifold topology which continues
 to the present day.
+
+One preliminary indication that the effective (Seiberg-Witten) description may be more convenient
+than the high-energy (Donaldson) description is:
+\begin{fact}
+If the metric $g$ on $X$ is generic, then the moduli space
+\begin{equation}
+  \widetilde\cM = \{ \text{pairs $(D,\psi)$ obeying \eqref{eq:sw}} \} / \fG'
+\end{equation}
+is smooth and compact.
+\end{fact}
+This is very different from the space $\cM$ which is definitely \ti{not} compact for $k > 0$.
 
 
 \subsection{Our goals}
