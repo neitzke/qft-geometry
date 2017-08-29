@@ -384,10 +384,10 @@ is a consequence of a stronger, ``categorified'' statement:
 \begin{equation}
   \cH^k(X) \simeq H^k(X,\R)
 \end{equation}
-(singular cohomology).
+(where $H^k$ means singular cohomology).
 \end{fact}
 
-If $X$ is an oriented $4n$-manifold then there is a small refinement of the
+If $X$ is an oriented Riemannian $4n$-manifold then there is a small refinement of the
 middle Betti number $b_{2n}$:
 we have the ``Hodge star'' operator
 \begin{equation}
@@ -403,7 +403,7 @@ for $\star$:\footnote{concretely $\omega = \half(1 + \star) \omega + \half(1 - \
 \begin{equation}
   \Omega^n(X) = \Omega^{n,+}(X) \oplus \Omega^{n,-}(X).
 \end{equation}
-The second property implies that the harmonic forms also decompose:
+Combining this with the second property one sees that the harmonic forms also decompose:
 \begin{equation}
   \cH_{2n}(X) = \cH_{2n}^+(X) \oplus \cH_{2n}^-(X), \qquad b_{2n}(X) = b_{2n}^+(X) + b_{2n}^-(X).
 \end{equation}
@@ -437,7 +437,14 @@ have chosen a local trivialization of the bundle $P$.''}
 \end{equation}
 and has a curvature $2$-form $F \in \Omega^2(\fg_P)$,\footnote{$\fg_P$ means the \ti{associated bundle} to $P$ using the
 adjoint action of $G$ on $\fg$. It locally looks like $\fg$ but globally twisted
-by the transition functions of $P$. Some people would call this bundle $\ad P$.} locally written
+by the transition functions of $P$. Some people would call this bundle $\ad P$. It is trvial when $\fg$ is abelian,
+so in that case we really have globally $F \in \Omega^2(\fg)$.} 
+locally written\footnote{To spell out the 
+notation here: suppose $A = A_i^a T_a \de x^i$, with $T_a$ a basis for $\fg$, and define the structure constants
+$f_{ab}^c$ by $[T_a, T_b] = f_{ab}^c T_c$; then $A \wedge A = \half f_{ab}^c T_c A_i^a A_j^b \de x^i \wedge \de x^j$.
+Some people prefer to write this term as $\half [A,A]$, which makes it more obviously sensible
+for arbitrary Lie groups as opposed to matrix groups. It vanishes when $\fg$ is abelian, so then we just have
+$F = \de A$.}
 \begin{equation} \label{eq:curvature}
   F = \de A + A \wedge A \in \Omega^2(\fg).
 \end{equation}
@@ -452,7 +459,7 @@ The \ti{anti-self-dual Yang-Mills equation} is
   F^+ = 0.
 \end{equation}
 We view this as a condition on the connection $A$.
-For $G$ abelian (e.g. for $G = U(1)$) the equation \eqref{eq:sdym} is linear in $A$.
+For $G$ abelian (e.g. for $G = \U(1)$) the equation \eqref{eq:sdym} is linear in $A$.
 % It simply says
 % \begin{equation}
 %   \de A = \star \de A.
@@ -561,9 +568,10 @@ are supposed to be identified
 with integrals over an infinite-dimensional space $\cC$,
 schematically of the form
 \begin{equation} \label{eq:correlator}
- \IP{\cO_\alpha} = \int_\cC \Phi_\alpha \e^{-S},
+ \IP{\cO_\alpha} = \int_\cC \de \mu \, \Phi_\alpha \e^{-S},
 \end{equation}
 where $S: \cC \to \R$ is the ``action'' of the theory,
+$\de \mu$ is some measure of integration,
 and $\Phi_\alpha: \cC \to \R$ are the ``classical observables.''
 
 In general, correlation functions \eqref{eq:correlator}
@@ -606,12 +614,14 @@ vector bundle over $X$.)
 
 Then we let $\cC$ be the space of fields:
 \begin{itemize}
-\item $(P,\nabla)$ a principal $G$-bundle with connection $\nabla$ (with curvature $F$),
+\item $(P,\nabla)$ a principal $G$-bundle with connection (with curvature $F$),
 \item $\phi \in \Gamma(\fg_{\C,P})$,
 \item $\lambda^\pm \in \Pi \Gamma(S^\pm \otimes \fg_{\C,P} \otimes R)$,
 \item $D \in \Gamma(\fg_{\C,P} \otimes \Sym^2 R)$,
 \end{itemize}
-where $S^\pm$ are the spin representations of $\Spin(4)$.
+where $S^\pm$ are the spin representations of $\Spin(4)$. The symbol $\Pi$ here means ``parity change''
+which means $\lambda^\pm$ are \ti{Grassmann-odd} fields: we will explain this (or at least get used to it)
+later.
 
 The \ti{action} is:
 \begin{multline} \label{eq:n=2sym-action}
@@ -637,7 +647,7 @@ it will respond to, say, a gentle breeze, or a small toy boat.
 One approach to this problem which we could imagine would be to say
 to ourselves: well, the pond is made of about $10^{30}$ protons,
 neutrons and electrons; let's write down equations governing those objects,
-put them on the bigger supercomputer we can find, make a model for the
+put them on the biggest supercomputer we can find, make a model for the
 perturbation we want to study, and then have the computer solve the
 equations and tell us what will happen. This (if it could be done)
 would be in some sense the most \ti{direct} method.
