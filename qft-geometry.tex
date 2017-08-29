@@ -479,34 +479,52 @@ sections of $\Aut(E)$, acting on connections by
 
 \begin{exercise}
 Verify that $\fG$ acts on the space of solutions of \eqref{eq:sdym}. Write out this action 
-explicitly in components, when $G = U(1)$ or $G = SU(2)$.
+explicitly in components, when $G = \U(1)$ or $G = \SU(2)$.
 \end{exercise}
 
 \begin{exercise}
-Show that when $G = U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case 
+Show that when $G = \U(1)$, $\cM \simeq \cH_{2}^{+}(X)$; in particular, in this case 
 $\cM$ actually \ti{is} a vector space. \fixme{warning: needs Hodge theory}
 \end{exercise}
 
 When $G$ is nonabelian, the situation is much more difficult.
 $\cM$ is not a vector space. Nevertheless it has some reasonable geometric
-structure. Let $\cM^\circ \subset \cM$ be the subset consisting of
-\ti{irreducible} connections. Then:
+structure.
+From now on let us specialize to the case $G = \SU(2)$.
+In this case $E$ is classified by the integer
+\begin{equation}
+  k = \int_X p_1(E).
+\end{equation}
 \begin{fact}
-$\cM^\circ$ is a finite-dimensional manifold.
+If $k>0$ and the metric $g$ on $X$ is generic, then $\cM$ is a finite-dimensional manifold.
 \end{fact}
-The full $\cM$ is thus a sort of ``manifold with singularities.''
-These singularities are the source of some trouble but can be controlled. \fixme{...}
+(For non-generic $g$, $\cM$ may develop singularities corresponding
+to reducible solutions of \eqref{eq:sdym}.)
 
-Donaldson's idea was to extract interesting invariants of $X$ by studying the space $\cM$. The direct analogue of the Betti numbers is the 
+Donaldson's idea was to extract information about $X$ from 
+the study of $\cM$. The direct nonlinear analogue of the Betti numbers is the 
 \ti{dimension} of $\cM$: it turns out to be (for $X$ connected)
 \begin{equation}
-  \dim \cM = 8k - 3 (1 - b_1(X) + b_2^+(X)), \qquad k = \int_X p_1(E)
+  \dim \cM = 8k - 3 (1 - b_1(X) + b_2^+(X)).
 \end{equation}
 But because $\cM$ is nonlinear there is more to it than just its dimension.
-\fixme{Donaldson invariants}
-\fixme{technically difficult because of noncompactness}
-\fixme{again they're topological invariants, at least for 
-$b_2^+ > 1$}
+Donaldson introduced an \ti{orientation} on $\cM$ 
+and a family of canonically defined 
+closed differential forms $\tau_\alpha \in \Omega^*(\cM)$,
+labeled by classes $\alpha \in H_*(X,\Z)$.
+Then he defined new invariants $\IP{\cO_{\alpha_1} \cdots \cO_{\alpha_k}}$
+by, schematically,
+\begin{equation} \label{eq:donaldson-integral}
+  \IP{\cO_{\alpha_1} \cdots \cO_{\alpha_k}} = \int_\cM \tau_{\alpha_1} \wedge \cdots \wedge \tau_{\alpha_k},
+\end{equation}
+and proved that they are independent of the Riemannian metric
+$g$ (under the technical
+assumption $b_2^+(X) > 1$.)
+
+These invariants proved very powerful but also very technically
+difficult to control, particularly because $\cM$ is typically
+\ti{noncompact}.
+
 
 \subsection{QFT and Donaldson invariants}
 
@@ -537,10 +555,12 @@ schematically of the form
 where $S: \cC \to \R$ is the ``action'' of the theory,
 and $\Phi_\alpha: \cC \to \R$ are the ``classical observables.''
 
+In general, correlation functions \eqref{eq:correlator}
+are difficult to calculate.
 In this particular theory, however, there is a remarkable
 \ti{localization} phenomenon which reduces the desired
 integrals \eqref{eq:correlator} to the simpler
-finite-dimensional integrals \eqref{...} above.
+finite-dimensional integrals \eqref{eq:donaldson-integral} above.
 
 % One of the aims of this course is to give some meaning to these
 % phrases. It must suffice now to say: a quantum field theory is a
@@ -626,11 +646,11 @@ we care about.
 Seiberg and Witten in \cite{Seiberg:1994rs}  
 solved the analogous problem for $\cN=2$
 supersymmetric Yang-Mills theory. Beginning with the action
-\eqref{eq:n=2sym-action} (high-energy description) for $G = SU(2)$, 
+\eqref{eq:n=2sym-action} (high-energy description) for $G = \SU(2)$, 
 they completely determined the low-energy description.
 It turned out that this description is also in terms of gauge theory,
-but this time gauge theory for the group $G' = U(1)$ (coupled to matter):
-the nonabelian group $SU(2)$, with all its attendant
+but this time gauge theory for the group $G' = \U(1)$ (coupled to matter):
+the nonabelian group $\SU(2)$, with all its attendant
 nonlinearities, is gone!
 
 Then one can try to compute the results of experiments, now using this
@@ -645,7 +665,7 @@ but now instead of \eqref{eq:sdym} the equations are
 \end{subequations}
 where the fields are:
 \begin{itemize}
-\item $D$ is a connection in a $U(1)$-bundle $E$
+\item $D$ is a connection in a $\U(1)$-bundle $E$
 (more precisely $E$ is the determinant line of a $\Spin^c$-structure on $X$),
 \item $\psi$ is a section of $S^+$, with $S^+$ the spinor bundle
 attached to the $\Spin^c$-structure,
