@@ -972,39 +972,22 @@ Next we use a fundamental integral identity:
 \begin{equation} \label{eq:correlator-integral-0d}
   \int_{-\infty}^\infty \de x\,x^{2k} \e^{-\frac{m}{2}x^2}  = \sqrt\frac{2\pi}{m} \frac{1}{m^k} \frac{(2k)!}{k!2^k}.
 \end{equation}
-\begin{exercise} Derive the formula \eqref{eq:correlator-integral-0d}.
+\begin{exercise} Prove the formula \eqref{eq:correlator-integral-0d}.
 \end{exercise}
-Using \eqref{eq:correlator-integral-0d} the integrals can be done term by term, yielding
-\begin{equation} \label{eq:0d-perturbation-series}
-  Z(m, \lambda) \, \text{''=''} \sqrt\frac{2\pi}{m} \left(1 - \frac18 \tlambda + \frac{35}{384} \tlambda^2 + \cdots + (1390.1 \dots) \tlambda^{10} + \cdots \right), \qquad \tlambda = \frac{\lambda}{m^2}.
-\end{equation}
-
-\begin{exercise} Use \eqref{eq:correlator-integral-0d} to verify the given terms of
-\eqref{eq:0d-perturbation-series}.
-\end{exercise}
+Using \eqref{eq:correlator-integral-0d} the integrals in \eqref{eq:dubious-exchange} can be done term by term, yielding
+\begin{align} \label{eq:0d-perturbation-series}
+  Z(m, \lambda) \, &\text{''=''} \, \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty \left( - \frac{1}{96} \right)^n \frac{(4n)!}{n!(2n)!} \, \tlambda^n, \qquad \tlambda = \frac{\lambda}{m^2}, \\
+  &\text{''=''} \, \sqrt\frac{2\pi}{m} \left(1 - \frac18 \tlambda + \frac{35}{384} \tlambda^2 + \cdots + (1390.1 \dots) \tlambda^{10} + \cdots \right).
+\end{align}
 
 
 
 \subsection{Meaning of the perturbation series}
 
-Looking at the coefficients, the convergence of \eqref{eq:0d-perturbation-series} looks extremely 
-unlikely. Indeed, this series diverges for all $\lambda \neq 0$, \ti{despite} the fact that the function
+Looking at the coefficients, we see at once that \eqref{eq:0d-perturbation-series} 
+diverges for all $\lambda \neq 0$, \ti{despite} the fact that the function
 $Z(m,\lambda)$, defined by the integral \eqref{eq:0d-partition-fn}, 
 really does exist whenever $\re(\lambda) \ge 0$.
-
-One route to \ti{showing} that the series diverges is:
-\begin{exercise} Do the following things.
-\begin{enumerate}
-\item Show that $Z(m,\lambda) = \frac{1}{\sqrt{m}} f(\tilde\lambda)$ for some $f$.
-\item Show that $Z(m,\lambda)$ obeys the differential equation $4 \partial_m^2 Z = (4!)^4 \partial_\lambda^4 Z$.
-\item Show that $f(\tilde\lambda)$ obeys an ordinary differential equation in $\tilde\lambda$,
-with an irregular singularity at $\tilde\lambda = 0$.
-\item Show that, for fixed $m$, $Z(\lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
-and this continuation has an essential singularity at $\lambda = 0$.
-\item Conclude that $Z(\lambda)$ cannot have
-a convergent Taylor expansion around $\lambda = 0$.
-\end{enumerate}
-\end{exercise}
 In particular it follows that the interchange of summation and integration leading to
 \eqref{eq:dubious-exchange} was not justified (if you try to justify it by the usual methods you will fail
 because of lack of uniform convergence \fixme{I think}).
@@ -1017,6 +1000,7 @@ series for $f$ as $t \to 0^+$} if, for all $N \ge 0$,
 \begin{equation}
  \lim_{t \to 0^+} t^{-N} \left\lvert f(t) - \left( \sum_{n=0}^N c_n t^n \right) \right\rvert = 0. 
 \end{equation}
+In this situation we write $f(t) \sim \sum_{n=0}^\infty c_n t^n$.
 \end{defn}
 This means
 \begin{align}
@@ -1033,11 +1017,76 @@ gives an asymptotic series for $Z(m,\lambda)$ as $\lambda \to 0^+$ for fixed $m$
 at the level of asymptotic series. This is a very commonly-occurring situation.)
 \end{exercise}
 
+So the precise meaning of the $\text{''=''}$ in \eqref{eq:dubious-exchange}
+and \eqref{eq:0d-perturbation-series} above is actually $\sim$.
+
+% Despite the fact that this series is ``only'' asymptotic, it clearly does contain some real information
+% about $Z(m,\lambda)$. 
+One way to get a vivid illustration of what this asymptotic series
+expansion means is to do the next exercise:
+
+\begin{exercise} Make a plot of $Z(m=1,\lambda)$
+and the first few truncations of its asymptotic series around $\lambda \to 0^+$.
+\end{exercise}
+
+\fixme{Borel summability?}
+
+One might wonder whether there could be some \ti{other} series expansion for $Z(m,\lambda)$.
+But this is impossible, as the next exercise shows.
+
+\begin{exercise} Do the following:
+\begin{enumerate}
+\item Show that if $f$ has a convergent Taylor series expansion around $t = 0$ then this expansion
+is also an asymptotic expansion as $t \to 0^+$.
+\item Show that any $f$ can have at most one asymptotic series expansion.
+\end{enumerate}
+\end{exercise}
+
+In particular, since $Z(m,\lambda)$ has the divergent asymptotic 
+expansion \eqref{eq:0d-perturbation-series} it cannot also
+have a convergent one.
+For fun, we can diagnose a bit more precisely the problem with $Z$: it has an essential 
+singularity at $\lambda = 0$, in the sense of the next exercise.
+\begin{exercise} Do the following things.
+\begin{enumerate}
+\item Show that $Z(m,\lambda) = \frac{1}{\sqrt{m}} f(\tilde\lambda)$ for some $f$.
+\item Show that $Z(m,\lambda)$ obeys the differential equation $4 \partial_m^2 Z = (4!)^4 \partial_\lambda^4 Z$.
+\item Show that $f(\tilde\lambda)$ obeys an ordinary differential equation in $\tilde\lambda$,
+with an irregular singularity at $\tilde\lambda = 0$.
+\item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
+and this continuation has an essential singularity at $\lambda = 0$.
+\item Conclude that $Z(m, \lambda)$ cannot have
+a convergent Taylor expansion around $\lambda = 0$.
+\end{enumerate}
+\end{exercise}
+
+What we have seen here is that even in $0$-dimensional quantum field theory the perturbation series
+is ``only'' asymptotic. In higher-dimensional theories, we will meet very similar series, and there
+too we expect that these series are usually ``only'' asymptotic.
+
+\begin{exercise} Read the famous paper \cite{Dyson:1952tj} of Freeman Dyson, 
+in which he gives a heuristic physical argument that the perturbation series 
+in quantum electrodynamics is only asymptotic.
+\end{exercise}
+
 
 \subsection{Feynman diagrams}
 
-The key formula \eqref{eq:correlator-integral-0d} admits a neat combinatorial interpretation,
-which begins with the observation:
+Now we revisit \eqref{eq:0d-perturbation-series} and rewrite it one more time, as
+\begin{equation} \label{eq:0d-series-rewritten}
+  Z(m, \lambda) \, \sim \, \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty \frac{(4n)!}{(2n)! 2^{2n}} \, \frac{(-\tlambda)^n}{(4!)^n n!}, \qquad \tlambda = \frac{\lambda}{m^2}.
+\end{equation}
+This formula has a neat combinatorial interpretation, in
+terms of \ti{Feynman diagrams}, as follows. 
+
+Our basic object is a vertex with $4$ half-edges attached. Such a vertex will ``carry'' a factor $-\tlambda$.
+\insfig{qft-geometry-1}{0.8}
+A Feynman diagram is obtained by first putting down some number of vertices and then 
+pairing up all the edges. All Feynman diagrams with one vertex, and some with two vertices,
+are shown below.
+\insfig{qft-geometry-2}{0.9}
+
+Let $D_n$ be the set of all diagrams with $n$ vertices.
 
 \begin{prop}[Counting pairings of $2k$ objects] \label{prop:count-pairings} The number of ways to pair up $2k$ objects, i.e. to divide them into $k$ $2$-element subsets, is $\frac{(2k)!}{k! 2^k}$.
 \end{prop}
@@ -1045,9 +1094,23 @@ which begins with the observation:
 \begin{exercise} Prove \autoref{prop:count-pairings}.
 \end{exercise}
 
-Now we can revisit \eqref{eq:dubious-exchange}, and think of it in the following way.
-\fixme{...}
-
+Thus we have
+\begin{equation}
+  \abs{D_n} = \frac{(4n)!}{(2n)! 2^{2n}}.
+\end{equation}
+On the other hand, $D_n$ is naturally acted on by the finite group
+\begin{equation}
+  G_n = (S_4)^n \rtimes S_n
+\end{equation}
+(permuting edges attached to a given vertex and also permuting vertices)
+which has 
+\begin{equation}
+ \abs{G_n} = (4!)^n n!. 
+\end{equation}
+Thus \eqref{eq:0d-series-rewritten} can be rewritten as
+\begin{equation}
+  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \frac{\abs{D_n}}{\abs{G_n}}.
+\end{equation}
 
 \printbibliography
 
