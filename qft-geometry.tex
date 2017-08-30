@@ -240,6 +240,9 @@
 \newcommand{\eps}{\epsilon}
 \newcommand{\simarrow}{\xrightarrow\sim}
 
+\newcommand{\tlambda}{\widetilde\lambda}
+
+
 \newcommand{\mmaref}[1]{}
 
 \newcommand{\ti}[1]{\textit{#1}}
@@ -537,7 +540,9 @@ and proved that they are independent of the Riemannian metric
 $g$ (under the technical
 assumption $b_2^+(X) > 1$.)
 
-These invariants proved very powerful \fixme{explain something proved using them?} but also very technically
+These invariants proved very powerful: they could detect phenomena invisible to 
+the standard differential-topology methods \fixme{explain something proved using them?} 
+However, they were also very technically
 difficult to control, particularly because $\cM$ is typically
 \ti{noncompact}.
 
@@ -549,13 +554,13 @@ Witten found a remarkable new way of thinking about
 the Donaldson invariants \cite{Witten:1988ze}: he interpreted them
 in terms of a certain quantum field theory (QFT),
 \ti{topologically twisted $\N=2$ supersymmetric Yang-Mills theory}.
-
 Very roughly, Witten imagined $X$ to be the ``spacetime''
 in some hypothetical universe, where the laws of physics are governed
 by topologically twisted $\N=2$ supersymmetric Yang-Mills theory,
 and then imagined
 making some ``experimental measurements'' in that universe --- captured
 in QFT language by \ti{correlation functions}.
+
 According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an
 important and widely studied class of QFTs, which feature prominently
 (for good reason) in one's early QFT education. Nevertheless, not
@@ -571,10 +576,18 @@ infinite-dimensional space $\cC$, of the form
 where $S: \cC \to \R$ is the ``action'' of the theory,
 $\de \mu$ is some measure of integration,
 and $\Phi_\alpha: \cC \to \R$ are the ``classical observables.''
+$\cC$ is sometimes called the ``space of fields''; in a general Lagrangian QFT, it is
+something like the space of all\footnote{The meaning of ``all'' will
+hopefully become clearer as we go on.} functions on $X$ (or maybe differential forms on $X$,
+connections on bundles over $X$, sections of bundles over $X$, etc; different theories involve
+different notions of fields.) 
+% In the particular theory we are considering,
+% $\cC$ and $S$ are given in \S\ref{sec:intro-action} below.
 
 In general, correlation functions \eqref{eq:correlator}
 are difficult to calculate.
-In this particular theory, however, there is a remarkable
+In topologically twisted $\N=2$ supersymmetric Yang-Mills theory, 
+however, there is a remarkable
 \ti{localization} phenomenon which reduces the desired
 integrals \eqref{eq:correlator} to the simpler
 finite-dimensional integrals \eqref{eq:donaldson-integral} above.
@@ -592,7 +605,7 @@ derive from the QFT perspective were just the \ti{same} formulas
 already written down by Donaldson.
 
 
-\subsection{The action}
+\subsection{The action} \label{sec:intro-action}
 
 For aficionados, here is
 the standard way that a physicist would define
@@ -900,6 +913,86 @@ by
 \fixme{...}
 
 
+\section{QFT in \texorpdfstring{$0$}{0} dimensions}
+
+\subsection{The partition function and expectation values}
+
+As we have explained above, Lagrangian QFT on a spacetime $X$ generally involves performing integrals
+over some space $\cC$ of (perhaps generalized) functions on $X$. Thus $\cC$ is almost 
+always infinite-dimensional,
+but there is one key exception: the case where $X$ is $0$-dimensional. Let's explore that case.
+We take $X$ to be just a point,
+and $\cC$ to be the space of real-valued functions on a point, i.e.
+\begin{equation}
+  \cC = \R.
+\end{equation}
+Then, let's define the action
+\begin{equation}
+  S: \cC \to \R
+\end{equation}
+by
+\begin{equation}
+  S(x) = \frac{m}{2} x^2 + \frac{\lambda}{4!} x^4, \qquad \re(\lambda) \ge 0, \ m > 0.
+\end{equation}
+Now we can define the \ti{partition function},
+\begin{equation} \label{eq:0d-partition-fn}
+  Z = \int_{-\infty}^\infty \de x \, \e^{-S(x)}.
+\end{equation}
+More generally, let's define an \ti{observable} to be any polynomial function $f: \cC \to \R$, and
+then define its \ti{(unnormalized) expectation value}
+\begin{equation} \label{eq:0d-expectation-values}
+  \IP{f} = \int_{-\infty}^\infty \de x \, f(x) \e^{-S(x)}.
+\end{equation}
+Thus, we have
+\begin{equation}
+  Z = \IP{1}.
+\end{equation}
+Both \eqref{eq:0d-partition-fn} and \eqref{eq:0d-expectation-values} are functions of
+$\lambda$ and $m$.
+
+\subsection{The perturbation series}
+
+Now, how do we \ti{compute} these functions? Let's start with $Z$, given by \eqref{eq:0d-partition-fn}.
+At $\lambda = 0$, the integral \eqref{eq:0d-partition-fn}
+is easy to do:
+\begin{equation}
+  Z_0 = Z(\lambda = 0) = \sqrt\frac{2\pi}{m}.
+\end{equation}
+For other $\lambda$, what to do? Computing for arbitrary $\lambda$ looks hard, but since $\lambda = 0$ was
+easy, let's try to get the expansion around $\lambda = 0$. 
+We begin by expanding the exponential under the integral sign:
+\begin{equation}
+  Z(\lambda) = \int_{-\infty}^\infty \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
+\end{equation}
+Next we make a dubious step: we exchange the orders of summation and integration.
+\begin{equation}
+  Z(\lambda) \, \text{''=''} \, \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \int_{-\infty}^\infty \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
+\end{equation}
+The integrals can then be done term by term, yielding
+\begin{equation} \label{eq:0d-perturbation-series}
+  Z(\lambda) \, \text{''=''} \sqrt\frac{2\pi}{m} \left(1 - \frac18 \tlambda + \frac{35}{384} \tlambda^2 + \cdots + (1390.1 \dots) \tlambda^{10} + \cdots \right), \qquad \tlambda = \frac{\lambda}{m^2}
+\end{equation}
+
+
+\subsection{Meaning of the perturbation series}
+
+Looking at the coefficients, the convergence of \eqref{eq:0d-perturbation-series} looks extremely 
+unlikely. Indeed, this series diverges for all $\lambda \neq 0$, \ti{despite} the fact that the function
+$Z(\lambda)$, defined by the integral \eqref{eq:0d-partition-fn}, 
+really does exist whenever $\re(\lambda) \ge 0$.
+
+One route to \ti{showing} that the series diverges is:
+\begin{exercise}
+Show that $Z(\lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
+and this continuation has an essential singularity at $\lambda = 0$. (Hint: use the 
+fact that $Z(\lambda)$ obeys an ODE in $\lambda$.) Thus conclude that $Z(\lambda)$ cannot have
+a convergent Taylor expansion around $\lambda = 0$.
+\end{exercise}
+
+Nevertheless, the series \eqref{eq:0d-perturbation-series} is still useful!
+
+\begin{defn}[Asymptotic series] \fixme{..}
+\end{defn}
 
 \printbibliography
 
