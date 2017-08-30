@@ -440,8 +440,8 @@ adjoint action of $G$ on $\fg$. It locally looks like $\fg$ but globally twisted
 by the transition functions of $P$. Some people would call this bundle $\ad P$. It is trvial when $\fg$ is abelian,
 so in that case we really have globally $F \in \Omega^2(\fg)$.} 
 locally written\footnote{To spell out the 
-notation here: suppose $A = A_i^a T_a \de x^i$, with $T_a$ a basis for $\fg$, and define the structure constants
-$f_{ab}^c$ by $[T_a, T_b] = f_{ab}^c T_c$; then $A \wedge A = \half f_{ab}^c T_c A_i^a A_j^b \de x^i \wedge \de x^j$.
+notation here: suppose $A = A_\mu^a T_a \de x^\mu$, with $T_a$ a basis for $\fg$, and define the structure constants
+$f_{ab}^c$ by $[T_a, T_b] = f_{ab}^c T_c$; then $A \wedge A = \half f_{ab}^c T_c A_\mu^a A_\nu^b \de x^\mu \wedge \de x^\nu$.
 Some people prefer to write this term as $\half [A,A]$, which makes it more obviously sensible
 for arbitrary Lie groups as opposed to matrix groups. It vanishes when $\fg$ is abelian, so then we just have
 $F = \de A$.}
@@ -472,10 +472,10 @@ equation is \ti{nonlinear} in $A$, because of the quadratic part in \eqref{eq:cu
 
 \begin{exercise} Write out \eqref{eq:sdym} in detail in components, in two cases:
 \begin{itemize}
-  \item For $G = \U(1)$: in this case you should get a system of $3$ linear equations for $4$ functions $A_i$
-  ($i \in \{1,2,3,4\}$).
+  \item For $G = \U(1)$: in this case you should get a system of $3$ linear equations for $4$ functions $A_\mu$
+  ($\mu \in \{1,2,3,4\}$).
   \item For $G = \SU(2)$: in this case you should get a system of $9$ coupled nonlinear equations for
-  $12$ functions $A^a_i$ ($i \in \{1,2,3,4\}$, $a \in \{1,2,3\}$).
+  $12$ functions $A^a_\mu$ ($\mu \in \{1,2,3,4\}$, $a \in \{1,2,3\}$).
 \end{itemize}
 \end{exercise}
 
@@ -546,16 +546,16 @@ difficult to control, particularly because $\cM$ is typically
 
 In 1988, following some provocative suggestions of Atiyah,
 Witten found a remarkable new way of thinking about
-the Donaldson invariants \cite{Witten:1988ze}: he interpreted the
-Riemannian $4$-manifold $X$ in terms of a certain quantum
-field theory (QFT),
+the Donaldson invariants \cite{Witten:1988ze}: he interpreted them
+in terms of a certain quantum field theory (QFT),
 \ti{topologically twisted $\N=2$ supersymmetric Yang-Mills theory}.
 
-Very roughly, this means Witten imagined $X$ to be the ``spacetime''
+Very roughly, Witten imagined $X$ to be the ``spacetime''
 in some hypothetical universe, where the laws of physics are governed
 by topologically twisted $\N=2$ supersymmetric Yang-Mills theory,
 and then imagined
-making some ``experimental measurements'' in that universe.
+making some ``experimental measurements'' in that universe --- captured
+in QFT language by \ti{correlation functions}.
 According to the rules of Lagrangian QFT\footnote{Lagrangian QFTs are an
 important and widely studied class of QFTs, which feature prominently
 (for good reason) in one's early QFT education. Nevertheless, not
@@ -563,10 +563,8 @@ all QFTs are of this sort; for QFTs which are not Lagrangian, one
 needs other tools for computing the correlation functions. Many of the
 most interesting mathematical and physical applications of QFT
 involve non-Lagrangian QFTs.}
-such measurements --- called \ti{correlation functions} ---
-are supposed to be identified
-with integrals over an infinite-dimensional space $\cC$,
-schematically of the form
+correlation functions are supposed to be integrals over an
+infinite-dimensional space $\cC$, of the form
 \begin{equation} \label{eq:correlator}
  \IP{\cO_\alpha} = \int_\cC \de \mu \, \Phi_\alpha \e^{-S},
 \end{equation}
