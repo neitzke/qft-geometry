@@ -956,43 +956,98 @@ Now, how do we \ti{compute} these functions? Let's start with $Z$, given by \eqr
 At $\lambda = 0$, the integral \eqref{eq:0d-partition-fn}
 is easy to do:
 \begin{equation}
-  Z_0 = Z(\lambda = 0) = \sqrt\frac{2\pi}{m}.
+  Z_0 = Z(m, \lambda = 0) = \sqrt\frac{2\pi}{m}.
 \end{equation}
 For other $\lambda$, what to do? Computing for arbitrary $\lambda$ looks hard, but since $\lambda = 0$ was
 easy, let's try to get the expansion around $\lambda = 0$. 
 We begin by expanding the exponential under the integral sign:
 \begin{equation}
-  Z(\lambda) = \int_{-\infty}^\infty \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
+  Z(m, \lambda) = \int_{-\infty}^\infty \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
 \end{equation}
 Next we make a dubious step: we exchange the orders of summation and integration.
-\begin{equation}
-  Z(\lambda) \, \text{''=''} \, \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \int_{-\infty}^\infty \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
+\begin{equation} \label{eq:dubious-exchange}
+  Z(m, \lambda) \, \text{''=''} \, \sum_{n=0}^\infty \left( \frac{-\lambda}{4!} \right)^n \int_{-\infty}^\infty \frac{x^{4n}}{n!} \e^{-\frac{m}{2} x^2}
 \end{equation}
-The integrals can then be done term by term, yielding
+Next we use a fundamental integral identity:
+\begin{equation} \label{eq:correlator-integral-0d}
+  \int_{-\infty}^\infty \de x\,x^{2k} \e^{-\frac{m}{2}x^2}  = \sqrt\frac{2\pi}{m} \frac{1}{m^k} \frac{(2k)!}{k!2^k}.
+\end{equation}
+\begin{exercise} Derive the formula \eqref{eq:correlator-integral-0d}.
+\end{exercise}
+Using \eqref{eq:correlator-integral-0d} the integrals can be done term by term, yielding
 \begin{equation} \label{eq:0d-perturbation-series}
-  Z(\lambda) \, \text{''=''} \sqrt\frac{2\pi}{m} \left(1 - \frac18 \tlambda + \frac{35}{384} \tlambda^2 + \cdots + (1390.1 \dots) \tlambda^{10} + \cdots \right), \qquad \tlambda = \frac{\lambda}{m^2}
+  Z(m, \lambda) \, \text{''=''} \sqrt\frac{2\pi}{m} \left(1 - \frac18 \tlambda + \frac{35}{384} \tlambda^2 + \cdots + (1390.1 \dots) \tlambda^{10} + \cdots \right), \qquad \tlambda = \frac{\lambda}{m^2}.
 \end{equation}
+
+\begin{exercise} Use \eqref{eq:correlator-integral-0d} to verify the given terms of
+\eqref{eq:0d-perturbation-series}.
+\end{exercise}
+
 
 
 \subsection{Meaning of the perturbation series}
 
 Looking at the coefficients, the convergence of \eqref{eq:0d-perturbation-series} looks extremely 
 unlikely. Indeed, this series diverges for all $\lambda \neq 0$, \ti{despite} the fact that the function
-$Z(\lambda)$, defined by the integral \eqref{eq:0d-partition-fn}, 
+$Z(m,\lambda)$, defined by the integral \eqref{eq:0d-partition-fn}, 
 really does exist whenever $\re(\lambda) \ge 0$.
 
 One route to \ti{showing} that the series diverges is:
-\begin{exercise}
-Show that $Z(\lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
-and this continuation has an essential singularity at $\lambda = 0$. (Hint: use the 
-fact that $Z(\lambda)$ obeys an ODE in $\lambda$.) Thus conclude that $Z(\lambda)$ cannot have
+\begin{exercise} Do the following things.
+\begin{enumerate}
+\item Show that $Z(m,\lambda) = \frac{1}{\sqrt{m}} f(\tilde\lambda)$ for some $f$.
+\item Show that $Z(m,\lambda)$ obeys the differential equation $4 \partial_m^2 Z = (4!)^4 \partial_\lambda^4 Z$.
+\item Show that $f(\tilde\lambda)$ obeys an ordinary differential equation in $\tilde\lambda$,
+with an irregular singularity at $\tilde\lambda = 0$.
+\item Show that, for fixed $m$, $Z(\lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
+and this continuation has an essential singularity at $\lambda = 0$.
+\item Conclude that $Z(\lambda)$ cannot have
 a convergent Taylor expansion around $\lambda = 0$.
+\end{enumerate}
+\end{exercise}
+In particular it follows that the interchange of summation and integration leading to
+\eqref{eq:dubious-exchange} was not justified (if you try to justify it by the usual methods you will fail
+because of lack of uniform convergence \fixme{I think}).
+
+Nevertheless, the series \eqref{eq:0d-perturbation-series} is still useful:
+\begin{defn}[Asymptotic series] 
+Given a function $f: \R_+ \to \C$, 
+the formal series $\sum_{n=0}^\infty c_n t^n$ is an \ti{asymptotic
+series for $f$ as $t \to 0^+$} if, for all $N \ge 0$,
+\begin{equation}
+ \lim_{t \to 0^+} t^{-N} \left\lvert f(t) - \left( \sum_{n=0}^N c_n t^n \right) \right\rvert = 0. 
+\end{equation}
+\end{defn}
+This means
+\begin{align}
+\lim_{t \to 0^+} \abs{f(t) - c_0} &= 0, \\
+\lim_{t \to 0^+} t^{-1} \abs{f(t) - (c_0 + t c_1)} &= 0,
+\end{align}
+and so on.
+\begin{prop}[Perturbation series is an asymptotic series] \label{prop:pert-asymp} The series \eqref{eq:0d-perturbation-series}
+gives an asymptotic series for $Z(m,\lambda)$ as $\lambda \to 0^+$ for fixed $m$.
+\end{prop}
+
+\begin{exercise} Prove \autoref{prop:pert-asymp}. (This amounts to showing that the dubious step
+\eqref{eq:dubious-exchange}, while not justified at the level of convergent series, is justified
+at the level of asymptotic series. This is a very commonly-occurring situation.)
 \end{exercise}
 
-Nevertheless, the series \eqref{eq:0d-perturbation-series} is still useful!
 
-\begin{defn}[Asymptotic series] \fixme{..}
-\end{defn}
+\subsection{Feynman diagrams}
+
+The key formula \eqref{eq:correlator-integral-0d} admits a neat combinatorial interpretation,
+which begins with the observation:
+
+\begin{prop}[Counting pairings of $2k$ objects] \label{prop:count-pairings} The number of ways to pair up $2k$ objects, i.e. to divide them into $k$ $2$-element subsets, is $\frac{(2k)!}{k! 2^k}$.
+\end{prop}
+
+\begin{exercise} Prove \autoref{prop:count-pairings}.
+\end{exercise}
+
+Now we can revisit \eqref{eq:dubious-exchange}, and think of it in the following way.
+\fixme{...}
+
 
 \printbibliography
 
