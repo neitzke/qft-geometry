@@ -358,7 +358,7 @@ problem: namely we fix a Riemannian metric $g$ on $X$.
 This allows us to define the \ti{form Laplacian} \eqref{eq:form-laplacian}
 and consider the space of \ti{harmonic forms}
 \begin{equation}
-  \cH^k(X) = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
+  \cH_k(X) = \{ \omega \in \Omega^k(X) \vert \Delta \omega = 0 \}.
 \end{equation}
 
 The equation
@@ -366,12 +366,12 @@ The equation
 \Delta \omega = 0
 \end{equation}
 is a \ti{linear} equation over $\R$.
-Thus $\cH^k(X)$ is a \ti{vector space}.
-If $X$ is compact, then $\cH^k(X)$ is moreover finite-dimensional (a consequence of
+Thus $\cH_k(X)$ is a \ti{vector space}.
+If $X$ is compact, then $\cH_k(X)$ is moreover finite-dimensional (a consequence of
 the fact that $\Delta$ is an \ti{elliptic} operator). Thus we can define
 positive integers by
 \begin{equation}
-  b_k(X) = \dim_\R \cH^k(X).
+  b_k(X) = \dim_\R \cH_k(X).
 \end{equation}
 There is a remarkable fact about these integers:
 \begin{fact} \label{fact:betti-numbers-are-topological} The integers $b_k$ do not depend on the choice of Riemannian metric or smooth
@@ -382,7 +382,7 @@ structure on $X$; instead they are invariants of the underlying topological mani
 \begin{exercise} Work out explicitly the spaces $\cH^k(X)$ and
 Betti numbers $b_k(X)$ for some of the following: $X = S^1, T^2, S^2$.
 (In each case choose a convenient Riemannian metric; of course the $b_k$
-are independent of which metric you choose, though the $\cH^k(X)$
+are independent of which metric you choose, though the $\cH_k(X)$
 naively are not.)
 \end{exercise}
 
@@ -390,9 +390,9 @@ naively are not.)
 is a consequence of a stronger, ``categorified'' statement:
 \begin{fact} There is a canonical isomorphism
 \begin{equation}
-  \cH^k(X) \simeq H^k(X,\R)
+  \cH_k(X) \simeq H^k(X,\R)
 \end{equation}
-(where $H^k$ means singular cohomology).
+(where $H^k$ means de Rham or singular cohomology).
 \end{fact}
 
 If $X$ is an oriented Riemannian $4n$-manifold then there is a small refinement of the
