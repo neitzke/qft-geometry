@@ -470,7 +470,7 @@ The \ti{anti-self-dual Yang-Mills equation} is
 \begin{equation} \label{eq:sdym}
   F^+ = 0.
 \end{equation}
-We view this as a condition on the connection $A$.
+We view this as a condition on the connection.
 For $G$ abelian (e.g. for $G = \U(1)$) the equation \eqref{eq:sdym} is linear in $A$.
 % It simply says
 % \begin{equation}
@@ -497,14 +497,20 @@ We consider the \ti{instanton moduli space}
   \cM = \{ \text{connections on $P$ obeying \eqref{eq:sdym}} \} / \fG
 \end{equation}
 where $\fG$ is the infinite-dimensional group of \ti{gauge transformations} ie
-sections of $\Aut(P)$, acting on connections by
+sections of $\Aut(P)$, acting on connections. Locally, a gauge transformation
+is represented by a map $g: U \to G$, and then
+this action is given by
 \begin{equation}
-  D \mapsto g D g^{-1}.
+  A \to g^{-1} A g + g^{-1} \de g.
 \end{equation}
 
 \begin{exercise}
-Verify that $\fG$ acts on the space of solutions of \eqref{eq:sdym}. Write out this action
+Write out the action of $\fG$ on connections
 explicitly in components, when $G = \U(1)$ or $G = \SU(2)$.
+(It may be convenient to consider the case where $g$ is given as
+the exponential of a Lie algebra element, e.g. for $G = \U(1)$
+the formulas will be simplest if you write $g = \exp(\chi T)$ with $\chi$
+the generator of ${\mathfrak u}(1)$, and $\chi: U \to \R$ an ordinary function.)
 \end{exercise}
 
 \begin{exercise}
@@ -522,9 +528,11 @@ In this case $P$ is classified by the integer
 \end{equation}
 where $c_2(P) \in H^4(X,\Z)$ denotes the second Chern class.
 \begin{fact}
-If $k>0$ and the metric $g$ on $X$ is generic, then $\cM$ is a finite-dimensional manifold.
+If $k>0$ and the metric $g$ on $X$ is \ti{generic} (in a suitable sense), 
+then $\cM$ is a finite-dimensional manifold.
 \end{fact}
-(For non-generic $g$, $\cM$ may develop singularities corresponding
+(For non-generic $g$, $\cM$ is still close to being a manifold, but 
+may develop singularities corresponding
 to reducible solutions of \eqref{eq:sdym}.)
 
 
@@ -644,7 +652,7 @@ where $S^\pm$ are the spin representations of $\Spin(4)$. The symbol $\Pi$ here 
 which means $\lambda^\pm$ are \ti{Grassmann-odd} fields: we will explain this (or at least get used to it)
 later.
 
-The \ti{action} is:
+The \ti{action} is: \fixme{explain notation $v$, $w$ and inner product $\IP{,}$, and double-check factors}
 \begin{multline} \label{eq:n=2sym-action}
  S = \frac{1}{g^2} \int_X \Tr\left( - \frac14 F \wedge \star F + \nabla_\mu \bar\phi \nabla^\mu \phi - \I \delta^{vw} \IP{\lambda_v^-, \slashed\nabla \lambda_w^+} + \frac14 \delta^{vv'} \delta^{ww'} D_{vw} D_{v'w'} - \half [\phi, \bar\phi]^2 \right. \\ \left. - \I \sqrt{2} \eps^{vw} \IP{\lambda_v^-, [\bar\phi, \lambda_w^-]} + \I \sqrt{2} \eps^{vw} \IP{\lambda_v^+, [\phi,\lambda_w^+]} \right) \\ + \frac{\I \vartheta}{4\pi^2} \int_X \Tr (F \wedge F).
 \end{multline}
@@ -728,6 +736,8 @@ attached to the $\Spin^c$-structure,
 \end{itemize}
 and $q$ is a certain
 quadratic map $S^+ \otimes S^+ \to \wedge^2_+(T^* X)$.
+For an economical explanation of these equations see
+\cite{MR1367507}.
 
 In our analogy to the physics of a pond,
 \eqref{eq:sw} is the moral analogue
