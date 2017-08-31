@@ -432,15 +432,19 @@ In this case, a new source of topological
 by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
 
 Fix a compact Lie group $G$ and let $P$ denote a principal $G$-bundle over $X$. Then
-we consider \ti{connections} in $P$. For background on connections see \fixme{...}.
-A connection in $P$ is locally written\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we
-have chosen a local trivialization of the bundle $P$.''}
+we consider \ti{connections} in $P$.\footnote{For background on connections in principal
+bundles I like \cite{MR82g:53003a} or perhaps chapter 2 of \cite{MR1079726}.}
+A connection in $P$ may be locally represented by a $1$-form\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we
+have chosen a trivialization of the bundle $P \vert_U$.''}
 \begin{equation}
-  D = \de + A, \qquad A \in \Omega^1(\fg),
+  A \in \Omega^1(\fg),
 \end{equation}
 and has a curvature $2$-form $F \in \Omega^2(\fg_P)$,\footnote{$\fg_P$ means the \ti{associated bundle} to $P$ using the
-adjoint action of $G$ on $\fg$. It locally looks like $\fg$ but globally twisted
-by the transition functions of $P$. Some people would call this bundle $\ad P$. It is trvial when $\fg$ is abelian,
+adjoint action of $G$ on $\fg$, sometimes written $P \times_G \fg$; 
+again see \cite{MR82g:53003a} for this notion. 
+$\fg_P$ locally looks like $\fg$ but is globally twisted
+by the transition functions of $P$. Some people would call this bundle $\ad P$. 
+$\fg_P$ is canonically globally trivial when $\fg$ is abelian, i.e. $\fg_P = X \times \fg$,
 so in that case we really have globally $F \in \Omega^2(\fg)$.} 
 locally written\footnote{To spell out the 
 notation here: suppose $A = A_\mu^a T_a \de x^\mu$, with $T_a$ a basis for $\fg$, and define the structure constants
@@ -507,10 +511,11 @@ When $G$ is nonabelian, the situation is much more difficult.
 $\cM$ is not a vector space. Nevertheless it has some reasonable geometric
 structure.
 From now on let us specialize to the case $G = \SU(2)$.
-In this case $P$ is classified by the integer \fixme{explain what's $p_1$}
+In this case $P$ is classified by the integer
 \begin{equation}
-  k = \int_X p_1(P).
+  k = \int_X c_2(P)
 \end{equation}
+where $c_2(P) \in H^4(X,\Z)$ denotes the second Chern class.
 \begin{fact}
 If $k>0$ and the metric $g$ on $X$ is generic, then $\cM$ is a finite-dimensional manifold.
 \end{fact}
