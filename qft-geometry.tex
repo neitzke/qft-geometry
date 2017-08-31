@@ -786,8 +786,7 @@ with some effort. In dimension $2$ there are still many rigorous things that can
 but already we begin facing difficulties, and these become more serious in dimensions $3$ and $4$.
 
 I expect that we will study dimension $0$, dimension $1$, maybe a short stop in dimension $2$,
-then jump to dimension $4$, in order that we can say something about the original motivation
-of the Donaldson / Seiberg-Witten relation.
+then jump to dimension $4$. The level of rigor will be inversely correlated with the dimension.
 
 
 % \begin{center}
@@ -995,8 +994,11 @@ Thus \eqref{eq:0d-series-rewritten} can be rewritten as
 \begin{equation}
   Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \frac{\abs{D_n}}{\abs{G_n}}.
 \end{equation}
-\fixme{orbits and orbit-stabilizer theorem}
-
+Finally by the orbit-stabilizer theorem this becomes
+\begin{equation}
+  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \sum_{\Gamma \in D_n / G_n} \frac{1}{\abs{\Aut \Gamma}}.
+\end{equation}
+\fixme{...}
 
 \appendix
 
@@ -1082,7 +1084,7 @@ double-covering map
 When $n > 2$, $\Spin(n)$ is simply connected, so this map identifies
 $\Spin(n)$ as the universal covering of $\SO(n)$.
 
-\begin{prop}[Spin representations] For 
+\begin{prop}[Spin representations] \fixme{...}
 \end{prop}
 
 \begin{defn}[Spin structures] \fixme{...}
