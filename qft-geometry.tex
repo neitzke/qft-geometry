@@ -242,7 +242,6 @@
 
 \newcommand{\tlambda}{\widetilde\lambda}
 
-
 \newcommand{\mmaref}[1]{}
 
 \newcommand{\ti}[1]{\textit{#1}}
@@ -274,6 +273,8 @@
 \DeclareMathOperator{\SU}{SU}
 \DeclareMathOperator{\U}{U}
 \DeclareMathOperator{\Cliff}{Cliff}
+\DeclareMathOperator{\vertices}{vertices}
+\DeclareMathOperator{\edges}{edges}
 
 \newcommand{\insfig}[2]{
 
@@ -1001,13 +1002,17 @@ Thus \eqref{eq:0d-series-rewritten} can be rewritten as
 \begin{equation}
   Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \frac{\abs{D_n}}{\abs{G_n}}.
 \end{equation}
-Finally by the orbit-stabilizer theorem this becomes
+By the orbit-stabilizer theorem this becomes
 \begin{equation}
-  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \sum_{[\Gamma] \in D_n / G_n} \frac{1}{\abs{\Aut \Gamma}}.
+  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \sum_{[\Gamma] \in D_n / G_n} \frac{1}{\abs{\Aut \Gamma}}
+\end{equation}
+which we could also rewrite as
+\begin{equation}
+  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{[\Gamma] \in \sqcup_n D_n / G_n} \frac{(-\lambda)^{\abs{\vertices(\Gamma)}}}{m^{\abs{\edges(\Gamma)}}} \frac{1}{\abs{\Aut \Gamma}}.
 \end{equation}
 Thus we have proven a diagrammatic rule:
 
-\begin{prop} To compute the perturbation
+\begin{prop}[Feynman diagram expansion for the partition function \eqref{eq:0d-partition-fn}] \label{prop:0d-feynman} To compute the perturbation
 expansion of the partition function \eqref{eq:0d-partition-fn} 
 we can follow the following algorithm.
 Draw one representative $\Gamma$ in
@@ -1021,19 +1026,22 @@ Then
   \frac{Z(m,\lambda)}{Z(m,0)} \sim \sum_\Gamma w_\Gamma.
 \end{equation}
 \end{prop}
-
-The first few orders are:
+The first few orders in the diagram expansion of $Z(m,\lambda)$ are:
 \insfig{qft-geometry-3}{0.8}
 This reproduces \eqref{eq:0d-perturbation-series} as it should.
 
 This basic mechanism can be extended in many ways:
 
 \begin{enumerate}
-\item Above we summed over both connected and disconnected $\Gamma$.
+\item In \autoref{prop:0d-feynman} 
+we sum over both connected and disconnected $\Gamma$.
 But the contribution from disconnected diagrams is easily determined:
+\begin{prop} The sum over connected diagrams is related to the sum over all
+diagrams by:
 \begin{equation}
   \sum_{\Gamma} w_\Gamma = \exp \left( \sum_{\Gamma \text{ connected nonempty}} w_\Gamma \right).
 \end{equation}
+\end{prop}
 (e.g. look at the first disconnected term above to get an inkling of why.)
 Said otherwise,
 \begin{equation}
@@ -1081,6 +1089,52 @@ like labeling species of particle which could propagate along the edges.)
 \end{enumerate}
 
 
+\subsection{A coupled system}
+
+Now suppose $\cC = \R^2$ and
+\begin{equation}
+  S(x,y) = \frac{m}{2} x^2 + \frac{M}{2} y^2 + \frac{\mu}{4} x^2 y^2.
+\end{equation}
+The Feynman rules for this theory are shown below:
+\insfig{qft-geometry-9}{1.0}
+A few sample computations are:
+\insfig{qft-geometry-10}{0.8}
+
+But the job of computing by Feynman diagrams 
+in this theory gets complicated fast.
+For example:
+\insfig{qft-geometry-11}{0.8}
+How can we avoid this enormous profusion of diagrams every time we want to 
+compute a correlation function?
+Suppose that we are only interested in computing correlations involving $x$.
+Then to simplify our task, we could use Fubini's theorem to integrate
+over $y$ ``once and for all'': define $S_\eff(x)$ by the equation
+\begin{equation}
+  \int \de y \, \e^{-S(x,y)} = \e^{-S_\eff(x)}
+\end{equation}
+and then use $S_\eff(x)$ as our action for subsequent computations.
+
+In this particular theory
+we can actually compute $S_\eff(x)$ explicitly: it is of the form
+\begin{equation}
+  S_\eff(x) = \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \lambda_k x^k
+\end{equation}
+with
+\begin{equation} \label{eq:seff-terms}
+  m_\eff = m + \frac{\mu}{2M}, \qquad \lambda_k = \begin{cases} 0 & \text{ for $k$ odd,} \\ - \left( - \frac{\mu}{M} \right)^{k/2} \frac{1}{2^{k/2+2} k} & \text{ for $k$ even.} \end{cases} 
+\end{equation}
+
+\begin{exercise} Use the effective action $S_\eff(x)$ to compute $\frac{\IP{x^4}}{Z}$ up to order $\mu^2$.
+Note that it is a lot easier than using the original action $S(x,y)$.
+\end{exercise}
+
+\begin{exercise} Derive the formula \eqref{eq:seff-terms}.
+\end{exercise}
+
+We can also compute a Feynman-diagram expansion for $S_\eff$: \fixme{...}
+Thus, diagrammatically speaking, integrating out to pass from $S$ 
+to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
+involving only the dashed $y$ lines into the new effective vertices.
 
 \appendix
 
@@ -1157,7 +1211,7 @@ and similarly $\Spin(n)$, $\Pin(n)$ etc.
 \end{itemize}
 \end{exercise}
 
-\begin{prop}[Spin group double-covers $SO$ group] When $\dim V \ge 2$ 
+\begin{prop}[Spin group double-covers $\SO$ group] When $\dim V \ge 2$ 
 there is a canonical double-covering map
 \begin{equation}
   \Spin(V) \to \SO(V).
