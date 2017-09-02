@@ -280,13 +280,9 @@
 \medskip
 \noindent
 \begin{minipage}{\linewidth}
-
 \makebox[\linewidth]{\includegraphics[keepaspectratio=true,scale=#2]{figures/#1-crop.pdf}}
-
 \end{minipage}
-\medskip
-
-}
+\noindent}
 
 
 % \newcommand{\insfig}[2]{\begin{figure}[htbp] \centering \includegraphics[scale=#2]{figures/#1-crop.pdf} \label{fig:#1} \end{figure}}
@@ -621,11 +617,16 @@ finite-dimensional integrals \eqref{eq:donaldson-integral} above.
 % at first apparent in Donaldson theory, and correlation functions
 % are one of the basic objects of study in quantum field theory.
 
-Impressive as this discovery was, it did not lead to any immediate
-breakthroughs in Donaldson theory as far as I know:
+Impressive as this discovery was, it did not lead to an immediate
+breakthrough in Donaldson theory:
 the formulas one could directly
 derive from the QFT perspective were just the \ti{same} formulas
-already written down by Donaldson.
+already written down by Donaldson. In 1994 Witten
+pushed forward somewhat further, using QFT to compute Donaldson invariants
+in the special case where $X$ is a 
+\kahler manifold \cite{Witten:1994ev}. But the next major development 
+had to wait for progress in physics: what was needed was a better understanding of the 
+physics of $\N=2$ supersymmetric Yang-Mills theory.
 
 
 \subsection{The action} \label{sec:intro-action}
@@ -670,7 +671,7 @@ which we will use when we put it on a general Riemannian $4$-manifold $X$.
 \subsection{Effective field theory: an analogy}
 
 The real breakthrough came with the work of Seiberg and Witten
-seven years later, in 1995 \cite{Seiberg:1994rs}.
+in 1995 \cite{Seiberg:1994rs}.
 In this work Seiberg and Witten answered a fundamental
 question about $\cN=2$ supersymmetric Yang-Mills theory:
 \ti{how does the theory behave at low energies?}
@@ -819,7 +820,7 @@ Then, let's define the action
   S: \cC \to \R
 \end{equation}
 by
-\begin{equation}
+\begin{equation} \label{eq:0d-action-quartic}
   S(x) = \frac{m}{2} x^2 + \frac{\lambda}{4!} x^4, \qquad \re(\lambda) \ge 0, \ m > 0.
 \end{equation}
 Now we can define the \ti{partition function},
@@ -967,7 +968,8 @@ Now we revisit \eqref{eq:0d-perturbation-series} and rewrite it one more time, a
 This formula has a neat combinatorial interpretation, in
 terms of \ti{Feynman diagrams}, as follows. 
 
-Our basic object is a vertex with $4$ half-edges attached. Such a vertex will ``carry'' a factor $-\tlambda$.
+Our basic object is a vertex with $4$ half-edges attached.
+% Such a vertex will ``carry'' a factor $-\tlambda$.
 \insfig{qft-geometry-1}{0.8}
 A Feynman diagram is obtained by first putting down some number of vertices and then 
 pairing up all the edges. All Feynman diagrams with one vertex, and some with two vertices,
@@ -1001,9 +1003,84 @@ Thus \eqref{eq:0d-series-rewritten} can be rewritten as
 \end{equation}
 Finally by the orbit-stabilizer theorem this becomes
 \begin{equation}
-  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \sum_{\Gamma \in D_n / G_n} \frac{1}{\abs{\Aut \Gamma}}.
+  Z(m, \lambda) \sim \sqrt\frac{2\pi}{m} \sum_{n=0}^\infty (-\tlambda)^n \sum_{[\Gamma] \in D_n / G_n} \frac{1}{\abs{\Aut \Gamma}}.
 \end{equation}
-\fixme{...}
+Thus we have proven a diagrammatic rule:
+
+\begin{prop} To compute the perturbation
+expansion of the partition function \eqref{eq:0d-partition-fn} 
+we can follow the following algorithm.
+Draw one representative $\Gamma$ in
+each equivalence class. Define a weight $w_\Gamma$ as a product of factors: 
+one factor $(-\lambda)$ for each vertex,
+one factor $\frac{1}{m}$ for each edge,
+\insfig{qft-geometry-4}{0.9}
+and an overall ``symmetry factor'' $\frac{1}{\abs{\Aut \Gamma}}$.
+Then
+\begin{equation}
+  \frac{Z(m,\lambda)}{Z(m,0)} \sim \sum_\Gamma w_\Gamma.
+\end{equation}
+\end{prop}
+
+The first few orders are:
+\insfig{qft-geometry-3}{0.8}
+This reproduces \eqref{eq:0d-perturbation-series} as it should.
+
+This basic mechanism can be extended in many ways:
+
+\begin{enumerate}
+\item Above we summed over both connected and disconnected $\Gamma$.
+But the contribution from disconnected diagrams is easily determined:
+\begin{equation}
+  \sum_{\Gamma} w_\Gamma = \exp \left( \sum_{\Gamma \text{ connected nonempty}} w_\Gamma \right).
+\end{equation}
+(e.g. look at the first disconnected term above to get an inkling of why.)
+Said otherwise,
+\begin{equation}
+  \log \left( \frac{Z(m,\lambda)}{Z(m,0)} \right) \sim \sum_{\Gamma \text{ connected nonempty}} w_\Gamma.
+\end{equation}
+
+\item Suppose we want to compute the correlation function $\IP{x^n}$,
+as defined in \eqref{eq:0d-expectation-values} (generalizing $Z$ which is the 
+case $n=0$). This is given by a similar sum over Feynman diagrams, except that
+now we introduce a new type of $1$-valent vertex, and require that the diagram
+contains exactly $n$ of these. The automorphisms of $\Gamma$ are required to
+fix these vertices.
+
+To compute the \ti{normalized} expectation value $\IP{x^n} / Z$, we compute
+similarly, with the additional rule that every component of the diagram
+must contain at least one of the $1$-valent vertices.
+\insfig{qft-geometry-5}{0.8}
+
+\item Instead of the action \eqref{eq:0d-action-quartic} we could take more
+generally
+\begin{equation}
+  S(x) = \frac{m}{2} x^2 + \sum_{k=3}^\infty \frac{\lambda_k}{k!} x^k.
+\end{equation}
+The Feynman diagram expansion then involves vertices of arbitrary valences,
+with each $k$-valent vertex contributing a factor $-\lambda_k$:
+\insfig{qft-geometry-6}{0.95}
+Here are some diagrams in the expansion of $Z / Z_0$:
+\insfig{qft-geometry-7}{0.8}
+
+\item Generalizing in a different direction, we could 
+take $\cC = \R^N$ instead of $\R$ (``multiple fields'')
+and generalize the action to
+\begin{equation}
+  S = \half x^i M_{ij} x^j + \frac{1}{4!} C_{ijkl} x^i x^j x^k x^l.
+\end{equation}
+Then we have
+\begin{equation}
+  Z_0 = \int_{\cC} \de \vec{x} \, \e^{-\half x^i M_{ij} x^j} = \frac{(2\pi)^{N/2}}{\sqrt{\det M}}
+\end{equation}
+and the Feynman rules involve half-edges decorated by labels $i \in \{1, \dots, N\}$:
+\insfig{qft-geometry-8}{1}
+(In higher-dimensional QFT, these sorts of labels would have an interpretation
+like labeling species of particle which could propagate along the edges.)
+
+\end{enumerate}
+
+
 
 \appendix
 
