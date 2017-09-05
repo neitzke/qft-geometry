@@ -945,7 +945,7 @@ singularity at $\lambda = 0$, in the sense of the next exercise.
 with an irregular singularity at $\tilde\lambda = 0$.
 \item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
 and this continuation has an essential singularity at $\lambda = 0$.
-\item Conclude that $Z(m, \lambda)$ cannot have
+\item Conclude (again) that $Z(m, \lambda)$ cannot have
 a convergent Taylor expansion around $\lambda = 0$.
 \end{enumerate}
 \end{exercise}
@@ -1060,6 +1060,18 @@ similarly, with the additional rule that every component of the diagram
 must contain at least one of the $1$-valent vertices.
 \insfig{qft-geometry-5}{0.8}
 
+\begin{exercise} Do the following:
+\begin{itemize}
+
+\item Compute the perturbative expansion of $\IP{x^2} / Z$ up to order $\lambda^3$, using Feynman diagrams.
+You should find $\IP{x^2} / Z = \frac{1}{m} (1 - \frac{1}{2} \tilde\lambda + \frac{2}{3} \tilde\lambda^2 - \frac{11}{8} \tilde\lambda^3 + \cdots )$.
+(I drew the diagrams up to order $\tilde\lambda^2$ above.)
+
+\item Compute the perturbative expansion of $\IP{x^4} / Z$ up to order $\lambda^2$, using Feynman diagrams. You should find $\IP{x^4} / Z = \frac{1}{m^2} (3 - 4 \tilde\lambda + \frac{33}{4} \tilde\lambda^2 + \cdots )$.
+\end{itemize}
+\end{exercise}
+
+
 \item Instead of the action \eqref{eq:0d-action-quartic} we could take more
 generally
 \begin{equation}
@@ -1072,9 +1084,14 @@ Here are some diagrams in the expansion of $Z / Z_0$:
 \insfig{qft-geometry-7}{0.8}
 
 \item Generalizing in a different direction, we could 
-take $\cC = \R^N$ instead of $\R$ (``multiple fields'')
-and generalize the action to
-\begin{equation}
+take $\cC = \R^N$ instead of $\R$ (``multiple fields''),
+with coordinates $x^1, \dots, x^N$,
+and generalize the action to\footnote{Here and in many future equations we are using
+the ``Einstein summation convention'': any index which appears both up and down should be 
+summed over. So the first term in \eqref{eq:0d-action-multifield} should be read
+$\half \sum_{i=1}^N \sum_{j=1}^N x^i M_{ij} x^j$ and similarly the second term involves
+four sums.}
+\begin{equation} \label{eq:0d-action-multifield}
   S = \half x^i M_{ij} x^j + \frac{1}{4!} C_{ijkl} x^i x^j x^k x^l.
 \end{equation}
 Then we have
@@ -1095,8 +1112,14 @@ Now suppose $\cC = \R^2$ and
 \begin{equation}
   S(x,y) = \frac{m}{2} x^2 + \frac{M}{2} y^2 + \frac{\mu}{4} x^2 y^2.
 \end{equation}
-The Feynman rules for this theory are shown below:
+We think of this as two independent systems, one involving the field $x$
+and one involving the field $y$, which are ``coupled'' by the quartic interaction
+term $\frac{\mu}{4} x^2 y^2$. You can see this point of view vividly in the
+Feynman rules for this theory, shown below:
 \insfig{qft-geometry-9}{1.0}
+\begin{exercise} Explain how these Feynman rules arise as a special case of
+the multiple-field rules given above.
+\end{exercise}
 A few sample computations are:
 \insfig{qft-geometry-10}{0.8}
 
@@ -1115,26 +1138,54 @@ over $y$ ``once and for all'': define $S_\eff(x)$ by the equation
 and then use $S_\eff(x)$ as our action for subsequent computations.
 
 In this particular theory
-we can actually compute $S_\eff(x)$ explicitly: it is of the form
+we can compute the perturbation series of $S_\eff(x)$ explicitly: it is of the form
 \begin{equation}
-  S_\eff(x) = \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \lambda_k x^k
+  S_\eff(x) \sim \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \lambda_k x^k
 \end{equation}
 with
 \begin{equation} \label{eq:seff-terms}
   m_\eff = m + \frac{\mu}{2M}, \qquad \lambda_k = \begin{cases} 0 & \text{ for $k$ odd,} \\ - \left( - \frac{\mu}{M} \right)^{k/2} \frac{1}{2^{k/2+2} k} & \text{ for $k$ even.} \end{cases} 
 \end{equation}
 
+Some qualitative remarks about $S_\eff(x)$:
+\begin{itemize}
+\item Even though the original action $S(x,y)$ had only a quartic interaction, the
+effective action $S_\eff(x)$ involves interactions of all orders.
+\item We could approximate $S_\eff(x)$ by the simpler procedure of setting $y=0$ in $S(x,y)$.
+This would not give the exact answer, because the fields are coupled: it would
+give $m_\eff = m$ and all $\lambda_k = 0$. Thus the shift $m_\eff - m$ and the nonzero 
+values of the $\lambda_k$ could be thought of as ``quantum corrections'' which are some vestige
+of the field $y$. Note these corrections 
+go to zero in the limit $\mu \to 0$ (decoupling) and also go to
+zero in the limit $M \to \infty$.
+\end{itemize}
+
 \begin{exercise} Use the effective action $S_\eff(x)$ to compute $\frac{\IP{x^4}}{Z}$ up to order $\mu^2$.
-Note that it is a lot easier than using the original action $S(x,y)$.
+Note that it is a lot easier than using the original action $S(x,y)$, but it indeed agrees
+with the result of the computation done above.
 \end{exercise}
 
-\begin{exercise} Derive the formula \eqref{eq:seff-terms}.
+\begin{exercise} Derive the formula \eqref{eq:seff-terms}. \fixme{maybe hard?}
 \end{exercise}
 
-We can also compute a Feynman-diagram expansion for $S_\eff$: \fixme{...}
-Thus, diagrammatically speaking, integrating out to pass from $S$ 
+We can also compute a Feynman-diagram expansion for $S_\eff$. The rules here
+turn out to be as follows: we introduce a new $1$-valent vertex and 
+sum over diagrams where all $x$ lines are required to terminate on a $1$-valent vertex.
+In counting the symmetry factor we do \ti{not} require that these $1$-valent vertices 
+are fixed by the automorphisms. The Feynman rules are:
+\insfig{qft-geometry-12}{0.95}
+
+\begin{exercise}
+Use these Feynman rules to derive \eqref{eq:seff-terms}. (Hint: the first few
+diagrams contributing are shown below.)
+\end{exercise}
+\insfig{qft-geometry-13}{0.8}
+
+Diagrammatically speaking, integrating out the field $y$ to pass from $S$ 
 to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
-involving only the dashed $y$ lines into the new effective vertices.
+involving only the dashed $y$ lines; these parts get absorbed 
+into the new effective vertices.
+
 
 \appendix
 
