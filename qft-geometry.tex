@@ -822,7 +822,7 @@ Then, let's define the action
 \end{equation}
 by
 \begin{equation} \label{eq:0d-action-quartic}
-  S(x) = \frac{m}{2} x^2 + \frac{\lambda}{4!} x^4, \qquad \re(\lambda) \ge 0, \ m > 0.
+  S(x) = \frac{m}{2} x^2 + \frac{\lambda}{4!} x^4, \qquad \lambda \ge 0, \ m > 0.
 \end{equation}
 Now we can define the \ti{partition function},
 \begin{equation} \label{eq:0d-partition-fn}
@@ -899,7 +899,7 @@ This means
 \end{align}
 and so on.
 \begin{prop}[Perturbation series is an asymptotic series] \label{prop:pert-asymp} The series \eqref{eq:0d-perturbation-series}
-gives an asymptotic series for $Z(m,\lambda)$ as $\lambda \to 0^+$ for fixed $m$.
+is an asymptotic series for $Z(m,\lambda)$ as $\lambda \to 0^+$ for fixed $m$.
 \end{prop}
 
 \begin{exercise} Prove \autoref{prop:pert-asymp}. (This amounts to showing that the dubious step
@@ -943,7 +943,8 @@ singularity at $\lambda = 0$, in the sense of the next exercise.
 \item Show that $Z(m,\lambda)$ obeys the differential equation $4 \partial_m^2 Z = (4!)^4 \partial_\lambda^4 Z$.
 \item Show that $f(\tilde\lambda)$ obeys an ordinary differential equation in $\tilde\lambda$,
 with an irregular singularity at $\tilde\lambda = 0$.
-\item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to $\C \setminus \{ 0 \}$
+\item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to 
+\fixme{a branched cover of?} $\C \setminus \{ 0 \}$
 and this continuation has an essential singularity at $\lambda = 0$.
 \item Conclude (again) that $Z(m, \lambda)$ cannot have
 a convergent Taylor expansion around $\lambda = 0$.
@@ -1056,7 +1057,7 @@ contains exactly $n$ of these. The automorphisms of $\Gamma$ are required to
 fix these vertices.
 
 To compute the \ti{normalized} expectation value $\IP{x^n} / Z$, we compute
-similarly, with the additional rule that every component of the diagram
+similarly, with the additional rule that every connected component of each diagram
 must contain at least one of the $1$-valent vertices.
 \insfig{qft-geometry-5}{0.8}
 
@@ -1168,7 +1169,8 @@ with the result of the computation done above.
 \begin{exercise} Derive the formula \eqref{eq:seff-terms}. \fixme{maybe hard?}
 \end{exercise}
 
-We can also compute a Feynman-diagram expansion for $S_\eff$. The rules here
+There is also a Feynman-diagram expansion for the computation of the effective action 
+$S_\eff$. The rules here
 turn out to be as follows: we introduce a new $1$-valent vertex and 
 sum over diagrams where all $x$ lines are required to terminate on a $1$-valent vertex.
 In counting the symmetry factor we do \ti{not} require that these $1$-valent vertices 
