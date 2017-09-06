@@ -1093,16 +1093,38 @@ summed over. So the first term in \eqref{eq:0d-action-multifield} should be read
 $\half \sum_{i=1}^N \sum_{j=1}^N x^i M_{ij} x^j$ and similarly the second term involves
 four sums.}
 \begin{equation} \label{eq:0d-action-multifield}
-  S = \half x^i M_{ij} x^j + \frac{1}{4!} C_{ijkl} x^i x^j x^k x^l.
+  S = \half x^i M_{ij} x^j + \frac{1}{4!} C_{ijkl} x^i x^j x^k x^l,
 \end{equation}
+where $M$ and $C$ are both totally symmetric in their indices.
 Then we have
 \begin{equation}
-  Z_0 = \int_{\cC} \de \vec{x} \, \e^{-\half x^i M_{ij} x^j} = \frac{(2\pi)^{N/2}}{\sqrt{\det M}}
+  Z_0 = \int_{\cC} \de \vec{x} \, \e^{-\half x^i M_{ij} x^j} = \frac{(2\pi)^{N/2}}{\sqrt{\det M}}.
 \end{equation}
-and the Feynman rules involve half-edges decorated by labels $i \in \{1, \dots, N\}$:
+The diagrams $\Gamma$ are just as before, with edges and quartic vertices. However,
+in the Feynman rules we attach additional labels $i \in \{1, \dots, N\}$ on the half-edges:
 \insfig{qft-geometry-8}{1}
+To compute the weight $w_\Gamma$ we sum over all possible labels for
+the half-edges (so for a diagram with $k$ edges we sum
+$N^{2k}$ terms), and divide by the usual symmetry factor $\abs{\Aut \Gamma}$ 
+for the unlabeled diagram $\Gamma$.
 (In higher-dimensional QFT, these sorts of labels would have an interpretation
 like labeling species of particle which could propagate along the edges.)
+
+A basis-free description of this situation is as follows.
+Let $\cC$ be a finite-dimensional real vector space with positive definite inner product
+$\IP{\cdot,\cdot}$, and two elements
+\begin{equation}
+  M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
+\end{equation}
+Then consider the action
+\begin{equation}
+  S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
+\end{equation}
+The Feynman rules now assign a vector in $(V^*)^{\otimes k}$ to any diagram element
+with $k$ open half-edges, as below:
+\insfig{qft-geometry-14}{0.9}
+When we put two half-edges together to make an edge, we use the inverse of the pairing
+$\IP{\cdot,\cdot}$ to contract the corresponding slots of the tensors.
 
 \end{enumerate}
 
