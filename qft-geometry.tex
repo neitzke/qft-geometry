@@ -962,7 +962,7 @@ in which he gives a heuristic physical argument that the perturbation series
 in quantum electrodynamics is only asymptotic.
 \end{exercise}
 
-Actually, $Z(m,\lambda)$ can be computed in closed form, e.g. by Mathematica:
+Actually, it turns out that in this particular theory $Z(m,\lambda)$ can be computed in closed form, e.g. by Mathematica:
 \begin{equation}
   Z(m,\lambda) = \sqrt{\frac{3m}{\lambda}} \e^{3 m^2 / 4 \lambda} K_{\frac14} \left(\frac{3m^2}{\lambda}\right).
 \end{equation}
@@ -1188,6 +1188,7 @@ values of the $\lambda_k$ could be thought of as ``quantum corrections'' which a
 of the field $y$. Note these corrections 
 go to zero in the limit $\mu \to 0$ (decoupling) and also go to
 zero in the limit $M \to \infty$.
+\item The perturbation series for $S_\eff(x)$ actually is convergent \fixme{why?}
 \end{itemize}
 
 \begin{exercise} Use the effective action $S_\eff(x)$ to compute $\frac{\IP{x^4}}{Z}$ up to order $\mu^2$.
@@ -1216,6 +1217,58 @@ Diagrammatically speaking, integrating out the field $y$ to pass from $S$
 to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
 involving only the dashed $y$ lines; these parts get absorbed 
 into the new effective vertices.
+
+
+\subsection{Symmetries}
+
+Let us return to the original theory with action
+\eqref{eq:0d-action-quartic}. In this theory we have
+\begin{equation} \label{eq:odd-vanishing}
+  \IP{x^n} = 0 \quad \text { for $n$ odd}
+\end{equation}
+One direct way of seeing this is to make the change
+of variables $x \to -x$ in the integral \eqref{eq:0d-partition-fn}.
+Since $S(x) = S(-x)$ this change of variables gives
+\begin{equation}
+  \IP{x^n} = \IP{(-x)^n} = (-1)^n \IP{x^n}
+\end{equation}
+from which \eqref{eq:odd-vanishing} follows.
+
+The Feynman-diagrammatic expression of \eqref{eq:odd-vanishing}
+is that there simply are no possible diagrams with an odd number 
+of $1$-valent vertices, since the number of half-edges would then 
+be odd, no matter how many $4$-valent vertices we add.
+The same wouldn't be true if we allow vertices of odd valence;
+of course such vertices arise only when there are
+odd-degree terms in $S$, which violate the symmetry $x \to -x$.
+
+More generally, 
+\begin{prop}[Symmetries and correlation functions]
+Whenever $S: \cC \to \R$ and the measure on $\cC$ are both 
+invariant under the action of a group $G$, then we have
+\begin{equation} \label{eq:correlator-symmetry}
+  \IP{\cO^g} = \IP{\cO}
+\end{equation}
+where $\cO: \cC \to \R$ is any observable, and $\cO^g = g^* \cO$.
+\end{prop}
+
+If $G$ is a Lie group, we can differentiate \eqref{eq:correlator-symmetry} 
+to get
+\begin{prop}[Infinitesimal symmetries and correlation functions]
+Whenever $S: \cC \to \R$ and the measure on $\cC$ are both 
+invariant under the action of a Lie group $G$, then we have
+\begin{equation}
+  \IP{X \cO} = 0
+\end{equation}
+where $\cO: \cC \to \R$ is any observable, and $X \in \fg$.
+\end{prop}
+
+\subsection{Fermions}
+
+So far, the results of our QFT computations have been very far from
+``topological'': $Z$ and all the expectation values
+$\IP{x^n}$ are nontrivial functions of the parameters $(m,\lambda)$
+with no kind of deformation invariance in sight.
 
 
 \appendix
