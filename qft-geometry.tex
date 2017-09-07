@@ -1200,7 +1200,7 @@ Note that it is a lot easier than using the original action $S(x,y)$, but it ind
 with the result of the computation done above.
 \end{exercise}
 
-\begin{exercise} Derive the formula \eqref{eq:seff-terms}. \fixme{maybe hard?}
+\begin{exercise} Derive the formula \eqref{eq:seff-terms}.
 \end{exercise}
 
 There is also a Feynman-diagram expansion for the computation of the effective action 
@@ -1339,7 +1339,7 @@ If $V = V^0$ then $\Sym^*V$ is (forgetting its super structure)
 the usual $\Sym^* V^0$,
 but if $V = V^1$ then $\Sym^* V$ is the exterior algebra $\wedge^* V^1$.
 
-\begin{defn}
+\begin{defn}[Polynomial functions on a super vector space]
 Given a super vector space $V$, 
 we define the algebra of polynomial functions $\cO(V)$ on $V$
 by
@@ -1370,7 +1370,7 @@ The simplest example we can consider is to take
 \end{equation}
 $\cC$ has two ``coordinate functions''
 \begin{equation}
-  \psi^1, \psi^2 \in \cO^1(\cC)
+  \psi^1, \psi^2 \in \cO^1(\cC) = (V^1)^*
 \end{equation}
 but these coordinates have ``odd statistics''
 \begin{equation} \label{eq:relations-R02}
@@ -1382,8 +1382,8 @@ but \eqref{eq:relations-R02} implies it is nilpotent,
   (\psi^1 \psi^2)^2 = 0.
 \end{equation}
 (In fact $\dim \cO(C) = 2 \vert 2$ as we expect from the identification
-with the exterior algebra on $\R^2$; the even part $\cO^0(\cC)$ is spanned
-by $1$ and $\psi^1 \psi^2$, the odd part $\cO^1(\cC)$ by $\psi^1$ and $\psi^2$.)
+with the exterior algebra on $\R^2$; the even part $\cO^0(\cC)$ has basis
+$\{1, \psi^1 \psi^2\}$, the odd part $\cO^1(\cC)$ has basis $\{\psi^1, \psi^2\}$.)
 
 Now let us take the action functional
 \begin{equation}
@@ -1396,18 +1396,47 @@ We would like to make sense of the partition function in this setting,
 \begin{equation}
   Z = \int_\cC \de\mu \, \e^{-S}.
 \end{equation}
-For this we need some notion of a ``measure of integration'' $\de \mu$.
-The necessary bit of linear algebra is:
-\begin{defn}
-The \ti{Berezinian} of a super vector space $V$ is
+Expanding the exponential, the fact that $S^2 = 0$ means it \ti{truncates} to a polynomial:
 \begin{equation}
-  \Ber V = \wedge^\rmtop V^0 \otimes \wedge^\rmtop (V^1)^*.
+  Z = -\half M \int_\cC \de \mu \, \psi^1 \psi^2.
 \end{equation}
-\end{defn}
-Our measure will just be an element of $\Ber V$.
-We may think of it as the \ti{ratio} of volume forms $\omega^0$, $\omega^1$
-on the two pieces of $V$. Then the integral is
-\fixme{...}
+What will we mean by such an integral?
+Integration over a purely odd vector space is defined to mean taking the
+``top order part'' of the function.
+More exactly: we choose an element
+\begin{equation}
+  1 / \de \mu \in \wedge^\rmtop(V^1)^*,
+\end{equation}
+and integration $\int \de \mu f$ just means taking the ratio between
+the $\wedge^\rmtop(V^1)^*$ part of $f$ and the element $1 / \de \mu$.
+This means that up to a constant multiple, 
+the integral is the coefficient in front of $\psi^1 \psi^2$.
+Fixing this constant amounts to specifying our precise choice of $\de \mu$.
+Let us choose it so that the integral is equal to precisely the coefficient of $\psi^1 \psi^2$,
+i.e.
+\begin{equation}
+ Z = - \half M.  
+\end{equation}
+\fixme{compare with physicists' usual formulas}
+
+% The necessary bit of linear algebra is:
+% \begin{defn}
+% The \ti{Berezinian} of a super vector space $V$ is
+% \begin{equation}
+%   \Ber V = \wedge^\rmtop V^0 \otimes \wedge^\rmtop (V^1)^*.
+% \end{equation}
+% \end{defn}
+% Locally a measure of integration be an element $\omega \in \Ber V$.
+% We may think of it as the \ti{ratio} $\omega = \omega^0 / \omega^1$ 
+% of volume forms $\omega^0$, $\omega^1$
+% on the two pieces of $V$. Then given $f \in \cO(V)$,
+% we define
+% \begin{defn} If $V$ is a super vector space, $\omega = \omega^0 / \omega^1 \in \Ber V$,
+% and $f \in \cO(V)$, then
+% \begin{equation}
+%     \int_V \, \omega f = \cdots 
+%  \end{equation}
+% \end{defn}
 
 
 \appendix
