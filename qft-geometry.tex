@@ -228,6 +228,7 @@
 \renewcommand{\sf}{\mathrm{sf}}
 \newcommand{\inst}{\mathrm{inst}}
 \newcommand{\eff}{\mathrm{eff}}
+\newcommand{\rmtop}{\mathrm{top}}
 \newcommand{\dR}{\mathrm{dR}}
 \newcommand{\closed}{\mathrm{closed}}
 \newcommand{\exact}{\mathrm{exact}}
@@ -276,6 +277,7 @@
 \DeclareMathOperator{\vertices}{vertices}
 \DeclareMathOperator{\edges}{edges}
 \DeclareMathOperator{\Obs}{Obs}
+\DeclareMathOperator{\Ber}{Ber}
 
 \newcommand{\insfig}[2]{
 
@@ -1392,10 +1394,20 @@ way of introducing an interaction term!)
 
 We would like to make sense of the partition function in this setting,
 \begin{equation}
-  Z = \int \de \psi^1 \de \psi^2 \e^{-S} = \int \de \psi^1 \de \psi^2 \e^{-\half M \psi^1 \psi^2}.
+  Z = \int_\cC \de\mu \, \e^{-S}.
 \end{equation}
-For this we need some rules for integration over odd directions.
-The rules are as follows: 
+For this we need some notion of a ``measure of integration'' $\de \mu$.
+The necessary bit of linear algebra is:
+\begin{defn}
+The \ti{Berezinian} of a super vector space $V$ is
+\begin{equation}
+  \Ber V = \wedge^\rmtop V^0 \otimes \wedge^\rmtop (V^1)^*.
+\end{equation}
+\end{defn}
+Our measure will just be an element of $\Ber V$.
+We may think of it as the \ti{ratio} of volume forms $\omega^0$, $\omega^1$
+on the two pieces of $V$. Then the integral is
+\fixme{...}
 
 
 \appendix
