@@ -275,6 +275,7 @@
 \DeclareMathOperator{\Cliff}{Cliff}
 \DeclareMathOperator{\vertices}{vertices}
 \DeclareMathOperator{\edges}{edges}
+\DeclareMathOperator{\Obs}{Obs}
 
 \newcommand{\insfig}[2]{
 
@@ -824,7 +825,13 @@ by
 \begin{equation} \label{eq:0d-action-quartic}
   S(x) = \frac{m}{2} x^2 + \frac{\lambda}{4!} x^4, \qquad \lambda \ge 0, \ m > 0.
 \end{equation}
-Now we can define the \ti{partition function},
+Now we can define the \ti{partition function},\footnote{Incidentally, it turns out that in this particular theory $Z(m,\lambda)$ 
+actually has a name: e.g. Mathematica gives it as
+\begin{equation}
+  Z(m,\lambda) = \sqrt{\frac{3m}{\lambda}} \e^{3 m^2 / 4 \lambda} K_{\frac14} \left(\frac{3m^2}{\lambda}\right).
+\end{equation}
+This should increase your confidence that we are dealing here with
+an absolutely concrete and well-defined function.}
 \begin{equation} \label{eq:0d-partition-fn}
   Z = \int_{-\infty}^\infty \de x \, \e^{-S(x)}.
 \end{equation}
@@ -945,8 +952,7 @@ singularity at $\lambda = 0$, in the sense of the next exercise.
 \item Show that $Z(m,\lambda)$ obeys the differential equation $4 \partial_m^2 Z = (4!)^4 \partial_\lambda^4 Z$.
 \item Show that $f(\tilde\lambda)$ obeys an ordinary differential equation in $\tilde\lambda$,
 with an irregular singularity at $\tilde\lambda = 0$.
-\item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to 
-\fixme{a branched cover of?} $\C \setminus \{ 0 \}$
+\item Show that, for fixed $m$, $Z(m, \lambda)$ admits analytic continuation to a branched cover of $\C \setminus \{ 0 \}$
 and this continuation has an essential singularity at $\lambda = 0$.
 \item Conclude (again) that $Z(m, \lambda)$ cannot have
 a convergent Taylor expansion around $\lambda = 0$.
@@ -962,10 +968,6 @@ in which he gives a heuristic physical argument that the perturbation series
 in quantum electrodynamics is only asymptotic.
 \end{exercise}
 
-Actually, it turns out that in this particular theory $Z(m,\lambda)$ can be computed in closed form, e.g. by Mathematica:
-\begin{equation}
-  Z(m,\lambda) = \sqrt{\frac{3m}{\lambda}} \e^{3 m^2 / 4 \lambda} K_{\frac14} \left(\frac{3m^2}{\lambda}\right).
-\end{equation}
 
 
 \subsection{Feynman diagrams}
@@ -1243,7 +1245,7 @@ of course such vertices arise only when there are
 odd-degree terms in $S$, which violate the symmetry $x \to -x$.
 
 More generally, 
-\begin{prop}[Symmetries and correlation functions]
+\begin{prop}[Symmetries and correlation functions] \label{prop:symmetry-correlators}
 Whenever $S: \cC \to \R$ and the measure on $\cC$ are both 
 invariant under the action of a group $G$, then we have
 \begin{equation} \label{eq:correlator-symmetry}
@@ -1251,6 +1253,17 @@ invariant under the action of a group $G$, then we have
 \end{equation}
 where $\cO: \cC \to \R$ is any observable, and $\cO^g = g^* \cO$.
 \end{prop}
+
+\begin{exercise} Prove \autoref{prop:symmetry-correlators}.
+\end{exercise}
+
+\begin{exercise}
+Suppose the space $\Obs$ of all observables $\cO$ is decomposed
+into isotypical components, $\Obs = \bigoplus_R \Obs_R$,
+where $R$ runs over irreducible representations of $G$.
+Show that if $\cO \in \Obs_R$ and $R$ is nontrivial
+then $\IP{\cO} = 0$.
+\end{exercise}
 
 If $G$ is a Lie group, we can differentiate \eqref{eq:correlator-symmetry} 
 to get
@@ -1263,12 +1276,126 @@ invariant under the action of a Lie group $G$, then we have
 where $\cO: \cC \to \R$ is any observable, and $X \in \fg$.
 \end{prop}
 
+\begin{exercise}
+Take $\cC = \R^2$ and $S(x,y) = \half m x^2 + \half m y^2$.
+Alternatively, letting $z = x + \I y$, we can say $\cC = \C$
+and $S(z) = \half m \abs{z}^2$.
+Consider the complex observables $\cO_n: \cC \to \C$ given by
+$\cO_n(z) = z^n$.
+Use \autoref{prop:symmetry-correlators} to show that the correlation function
+$\IP{\cO_n}$ vanishes for all $n \neq 0$. Is the same true if
+$S(z) = V(\abs{z})$ for more general $V$? 
+What about if $S(z)$ is an arbitrary function of $z$?
+\end{exercise}
+
 \subsection{Fermions}
 
 So far, the results of our QFT computations have been very far from
 ``topological'': $Z$ and all the expectation values
 $\IP{x^n}$ are nontrivial functions of the parameters $(m,\lambda)$
 with no kind of deformation invariance in sight.
+
+In the applications of QFT toward which we are headed, 
+we will do things that are more deformation
+invariant. But to get there, we need one more key ingredient: \ti{fermions}.
+
+We will replace the field space $\cC$, which so far has been a manifold
+(in fact a vector space), by a \ti{supermanifold} (in fact super vector
+space).
+
+\begin{defn}[Super vector space] A \ti{super vector space} is a $\Z/2\Z$-graded vector space,
+\begin{equation}
+  V = V^0 \oplus V^1.
+\end{equation}
+\end{defn}
+
+\begin{example}The basic example is the super vector space $V$
+with $V^0 = \R^p$, $V^1 = \R^q$; call this $\R^{p \vert q}$. 
+\end{example}
+
+\begin{defn}[Symmetric monoidal category of super vector spaces]
+The \ti{symmetric monoidal category} of super vector spaces 
+is not the same as the symmetric monoidal category of ordinary
+vector spaces: we use a different symmetry isomorphism
+\begin{equation}
+  s: V \otimes W \to W \otimes V,
+\end{equation}
+namely, for homogeneous elements $v$, $w$ of degrees $\abs{v}$, $\abs{w}$
+we take
+\begin{equation}
+  s (v \otimes w) = (-1)^{\abs{v} \abs{w}} w \otimes v.
+\end{equation}
+\end{defn}
+This turns out to be a very useful category!
+
+Some standard constructions in linear algebra take on a different
+character when applied to super vector spaces. For example,
+if $V$ is a super vector space then we define the symmetric 
+algebra $\Sym^* V$ to be the quotient of $T^* V$ by
+the two-sided ideal generated by $(v \otimes w - s(v \otimes w))$.
+If $V = V^0$ then $\Sym^*V$ is (forgetting its super structure) 
+the usual $\Sym^* V^0$,
+but if $V = V^1$ then $\Sym^* V$ is the exterior algebra $\wedge^* V^1$.
+
+\begin{defn}
+Given a super vector space $V$, 
+we define the algebra of polynomial functions $\cO(V)$ on $V$
+by
+\begin{equation}
+  \cO(V) = \Sym^* (V^*).
+\end{equation}
+\end{defn}
+
+$\cO(V)$ is itself a super vector space,
+\begin{equation}
+  \cO(V) = \cO^0(V) \oplus \cO^1(V),
+\end{equation}
+and even a (super)commutative algebra.
+
+In quantum field theory we want to consider a space $\cC$ 
+with an action $S$ which is some kind of ``function on $\cC$''. 
+For $\cC$ a super vector space, our model of ``function on $\cC$''
+will be an element
+\begin{equation}
+S \in \cO^0(V).
+\end{equation}
+
+\subsection{A fermionic theory}
+
+The simplest example we can consider is to take
+\begin{equation}
+  \cC = \R^{0 \vert 2}.
+\end{equation}
+$\cC$ has two ``coordinate functions''
+\begin{equation}
+  \psi^1, \psi^2 \in \cO^1(\cC)
+\end{equation}
+but these coordinates have ``odd statistics''
+\begin{equation} \label{eq:relations-R02}
+  \psi^1 \psi^2 = -\psi^2 \psi^1, \quad (\psi^1)^2 = 0, \quad (\psi^2)^2 = 0.
+\end{equation}
+Note that $\psi^1 \psi^2 \in \cO^0(\cC)$ is a nice even function,
+but \eqref{eq:relations-R02} implies it is nilpotent,
+\begin{equation}
+  (\psi^1 \psi^2)^2 = 0.
+\end{equation}
+(In fact $\dim \cO(C) = 2 \vert 2$ as we expect from the identification
+with the exterior algebra on $\R^2$; the even part $\cO^0(\cC)$ is spanned
+by $1$ and $\psi^1 \psi^2$, the odd part $\cO^1(\cC)$ by $\psi^1$ and $\psi^2$.)
+
+Now let us take the action functional
+\begin{equation}
+  S = \half M \psi^1 \psi^2.
+\end{equation}
+(Unlike in the bosonic case, here this is all we can do --- there is no 
+way of introducing an interaction term!)
+
+We would like to make sense of the partition function in this setting,
+\begin{equation}
+  Z = \int \de \psi^1 \de \psi^2 \e^{-S} = \int \de \psi^1 \de \psi^2 \e^{-\half M \psi^1 \psi^2}.
+\end{equation}
+For this we need some rules for integration over odd directions.
+The rules are as follows: 
 
 
 \appendix
