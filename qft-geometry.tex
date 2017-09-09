@@ -1176,7 +1176,7 @@ and then use $S_\eff(x)$ as our action for subsequent computations.
 
 In this particular theory
 we can compute the perturbation series of $S_\eff(x)$ explicitly: it is of the form
-\begin{equation}
+\begin{equation} \label{eq:seff-series}
   S_\eff(x) \sim \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \frac{\lambda_k}{k!} x^k
 \end{equation}
 with
@@ -1187,7 +1187,17 @@ with
 Some qualitative remarks about $S_\eff(x)$:
 \begin{itemize}
 \item Even though the original action $S(x,y)$ had only a quartic interaction, the
-effective action $S_\eff(x)$ involves interactions of all orders.
+effective action $S_\eff(x)$ involves interactions of all even orders.
+Diagrammatically speaking, integrating out the field $y$ to pass from $S$ 
+to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
+involving only the dashed $y$ lines; these parts get absorbed 
+into the new effective vertices
+
+\item The fact that in the effective theory 
+we only get interaction vertices of even orders is
+related to the fact that the original action $S(x,y)$ has the symmetry
+$x \to -x$, which implies that $S_\eff(x)$ must have the same symmetry.
+
 \item We could approximate $S_\eff(x)$ by the simpler procedure of setting $y=0$ in $S(x,y)$.
 This would not give the exact answer, because the fields are coupled: it would
 give $m_\eff = m$ and all $\lambda_k = 0$. Thus the shift $m_\eff - m$ and the nonzero 
@@ -1195,7 +1205,8 @@ values of the $\lambda_k$ could be thought of as ``quantum corrections'' which a
 of the field $y$. Note these corrections 
 go to zero in the limit $\mu \to 0$ (decoupling) and also go to
 zero in the limit $M \to \infty$.
-\item The perturbation series for $S_\eff(x)$ actually is convergent \fixme{why?}
+\item The series \eqref{eq:seff-series} for $S_\eff(x)$ actually is convergent, not
+only asymptotic.
 \end{itemize}
 
 \begin{exercise} Use the effective action $S_\eff(x)$ to compute $\frac{\IP{x^4}}{Z}$ up to order $\mu^2$.
@@ -1219,11 +1230,6 @@ Use these Feynman rules to derive \eqref{eq:seff-terms}. (Hint: the first few
 diagrams contributing are shown below.)
 \end{exercise}
 \insfig{qft-geometry-13}{0.8}
-
-Diagrammatically speaking, integrating out the field $y$ to pass from $S$ 
-to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
-involving only the dashed $y$ lines; these parts get absorbed 
-into the new effective vertices.
 
 
 \subsection{Symmetries}
@@ -1396,33 +1402,82 @@ Now let us take the action functional
 way of introducing an interaction term!)
 
 We would like to make sense of the partition function in this setting,
-\begin{equation}
+\begin{equation} \label{eq:2-fermion-partition-function}
   Z = \int_\cC \de\mu \, \e^{-S}.
 \end{equation}
 Expanding the exponential, the fact that $S^2 = 0$ means it \ti{truncates} to a polynomial:
-\begin{equation}
+\begin{equation} \label{eq:2-fermion-partition-function-expanded}
   Z = -\half M \int_\cC \de \mu \, \psi^1 \psi^2.
 \end{equation}
 What will we mean by such an integral?
 Integration over a purely odd vector space is defined to mean taking the
 ``top order part'' of the function.
-More exactly: the ``choice of measure'' here is given by picking an element
-\begin{equation}
-  1 / \de \mu \in \wedge^\rmtop(V^1)^*,
+More exactly: 
+
+\begin{defn} A \ti{measure} $\de \mu$ 
+on a purely odd super vector space $V = V^1$
+is given by picking an element
+\begin{equation} \label{eq:measure-odd-vector-space}
+  1 / \de \mu \in \wedge^\rmtop(V^1)^*.
 \end{equation}
-and integration $\int \de \mu f$ just means taking the ratio between
-the $\wedge^\rmtop(V^1)^*$ part of $f$ and the element $1 / \de \mu$.
-This means that up to a constant multiple, 
-the integral is the coefficient in front of $\psi^1 \psi^2$.
-Fixing this constant amounts to specifying our precise choice of $\de \mu$.
-Let us choose it so that the integral is equal to precisely the coefficient of $\psi^1 \psi^2$,
-i.e.
+For any $f \in \cO(V) \simeq \wedge^*(V^1)$, let
+$f^\rmtop \in \wedge^\rmtop(V^1)$ be the top component of $f$; then
+we define the integral by
+\begin{equation}
+  \int_V \de \mu \, f = \frac{f^\rmtop}{1 / \de \mu}.
+\end{equation}
+\end{defn}
+
+\begin{exercise} Suppose $V = \R^{0 \vert 1}$ with odd coordinate $\psi$.
+Show that there exists a measure $\de \mu$ on $V$ with the property that
+\begin{equation}
+\int_V \de \mu \, (a \psi + b) = a.
+\end{equation}
+We call this measure $\de \psi$.
+\end{exercise}
+
+\begin{exercise} Again take $V = \R^{0 \vert 1}$, and $c \in \R$.
+Show that there exist measures $c \de \psi$ and $\de (c \psi)$,
+obeying the formulas
+\begin{equation}
+  \int_V (c \de \psi) f(\psi) = c \int_V \de \psi f(\psi), \qquad \int_V \de(c \psi) f(c \psi) = \int_V \de \psi f(\psi),
+\end{equation}
+where $f(c \psi)$ is defined in the obvious way --- if $f(\psi) = a \psi + b$
+then $f(c \psi) = c a \psi + b$.
+Then prove the odd change of variables formula in one variable:
+\begin{equation}
+  \de (c \psi) = \frac{1}{c} \de \psi.
+\end{equation}
+\end{exercise}
+
+In our case of $V = \R^{0 \vert 2}$, 
+this means that up to a constant multiple, 
+integration of $f(\psi^1, \psi^2)$ just means taking the 
+coefficient in front of $\psi^1 \psi^2$ in the expansion of $f$.
+Fixing the overall constant
+amounts to specifying our precise choice of $\de \mu$.
+Let us choose $\de \mu$ so that the integral is precisely
+the coefficient of $\psi^1 \psi^2$.
+Then applying this to \eqref{eq:2-fermion-partition-function-expanded}
+gives
 \begin{equation}
  Z = - \half M.  
 \end{equation}
 \fixme{compare with physicists' usual formulas}
 
-More generally we could take $\cC$ to be any 
+More generally suppose we take $\cC$ to be any 
+purely odd super vector space, $\cC = V = V^1$,
+equipped with a measure in the sense of \eqref{eq:measure-odd-vector-space},
+and an element $M \in \Sym^2(V^*) = \wedge^2((V^1)^*)$.
+Then we can again write the quadratic action
+\begin{equation}
+  S(\psi) = \half M(\psi,\psi).
+\end{equation}
+Taking the fermionic integral
+\begin{equation}
+  Z = \int_\cC \de \mu \, \e^{-S}
+\end{equation}
+then gives \fixme{...}
 
 % The necessary bit of linear algebra is:
 % \begin{defn}
