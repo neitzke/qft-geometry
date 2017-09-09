@@ -1122,8 +1122,8 @@ for the unlabeled diagram $\Gamma$.
 like labeling species of particle which could propagate along the edges.)
 
 A basis-free description of this situation is as follows.
-Let $\cC$ be a finite-dimensional real vector space with positive definite inner product
-$\IP{\cdot,\cdot}$, and two elements
+Let $\cC$ be a finite-dimensional real vector space with a measure,
+and two elements
 \begin{equation}
   M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
 \end{equation}
@@ -1131,11 +1131,9 @@ Then consider the action
 \begin{equation}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
-The Feynman rules now assign a vector in $(V^*)^{\otimes k}$ to any diagram element
-with $k$ open half-edges, as below:
+The Feynman rules now assign a vector in $(V^*)^{\otimes 4}$ to each vertex
+and $V^{\otimes 2}$ to each edge, contracted in the obvious way:
 \insfig{qft-geometry-14}{0.9}
-When we put two half-edges together to make an edge, we use the inverse of the pairing
-$\IP{\cdot,\cdot}$ to contract the corresponding slots of the tensors.
 
 \end{enumerate}
 
