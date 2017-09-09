@@ -1122,8 +1122,8 @@ for the unlabeled diagram $\Gamma$.
 like labeling species of particle which could propagate along the edges.)
 
 A basis-free description of this situation is as follows.
-Let $\cC$ be a finite-dimensional real vector space with a measure,
-and two elements
+Let $\cC$ be a finite-dimensional real vector space $V$, with a 
+translation invariant measure $\de \mu$, and two elements
 \begin{equation}
   M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
 \end{equation}
@@ -1131,7 +1131,12 @@ Then consider the action
 \begin{equation}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
-The Feynman rules now assign a vector in $(V^*)^{\otimes 4}$ to each vertex
+$M$ determines a measure $\sqrt{\det M}$ on $V$. \fixme{explain how}
+When $C = 0$ the partition function is \fixme{check}
+\begin{equation}
+  Z_0 = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
+\end{equation}
+The Feynman rules assign a vector in $(V^*)^{\otimes 4}$ to each vertex
 and $V^{\otimes 2}$ to each edge, contracted in the obvious way:
 \insfig{qft-geometry-14}{0.9}
 
@@ -1401,7 +1406,7 @@ Expanding the exponential, the fact that $S^2 = 0$ means it \ti{truncates} to a 
 What will we mean by such an integral?
 Integration over a purely odd vector space is defined to mean taking the
 ``top order part'' of the function.
-More exactly: we choose an element
+More exactly: the ``choice of measure'' here is given by picking an element
 \begin{equation}
   1 / \de \mu \in \wedge^\rmtop(V^1)^*,
 \end{equation}
@@ -1416,6 +1421,8 @@ i.e.
  Z = - \half M.  
 \end{equation}
 \fixme{compare with physicists' usual formulas}
+
+More generally we could take $\cC$ to be any 
 
 % The necessary bit of linear algebra is:
 % \begin{defn}
