@@ -1177,11 +1177,11 @@ and then use $S_\eff(x)$ as our action for subsequent computations.
 In this particular theory
 we can compute the perturbation series of $S_\eff(x)$ explicitly: it is of the form
 \begin{equation}
-  S_\eff(x) \sim \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \lambda_k x^k
+  S_\eff(x) \sim \frac{m_\eff}{2} x^2 + \sum_{k \ge 3} \frac{\lambda_k}{k!} x^k
 \end{equation}
 with
 \begin{equation} \label{eq:seff-terms}
-  m_\eff = m + \frac{\mu}{2M}, \qquad \lambda_k = \begin{cases} 0 & \text{ for $k$ odd,} \\ - \left( - \frac{\mu}{M} \right)^{k/2} \frac{(k-1)!}{2^{k/2}} & \text{ for $k$ even.} \end{cases} 
+  m_\eff = m + \frac{\mu}{2M}, \qquad \lambda_k = \begin{cases} 0 & \text{ for $k$ odd,} \\ - \left( - \frac{\mu}{2M} \right)^{k/2} (k-1)! & \text{ for $k$ even.} \end{cases} 
 \end{equation}
 
 Some qualitative remarks about $S_\eff(x)$:
