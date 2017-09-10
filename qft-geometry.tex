@@ -278,6 +278,7 @@
 \DeclareMathOperator{\edges}{edges}
 \DeclareMathOperator{\Obs}{Obs}
 \DeclareMathOperator{\Ber}{Ber}
+\DeclareMathOperator{\Pf}{Pf}
 
 \newcommand{\insfig}[2]{
 
@@ -859,7 +860,7 @@ $\lambda$ and $m$.
 Now, how do we \ti{compute} these functions? Let's start with $Z$, given by \eqref{eq:0d-partition-fn}.
 At $\lambda = 0$, the integral \eqref{eq:0d-partition-fn}
 is easy to do:
-\begin{equation}
+\begin{equation} \label{eq:0d-Z0}
   Z_0 = Z(m, \lambda = 0) = \sqrt\frac{2\pi}{m}.
 \end{equation}
 For other $\lambda$, what to do? Computing for arbitrary $\lambda$ looks hard, but since $\lambda = 0$ was
@@ -1111,7 +1112,7 @@ four sums.}
 \end{equation}
 where $M$ and $C$ are both totally symmetric in their indices.
 Then we have
-\begin{equation}
+\begin{equation} \label{eq:gaussian-det}
   Z_0 = \int_{\cC} \de \vec{x} \, \e^{-\half x^i M_{ij} x^j} = \frac{(2\pi)^{N/2}}{\sqrt{\det M}}.
 \end{equation}
 The diagrams $\Gamma$ are just as before, with edges and quartic vertices. However,
@@ -1131,7 +1132,7 @@ translation invariant measure $\de \mu$, and two elements
   M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
 \end{equation}
 Then consider the action
-\begin{equation}
+\begin{equation} \label{eq:bosonic-quartic-action}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
 $M$ determines a measure $\sqrt{\det M}$ on $V$. \fixme{explain how}
@@ -1417,7 +1418,7 @@ Integration over a purely odd vector space is defined to mean taking the
 ``top order part'' of the function.
 More exactly: 
 
-\begin{defn} A \ti{measure} $\de \mu$ 
+\begin{defn} \label{defn:odd-integral} A \ti{measure} $\de \mu$ 
 on a purely odd super vector space $V = V^1$
 is given by picking an element
 \begin{equation} \label{eq:measure-odd-vector-space}
@@ -1440,47 +1441,88 @@ We call this measure $\de \psi$.
 \end{exercise}
 
 \begin{exercise} Again take $V = \R^{0 \vert 1}$, and $c \in \R$.
-Show that there exist measures $c \de \psi$ and $\de (c \psi)$,
-obeying the formulas
+Show that there exist measures $c \de \psi$ and $\de (c \psi)$
+on $V$, obeying the formulas
 \begin{equation}
   \int_V (c \de \psi) f(\psi) = c \int_V \de \psi f(\psi), \qquad \int_V \de(c \psi) f(c \psi) = \int_V \de \psi f(\psi),
 \end{equation}
-where $f(c \psi)$ is defined in the obvious way --- if $f(\psi) = a \psi + b$
-then $f(c \psi) = c a \psi + b$.
-Then prove the odd change of variables formula in one variable:
+where $f(c \psi)$ is defined in the obvious way --- explicitly,
+if $f(\psi) = a \psi + b$ then $f(c \psi) = a c \psi + b$.
+Then prove the change of variables formula in one odd variable:
 \begin{equation}
   \de (c \psi) = \frac{1}{c} \de \psi.
 \end{equation}
 \end{exercise}
 
-In our case of $V = \R^{0 \vert 2}$, 
-this means that up to a constant multiple, 
-integration of $f(\psi^1, \psi^2)$ just means taking the 
-coefficient in front of $\psi^1 \psi^2$ in the expansion of $f$.
-Fixing the overall constant
-amounts to specifying our precise choice of $\de \mu$.
-Let us choose $\de \mu$ so that the integral is precisely
-the coefficient of $\psi^1 \psi^2$.
-Then applying this to \eqref{eq:2-fermion-partition-function-expanded}
-gives
+Similarly on $\R^{0 \vert q}$
+we can choose once and for all the measure $\de \mu = \de \vec\psi$, characterized
+by \fixme{compare with usual physics convention: might be opposite}
 \begin{equation}
+  \int \de \vec\psi \, \psi^1 \psi^2 \cdots \psi^q = 1.
+\end{equation}
+Now we can evaluate the odd Gaussian integral \eqref{eq:2-fermion-partition-function-expanded}, obtaining
+\begin{equation} \label{eq:2d-odd-gaussian}
  Z = - \half M.  
 \end{equation}
-\fixme{compare with physicists' usual formulas}
+Note a key difference between this and the usual even Gaussian integrals:
+here the $M$ appears in the \ti{numerator}, not the \ti{denominator}
+as we had in \eqref{eq:0d-Z0}.
+
+
+\subsection{More fermions}
 
 More generally suppose we take $\cC$ to be any 
 purely odd super vector space, $\cC = V = V^1$,
 equipped with a measure in the sense of \eqref{eq:measure-odd-vector-space},
-and an element $M \in \Sym^2(V^*) = \wedge^2((V^1)^*)$.
-Then we can again write the quadratic action
+and elements
 \begin{equation}
-  S(\psi) = \half M(\psi,\psi).
+ M \in \Sym^2(V^*) = \wedge^2((V^1)^*), \qquad C \in \Sym^4(V^*) = \wedge^4((V^1)^*).
 \end{equation}
-Taking the fermionic integral
+Then we can take for the action
+\begin{equation}
+ S = \half M + \frac{1}{4!} C \in \cO(\cC),
+\end{equation}
+which we also write in parallel with \eqref{eq:bosonic-quartic-action} as
+\begin{equation}
+  S(\psi) = \half M(\psi,\psi) + \frac{1}{4!} C(\psi, \psi, \psi, \psi),
+\end{equation}
+or after choosing a basis for $V^1$,
+\begin{equation}
+  S(\psi) = \half M_{IJ} \psi^I \psi^J + \frac{1}{4!} C_{IJKL} \psi^I \psi^J \psi^K \psi^L
+\end{equation}
+with $M$ and $C$ totally antisymmetric in their indices.
+
+The partition function is an odd integral
 \begin{equation}
   Z = \int_\cC \de \mu \, \e^{-S}
 \end{equation}
-then gives \fixme{...}
+which can again be evaluated in a purely algebraic fashion, by expanding
+out the exponential.
+\begin{exercise}
+Suppose $\cC = \R^{0 \vert 4}$
+and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4$. Show that $Z = -\lambda + m^2$.
+\end{exercise}
+
+
+\subsection{Perturbation theory}
+
+Integrals over finite-dimensional 
+odd vector spaces always give \ti{polynomials} in the couplings; 
+thus a development of
+``perturbation theory'' for them might seem unnecessary.
+Nevertheless, with an eye toward the future, it is interesting to
+develop a Feynman diagram expansion for these integrals.
+
+First let us see what happens when $C = 0$.
+Then the odd Gaussian integral gives the \ti{Pfaffian} of $M$,
+generalizing \eqref{eq:2d-odd-gaussian}
+\fixme{define it} (compare \eqref{eq:gaussian-det}):
+\begin{equation} \label{eq:integral-pfaffian}
+  Z_0 = \int_\cC \de \vec\psi \, \e^{-\half \psi^I M_{IJ} \psi^J} = \Pf (-M).
+\end{equation}
+Now the Feynman rules are \fixme{...}
+
+
 
 % The necessary bit of linear algebra is:
 % \begin{defn}
