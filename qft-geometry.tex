@@ -1334,10 +1334,15 @@ with $V^0 = \R^p$, $V^1 = \R^q$; call this $\R^{p \vert q}$.
 Then $\Pi \R^{p \vert q} = \R^{q \vert p}$.
 \end{example}
 
+\begin{defn}[Even and odd maps] An even map of super vector spaces
+$V \to W$ is a pair of maps $V^0 \to W^0$ and $V^1 \to W^1$.
+An odd map $V \to W$ is a pair of maps $V^0 \to W^1$ and $V^1 \to W^0$.
+\end{defn}
+
 \begin{defn}[Symmetric monoidal category of super vector spaces]
 The \ti{symmetric monoidal category} of super vector spaces 
-is not the same as the symmetric monoidal category of ordinary
-vector spaces: we use a different symmetry isomorphism
+is the category of super vector spaces, with morphisms the even maps,
+and equipped with an unusual choice of symmetry isomorphism
 \begin{equation}
   s: V \otimes W \to W \otimes V,
 \end{equation}
@@ -1568,13 +1573,56 @@ and $f = f^0 \otimes f^1 \in C^\infty(V)$, then
 \end{equation}
 \end{defn}
 
+
+\subsection{A supersymmetric example}
+
 Let us now consider the example $\cC = \R^{1 \vert 2}$, and write an action
 of the form
 \begin{equation}
-  S = S_1(x) - S_2(x) \psi^1 \psi^2.
+  S(x, \psi^1, \psi^2) = S_1(x) + S_2(x) \psi^1 \psi^2.
 \end{equation}
+The partition function is
+\begin{align}
+  Z &= \int \de x \de \vec\psi \, \e^{-S} \\
+  &= \int \de x \, S_2(x) \e^{-S_1(x)}.
+\end{align}
+For generic $S_1(x)$ and $S_2(x)$
+we could compute this in perturbation theory:
+indeed it just reduces to a computation of the correlation
+function $\IP{S_2(x)}$ in 
+the pure bosonic theory with action $S_1(x)$.
+The answer has no particularly good property.
 
-\fixme{...}
+There is a special case where we can do much better.
+This is the case where for some $h: \R \to \R$ we have
+\begin{equation}
+  S_1(x) = \half h'(x)^2, \qquad S_2(x) = h''(x).
+\end{equation}
+The basic reason why this case is better is that the
+action $S$ is invariant under a certain \ti{odd vector field}
+or \ti{supersymmetry}.
+
+\begin{defn}[Graded derivations]
+If $\cA$ is a commutative superalgebra, then a map $X: \cA \to \cA$
+(either even or odd)
+is a \ti{derivation} of $\cA$ if it obeys
+\begin{equation}
+  X(aa') = (Xa)a' + (-1)^{\abs{a} \abs{X}} a(Xa').
+\end{equation}
+\end{defn}
+
+\begin{defn}[Super Lie algebra] \fixme{...}
+\end{defn}
+
+\begin{defn}[Super Lie algebra of vector fields]
+If $V$ is a super vector space, let $\Vect(V)$ denote the
+space of all graded derivations on $C^\infty(V)$.
+These form a super Lie algebra under supercommutator.
+\end{defn}
+
+In particular, on $\R^{p \vert q}$, in addition
+to the usual even vector fields $\partial_{x^i}$ we also have
+the odd vector fields $\partial_{\psi^I}$.
 
 \appendix
 
