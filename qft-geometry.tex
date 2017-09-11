@@ -1195,10 +1195,10 @@ effective action $S_\eff(x)$ involves interactions of all even orders.
 Diagrammatically speaking, integrating out the field $y$ to pass from $S$ 
 to $S_\eff$ amounts to ``collapsing'' parts of the Feynman diagrams
 involving only the dashed $y$ lines; these parts get absorbed 
-into the new effective vertices
+into the new effective vertices.
 
 \item The fact that in the effective theory 
-we only get interaction vertices of even orders is
+we only get interaction vertices of even valence is
 related to the fact that the original action $S(x,y)$ has the symmetry
 $x \to -x$, which implies that $S_\eff(x)$ must have the same symmetry.
 
@@ -1224,7 +1224,7 @@ with the result of the computation done above.
 There is also a Feynman-diagram expansion for the computation of the effective action 
 $S_\eff$. The rules here
 turn out to be as follows: we introduce a new $1$-valent vertex and 
-sum over diagrams where all $x$ lines are required to terminate on a $1$-valent vertex.
+sum over connected diagrams where all $x$ lines are required to terminate on a $1$-valent vertex.
 In counting the symmetry factor we do \ti{not} require that these $1$-valent vertices 
 are fixed by the automorphisms. The Feynman rules are:
 \insfig{qft-geometry-12}{0.95}
@@ -1595,7 +1595,7 @@ The answer has no particularly good property.
 
 There is a special case where we can do much better.
 This is the case where for some $h: \R \to \R$ we have
-\begin{equation}
+\begin{equation} \label{eq:r21-susy-action}
   S_1(x) = \half h'(x)^2, \qquad S_2(x) = h''(x).
 \end{equation}
 The basic reason why this case is better is that the
@@ -1614,15 +1614,114 @@ is a \ti{derivation} of $\cA$ if it obeys
 \begin{defn}[Super Lie algebra] \fixme{...}
 \end{defn}
 
-\begin{defn}[Super Lie algebra of vector fields]
+\begin{defn}[Super vector fields on a super vector space]
 If $V$ is a super vector space, let $\Vect(V)$ denote the
 space of all graded derivations on $C^\infty(V)$.
 These form a super Lie algebra under supercommutator.
 \end{defn}
 
+\begin{exercise} Verify that $\Vect(V)$ is 
+a super Lie algebra.
+\end{exercise}
+
 In particular, on $\R^{p \vert q}$, in addition
 to the usual even vector fields $\partial_{x^i}$ we also have
-the odd vector fields $\partial_{\psi^I}$.
+the odd vector fields $\partial_{\psi^I}$, and these
+generate $\Vect(V)$ as a module over $C^\infty(V)$.
+
+Now in our example of $\R^{1 \vert 2}$ we consider the
+odd vector fields
+\begin{align}
+  Q_1 &= \psi^1 \partial_x - h'(x) \partial_{\psi^2}, \\
+  Q_2 &= \psi^2 \partial_x + h'(x) \partial_{\psi^1}.
+\end{align}
+These are both symmetries of the action \eqref{eq:r21-susy-action}, 
+in the sense that
+\begin{equation}
+  Q_1 S = Q_2 S = 0.
+\end{equation}
+They are also divergence-free, i.e. they preserve the
+integration measure $\de \mu = \de x \de \vec\psi$.
+\fixme{explain what this means}
+
+\begin{exercise}
+$[Q_1,Q_1]$ is a nontrivial even
+vector field on $V$. Compute it, and verify directly 
+that it is a symmetry of $S$.
+\end{exercise}
+
+The existence of these supersymmetries will give us a 
+powerful tool for analyzing the partition function.
+First we need a preliminary:
+
+\begin{lem} Suppose $Q$ is a divergence-free vector field
+(even or odd)
+on a super vector space $V$ with measure $\de \mu$, 
+and $f \in C^\infty_c(V)$. Then
+\begin{equation}
+  \int_V \de \mu \, Qf = 0.
+\end{equation}
+\end{lem}
+
+\begin{pf} \fixme{...}
+\end{pf}
+
+This permits us to make the following fundamental construction:
+\begin{prop} \label{prop:Z-deformation-invariance}
+Suppose $V$ is a super vector space with measure $\de \mu$.
+Suppose $Q$ is a divergence-free odd vector field on $V$,
+obeying $[Q,Q] = 0$ and $Q(S) = 0$.
+Finally let $\{\Psi_t\}_{t \in [0,1]}$ be a smoothly varying family 
+of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$.
+Then the partition function $Z$ is unchanged by making the deformation
+\begin{equation} \label{eq:S-deformation}
+  S \to S + Q \Psi_t.
+\end{equation}
+
+\end{prop}
+
+\begin{pf}
+After this deformation the partition function is
+\begin{equation}
+  Z(t) = \int_\cC \de \mu \, \e^{-(S + Q \Psi_t)}
+\end{equation}
+and in particular \fixme{take care about diff under integral sign}
+\begin{align}
+  \partial_t Z(t) &= \int_\cC \de \mu \, (Q \Psi'_t) \e^{-(S + Q \Psi_t)} \\
+  &= \int_\cC \de \mu \, Q \left( \Psi'_t \e^{-(S + Q \Psi_t)} \right) \\
+  &= 0
+\end{align}
+(at the middle step we used $Q^2 = 0$.)
+\end{pf}
+
+This \ti{invariance under $Q$-exact deformations} has 
+strong consequences. Let us apply it in our example, taking
+\begin{equation}
+  Q = Q_1 + Q_2.
+\end{equation}
+
+\begin{exercise}
+Verify that $[Q,Q] = 0$.
+\end{exercise}
+
+Now we consider varying the function $h(x)$ which appears in 
+\eqref{eq:r21-susy-action}. Under a variation
+$\dot h(x)$, the corresponding variation of $S$
+is
+\begin{equation}
+  \dot S = h'(x) {\dot h}'(x) + {\dot h}''(x) \psi^1 \psi^2. 
+\end{equation}
+But this is actually $Q$-exact: indeed
+\begin{equation}
+  \dot S = Q \Psi, \qquad \Psi = {\dot h}'(x) \psi^1.
+\end{equation}
+Thus, if we could apply \autoref{prop:Z-deformation-invariance}
+in this situation, we would conclude that
+$Z$ is completely independent of the function $h(x)$.
+This conclusion is too strong, and the reason is that \fixme{...}
+% the variations
+% $\Psi$ which we need to use are not compactly supported.
+
 
 \appendix
 
