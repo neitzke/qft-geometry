@@ -1422,7 +1422,7 @@ We would like to make sense of the partition function in this setting,
 \end{equation}
 Expanding the exponential, the fact that $S^2 = 0$ means it \ti{truncates} to a polynomial:
 \begin{equation} \label{eq:2-fermion-partition-function-expanded}
-  Z = -\half M \int_\cC \de \mu \, \psi^1 \psi^2.
+  Z = \int_\cC \de \mu \, \left(1 - \half M \psi^1 \psi^2\right).
 \end{equation}
 What will we mean by such an integral?
 Integration over a purely odd vector space is defined to mean taking the
@@ -1567,13 +1567,19 @@ The \ti{Berezinian line} of a super vector space $V$ is
 \end{equation}
 \end{defn}
 An element $\de \mu \in \Ber V^*$ plays the role of a volume measure
-on $V$.
-\begin{defn}[Integration over super vector space] If $V$ is a super vector space, $\de \mu = \omega^0 \otimes \omega^1 \in \Ber V^*$,
+on $V$. By an \ti{orientation} of $V$ we mean an orientation of $V^0$.
+Then:
+\begin{defn}[Integration over super vector space] If $V$ is an oriented 
+super vector space, $\de \mu = \omega^0 \otimes \omega^1 \in \Ber V^*$,
 and $f = f^0 \otimes f^1 \in C^\infty(V)$, then
 \begin{equation}
     \int_V \de \mu \, f = \int_{V^0} \omega^0 \int_{V^1} \omega^1 \cdot f^1.
 \end{equation}
 \end{defn}
+On $\R^{p \vert q}$ we have the canonical element
+\begin{equation}
+  \de \mu = \de \vec{x} \, \de \vec{\psi} = (\de x^1 \wedge \cdots \wedge \de x^p) \otimes (\de \vec\psi) \in \Ber V^*.
+\end{equation}
 
 
 \subsection{A supersymmetric example}
@@ -1619,23 +1625,39 @@ is a \ti{derivation} of $\cA$ if it obeys
 \end{equation}
 \end{defn}
 
-\begin{defn}[Super Lie algebra] \fixme{...}
-\end{defn}
-
 \begin{defn}[Super vector fields on a super vector space]
 If $V$ is a super vector space, let $\Vect(V)$ denote the
 space of all graded derivations on $C^\infty(V)$.
-These form a super Lie algebra under supercommutator.
 \end{defn}
-
-\begin{exercise} Verify that $\Vect(V)$ is 
-a super Lie algebra.
-\end{exercise}
 
 In particular, on $\R^{p \vert q}$, in addition
 to the usual even vector fields $\partial_{x^i}$ we also have
-the odd vector fields $\partial_{\psi^I}$, and these
+odd vector fields $\partial_{\psi^I}$, defined by
+\begin{equation}
+  \partial_{\psi^I} x^i = 0, \quad \partial_{\psi^I} \psi^J = \delta^J_I.
+\end{equation}
+Together with the derivation property this implies
+e.g.
+\begin{equation}
+  \partial_{\psi^1} \psi^1 \psi^2 = \psi^2, \qquad \partial_{\psi^2} \psi^1 \psi^2 = - \psi^1.
+\end{equation}
+The $\partial_{x^i}$ and $\partial_{\psi^I}$ together
 generate $\Vect(V)$ as a module over $C^\infty(V)$.
+
+\begin{defn}[Super Lie algebra] A \ti{super Lie algebra} is a super
+vector space $\fg = \fg^0 \oplus \fg^1$ with a bracket obeying
+\begin{equation}
+  [X,Y] = -(-1)^{\abs{X} \abs{Y}} [Y,X]
+\end{equation}
+and
+\begin{equation}
+[X,[Y,Z]] + (-1)^{\abs{X}(\abs{Y}+\abs{Z})} [Y,[Z,X]] + (-1)^{\abs{Z}(\abs{X}+\abs{Y})}[Z,[X,Y]] = 0.
+\end{equation}
+\end{defn}
+
+\begin{exercise} Verify that $\Vect(V)$ is 
+a super Lie algebra under supercommutator: $[X,Y] f = X(Yf) - (-1)^{\abs{X} \abs{Y}} Y(Xf)$.
+\end{exercise}
 
 Now in our example of $\R^{1 \vert 2}$ we consider the
 odd vector fields
@@ -1648,13 +1670,14 @@ in the sense that
 \begin{equation}
   Q_1 S = Q_2 S = 0.
 \end{equation}
+
 \begin{exercise}
 $[Q_1,Q_1]$ is a nontrivial even
 vector field on $V$. Compute it, and verify directly 
 that it is a symmetry of $S$.
 \end{exercise}
 
-The $Q_1$, $Q_2$ are also divergence-free, i.e. they preserve the
+The vector fields $Q_1$, $Q_2$ are also divergence-free, i.e. they preserve the
 integration measure $\de \mu = \de x \, \de \vec\psi$,
 in the following sense.
 For any super vector space $F$ we can consider the super vector space
@@ -1672,12 +1695,12 @@ If $X$ is a vector field on $V$, the \ti{Lie derivative}
 \end{equation}
 is characterized by
 \begin{equation}
-  \cL_{fX} = f \cL_X, \quad \cL_X (f \de \mu) = (\cL_X f) \de \mu,
+ \cL_X (f \de \mu) = (X f) \de \mu + (-1)^{\abs{f} \abs{X}} f \cL_X \de \mu
 \end{equation}
-and if $X = \sum_i f^i \partial_{x^i} + \sum_I g^I \partial_{\psi^j}$
-and $\de \mu = \de \vec x \, \de \vec\psi$ then
+and if $X = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, 
+then
 \begin{equation}
-  \cL_{X} \de \mu = \left( \partial_i f^i + \partial_I g^I \right) \de \mu.
+  \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} f^i - \partial_{\psi^I} g^I \right) \de \mu.
 \end{equation}
 
 % is the unique map obeying the odd derivation property
@@ -1704,7 +1727,14 @@ and $f \in C^\infty_c(V)$. Then
 \end{equation}
 \end{lem}
 
-\begin{pf} \fixme{...}
+\begin{pf} By direct computation: if $Q = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ and $\de \mu = \de \vec{x} \de \vec{\psi}$, then
+\begin{align}
+  \int_V \de \mu \, Qf &= \int \de \vec{x} \, (Qf)^\rmtop \\
+  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I) f^\rmtop + f^i \partial_{x^i} f^\rmtop) \\
+  &= \int \de \vec{x} \, (\partial_{\psi^I} g^I - \partial_{x^i} f^i) f^\rmtop \\
+  &= 0 
+\end{align}
+where we integrated by parts, using the compact support of $f$, in the third line.
 \end{pf}
 
 This permits us to make the following fundamental construction:
