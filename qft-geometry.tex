@@ -934,8 +934,6 @@ expansion means is to do the next exercise:
 and the first few truncations of its asymptotic series around $\lambda \to 0^+$.
 \end{exercise}
 
-\fixme{Borel summability?}
-
 One might wonder whether there could be some \ti{other} series expansion for $Z(m,\lambda)$.
 But this is impossible, as the next exercise shows.
 
@@ -988,11 +986,12 @@ terms of \ti{Feynman diagrams}, as follows.
 Our basic object is a vertex with $4$ half-edges attached.
 % Such a vertex will ``carry'' a factor $-\tlambda$.
 \insfig{qft-geometry-1}{0.8}
-A Feynman diagram is obtained by first putting down some number of vertices and then 
-pairing up all the edges. All Feynman diagrams with one vertex, and some with two vertices,
+To construct all Feynman diagrams with $n$ vertices, 
+we begin by fixing $n$ vertices, and then considering all ways
+to pair up the $4n$ half-edges.
+All Feynman diagrams with one vertex, and some with two vertices,
 are shown below.
 \insfig{qft-geometry-2}{0.9}
-
 Let $D_n$ be the set of all diagrams with $n$ vertices.
 
 \begin{prop}[Counting pairings of $2k$ objects] \label{prop:count-pairings} The number of ways to pair up $2k$ objects, i.e. to divide them into $k$ $2$-element subsets, is $\frac{(2k)!}{k! 2^k}$.
@@ -1431,15 +1430,15 @@ More exactly:
 
 \begin{defn} \label{defn:odd-integral} A \ti{measure} $\de \mu$ 
 on a purely odd super vector space $V = V^1$
-is given by picking an element
+is
 \begin{equation} \label{eq:measure-odd-vector-space}
-  1 / \de \mu \in \wedge^\rmtop(\Pi V^1)^*.
+  \de \mu \in \wedge^\rmtop(\Pi V^1).
 \end{equation}
-For any $f \in \cO(V) \simeq \wedge^*(\Pi V^1)$, let
-$f^\rmtop \in \wedge^\rmtop(\Pi V^1)$ be the top component of $f$; then
+For any $f \in \cO(V) \simeq \wedge^*((\Pi V^1)^*)$, let
+$f^\rmtop \in \wedge^\rmtop((\Pi V^1)^*)$ be the top component of $f$; then
 we define the integral by
 \begin{equation}
-  \int_V \de \mu \, f = \frac{f^\rmtop}{1 / \de \mu}.
+  \int_V \de \mu \, f = \de\mu \cdot f^\rmtop.
 \end{equation}
 \end{defn}
 
@@ -1465,15 +1464,14 @@ Then prove the change of variables formula in one odd variable:
 \end{equation}
 \end{exercise}
 
-Similarly on $\R^{0 \vert q}$
-we can choose once and for all the measure $\de \mu = \de \vec\psi$, characterized
-by \fixme{compare with usual physics convention: might be opposite}
+Similarly on $\R^{0 \vert q}$ we choose once and for all the 
+measure $\de \mu = \de \vec\psi$, characterized by
 \begin{equation}
-  \int \de \vec\psi \, \psi^1 \psi^2 \cdots \psi^q = 1.
+  \int \de \vec\psi \, \psi^q \psi^{q-1} \cdots \psi^1 = 1.
 \end{equation}
 Now we can evaluate the odd Gaussian integral \eqref{eq:2-fermion-partition-function-expanded}, obtaining
 \begin{equation} \label{eq:2d-odd-gaussian}
- Z = - \half M.  
+ Z = \half M.  
 \end{equation}
 Note a key difference between this and the usual even Gaussian integrals:
 here the $M$ appears in the \ti{numerator}, not the \ti{denominator}
@@ -1556,29 +1554,33 @@ we let
 \begin{equation}
   C^\infty(V) = C^\infty(V^0) \otimes \cO(V^1).
 \end{equation}
-To define measures the necessary bit of linear algebra is:
-\fixme{not obviously functorial}
+To define measures we need 
+the super analogue of the determinant line:
 \begin{defn}[Berezinian line]
 The \ti{Berezinian line} of a super vector space $V$ is
+% \footnote{This
+% is not the most functorial possible definition; it would be better to
+% look in \fixme{Deligne-Morgan}.}
 \begin{equation}
   \Ber V = \wedge^\rmtop V^0 \otimes \wedge^\rmtop (\Pi V^1)^*.
 \end{equation}
 \end{defn}
-An element of $\Ber V$ should be thought of as the inverse
-of a volume measure.
-\begin{defn}[Integration over super vector space] If $V$ is a super vector space, $\de \mu = \omega^0 \otimes \omega^1 \in \Ber V$,
+An element $\de \mu \in \Ber V^*$ plays the role of a volume measure
+on $V$.
+\begin{defn}[Integration over super vector space] If $V$ is a super vector space, $\de \mu = \omega^0 \otimes \omega^1 \in \Ber V^*$,
 and $f = f^0 \otimes f^1 \in C^\infty(V)$, then
 \begin{equation}
-    \int_V \de \mu \, f = \int_{V^0} (1/\omega^0) \int_{V^1} (1 / \omega^1) f^1.
+    \int_V \de \mu \, f = \int_{V^0} \omega^0 \int_{V^1} \omega^1 \cdot f^1.
 \end{equation}
 \end{defn}
 
+\fixme{try to comment about coordinate invariance?}
 
 \subsection{A supersymmetric example}
 
 Let us now consider the example $\cC = \R^{1 \vert 2}$, and write an action
 of the form
-\begin{equation}
+\begin{equation} \label{eq:r21-action-generic}
   S(x, \psi^1, \psi^2) = S_1(x) + S_2(x) \psi^1 \psi^2.
 \end{equation}
 The partition function is
@@ -1594,12 +1596,18 @@ the pure bosonic theory with action $S_1(x)$.
 The answer has no particularly good property.
 
 There is a special case where we can do much better.
-This is the case where for some $h: \R \to \R$ we have
-\begin{equation} \label{eq:r21-susy-action}
-  S_1(x) = \half h'(x)^2, \qquad S_2(x) = h''(x).
+This is the case where for some $h: \R \to \R$, with $\abs{h(x)} \to \infty$ 
+as $\abs{x} \to \infty$, we have
+\begin{equation}
+  S_1(x) = \half h(x)^2, \qquad S_2(x) = h'(x),
+\end{equation}
+so that the action \eqref{eq:r21-action-generic} becomes
+\begin{equation}\label{eq:r21-susy-action}
+  S(x, \psi^1, \psi^2) = \half h(x)^2 + h'(x) \psi^1 \psi^2.
 \end{equation}
 The basic reason why this case is better is that the
-action $S$ is invariant under a certain \ti{odd vector field}
+action \eqref{eq:r21-susy-action} is invariant under a 
+certain \ti{odd vector field}
 or \ti{supersymmetry}.
 
 \begin{defn}[Graded derivations]
@@ -1632,25 +1640,35 @@ generate $\Vect(V)$ as a module over $C^\infty(V)$.
 Now in our example of $\R^{1 \vert 2}$ we consider the
 odd vector fields
 \begin{align}
-  Q_1 &= \psi^1 \partial_x - h'(x) \partial_{\psi^2}, \\
-  Q_2 &= \psi^2 \partial_x + h'(x) \partial_{\psi^1}.
+  Q_1 &= \psi^1 \partial_x - h(x) \partial_{\psi^2}, \\
+  Q_2 &= \psi^2 \partial_x + h(x) \partial_{\psi^1}.
 \end{align}
 These are both symmetries of the action \eqref{eq:r21-susy-action}, 
 in the sense that
 \begin{equation}
   Q_1 S = Q_2 S = 0.
 \end{equation}
-They are also divergence-free, i.e. they preserve the
-integration measure $\de \mu = \de x \de \vec\psi$.
-\fixme{explain what this means}
-
 \begin{exercise}
 $[Q_1,Q_1]$ is a nontrivial even
 vector field on $V$. Compute it, and verify directly 
 that it is a symmetry of $S$.
 \end{exercise}
 
-The existence of these supersymmetries will give us a 
+The $Q_1$, $Q_2$ are also divergence-free, i.e. they preserve the
+integration measure $\de \mu = \de x \, \de \vec\psi$,
+in the following sense.
+
+\begin{defn}[Lie derivative along super vector field] If $V$
+is a super vector space, $Q$ an odd vector field, and
+$\de \mu \in \Ber V^*$, the \ti{Lie derivative} of $\de \mu$
+along $Q$ is \fixme{...}
+\end{defn}
+
+\begin{exercise} Verify that $\cL_{Q_1} \de \mu = 0$ and similarly
+for $Q_2$.
+\end{exercise}
+
+The existence of the supersymmetries $Q_1$ and $Q_2$ will give us a 
 powerful tool for analyzing the partition function.
 First we need a preliminary:
 
@@ -1672,29 +1690,35 @@ Suppose $V$ is a super vector space with measure $\de \mu$.
 Suppose $Q$ is a divergence-free odd vector field on $V$,
 obeying $[Q,Q] = 0$ and $Q(S) = 0$.
 Finally let $\{\Psi_t\}_{t \in [0,1]}$ be a smoothly varying family 
-of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$.
-Then the partition function $Z$ is unchanged by making the deformation
+of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$,
+and let $\{S_t\}$ be the corresponding family of deformed actions,
 \begin{equation} \label{eq:S-deformation}
-  S \to S + Q \Psi_t.
+  S_t = S + Q \Psi_t.
 \end{equation}
+Then the partition function $Z_t$ computed with action $S_t$
+is independent of $t$.
 
 \end{prop}
 
 \begin{pf}
 After this deformation the partition function is
 \begin{equation}
-  Z(t) = \int_\cC \de \mu \, \e^{-(S + Q \Psi_t)}
+  Z_t = \int_\cC \de \mu \, \e^{-(S + Q \Psi_t)}
 \end{equation}
-and in particular \fixme{take care about diff under integral sign}
+and in particular
 \begin{align}
-  \partial_t Z(t) &= \int_\cC \de \mu \, (Q \Psi'_t) \e^{-(S + Q \Psi_t)} \\
+  \partial_t Z_t &= \int_\cC \de \mu \, (Q \Psi'_t) \e^{-(S + Q \Psi_t)} \\
   &= \int_\cC \de \mu \, Q \left( \Psi'_t \e^{-(S + Q \Psi_t)} \right) \\
   &= 0
 \end{align}
-(at the middle step we used $Q^2 = 0$.)
+At the first step, to justify the differentiation under the 
+integral sign, we use the fact that $\Psi_t$ is compactly supported;
+at the middle step we use $Q^2 = 0$.
 \end{pf}
 
-This \ti{invariance under $Q$-exact deformations} has 
+\autoref{prop:Z-deformation-invariance} 
+is a sort of ideal version of the principle of 
+\ti{invariance under $Q$-exact deformations}, which has 
 strong consequences. Let us apply it in our example, taking
 \begin{equation}
   Q = Q_1 + Q_2.
@@ -1705,23 +1729,41 @@ Verify that $[Q,Q] = 0$.
 \end{exercise}
 
 Now we consider varying the function $h(x)$ which appears in 
-\eqref{eq:r21-susy-action}. Under a variation
-$\dot h(x)$, the corresponding variation of $S$
-is
+\eqref{eq:r21-susy-action} to some family $h_t(x)$. 
+Using dots for derivatives with respect to $t$, we have
 \begin{equation}
-  \dot S = h'(x) {\dot h}'(x) + {\dot h}''(x) \psi^1 \psi^2. 
+  \dot S = h(x) {\dot h}(x) + {\dot h}'(x) \psi^1 \psi^2. 
 \end{equation}
 But this is actually $Q$-exact: indeed
-\begin{equation}
-  \dot S = Q \Psi, \qquad \Psi = {\dot h}'(x) \psi^1.
+\begin{equation} \label{eq:psi-example}
+  \dot S = Q \Psi, \qquad \Psi = {\dot h}(x) \psi^1.
 \end{equation}
-Thus, if we could apply \autoref{prop:Z-deformation-invariance}
-in this situation, we would conclude that
-$Z$ is completely independent of the function $h(x)$.
-This conclusion is too strong, and the reason is that \fixme{...}
-% the variations
-% $\Psi$ which we need to use are not compactly supported.
+Thus, applying \autoref{prop:Z-deformation-invariance},
+% in this situation, we would conclude that
+% $Z$ is completely independent of the function $h(x)$.
+% This is actually not true, as we will see momentarily; 
+% the reason is that the $\Psi$ appearing in \eqref{eq:psi-example} is not
+% compactly supported, spoiling the 
+% proof of \autoref{prop:Z-deformation-invariance}.
+% Nevertheless:
+% \begin{exercise} Show that the differentiation under the
+% integral sign in the proof of 
+% \autoref{prop:Z-deformation-invariance} is still justified,
+% provided that $\deg h_t$ is independent of $t$. 
+% \end{exercise}
+we conclude that $Z$ is unchanged by compactly supported
+variations of $h$.
 
+
+\subsection{Localization}
+
+We continue with the $0$-dimensional supersymmetric theory of the last section. We want to use the deformation invariance to compute $Z$.
+
+The strategy we follow is \fixme{roughly!} to deform $h(x) \to \lambda h(x)$ and take
+$\lambda \to \infty$.
+In this limit, the bosonic term $h(x)^2$ in the action becomes extremely
+large away from the zeroes of $h(x)$; thus one might expect that 
+the contribution to $Z$ becomes concentrated near the zeroes.
 
 \appendix
 
