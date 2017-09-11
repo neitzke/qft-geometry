@@ -1052,7 +1052,7 @@ This basic mechanism can be extended in many ways:
 \item In \autoref{prop:0d-feynman} 
 we sum over both connected and disconnected $\Gamma$.
 But the contribution from disconnected diagrams is easily determined:
-\begin{prop} The sum over connected diagrams is related to the sum over all
+\begin{prop}[Exponentiation of the connected diagrams] The sum over connected diagrams is related to the sum over all
 diagrams by:
 \begin{equation}
   \sum_{\Gamma} w_\Gamma = \exp \left( \sum_{\Gamma \text{ connected nonempty}} w_\Gamma \right).
@@ -1575,7 +1575,6 @@ and $f = f^0 \otimes f^1 \in C^\infty(V)$, then
 \end{equation}
 \end{defn}
 
-\fixme{try to comment about coordinate invariance?}
 
 \subsection{A supersymmetric example}
 
@@ -1612,11 +1611,11 @@ certain \ti{odd vector field}
 or \ti{supersymmetry}.
 
 \begin{defn}[Graded derivations]
-If $\cA$ is a commutative superalgebra, then a map $X: \cA \to \cA$
+If $\cA$ is a commutative superalgebra, then a map $D: \cA \to \cA$
 (either even or odd)
 is a \ti{derivation} of $\cA$ if it obeys
 \begin{equation}
-  X(aa') = (Xa)a' + (-1)^{\abs{a} \abs{X}} a(Xa').
+  D(aa') = (Da)a' + (-1)^{\abs{a} \abs{D}} a(Da').
 \end{equation}
 \end{defn}
 
@@ -1658,11 +1657,34 @@ that it is a symmetry of $S$.
 The $Q_1$, $Q_2$ are also divergence-free, i.e. they preserve the
 integration measure $\de \mu = \de x \, \de \vec\psi$,
 in the following sense.
+For any super vector space $F$ we can consider the super vector space
+\begin{equation}
+  C^\infty(V, F) = C^\infty(V) \otimes_\R F
+\end{equation}
+which we could think of as a space of ``sections of the trivial super
+vector bundle with fiber $F$ over the super vector space $V$.''
+Then,
 
-\begin{defn}[Lie derivative along super vector field] If $V$
-is a super vector space, $Q$ an odd vector field, and
-$\de \mu \in \Ber V^*$, the \ti{Lie derivative} of $\de \mu$
-along $Q$ is \fixme{...}
+\begin{defn}[Lie derivative of section of $\Ber V^*$ along super vector field] 
+If $X$ is a vector field on $V$, the \ti{Lie derivative}
+\begin{equation}
+  \cL_X: C^\infty(V, \Ber V^*) \to C^\infty(V, \Ber V^*)
+\end{equation}
+is characterized by
+\begin{equation}
+  \cL_{fX} = f \cL_X, \quad \cL_X (f \de \mu) = (\cL_X f) \de \mu,
+\end{equation}
+and if $X = \sum_i f^i \partial_{x^i} + \sum_I g^I \partial_{\psi^j}$
+and $\de \mu = \de \vec x \, \de \vec\psi$ then
+\begin{equation}
+  \cL_{X} \de \mu = \left( \partial_i f^i + \partial_I g^I \right) \de \mu.
+\end{equation}
+
+% is the unique map obeying the odd derivation property
+% \begin{equation}
+%   \cL_Q (f s) = (Qf) s + (-1)^{\abs{f}} (Qs)
+% \end{equation}
+% and ...
 \end{defn}
 
 \begin{exercise} Verify that $\cL_{Q_1} \de \mu = 0$ and similarly
