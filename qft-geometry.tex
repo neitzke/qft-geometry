@@ -248,6 +248,7 @@
 \newcommand{\ti}[1]{\textit{#1}}
 \newcommand{\tb}[1]{\textbf{#1}}
 
+\DeclareMathOperator{\sgn}{sgn}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
@@ -1528,7 +1529,7 @@ Then the odd Gaussian integral gives the \ti{Pfaffian} of $M$,
 generalizing \eqref{eq:2d-odd-gaussian}
 \fixme{define it} (compare \eqref{eq:gaussian-det}):
 \begin{equation} \label{eq:integral-pfaffian}
-  Z_0 = \int_\cC \de \vec\psi \, \e^{-\half \psi^I M_{IJ} \psi^J} = \Pf (-M).
+  Z_0 = \int_\cC \de \vec\psi \, \e^{-\half \psi^I M_{IJ} \psi^J} = \Pf (M).
 \end{equation}
 When $C \neq 0$ we compute $Z / Z_0$ by Feynman diagrams.
 The rules are just as they were in the even case, except that
@@ -1697,17 +1698,10 @@ is characterized by
 \begin{equation}
  \cL_X (f \de \mu) = (X f) \de \mu + (-1)^{\abs{f} \abs{X}} f \cL_X \de \mu
 \end{equation}
-and if $X = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, 
-then
+and if $X = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, then
 \begin{equation}
   \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} f^i - \partial_{\psi^I} g^I \right) \de \mu.
 \end{equation}
-
-% is the unique map obeying the odd derivation property
-% \begin{equation}
-%   \cL_Q (f s) = (Qf) s + (-1)^{\abs{f}} (Qs)
-% \end{equation}
-% and ...
 \end{defn}
 
 \begin{exercise} Verify that $\cL_{Q_1} \de \mu = 0$ and similarly
@@ -1730,11 +1724,12 @@ and $f \in C^\infty_c(V)$. Then
 \begin{pf} By direct computation: if $Q = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ and $\de \mu = \de \vec{x} \de \vec{\psi}$, then
 \begin{align}
   \int_V \de \mu \, Qf &= \int \de \vec{x} \, (Qf)^\rmtop \\
-  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I) f^\rmtop + f^i \partial_{x^i} f^\rmtop) \\
-  &= \int \de \vec{x} \, (\partial_{\psi^I} g^I - \partial_{x^i} f^i) f^\rmtop \\
+  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I) f + f^i \partial_{x^i} f)^\rmtop \\
+  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I - \partial_{x^i} f^i) f)^\rmtop \\
   &= 0 
 \end{align}
-where we integrated by parts, using the compact support of $f$, in the third line.
+where in the second line we used the fact that $(\partial_{\psi^I} (g^I f))^\rmtop = 0$, and in the third line we integrated by parts, 
+using the compact support of $f$.
 \end{pf}
 
 This permits us to make the following fundamental construction:
@@ -1804,19 +1799,126 @@ Thus, applying \autoref{prop:Z-deformation-invariance},
 % \autoref{prop:Z-deformation-invariance} is still justified,
 % provided that $\deg h_t$ is independent of $t$. 
 % \end{exercise}
-we conclude that $Z$ is unchanged by compactly supported
-variations of $h$.
+we conclude:
+\begin{prop}[Weak deformation invariance of partition function] 
+For the action \eqref{eq:r21-susy-action}, 
+$Z$ is unchanged by compactly supported variations of $h$.
+\end{prop}
+
+Making deformations with larger and larger compact support $[L,-L]$ and
+using an \ti{a priori} estimate of the contribution to $Z$ from
+the region $\abs{x} > L$, we can bootstrap to something slightly stronger:
+\begin{prop}[Strong deformation invariance of partition function] \label{prop:strong-invariance-0d}
+For the action \eqref{eq:r21-susy-action}, 
+$Z$ depends only on the degree of $h$ and the sign of its leading term.
+\end{prop}
+
+\begin{exercise} Prove \autoref{prop:strong-invariance-0d}.
+\end{exercise}
+
+As we will see below, one cannot improve this further: $Z$ really
+\ti{does} depend on the degree of $h$ and the sign of its leading term.
+Crudely speaking, the point is that so long as the leading term of $h$
+is nonzero it kills the contributions from large $\abs{x}$, 
+making the field space $\cC$ effectively compact. As we vary $h$,
+if there is a moment when the leading term vanishes, the
+resulting loss of compactness causes a problem.
+This is a prototype for problems which recur over and over in 
+topological QFT. In particular, the failure of Donaldson invariants on $X$
+to be fully independent of the metric 
+on $X$ when $b_2^+(X) = 1$ has a similar origin.
 
 
 \subsection{Localization}
 
 We continue with the $0$-dimensional supersymmetric theory of the last section. We want to use the deformation invariance to compute $Z$.
 
-The strategy we follow is \fixme{roughly!} to deform $h(x) \to \lambda h(x)$ and take
+The strategy we follow is roughly to deform $h(x) \to \lambda h(x)$ and take
 $\lambda \to \infty$.
 In this limit, the bosonic term $h(x)^2$ in the action becomes extremely
 large away from the zeroes of $h(x)$; thus one might expect that 
-the contribution to $Z$ becomes concentrated near the zeroes.
+the contribution to $Z$ becomes concentrated near the zeroes,
+and can be computed locally there.
+
+Let us recall how the analogous phenomenon plays out for a purely bosonic
+integral in one dimension:
+consider a family of actions $S_\lambda(x) = \lambda S(x)$,
+with all critical points nondegenerate.
+Then the $\lambda \to \infty$ asymptotics 
+are governed by the \ti{saddle point} expansion:
+\begin{prop}[Saddle point expansion in one dimension] \label{prop:saddle-expansion-1d-bosonic}
+As $\lambda \to \infty$ we have
+\begin{equation}
+  \int_{-\infty}^\infty \de x \, \e^{-\lambda S(x)} \sim \sum_{x_c: S'(x_c) = 0}
+  \sqrt\frac{2 \pi}{\lambda S''(x_c)} \e^{-\lambda S(x_c)}
+\end{equation}
+\end{prop}
+Of course this expansion is dominated by the critical point(s) where
+$S'(x_c)$ takes its minimum value: the others are exponentially suppressed,
+and could be dropped.
+The proof goes by replacing the original integral by
+\begin{equation}
+  \sum_{x_c: S'(x_c) = 0} \int_{-\infty}^\infty \de x \, \e^{-\lambda (S(x_c) + \half S''(x_c) (x-x_c)^2)},
+\end{equation}
+a replacement which (maybe surprisingly) involves only an exponentially small error.
+Making the same kind of replacement in our supersymmetric theory leads to
+\begin{equation}
+  Z(\lambda) \sim \sum_{x_c: h(x_c) = 0} \int \de x \de \vec\psi \, \e^{- \half h'(x_c)^2 (x-x_c)^2 - h'(x_c) \psi^1 \psi^2}
+\end{equation}
+and now performing the Gaussian integrals over fermions and bosons gives
+\begin{equation}
+  Z(\lambda) \sim \sqrt{2 \pi} \sum_{x_c: h(x_c) = 0} \frac{h'(x_c)}{\abs{h'(x_c)}} = \sqrt{2 \pi} \sum_{x_c: h(x_c) = 0} \sgn(h'(x_c))
+\end{equation}
+Note the cancellation between the fermions which contribute 
+in the numerator and the bosons in the denominator.
+Since we already know 
+$Z(\lambda)$ is independent of $\lambda$, this proves:
+\begin{prop} \label{prop:toy-localization}
+In our supersymmetric theory with action \eqref{eq:r21-susy-action},
+the partition function can be evaluated exactly:
+\begin{equation}
+  \frac{Z(\lambda)}{\sqrt{2\pi}} = \sum_{x_c: h(x_c) = 0} \sgn(h'(x_c)).
+\end{equation}
+\end{prop}
+
+This is such a toy example that we could have gotten this answer more directly:
+\begin{exercise}
+Prove \autoref{prop:toy-localization} directly by integrating
+out the fermionic directions and then making the formal change of variables
+$y = h(x)$.
+\end{exercise}
+
+\fixme{study the cancellation in perturbation theory?}
+
+In contrast, expectation values like $\IP{f(x)}$ 
+in this theory cannot be evaluated
+exactly by localization: the reason is that
+functions $f(x)$ are not
+$Q$-invariant.
+
+
+\subsection{A zero-dimensional sigma model}
+
+Suppose $(M, \omega)$ is a compact symplectic manifold, with a $U(1)$ action
+generated by a Hamiltonian $H$, i.e. the vector field is
+\begin{equation}
+  Y = \omega^{-1}(\de H).
+\end{equation}
+Suppose moreover that all fixed points of $Y$ are isolated points $x_c$.
+% Our aim is to prove:
+% \begin{thm}[Duistermaat-Heckman localization formula]
+% \begin{equation}
+% \int_M \omega^n \e^{-H} = \sum_{x_c} \frac{\e^{-H(x_c)}}{\prod_i \lambda_i(x_c)}
+% \end{equation}
+% \end{thm}
+
+
+% For our next example we take $\cC$ to be a \ti{supermanifold}
+% rather than just a super vector space. 
+% Fortunately it will be a supermanifold of a rather simple kind,
+% and we will not develop the full theory of supermanifolds
+% formally, but try to get by with local computations.
+
 
 \appendix
 
