@@ -1430,7 +1430,7 @@ Integration over a purely odd vector space is defined to mean taking the
 ``top order part'' of the function.
 More exactly: 
 
-\begin{defn} \label{defn:odd-integral} A \ti{measure} $\de \mu$ 
+\begin{defn} \label{defn:odd-integral} A \ti{translation invariant measure} $\de \mu$ 
 on a purely odd super vector space $V = V^1$
 is
 \begin{equation} \label{eq:measure-odd-vector-space}
@@ -1445,7 +1445,7 @@ we define the integral by
 \end{defn}
 
 \begin{exercise} Suppose $V = \R^{0 \vert 1}$ with odd coordinate $\psi$.
-Show that there exists a measure $\de \mu$ on $V$ with the property that
+Show that there exists a translation invariant measure $\de \mu$ on $V$ with the property that
 \begin{equation}
 \int_V \de \mu \, (a \psi + b) = a.
 \end{equation}
@@ -1453,7 +1453,7 @@ We call this measure $\de \psi$.
 \end{exercise}
 
 \begin{exercise} Again take $V = \R^{0 \vert 1}$, and $c \in \R$.
-Show that there exist measures $c \de \psi$ and $\de (c \psi)$
+Show that there exist translation invariant measures $c \de \psi$ and $\de (c \psi)$
 on $V$, obeying the formulas
 \begin{equation}
   \int_V (c \de \psi) f(\psi) = c \int_V \de \psi f(\psi), \qquad \int_V \de(c \psi) f(c \psi) = \int_V \de \psi f(\psi),
@@ -1698,9 +1698,9 @@ is characterized by
 \begin{equation}
  \cL_X (f \de \mu) = (X f) \de \mu + (-1)^{\abs{f} \abs{X}} f \cL_X \de \mu
 \end{equation}
-and if $X = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, then
+and if $X = h^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, then \fixme{check sign}
 \begin{equation}
-  \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} f^i - \partial_{\psi^I} g^I \right) \de \mu.
+  \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} h^i + \partial_{\psi^I} g^I \right) \de \mu.
 \end{equation}
 \end{defn}
 
@@ -1714,18 +1714,19 @@ First we need a preliminary:
 
 \begin{lem} Suppose $Q$ is a divergence-free vector field
 (even or odd)
-on a super vector space $V$ with measure $\de \mu$, 
+on a super vector space $V$ with translation invariant measure $\de \mu$, 
 and $f \in C^\infty_c(V)$. Then
 \begin{equation}
   \int_V \de \mu \, Qf = 0.
 \end{equation}
 \end{lem}
 
-\begin{pf} By direct computation: if $Q = f^i \partial_{x^i} + g^I \partial_{\psi^I}$ and $\de \mu = \de \vec{x} \de \vec{\psi}$, then
+\begin{pf} By direct computation: if $Q = h^i \partial_{x^i} + g^I \partial_{\psi^I}$ and $\de \mu = \de \vec{x} \de \vec{\psi}$, then
 \begin{align}
   \int_V \de \mu \, Qf &= \int \de \vec{x} \, (Qf)^\rmtop \\
-  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I) f + f^i \partial_{x^i} f)^\rmtop \\
-  &= \int \de \vec{x} \, ((\partial_{\psi^I} g^I - \partial_{x^i} f^i) f)^\rmtop \\
+  &= \int \de \vec{x} \, (h^i \partial_{x^i} f + g^I \partial_{\psi^I} f)^\rmtop \\
+  &= \int \de \vec{x} \, (h^i \partial_{x^i} f + (- \partial_{\psi^I} g^I) f)^\rmtop \\
+  &= \int \de \vec{x} \, ((- \partial_{x^i} h^i - \partial_{\psi^I} g^I) f)^\rmtop \\
   &= 0 
 \end{align}
 where in the second line we used the fact that $(\partial_{\psi^I} (g^I f))^\rmtop = 0$, and in the third line we integrated by parts, 
@@ -1733,7 +1734,7 @@ using the compact support of $f$.
 \end{pf}
 
 This permits us to make the following fundamental construction:
-\begin{prop} \label{prop:Z-deformation-invariance}
+\begin{prop}[Invariance of partition function under $Q$-exact deformations] \label{prop:Z-deformation-invariance}
 Suppose $V$ is a super vector space with measure $\de \mu$.
 Suppose $Q$ is a divergence-free odd vector field on $V$,
 obeying $[Q,Q] = 0$ and $Q(S) = 0$.
@@ -1953,6 +1954,7 @@ In our example the signature is $(2,0)$ or $(0,2)$; this
 accounts for the $\pm \I$ in \eqref{eq:S2-critical-contrib}.
 
 The same localization phenomenon occurs in general:
+\fixme{check factor $n!$}
 \begin{thm}[Duistermaat-Heckman localization formula]
 \begin{equation}
 \int_M \frac{\omega^n}{n!} \e^{\I \lambda H} = \left( \frac{2\pi}{\lambda} \right)^{n} \sum_{x_c} \e^{\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \lambda H(x_c)}}{\sqrt{\abs{\det H''(x_c) / \omega^n}}}
@@ -1979,9 +1981,10 @@ I will be vague about this (if I can get by.)
 \fixme{supermanifold refs: DM, Etingof, VZ...}
 
 $\cC$ has local charts induced from the charts on $M$.
-In each such chart, $\cC$ has base coordinates $x^i$ (even)
+In each such chart, we identify $\cC$ with $\R^{2n \vert 2n}$,
+with base coordinates $x^i$ (even)
 and fiber coordinates $\psi^i$ (odd). The latter generate an
-exterior algebra. Thinking of $\psi^i$ as $\de x^i$ this
+exterior algebra. Thinking of $\psi^i$ as $\de x^i$, this
 suggests
 \begin{equation}
   C^\infty(\cC) = \Omega^*(M)
@@ -1991,7 +1994,39 @@ Now we take for our action the function
 \begin{equation}
   S = H + \omega = H + \omega_{ij} \psi^i \psi^j.
 \end{equation}
-This function is invariant under the odd vector field
+The partition function is then
+\begin{equation}
+  Z = \int_\cC \de \vec{x} \de \vec{\psi} \, \e^{-S}
+\end{equation}
+Here $\de \vec{x} \de \vec{\psi}$ denotes the canonical measure
+on $\cC$; this measure exists roughly because the
+$\de x^i$ and $\de \psi^i$ transform oppositely under
+change of coordinates; more precisely, we have an extension
+\begin{equation}
+  0 \to \Pi \pi^* TM \to T\cC \to TM \to 0
+\end{equation}
+from which it follows that $\Ber T\cC = \Ber TM \otimes \Ber \Pi TM$
+which is canonically trivial. (The existence of this measure is
+the parity-changed analogue of the fact that $T^* M$ has a canonical
+volume form.)
+
+Since our supermanifold $\cC$ comes to us as an odd vector bundle, the
+rule for integration is a straightforward generalization of what we
+have done before: namely we first integrate over the odd directions fiber
+by fiber, thus reducing to an integral over the base,
+\begin{equation} \label{eq:dh-integrated-over-fibers}
+  Z = \int_M \frac{\omega^n}{n!} \e^{-H}.
+\end{equation}
+This is the quantity which appears in the Duistermaat-Heckman theorem,
+except that we have analytically continued to the value $\lambda = \I$.
+
+\begin{exercise} Verify \eqref{eq:dh-integrated-over-fibers}, by 
+computing in a local coordinate patch. (It might be easiest to use 
+local Darboux coordinates for $\omega$.)
+\end{exercise}
+
+Now we want to compute $Z$ by localization.
+Begin by noting that the action $S$ is invariant under the odd vector field
 \begin{equation}
   Q = \de + \iota_Y = \psi^i \partial_{x^i} + Y^j \partial_{\psi^j}
 \end{equation}
@@ -2006,7 +2041,7 @@ take the odd function
 \begin{equation}
   \sigma = g(\psi, Y) = g_{ij} \psi^i Y^j = \psi^i Y_i
 \end{equation}
-where in the last line we defined $Y_i = g_{ij} Y^j$
+where in the last line we defined $Y_i = g_{ij} Y^j$.
 Then we have
 \begin{equation}
   Q \sigma = \norm{Y}^2 + \psi^i \psi^k \partial_{x^k} Y_i
@@ -2016,7 +2051,16 @@ and
   Q^2 \sigma = 0
 \end{equation}
 (using the fact that $g$ is $U(1)$-invariant).
-\fixme{...}
+Now we replace $S \to S + \rho Q \sigma$.
+By the same arguments we used above
+to prove \autoref{prop:Z-deformation-invariance},
+$Z$ is independent of the parameter $\rho$.
+Taking $\rho$ very large, we expect an effective localization
+to a neighborhood of the zero locus of $\norm{Y}^2$ i.e. to the fixed locus
+of $Y$.
+Carrying out this localization gives the Duistermaat-Heckman formula
+\fixme{fill in some details here}.
+
 
 % For our next example we take $\cC$ to be a \ti{supermanifold}
 % rather than just a super vector space. 
