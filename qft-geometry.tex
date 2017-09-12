@@ -1574,7 +1574,7 @@ Then:
 super vector space, $\de \mu = \omega^0 \otimes \omega^1 \in \Ber V^*$,
 and $f = f^0 \otimes f^1 \in C^\infty(V)$, then
 \begin{equation}
-    \int_V \de \mu \, f = \int_{V^0} \omega^0 \int_{V^1} \omega^1 \cdot f^1.
+    \int_V \de \mu \, f = \int_{V^0} \left( \omega^0 f^0 \right) \int_{V^1} \left( \omega^1 f^1 \right).
 \end{equation}
 \end{defn}
 On $\R^{p \vert q}$ we have the canonical element
@@ -1663,8 +1663,8 @@ a super Lie algebra under supercommutator: $[X,Y] f = X(Yf) - (-1)^{\abs{X} \abs
 Now in our example of $\R^{1 \vert 2}$ we consider the
 odd vector fields
 \begin{align}
-  Q_1 &= \psi^1 \partial_x - h(x) \partial_{\psi^2}, \\
-  Q_2 &= \psi^2 \partial_x + h(x) \partial_{\psi^1}.
+  Q_1 &= \psi^1 \partial_x + h(x) \partial_{\psi^2}, \\
+  Q_2 &= \psi^2 \partial_x - h(x) \partial_{\psi^1}.
 \end{align}
 These are both symmetries of the action \eqref{eq:r21-susy-action}, 
 in the sense that
@@ -1698,9 +1698,9 @@ is characterized by
 \begin{equation}
  \cL_X (f \de \mu) = (X f) \de \mu + (-1)^{\abs{f} \abs{X}} f \cL_X \de \mu
 \end{equation}
-and if $X = h^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, then \fixme{check sign}
+and if $X = h^i \partial_{x^i} + g^I \partial_{\psi^I}$ relative to a basis of $V$, then
 \begin{equation}
-  \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} h^i + \partial_{\psi^I} g^I \right) \de \mu.
+  \cL_{X} ( \de \vec x \, \de \vec\psi ) = \left( \partial_{x^i} h^i + (-1)^{\abs{Q}} \partial_{\psi^I} g^I \right) \de \mu.
 \end{equation}
 \end{defn}
 
@@ -1725,8 +1725,8 @@ and $f \in C^\infty_c(V)$. Then
 \begin{align}
   \int_V \de \mu \, Qf &= \int \de \vec{x} \, (Qf)^\rmtop \\
   &= \int \de \vec{x} \, (h^i \partial_{x^i} f + g^I \partial_{\psi^I} f)^\rmtop \\
-  &= \int \de \vec{x} \, (h^i \partial_{x^i} f + (- \partial_{\psi^I} g^I) f)^\rmtop \\
-  &= \int \de \vec{x} \, ((- \partial_{x^i} h^i - \partial_{\psi^I} g^I) f)^\rmtop \\
+  &= \int \de \vec{x} \, (h^i \partial_{x^i} f + (-1)^{\abs{g}} \partial_{\psi^I} g^I) f)^\rmtop \\
+  &= \int \de \vec{x} \, ((- \partial_{x^i} h^i + (-1)^{\abs{g}} \partial_{\psi^I} g^I) f)^\rmtop \\
   &= 0 
 \end{align}
 where in the second line we used the fact that $(\partial_{\psi^I} (g^I f))^\rmtop = 0$, and in the third line we integrated by parts, 
