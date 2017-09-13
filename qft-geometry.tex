@@ -1770,7 +1770,7 @@ is a sort of ideal version of the principle of
 \ti{invariance under $Q$-exact deformations}, which has 
 strong consequences. Let us apply it in our example, taking
 \begin{equation}
-  Q = Q_1 + Q_2.
+  Q = Q_1 + Q_2 = (\psi^1 + \psi^2) \partial_x + h(x) (-\partial_{\psi^1} + \partial_{\psi^2}).
 \end{equation}
 
 \begin{exercise}
@@ -1811,20 +1811,24 @@ using an \ti{a priori} estimate of the contribution to $Z$ from
 the region $\abs{x} > L$, we can bootstrap to something slightly stronger:
 \begin{prop}[Strong deformation invariance of partition function] \label{prop:strong-invariance-0d}
 For the action \eqref{eq:r21-susy-action}, 
-$Z$ depends only on the degree of $h$ and the sign of its leading term.
+$Z$ depends only on the asymptotic signs $\eps_+$, $\eps_-$ of $h(x)$,
+defined by $\lim_{x \to \pm \infty} h(x) = \eps_{\pm} \infty$.
 \end{prop}
 
 \begin{exercise} Prove \autoref{prop:strong-invariance-0d}.
 \end{exercise}
 
 As we will see below, one cannot improve this further: $Z$ really
-\ti{does} depend on the degree of $h$ and the sign of its leading term.
-Crudely speaking, the point is that so long as the leading term of $h$
-is nonzero it kills the contributions from large $\abs{x}$, 
-making the field space $\cC$ effectively compact. As we vary $h$,
-if there is a moment when the leading term vanishes, the
-resulting loss of compactness causes a problem.
-This is a prototype for problems which recur over and over in 
+\ti{does} depend on the asymptotic signs $\eps_{\pm}$.
+Crudely speaking, the point is that so long as $h(x)^2 \to \infty$
+for large $\abs{x}$, it suppresses the contribution to $Z$ 
+from large $\abs{x}$, 
+making the field space $\cC$ effectively compact. If we try to change
+the sign $\eps_+$ (say) by interpolating through a family of functions 
+$h_t(x)$, there will be some critical $t$ where we lose this compactness,
+and so we lose the deformation invariance.
+This is a prototype for ``wall-crossing'' phenomena 
+which recur frequently in 
 topological QFT. In particular, the failure of Donaldson invariants on $X$
 to be fully independent of the metric 
 on $X$ when $b_2^+(X) = 1$ has a similar origin.
@@ -1846,8 +1850,9 @@ integral in one dimension:
 consider a family of actions $S_\lambda(x) = \lambda S(x)$,
 with all critical points nondegenerate.
 Then the $\lambda \to \infty$ asymptotics 
-are governed by the \ti{saddle point} expansion:
-\begin{prop}[Saddle point expansion in one dimension] \label{prop:saddle-expansion-1d-bosonic}
+are governed by the method of \ti{steepest descent}:
+\fixme{ref BO}
+\begin{prop}[Steepest descent in one dimension] \label{prop:saddle-expansion-1d-bosonic}
 As $\lambda \to \infty$ we have
 \begin{equation}
   \int_{-\infty}^\infty \de x \, \e^{-\lambda S(x)} \sim \sum_{x_c: S'(x_c) = 0}
