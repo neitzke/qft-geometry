@@ -444,7 +444,8 @@ by Donaldson in the 1980s. For an excellent reference see \cite{MR1079726}.
 
 Fix a compact Lie group $G$ and let $P$ denote a principal $G$-bundle over $X$. Then
 we consider \ti{connections} in $P$.\footnote{For background on connections in principal
-bundles I like \cite{spivak}, \fixme{but there must also be a shorter reference}.}
+bundles I like \cite{spivak} or \cite{Kobayashi1996a}, or for a briefer and to-the-point 
+account \cite{Freed1992}.}
 A connection in $P$ may be locally represented by a $1$-form\footnote{By ``locally'' here I mean ``on a patch $U \subset X$ where we
 have chosen a trivialization of the bundle $P \vert_U$.''}
 \begin{equation}
@@ -1319,6 +1320,9 @@ We will replace the field space $\cC$, which so far has been a manifold
 (in fact a vector space), by a \ti{supermanifold} (in fact super vector
 space).
 
+Our treatment of supergeometry will be extremely superficial. Some references
+I have found useful are \cite{Deligne1999b,etingof,Witten2012,Zakharevich2017}.
+
 \begin{defn}[Super vector space] A \ti{super vector space} is a $\Z/2\Z$-graded vector space,
 \begin{equation}
   V = V^0 \oplus V^1.
@@ -1386,6 +1390,7 @@ will be an element
 \begin{equation}
 S \in \cO^0(V).
 \end{equation}
+
 
 \subsection{A fermionic theory}
 
@@ -1527,15 +1532,30 @@ develop a Feynman diagram expansion for these integrals.
 First let us see what happens when $C = 0$.
 Then the odd Gaussian integral gives the \ti{Pfaffian} of $M$,
 generalizing \eqref{eq:2d-odd-gaussian}
-\fixme{define it} (compare \eqref{eq:gaussian-det}):
+(compare \eqref{eq:gaussian-det}):
 \begin{equation} \label{eq:integral-pfaffian}
   Z_0 = \int_\cC \de \vec\psi \, \e^{-\half \psi^I M_{IJ} \psi^J} = \Pf (M).
 \end{equation}
+(Recall that the Pfaffian is a polynomial in the entries of $M$, defined
+only for skew-symmetric $M$, with the property that $(\Pf M)^2 = \det M$.
+For example, $\Pf \begin{pmatrix} 0 & a \\ -a & 0 \end{pmatrix} = a$. Note that
+for a general $2 \times 2$ matrix the determinant is \ti{not} the square of 
+any polynomial.)
+\begin{exercise} Prove \eqref{eq:integral-pfaffian}. One way that
+presumably works is to expand directly and compare with the
+combinatorial expression for the Pfaffian, namely if $\rank M = 2n$ then
+\begin{equation}
+  \Pf(M) = \frac{1}{2^n n!} \sum_{\sigma \in S_{2n}} (\sgn \sigma) \prod_{i=1}^n M_{\sigma(2i-1), \sigma(2i)}.
+\end{equation}
+\end{exercise}
+
 When $C \neq 0$ we compute $Z / Z_0$ by Feynman diagrams.
 The rules are just as they were in the even case, except that
-in the contribution from each labeling of the diagram, we have 
-to be careful about the overall sign. \fixme{explain sign rules in
-some comprehensible way}
+we have to be careful about signs.
+% We fix (arbitrarily) an ordering of the half-edges of the diagram.
+% Then, in the contribution from each labeling of the half-edges,
+\fixme{...}
+
 
 \begin{exercise} Suppose again $\cC = \R^{0 \vert 4}$ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4$. Show that $Z = m^2 - \lambda$ by the Feynman diagram expansion. (There is only
 one nonempty diagram which contributes.)
@@ -1560,9 +1580,6 @@ To define measures we need
 the super analogue of the determinant line:
 \begin{defn}[Berezinian line]
 The \ti{Berezinian line} of a super vector space $V$ is
-% \footnote{This
-% is not the most functorial possible definition; it would be better to
-% look in \fixme{Deligne-Morgan}.}
 \begin{equation}
   \Ber V = \wedge^\rmtop V^0 \otimes \wedge^\rmtop (\Pi V^1)^*.
 \end{equation}
@@ -1603,6 +1620,7 @@ the pure bosonic theory with action $S_1(x)$.
 The answer has no particularly good property.
 
 There is a special case where we can do much better.
+(This example is more or less lifted from \cite{MR2003030}.)
 This is the case where for some $h: \R \to \R$, with $\abs{h(x)} \to \infty$ 
 as $\abs{x} \to \infty$, we have
 \begin{equation}
@@ -1850,8 +1868,8 @@ integral in one dimension:
 consider a family of actions $S_\lambda(x) = \lambda S(x)$,
 with all critical points nondegenerate.
 Then the $\lambda \to \infty$ asymptotics 
-are governed by the method of \ti{steepest descent}:
-\fixme{ref BO}
+are governed by the method of \ti{steepest descent}.
+See \cite{Bender1999} for a very clear account of this method.
 \begin{prop}[Steepest descent in one dimension] \label{prop:saddle-expansion-1d-bosonic}
 As $\lambda \to \infty$ we have
 \begin{equation}
@@ -1867,6 +1885,7 @@ The proof goes by replacing the original integral by
   \sum_{x_c: S'(x_c) = 0} \int_{-\infty}^\infty \de x \, \e^{-\lambda (S(x_c) + \half S''(x_c) (x-x_c)^2)},
 \end{equation}
 a replacement which (maybe surprisingly) involves only an exponentially small error.
+
 Making the same kind of replacement in our supersymmetric theory leads to
 \begin{equation}
   Z(\lambda) \sim \sum_{x_c: h(x_c) = 0} \int \de x \de \vec\psi \, \e^{- \half h'(x_c)^2 (x-x_c)^2 - h'(x_c) \psi^1 \psi^2}
@@ -1883,10 +1902,10 @@ $Z(\lambda)$ is independent of $\lambda$, this proves:
 In our supersymmetric theory with action \eqref{eq:r21-susy-action},
 the partition function can be evaluated exactly:
 \begin{equation}
-  \frac{Z(\lambda)}{\sqrt{2\pi}} = \sum_{x_c: h(x_c) = 0} \sgn(h'(x_c)).
+  \frac{Z(\lambda)}{\sqrt{2\pi}} = \sum_{x_c: h(x_c) = 0} \sgn(h'(x_c)) = \half (\eps_+ - \eps_-).
 \end{equation}
 \end{prop}
-
+\insfig{qft-geometry-15}{0.8}
 This is such a toy example that we could have gotten this answer more directly:
 \begin{exercise}
 Prove \autoref{prop:toy-localization} directly by integrating
@@ -1905,16 +1924,19 @@ $Q$-invariant.
 
 \subsection{A zero-dimensional sigma model}
 
+Now we consider a less trivial and more geometric example of supersymmetric
+localization.
 Suppose $(M, \omega)$ is a compact symplectic manifold with
 $\dim M = 2n$, with a $U(1)$ action
 generated by a Hamiltonian vector field
 \begin{equation}
   Y = \omega^{-1}(\de H).
 \end{equation}
-Suppose moreover that all fixed points of $Y$ are isolated points $x_c$.
+Suppose moreover that all fixed points of $Y$ are isolated.
+Fix some $\alpha \in \R$.
 Our interest is in the integral
 \begin{equation}
-  Z = \int_M \frac{\omega^n}{n!} \e^{\I \lambda H}. 
+  Z = \int_M \frac{\omega^n}{n!} \e^{\I \alpha H}. 
 \end{equation}
 \begin{example}
 The fundamental example is the case $M = S^2$ with $\omega$ the standard
@@ -1926,10 +1948,10 @@ by the function
 \end{equation}
 and thus
 \begin{align}
-  Z &= 2 \pi \int_0^\pi \e^{\I \lambda \cos \theta} \sin \theta \, \de \theta \\
-  &= -2 \pi \int_{1}^{-1} \e^{\I \lambda z} \de z \\
-  &= -2\pi \I \lambda^{-1} (\e^{\I \lambda} - \e^{-\I \lambda}) \\
-  &= 4 \pi \frac{\sin \lambda}{\lambda}.
+  Z &= 2 \pi \int_0^\pi \e^{\I \alpha \cos \theta} \sin \theta \, \de \theta \\
+  &= -2 \pi \int_{1}^{-1} \e^{\I \alpha z} \de z \\
+  &= -2\pi \I \alpha^{-1} (\e^{\I \alpha} - \e^{-\I \alpha}) \\
+  &= 4 \pi \frac{\sin \alpha}{\alpha}.
 \end{align}
 \end{example}
 Note that this answer exhibits another localization
@@ -1940,7 +1962,7 @@ of $H$, replacing the contribution near the critical
 point by a Gaussian integral in the plane. Namely each
 critical point contributes
 \begin{equation} \label{eq:S2-critical-contrib}
-(\pm \I) \frac{2\pi}{\lambda \sqrt{\abs{\det H''(x_c)}}} \e^{\I \lambda H(x_c)}. 
+(\pm \I) \frac{2\pi}{\alpha \sqrt{\abs{\det H''(x_c)}}} \e^{\I \alpha H(x_c)}. 
 \end{equation}
 One difference from the saddle-point expansions
 we discussed before is that we have the
@@ -1962,13 +1984,13 @@ The same localization phenomenon occurs in general:
 \fixme{check factor $n!$}
 \begin{thm}[Duistermaat-Heckman localization formula]
 \begin{equation}
-\int_M \frac{\omega^n}{n!} \e^{\I \lambda H} = \left( \frac{2\pi}{\lambda} \right)^{n} \sum_{x_c} \e^{\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \lambda H(x_c)}}{\sqrt{\abs{\det H''(x_c) / \omega^n}}}
+\int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\alpha} \right)^{n} \sum_{x_c} \e^{\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \alpha H(x_c)}}{\sqrt{\abs{\det H''(x_c) / \omega^n}}}
 \end{equation}
 \end{thm}
 
 
 % In short, this is another situation where the
-% $\lambda \to \infty$ asymptotic expansion of the integral is 
+% $\alpha \to \infty$ asymptotic expansion of the integral is 
 % unexpectedly also giving the exact answer.
 
 We would like to explain this localization as an instance
@@ -1997,7 +2019,7 @@ suggests
 and this is indeed true.
 Now we take for our action the function
 \begin{equation}
-  S = H + \omega = H + \omega_{ij} \psi^i \psi^j.
+  S = \I \alpha H + \omega = \I \alpha H + \omega_{ij} \psi^i \psi^j.
 \end{equation}
 The partition function is then
 \begin{equation}
@@ -2020,10 +2042,9 @@ rule for integration is a straightforward generalization of what we
 have done before: namely we first integrate over the odd directions fiber
 by fiber, thus reducing to an integral over the base,
 \begin{equation} \label{eq:dh-integrated-over-fibers}
-  Z = \int_M \frac{\omega^n}{n!} \e^{-H}.
+  Z = \int_M \frac{\omega^n}{n!} \e^{-\I \alpha H}.
 \end{equation}
-This is the quantity which appears in the Duistermaat-Heckman theorem,
-except that we have analytically continued to the value $\lambda = \I$.
+This is the quantity which appears in the Duistermaat-Heckman theorem.
 
 \begin{exercise} Verify \eqref{eq:dh-integrated-over-fibers}, by 
 computing in a local coordinate patch. (It might be easiest to use 
