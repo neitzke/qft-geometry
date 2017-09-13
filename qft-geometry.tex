@@ -1708,7 +1708,10 @@ vector bundle with fiber $F$ over the super vector space $V$.''
 Then,
 
 \begin{defn}[Lie derivative of section of $\Ber V^*$ along super vector field] 
-If $X$ is a vector field on $V$, the \ti{Lie derivative}
+If $X$ is a vector field on $V$, the \ti{Lie derivative}\footnote{
+For a coordinate-free description of $\cL_X$, more in keeping with
+the notion of the infinitesimal variation along a flow which one has in ordinary
+geometry, see e.g. \cite{Zakharevich2017}.}
 \begin{equation}
   \cL_X: C^\infty(V, \Ber V^*) \to C^\infty(V, \Ber V^*)
 \end{equation}
@@ -1755,16 +1758,16 @@ This permits us to make the following fundamental construction:
 \begin{prop}[Invariance of partition function under $Q$-exact deformations] \label{prop:Z-deformation-invariance}
 Suppose $V$ is a super vector space with measure $\de \mu$.
 Suppose $Q$ is a divergence-free odd vector field on $V$,
-obeying $[Q,Q] = 0$ and $Q(S) = 0$.
+obeying $Q(S) = 0$.
 Finally let $\{\Psi_t\}_{t \in [0,1]}$ be a smoothly varying family 
-of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$,
-and let $\{S_t\}$ be the corresponding family of deformed actions,
+of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$, obeying
+$Q^2 \Psi_t = 0$.
+Finally, let $\{S_t\}$ be the corresponding family of deformed actions,
 \begin{equation} \label{eq:S-deformation}
   S_t = S + Q \Psi_t.
 \end{equation}
 Then the partition function $Z_t$ computed with action $S_t$
 is independent of $t$.
-
 \end{prop}
 
 \begin{pf}
@@ -1780,13 +1783,17 @@ and in particular
 \end{align}
 At the first step, to justify the differentiation under the 
 integral sign, we use the fact that $\Psi_t$ is compactly supported;
-at the middle step we use $Q^2 = 0$.
+at the middle step we use the fact that $Q^2 \Psi_t = 0$.
 \end{pf}
 
-\autoref{prop:Z-deformation-invariance} 
-is a sort of ideal version of the principle of 
-\ti{invariance under $Q$-exact deformations}, which has 
-strong consequences. Let us apply it in our example, taking
+One often considers the special case $Q^2 = 0$, in which case it is natural to consider
+the \ti{homology} of $Q$ acting on $C^\infty(\cC)$;
+in particular $S$ is a $Q$-closed element, and \autoref{prop:Z-deformation-invariance}
+says roughly that $Z$ only depends on the \ti{homology class} of $S$.
+If $Q^2 \neq 0$ then we can still define a homology of $Q$ by first restricting to the 
+$Q^2$-invariant part of $C^\infty(\cC)$.
+
+We will apply \autoref{prop:Z-deformation-invariance} in our example, taking
 \begin{equation}
   Q = Q_1 + Q_2 = (\psi^1 + \psi^2) \partial_x + h(x) (-\partial_{\psi^1} + \partial_{\psi^2}).
 \end{equation}
@@ -1795,8 +1802,9 @@ strong consequences. Let us apply it in our example, taking
 Verify that $[Q,Q] = 0$.
 \end{exercise}
 
-Now we consider varying the function $h(x)$ which appears in 
-\eqref{eq:r21-susy-action} to some family $h_t(x)$. 
+We consider deforming the action $S$ in \eqref{eq:r21-susy-action} 
+to a family of actions $S_t$, by deforming $h(x)$
+to a family $h_t(x)$.
 Using dots for derivatives with respect to $t$, we have
 \begin{equation}
   \dot S = h(x) {\dot h}(x) + {\dot h}'(x) \psi^1 \psi^2. 
@@ -1980,10 +1988,10 @@ where $(n_+,n_-)$ is the signature of $H''$.
 In our example the signature is $(2,0)$ or $(0,2)$; this 
 accounts for the $\pm \I$ in \eqref{eq:S2-critical-contrib}.
 
-The same localization phenomenon occurs in general:
+The same localization phenomenon occurs in general \cite{MR674406}:
 \fixme{check factor $n!$}
 \begin{thm}[Duistermaat-Heckman localization formula]
-\begin{equation}
+\begin{equation} \label{eq:dh-formula}
 \int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\alpha} \right)^{n} \sum_{x_c} \e^{\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \alpha H(x_c)}}{\sqrt{\abs{\det H''(x_c) / \omega^n}}}
 \end{equation}
 \end{thm}
@@ -2000,30 +2008,31 @@ so far: we take our field space $\cC$ to be a \ti{supermanifold}
 \begin{equation}
  \cC = \Pi T M 
 \end{equation}
-i.e. the tangent bundle to $M$ where we reverse the parity of 
-the fibers.
+i.e. the total space of the tangent bundle to $M$,
+with the parity of the fibers reversed.
 Everything we have done for super vector spaces has
 a supermanifold version, obtained by appropriate patching.
-I will be vague about this (if I can get by.)
-\fixme{supermanifold refs: DM, Etingof, VZ...}
+I will be vague about this, again referring to the references
+\cite{Deligne1999b,etingof,Witten2012,Zakharevich2017} for a
+more detailed treatment.
 
 $\cC$ has local charts induced from the charts on $M$.
-In each such chart, we identify $\cC$ with $\R^{2n \vert 2n}$,
-with base coordinates $x^i$ (even)
+In each such chart, we identify $\cC$ with a patch of 
+$\R^{2n \vert 2n}$, with base coordinates $x^i$ (even)
 and fiber coordinates $\psi^i$ (odd). The latter generate an
 exterior algebra. Thinking of $\psi^i$ as $\de x^i$, this
-suggests
+suggests that globally we should have
 \begin{equation}
   C^\infty(\cC) = \Omega^*(M)
 \end{equation}
 and this is indeed true.
 Now we take for our action the function
 \begin{equation}
-  S = \I \alpha H + \omega = \I \alpha H + \omega_{ij} \psi^i \psi^j.
+  S = -\I \alpha H - \omega = -\I \alpha H - \omega_{ij} \psi^i \psi^j.
 \end{equation}
-The partition function is then
+The partition function is
 \begin{equation}
-  Z = \int_\cC \de \vec{x} \de \vec{\psi} \, \e^{-S}
+  Z = \int_\cC \de \vec{x} \de \vec{\psi} \, \e^{-S}.
 \end{equation}
 Here $\de \vec{x} \de \vec{\psi}$ denotes the canonical measure
 on $\cC$; this measure exists roughly because the
@@ -2042,9 +2051,10 @@ rule for integration is a straightforward generalization of what we
 have done before: namely we first integrate over the odd directions fiber
 by fiber, thus reducing to an integral over the base,
 \begin{equation} \label{eq:dh-integrated-over-fibers}
-  Z = \int_M \frac{\omega^n}{n!} \e^{-\I \alpha H}.
+  Z = \int_M \frac{\omega^n}{n!} \e^{\I \alpha H}.
 \end{equation}
-This is the quantity which appears in the Duistermaat-Heckman theorem.
+This is the quantity which appears in the Duistermaat-Heckman formula
+\eqref{eq:dh-formula}.
 
 \begin{exercise} Verify \eqref{eq:dh-integrated-over-fibers}, by 
 computing in a local coordinate patch. (It might be easiest to use 
@@ -2077,22 +2087,16 @@ and
   Q^2 \sigma = 0
 \end{equation}
 (using the fact that $g$ is $U(1)$-invariant).
-Now we replace $S \to S + \rho Q \sigma$.
+Now we replace $S \to S + \lambda Q \sigma$.
 By the same arguments we used above
 to prove \autoref{prop:Z-deformation-invariance},
-$Z$ is independent of the parameter $\rho$.
-Taking $\rho$ very large, we expect an effective localization
-to a neighborhood of the zero locus of $\norm{Y}^2$ i.e. to the fixed locus
-of $Y$.
-Carrying out this localization gives the Duistermaat-Heckman formula
-\fixme{fill in some details here}.
-
-
-% For our next example we take $\cC$ to be a \ti{supermanifold}
-% rather than just a super vector space. 
-% Fortunately it will be a supermanifold of a rather simple kind,
-% and we will not develop the full theory of supermanifolds
-% formally, but try to get by with local computations.
+$Z$ is independent of the parameter $\lambda$.
+Taking $\lambda$ very large, we can as usual 
+reduce to a neighborhood of the zero locus of $\norm{Y}^2$ i.e. to the fixed locus
+of $Y$: the steepest descent method now says
+\begin{equation}
+  Z \sim \sum_{x_c \in M: Y(x_c) = 0} \fixme{...}
+\end{equation}
 
 
 \appendix
