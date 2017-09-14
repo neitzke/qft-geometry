@@ -280,6 +280,7 @@
 \DeclareMathOperator{\Obs}{Obs}
 \DeclareMathOperator{\Ber}{Ber}
 \DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\Hess}{Hess}
 
 \newcommand{\insfig}[2]{
 
@@ -1896,7 +1897,7 @@ a replacement which (maybe surprisingly) involves only an exponentially small er
 
 Making the same kind of replacement in our supersymmetric theory leads to
 \begin{equation}
-  Z(\lambda) \sim \sum_{x_c: h(x_c) = 0} \int \de x \de \vec\psi \, \e^{- \half h'(x_c)^2 (x-x_c)^2 - h'(x_c) \psi^1 \psi^2}
+  Z(\lambda) \sim \sum_{x_c: h(x_c) = 0} \int \de x \de \vec\psi \, \e^{- \half \lambda h'(x_c)^2 (x-x_c)^2 - \lambda h'(x_c) \psi^1 \psi^2}
 \end{equation}
 and now performing the Gaussian integrals over fermions and bosons gives
 \begin{equation}
@@ -1962,7 +1963,7 @@ and thus
   &= 4 \pi \frac{\sin \alpha}{\alpha}.
 \end{align}
 \end{example}
-Note that this answer exhibits another localization
+This answer exhibits another localization
 phenomenon: it matches what one would get
 by making a quadratic approximation to the integrand 
 around the critical points $x_c$
@@ -1970,29 +1971,29 @@ of $H$, replacing the contribution near the critical
 point by a Gaussian integral in the plane. Namely each
 critical point contributes
 \begin{equation} \label{eq:S2-critical-contrib}
-(\pm \I) \frac{2\pi}{\alpha \sqrt{\abs{\det H''(x_c)}}} \e^{\I \alpha H(x_c)}. 
+(\pm \I) \frac{2\pi}{\alpha} \e^{\I \alpha H(x_c)}. 
 \end{equation}
-One difference from the saddle-point expansions
+In making this approximation, one difference from 
+the steepest-descent expansions
 we discussed before is that we have the
 $\I$ in the exponent, hence no exponential suppression. 
-In the quadratic approximation
-one deals with this by rotating the contour of
+One deals with this by rotating the contour of
 integration over each real variable by an angle $\pm \pi/4$
 into complex space, so that the integrand
 becomes exponentially suppressed again.
 This produces a factor \fixme{check sign}
 \begin{equation}
-  \e^{\frac{\pi \I}{4} (n_+ - n_-)}
+  \e^{-\frac{\pi \I}{4} (n_+ - n_-)}
 \end{equation}
-where $(n_+,n_-)$ is the signature of $H''$.
+where $(n_+,n_-)$ is the signature of 
+the bilinear form $H''(x_c)$.
 In our example the signature is $(2,0)$ or $(0,2)$; this 
 accounts for the $\pm \I$ in \eqref{eq:S2-critical-contrib}.
 
 The same localization phenomenon occurs in general \cite{MR674406}:
-\fixme{check factor $n!$}
-\begin{thm}[Duistermaat-Heckman localization formula]
+\begin{thm}[Duistermaat-Heckman localization formula, first version] \label{thm:duistermaat-heckman}
 \begin{equation} \label{eq:dh-formula}
-\int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\alpha} \right)^{n} \sum_{x_c} \e^{\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \alpha H(x_c)}}{\sqrt{\abs{\det H''(x_c) / \omega^n}}}
+\int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\alpha} \right)^{n} \sum_{x_c} \e^{-\frac{\pi \I}{4} (n_+(x_c) - n_-(x_c))} \frac{\e^{\I \alpha H(x_c)} \omega^n/n!}{\sqrt{\abs{\det H''(x_c)}}}
 \end{equation}
 \end{thm}
 
@@ -2028,7 +2029,7 @@ suggests that globally we should have
 and this is indeed true.
 Now we take for our action the function
 \begin{equation}
-  S = -\I \alpha H - \omega = -\I \alpha H - \omega_{ij} \psi^i \psi^j.
+  S = -\I \alpha (H + \omega) = -\I \alpha (H + \omega_{ij} \psi^i \psi^j).
 \end{equation}
 The partition function is
 \begin{equation}
@@ -2051,10 +2052,8 @@ rule for integration is a straightforward generalization of what we
 have done before: namely we first integrate over the odd directions fiber
 by fiber, thus reducing to an integral over the base,
 \begin{equation} \label{eq:dh-integrated-over-fibers}
-  Z = \int_M \frac{\omega^n}{n!} \e^{\I \alpha H}.
+  Z = (\I \alpha)^n \int_M \frac{\omega^n}{n!} \e^{\I \alpha H}.
 \end{equation}
-This is the quantity which appears in the Duistermaat-Heckman formula
-\eqref{eq:dh-formula}.
 
 \begin{exercise} Verify \eqref{eq:dh-integrated-over-fibers}, by 
 computing in a local coordinate patch. (It might be easiest to use 
@@ -2080,23 +2079,84 @@ take the odd function
 where in the last line we defined $Y_i = g_{ij} Y^j$.
 Then we have
 \begin{equation}
-  Q \sigma = \norm{Y}^2 + \psi^i \psi^k \partial_{x^k} Y_i
+  Q \sigma = g(Y,Y) - \de(gY) = Y^i Y_i - \psi^i \psi^k \partial_{x^k} Y_i
 \end{equation}
 and 
 \begin{equation}
   Q^2 \sigma = 0
 \end{equation}
 (using the fact that $g$ is $U(1)$-invariant).
-Now we replace $S \to S + \lambda Q \sigma$.
-By the same arguments we used above
-to prove \autoref{prop:Z-deformation-invariance},
-$Z$ is independent of the parameter $\lambda$.
+Now we make the deformation $S \to S + \lambda Q \sigma$.
+By \autoref{prop:Z-deformation-invariance},
+$Z$ is independent of the deformation parameter $\lambda$.
 Taking $\lambda$ very large, we can as usual 
-reduce to a neighborhood of the zero locus of $\norm{Y}^2$ i.e. to the fixed locus
-of $Y$: the steepest descent method now says
-\begin{equation}
-  Z \sim \sum_{x_c \in M: Y(x_c) = 0} \fixme{...}
+reduce to a neighborhood of the zero locus of $g(Y,Y)$, i.e. to the fixed locus of $Y$. Then the steepest-descent method gives
+\begin{equation} \label{eq:dh-steepest-descent}
+  Z \sim \sum_{x_c \in M: Y(x_c) = 0} \e^{\I \alpha H(x_c)} \times (2\pi)^n \frac{(\de(gY)(x_c))^n/n!}{\sqrt{\det (g(Y,Y))''(x_c)}}
 \end{equation}
+Here both the numerator
+$(\de(gY)(x_c))^n/n!$
+and the denominator
+$\sqrt{\det (g(Y,Y))''(x_c)}$ 
+are valued in $\wedge^\rmtop T^*_{x_c} M$.
+\fixme{it would be better to be careful about 
+twists by orientation bundle here; in what follows we always
+use the standard orientations}
+What remains is to show that their ratio is
+equal to $(-1)^{n_-} \frac{\omega^n/n!}{\sqrt{\abs{\det H''(x_c)}}}$.
+One convenient way to do this is to consider a local model:
+$M = \R^2$ with its standard metric and symplectic form,
+\begin{equation}
+g = \de r^2 + r^2 \de \theta^2, \quad \omega = r \, \de r \wedge \de \theta, 
+\end{equation}
+with $U(1)$ acting in the charge-$k$ representation,
+generated by
+\begin{equation}
+  Y = k \partial_\theta, \qquad H = \half k r^2.
+\end{equation}
+Then we compute
+\begin{equation}
+  \de (gY) = 2 k r \, \de r \wedge \de \theta, \quad \sqrt{\det g(Y,Y)''(0)} = 2 k^2 r \, \de r \wedge \de \theta
+\end{equation}
+with the ratio $1/k$,
+while on the other hand
+\begin{equation}
+  \omega = r \de r \wedge \de \theta, \qquad \sqrt{\abs{\det H''(0)}} = \abs{k} r \, \de r \wedge \de \theta
+\end{equation}
+with ratio $1 / \abs{k}$,
+so that the two ratios differ by $\sgn k$.
+
+For an isolated fixed point we can decompose the normal bundle
+into a direct sum of $n$ 2-dimensional pieces, with $U(1)$ 
+weights $k_1, \dots, k_n$, and put each piece in standard form as
+above.
+The number of negative weights $k_i$ is $\half n_-$.
+Thus finally \eqref{eq:dh-steepest-descent} becomes
+\begin{equation}
+  Z = \sum_{x_c \in M: Y(x_c) = 0} \e^{\I \alpha H(x_c)} \times (2\pi)^n (-1)^{\half n_-} \frac{\e^{\I \alpha H(x_c)} \omega^n}{\sqrt{\abs{\det H''(x_c)}}}
+\end{equation}
+Comparing this with \eqref{eq:dh-integrated-over-fibers} proves
+\autoref{thm:duistermaat-heckman}.
+
+Along the way we have also proved a second version of the formula:
+\begin{thm}[Duistermaat-Heckman localization formula, second version] \label{thm:duistermaat-heckman-2}
+\begin{equation} \label{eq:dh-formula}
+\int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\I \alpha} \right)^{n} \sum_{x_c} \frac{\e^{\I \alpha H(x_c)}}{\prod_{i=1}^n k_i(x_c)}
+\end{equation}
+where the $k_i(x_c) \in \Z$ are the weights of the $U(1)$ action
+on the normal bundle to $x_c$.
+\end{thm}
+
+
+% The part involving $g$ cancels out here (as it must since
+% the dependence on $g$ entered through our $Q$-exact deformation).
+% Thus for simplicity we can choose $g$ so that $gY$ is
+% a local Liouville form, i.e. $\de (gY) = \omega$.
+% Then the numerator becomes $\omega^n$ and the denominator
+% is the Hessian 
+
+\fixme{you can also do this for more general
+equivariantly closed forms: Atiyah-Bott-Berline-Vergne}
 
 
 \appendix
