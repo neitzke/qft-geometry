@@ -2307,6 +2307,148 @@ by
 \fixme{...}
 
 
+\subsection{Symplectic manifolds}
+
+\begin{defn}[Nondegenerate skew pairing] \label{def:nondegenerate-skew-pairing}
+Suppose $V$ is a vector space over $\R$ or $\C$.
+We say $\omega \in \wedge^2(V)$ is \ti{nondegenerate}
+if the map
+\begin{align}
+  V &\to V^* \\
+  v &\mapsto \iota_v \omega = \omega(v,\cdot)
+\end{align}
+is an isomorphism.
+\end{defn}
+
+\begin{prop}[Standard basis for a nondegenerate skew pairing]
+\label{prop:standard-nondegenerate-skew-pairing}
+If $V$ is a finite-dimensional vector space over $\R$ or $\C$, and
+$\omega \in \wedge^2(V)$ is nondegenerate, then $V$ has
+dimension $2n$ for some $n$, and there
+exists a basis $\{e_1, \dots, e_n, f_1, \dots, f_n\}$ for $V$
+such that
+\begin{align}
+\omega(e_i, f_j) &= \delta_{ij}, \\
+\omega(e_i, e_j) &= 0, \\
+\omega(f_i, f_j) &= 0.
+\end{align}
+\end{prop}
+
+\begin{defn}[Symplectic manifold] \label{def:symplectic-manifold}
+A \ti{symplectic manifold} is a pair $(X,\omega)$
+where $X$ is a manifold and
+$\omega \in \Omega^2(X)$, such that
+\begin{equation}
+  \de \omega = 0
+\end{equation}
+and $\omega(x)$ is nondegenerate for every $x \in X$.
+\end{defn}
+
+\begin{defn}[Exact symplectic manifold]
+An \ti{exact symplectic manifold} is a tuple $(X,\omega,\lambda)$
+where $(X,\omega)$ is a symplectic manifold and $\lambda \in \Omega^1(X)$ has $\de \lambda = \omega$.
+\end{defn}
+
+\begin{example}[Cotangent bundle is an exact symplectic manifold]
+If $X$ is any manifold and $Y = T^* X$, then $Y$ carries a canonical
+$1$-form (``Liouville form''), $\lambda \in \Omega^1(Y)$,
+defined as follows:
+\begin{equation}
+  \lambda(x,p) \cdot v = p \cdot \pi_* v \qquad x \in X, p \in T^*_x X, v \in TY.
+\end{equation}
+Then there is a canonical symplectic form on $Y$ given by
+\begin{equation}
+\omega = \de \lambda.
+\end{equation}
+\end{example}
+
+\begin{exercise}
+Show that, in the canonical coordinate system $(p_i,q_i)$
+on $T^* X$ induced by a coordinate system $(q_i)$ on $X$,
+we have
+$\lambda = \sum_{i=1}^n p_i \de q_i$, and
+$\omega = \sum_{i=1}^n \de p_i \wedge \de q_i$.
+\end{exercise}
+
+
+\subsection{Symplectic quotients}
+
+\begin{defn}[Moment map] \label{def:moment-map}
+Suppose $X$ is a symplectic manifold, with symplectic form $\omega$,
+acted on by a real Lie group $G$. Let $\fg = \Lie G$ and let
+\begin{equation}
+\rho: \fg \to \Vect(X)
+\end{equation}
+be the infinitesimal action.
+Suppose given a function
+\begin{equation} \label{eq:moment-map}
+ \mu: X \to \fg^*
+\end{equation}
+and for $Z \in \fg$ write $\mu_Z = \mu \cdot Z$.
+We say $\mu$ is a \ti{moment map} for the $G$-action if
+for all $Z \in \fg$ we have
+\begin{equation} \label{eq:moment-map-condition-3}
+  \iota_{\rho(Z)} \omega = \de \mu_Z,
+\end{equation}
+and in addition the map \eqref{eq:moment-map} is $G$-equivariant
+(for the $G$-action on $X$ and the coadjoint $G$-action on $\fg^*$).
+\end{defn}
+In particular, the moment map $\mu$
+\ti{determines} the $G$-action.
+
+Note that moment maps do not always exist.
+At the very least, the existence of a moment
+map requires that $\iota_{\rho(Z)} \omega$ is closed
+for all $Z \in \fg$, by \eqref{eq:moment-map-condition-3}. Using
+Cartan's ``magic formula''
+\begin{equation} \label{eq:cartan-magic-formula}
+  \cL_v \omega = \de (\iota_v \omega) + \iota_v (\de \omega)
+\end{equation}
+and the fact that $\de \omega = 0$,
+this is equivalent to requiring $\cL_{\rho(Z)}\omega = 0$,
+i.e. the $G$-action preserves $\omega$ infinitesimally.
+But even if the $G$-action preserves $\omega$,
+a moment map still may not exist.\footnote{When $G$ is compact,
+moment maps exist at least
+\ti{locally} on $X$, though maybe not globally. When $G$ is not
+compact there can even be a local obstruction.}
+
+Conversely, if a moment map $\mu$ does exist and $\fg$
+has nontrivial center, we can get another moment map by taking
+$\mu' = \mu + c$, where $c$ is fixed by the \ti{coadjoint}
+action of $G$, i.e. $c \in [\fg,\fg]^\perp \subset \fg^*$.
+
+\begin{exercise}
+Suppose $X = \R^2$ with $\omega = \de x_1 \wedge \de x_2$, and
+$G = SO(2) = U(1) = \{e^{\I \alpha}: \alpha \in \R \}$.
+Then $\fu(1)$ is $1$-dimensional, spanned by $\partial_\alpha$.
+Show that the counterclockwise rotation action of $U(1)$ on $X$,
+given by the matrices
+\begin{equation}
+   \begin{pmatrix} \cos \alpha & - \sin \alpha \\ \sin \alpha & \cos \alpha \end{pmatrix},
+ \end{equation}
+has a moment map $\mu: \R^2 \to \fu(1)^*$, given by
+\begin{equation}
+  \mu(x_1,x_2) \cdot \partial_\alpha = -\half (x_1^2 + x_2^2).
+\end{equation}
+\end{exercise}
+Thus if we identify $\fu(1) \simeq \R$ using the generator
+$\partial_\alpha$, we can think of $\mu$ just as an $\R$-valued function
+on $X$,
+\begin{equation}
+  \mu(x_1,x_2) = -\half (x_1^2 + x_2^2).
+\end{equation}
+
+\begin{exercise} \label{exc:cotangent-moment-map}
+Suppose $X$ is any manifold, with a compact
+group $G$ acting. Then $T^* X$ is a symplectic manifold
+which also has a canonical action of $G$. Verify that
+\begin{equation}
+  \mu_Z(x,p) = -p \cdot (\rho(Z)(x)) \qquad x \in X, p \in T^*_x X
+\end{equation}
+gives a moment map for this action.
+\end{exercise}
+
 
 \printbibliography
 
