@@ -2001,7 +2001,7 @@ suggests that globally we should have
 \end{equation}
 and this is indeed true.
 (More generally, for any $\cC = \Pi E$ with $E \to M$ some vector
-bundle we would have $C^\infty(\cC) = C^\infty(M, \wedge^* E)$.)
+bundle we would have $C^\infty(\cC) = C^\infty(M, \wedge^* E^*)$.)
 
 Now we take for our action the function
 \begin{equation}
@@ -2050,19 +2050,19 @@ $\cC$ by making a perturbation $S \to S + Q \Psi$.
 For this we fix a $U(1)$-invariant metric $g$ on $M$ and then 
 take the odd function
 \begin{equation}
-  \sigma = g(\psi, Y) = g_{ij} \psi^i Y^j = \psi^i Y_i
+  \Psi = g(\psi, Y) = g_{ij} \psi^i Y^j = \psi^i Y_i
 \end{equation}
 where in the last line we defined $Y_i = g_{ij} Y^j$.
 Then we have
 \begin{equation}
-  Q \sigma = g(Y,Y) - \de(gY) = Y^i Y_i - \psi^i \psi^k \partial_{x^k} Y_i
+  Q \Psi = g(Y,Y) - \de(gY) = Y^i Y_i - \psi^i \psi^k \partial_{x^k} Y_i
 \end{equation}
 and 
 \begin{equation}
-  Q^2 \sigma = 0
+  Q^2 \Psi = 0
 \end{equation}
 (using the fact that $g$ is $U(1)$-invariant).
-Now we make the deformation $S \to S + \lambda Q \sigma$.
+Now we make the deformation $S \to S + \lambda Q \Psi$.
 By \autoref{prop:Z-deformation-invariance},
 $Z$ is independent of the deformation parameter $\lambda$.
 Taking $\lambda$ very large, we can as usual 
@@ -2127,6 +2127,10 @@ Comparing this with \eqref{eq:dh-integrated-over-fibers} proves:
 where the $k_i(x_c) \in \Z$ are the weights of the $U(1)$ action
 on the normal bundle to $x_c$.
 \end{thm}
+
+In the case of $S^2$ which we considered above, the weights at the two fixed points
+were $k = +1$ and $k = -1$, the sign determined by whether the local orientation induced by the $U(1)$
+action agreed or disagreed with the orientation induced by $\omega$.
 
 Incidentally,
 there is another way of thinking about 
