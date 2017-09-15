@@ -2043,7 +2043,7 @@ Begin by noting that the action $S$ is invariant under the odd vector field
 \end{equation}
 which has (Cartan's formula)
 \begin{equation}
-  [Q,Q] = \cL_Y = \psi^i \partial_{x^i} Y^j \partial_{\psi^j} + Y^i \partial_{x^i}.
+  \half [Q,Q] = \cL_Y = \psi^i \partial_{x^i} Y^j \partial_{\psi^j} + Y^i \partial_{x^i}.
 \end{equation}
 As before, we want to get a localization to some small subset of
 $\cC$ by making a perturbation $S \to S + Q \Psi$.
@@ -2058,10 +2058,14 @@ Then we have
   Q \Psi = g(Y,Y) - \de(gY) = Y^i Y_i - \psi^i \psi^k \partial_{x^k} Y_i
 \end{equation}
 and 
-\begin{equation}
+\begin{equation} \label{eq:Qpsi-closed}
   Q^2 \Psi = 0
 \end{equation}
 (using the fact that $g$ is $U(1)$-invariant).
+\begin{exercise} Verify \eqref{eq:Qpsi-closed} by direct computation
+using the coordinate expressions of $Q$ and $\Psi$.
+\end{exercise}
+
 Now we make the deformation $S \to S + \lambda Q \Psi$.
 By \autoref{prop:Z-deformation-invariance},
 $Z$ is independent of the deformation parameter $\lambda$.
@@ -2096,7 +2100,10 @@ Then we compute
 \begin{equation}
   \de (gY) = 2 k r \, \de r \wedge \de \theta, \quad \sqrt{\det g(Y,Y)''(0)} = 2 k^2 r \, \de r \wedge \de \theta
 \end{equation}
-with the ratio $1/k$.
+and thus the ratio comes to
+\begin{equation}
+  \frac{(\de(gY)(x_c))}{\sqrt{\det (g(Y,Y))''(x_c)}} = \frac{1}{k}.
+\end{equation}
 % while on the other hand
 % \begin{equation}
 %   \omega = r \de r \wedge \de \theta, \qquad \sqrt{\abs{\det H''(0)}} = \abs{k} r \, \de r \wedge \de \theta
@@ -2405,8 +2412,6 @@ $\lambda = \sum_{i=1}^n p_i \de q_i$, and
 $\omega = \sum_{i=1}^n \de p_i \wedge \de q_i$.
 \end{exercise}
 
-
-\subsection{Symplectic quotients}
 
 \begin{defn}[Moment map] \label{def:moment-map}
 Suppose $X$ is a symplectic manifold, with symplectic form $\omega$,
