@@ -1793,7 +1793,9 @@ At the first step, to justify the differentiation under the
 integral sign, we use the fact that $\Psi_t$ is compactly supported.
 \end{pf}
 
-One often considers the special case $Q^2 = 0$, in which case it is natural to consider
+One often considers the special case where 
+$Q_t = Q$ is independent of $t$ and 
+has $Q^2 = 0$, in which case it is natural to consider
 the \ti{homology} of $Q$ acting on $C^\infty(\cC)$;
 in particular $S$ is a $Q$-closed element, and \autoref{prop:Z-deformation-invariance}
 says roughly that $Z$ only depends on the \ti{homology class} of $S$.
@@ -2222,7 +2224,7 @@ where $Q$ becomes the \ti{equivariant differential} $\de + \cL_Y$.
 Then \autoref{thm:duistermaat-heckman} generalizes to
 
 \begin{thm}[Atiyah-Bott-Berline-Vergne localization for isolated 
-fixed points] \label{thm:abbv-isolated}
+fixed points \cite{MR85e:58041,MR705039}] \label{thm:abbv-isolated}
 Suppose $M$ is a compact manifold with a $\U(1)$-action, with isolated
 fixed points.
 Also suppose $\beta \in \Omega^*(M)$ is an equivariantly closed form.
@@ -2255,11 +2257,14 @@ on $M$. \fixme{worry about orientations}
 a $\U(1)$-equivariant $\SO(2n)$-bundle $E$. The \ti{equivariant 
 Euler form} of $E$ is \fixme{check factors of $2 \pi$ and $\I$}
 \begin{equation}
-  \Euler(E) = \Pf\left(F + \frac{\I Y}{2 \pi}\right) \in \Omega^*(M)
+  \Euler(E) = \Pf\left(F + \frac{\I Y}{2 \pi}\right) \in \Omega^*(X)
 \end{equation}
 where $Y \in \Omega^0(\fso(E))$ is the generator of the $\U(1)$ action
 and $F \in \Omega^2(\fso(E))$ is the curvature.
 \end{defn}
+So $\Euler(E)$ is a form concentrated in even degrees.
+\fixme{write first two degrees explicitly}
+
 Note that the bottom component of $\Euler(E)$ is just
 $\prod_{i=1}^n k_i$ where the $k_i$ are the weights of the 
 $\U(1)$-action. In particular, if no $k_i = 0$ then $\Euler(E)$
@@ -2276,7 +2281,7 @@ there is a form
 % which is finite when $x$ is nilpotent.
 We use this in the statement of the next theorem:
 
-\begin{thm}[Atiyah-Bott-Berline-Vergne localization in general] \label{thm:abbv}
+\begin{thm}[Atiyah-Bott-Berline-Vergne localization in general \cite{MR85e:58041,MR705039}] \label{thm:abbv}
 Suppose $M$ is a compact manifold with a $\U(1)$-action, with fixed locus
 $F$.
 Also suppose $\beta \in \Omega^*(M)$ is an equivariantly closed form.
