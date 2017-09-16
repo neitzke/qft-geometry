@@ -1761,15 +1761,19 @@ using the compact support of $f$.
 This permits us to make the following fundamental construction:
 \begin{prop}[Invariance of partition function under $Q$-exact deformations] \label{prop:Z-deformation-invariance}
 Suppose $V$ is a super vector space with measure $\de \mu$.
-Suppose $Q$ is a divergence-free odd vector field on $V$,
-obeying $Q(S) = 0$.
-Finally let $\{\Psi_t\}_{t \in [0,1]}$ be a smoothly varying family 
-of odd elements in $C^\infty_c(V)$, with $\Psi_0 = 0$, obeying
-$Q^2 \Psi_t = 0$.
-Finally, let $\{S_t\}$ be the corresponding family of deformed actions,
-\begin{equation} \label{eq:S-deformation}
-  S_t = S + Q \Psi_t.
+Let $\{S_t\}$ be a family of actions,
+invariant under a family of odd symmetries $Q_t$,
+i.e. $Q_t S_t = 0$.
+Finally, suppose
+\begin{equation}
+  \partial_t S_t = Q_t \Psi_t
 \end{equation}
+with $\Psi_t \in C^\infty_c(\cC)$. 
+% , and
+% \begin{equation}
+%   \IP{ Q_t^2 \Psi_t } = 0
+% \end{equation}
+% when we compute the expectation value using the action $S_t$.
 Then the partition function $Z_t$ computed with action $S_t$
 is independent of $t$.
 \end{prop}
@@ -1777,35 +1781,24 @@ is independent of $t$.
 \begin{pf}
 After this deformation the partition function is
 \begin{equation}
-  Z_t = \int_\cC \de \mu \, \e^{-(S + Q \Psi_t)}
+  Z_t = \int_\cC \de \mu \, \e^{-S_t}
 \end{equation}
-and in particular
+and thus
 \begin{align}
-  \partial_t Z_t &= \int_\cC \de \mu \, (Q \Psi'_t) \e^{-(S + Q \Psi_t)} \\
-  &= \int_\cC \de \mu \, Q \left( \Psi'_t \e^{-(S + Q \Psi_t)} \right) \\
-  &= 0
+  \partial_t Z_t &= -\int_\cC \de \mu \, (Q_t \Psi_t) \e^{-S_t} \\
+  &= -\int_\cC \de \mu \, Q_t \left( \Psi_t \e^{-S_t} \right) \\
+  &= 0.
 \end{align}
 At the first step, to justify the differentiation under the 
-integral sign, we use the fact that $\Psi_t$ is compactly supported;
-at the middle step we use the fact that $Q^2 \Psi_t = 0$.
+integral sign, we use the fact that $\Psi_t$ is compactly supported.
 \end{pf}
 
 One often considers the special case $Q^2 = 0$, in which case it is natural to consider
 the \ti{homology} of $Q$ acting on $C^\infty(\cC)$;
 in particular $S$ is a $Q$-closed element, and \autoref{prop:Z-deformation-invariance}
 says roughly that $Z$ only depends on the \ti{homology class} of $S$.
-If $Q^2 \neq 0$ then we can still define a homology of $Q$ by first restricting to the 
-$Q^2$-invariant part of $C^\infty(\cC)$.
 
-We will apply \autoref{prop:Z-deformation-invariance} in our example, taking
-\begin{equation}
-  Q = Q_1 + Q_2 = (\psi^1 + \psi^2) \partial_x + h(x) (-\partial_{\psi^1} + \partial_{\psi^2}).
-\end{equation}
-
-\begin{exercise}
-Verify that $[Q,Q] = 0$.
-\end{exercise}
-
+We will apply \autoref{prop:Z-deformation-invariance} in our example.
 We consider deforming the action $S$ in \eqref{eq:r21-susy-action} 
 to a family of actions $S_t$, by deforming $h(x)$
 to a family $h_t(x)$.
@@ -1813,10 +1806,15 @@ Using dots for derivatives with respect to $t$, we have
 \begin{equation}
   \dot S = h(x) {\dot h}(x) + {\dot h}'(x) \psi^1 \psi^2. 
 \end{equation}
-But this is actually $Q$-exact: indeed
+But this is actually $Q_1$-exact: indeed
 \begin{equation} \label{eq:psi-example}
-  \dot S = Q \Psi, \qquad \Psi = {\dot h}(x) \psi^1.
+  \dot S = Q_1 \Psi, \qquad \Psi = {\dot h}(x) \psi^2.
 \end{equation}
+% We do not have $Q_1^2 \Psi = 0$, but the expectation value
+% does vanish:
+% \begin{exercise}
+% Show that $\IP{Q_1^2 \Psi} = 0$.
+% \end{exercise}
 Thus, applying \autoref{prop:Z-deformation-invariance},
 % in this situation, we would conclude that
 % $Z$ is completely independent of the function $h(x)$.
@@ -2070,7 +2068,9 @@ using the coordinate expressions of $Q$ and $\Psi$.
 \end{exercise}
 
 Now we make the deformation $S \to S + \lambda Q \Psi$.
-By \autoref{prop:Z-deformation-invariance},
+Because of \eqref{eq:Qpsi-closed}, the deformed action is 
+still $Q$-invariant, for all values of $\lambda$.
+Then, by \autoref{prop:Z-deformation-invariance},
 $Z$ is independent of the deformation parameter $\lambda$.
 Taking $\lambda$ very large, we can as usual 
 reduce to a neighborhood of the zero locus of $g(Y,Y)$, i.e. to the fixed locus of $Y$. Then the steepest-descent method gives
