@@ -167,6 +167,7 @@
 \newcommand{\fr}{{\mathfrak r}}
 \newcommand{\fu}{{\mathfrak u}}
 \newcommand{\fG}{{\mathfrak G}}
+\newcommand{\fso}{{\mathfrak {so}}}
 
 \newcommand{\cC}{\ensuremath{\mathcal C}}
 \newcommand{\cG}{\ensuremath{\mathcal G}}
@@ -229,6 +230,7 @@
 \newcommand{\inst}{\mathrm{inst}}
 \newcommand{\eff}{\mathrm{eff}}
 \newcommand{\rmtop}{\mathrm{top}}
+\newcommand{\rmbot}{\mathrm{bot}}
 \newcommand{\dR}{\mathrm{dR}}
 \newcommand{\closed}{\mathrm{closed}}
 \newcommand{\exact}{\mathrm{exact}}
@@ -280,6 +282,7 @@
 \DeclareMathOperator{\Obs}{Obs}
 \DeclareMathOperator{\Ber}{Ber}
 \DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\Euler}{Euler}
 \DeclareMathOperator{\Hess}{Hess}
 
 \newcommand{\insfig}[2]{
@@ -2079,9 +2082,9 @@ $(\de(gY)(x_c))^n/n!$
 and the denominator
 $\sqrt{\det (g(Y,Y))''(x_c)}$ 
 are valued in $\wedge^\rmtop T^*_{x_c} M$.
-\fixme{it would be better to be careful about 
-twists by orientation bundle here; in what follows we always
-use the standard orientations}
+\fixme{it would be nicer to be careful about 
+twists by orientation bundle here; we always
+use the standard orientation to avoid having to worry about it}
 What remains is to compute their ratio.
 
 % show that their ratio is
@@ -2127,7 +2130,7 @@ Thus \eqref{eq:dh-steepest-descent} becomes
 % \end{equation}
 Comparing this with \eqref{eq:dh-integrated-over-fibers} proves:
 
-\begin{thm}[Duistermaat-Heckman localization formula, first version \cite{MR674406}] \label{thm:duistermaat-heckman}
+\begin{thm}[Duistermaat-Heckman localization formula \cite{MR674406}] \label{thm:duistermaat-heckman}
 \begin{equation} \label{eq:dh-formula}
 \int_M \frac{\omega^n}{n!} \e^{\I \alpha H} = \left( \frac{2\pi}{\I \alpha} \right)^{n} \sum_{x_c} \frac{\e^{\I \alpha H(x_c)}}{\prod_{i=1}^n k_i(x_c)}
 \end{equation}
@@ -2139,10 +2142,19 @@ In the case of $S^2$ which we considered above, the weights at the two fixed poi
 were $k = +1$ and $k = -1$, the sign determined by whether the local orientation induced by the $U(1)$
 action agreed or disagreed with the orientation induced by $\omega$.
 
+\begin{exercise} \label{ex:dh-cp2} Work out the concrete 
+statement of \autoref{thm:duistermaat-heckman} in the case 
+where $M = \C\PP^2$,
+with $\omega$ the Fubini-Study \kahler form, 
+and the $U(1)$ action given in homogeneous coordinates 
+by $(z_1, z_2, z_3) \to (\e^{\I b_1 \theta} z_1, \e^{\I b_2 \theta} z_2, \e^{\I b_3 \theta} z_3)$ for $b_1, b_2, b_3 \in \Z$,
+with all $b_i$ distinct.
+\end{exercise}
+
 Incidentally,
 there is another way of thinking about 
-this localization formula. The 
-contributions from the fixed points match
+the localization formula \autoref{thm:duistermaat-heckman}. 
+The contributions from the fixed points match
 what one would get
 by making a quadratic approximation to the \ti{original} integrand 
 $\omega^n \e^{\I \alpha H}$
@@ -2150,11 +2162,16 @@ around the critical points $x_c$
 of $H$. Such an approximation generally gives the leading $\alpha \to \infty$
 asymptotics of the integral (this is called the \ti{stationary phase} method,
 similar to the steepest descent method which we have been using).
-So, one sometimes says that \ti{the stationary phase approximation is exact}.
+So, \autoref{thm:duistermaat-heckman} can be rephrased
+as the statement that, for this particular integral,
+ \ti{the stationary phase approximation is exact}.
 
-Since there are a few tricky points here, let us explain this in a bit more detail.
-A key difference between the stationary phase approximation and
-the steepest-descent expansion is that we have the
+Since there are a few tricky points here, let us explain 
+in a bit more detail how one computes the local contributions 
+in the stationary phase method.
+A key difference between the stationary phase method and
+the steepest-descent expansion is that in the stationary phase 
+method we have the
 $\I$ in the exponent, hence no exponential suppression. 
 One deals with this by rotating the contour of
 integration over each real variable by an angle $\pm \pi/4$
@@ -2180,10 +2197,12 @@ Looking again at the local models one sees that this is
 and since $\half n_-$ is the number of $k_i(x_c)$ which are negative, this
 matches the contribution we found in \autoref{thm:duistermaat-heckman}.
 
-I do not really know the significance of the fact that the stationary phase
-approximation to this integral is exact. As we have seen above, this is \ti{not}
-the same approximation one is using in the supersymmetric localization proof
-of \autoref{thm:duistermaat-heckman}.
+I do not really know the significance of the fact that 
+the stationary phase
+approximation to $\int \omega^n \e^{\I \alpha H}$ 
+is exact. As we have seen above, this is \ti{not}
+the same method one uses in the supersymmetric localization proof
+of \autoref{thm:duistermaat-heckman}, despite the obvious resemblance.
 
 % \begin{thm}[Duistermaat-Heckman localization formula, first version] \label{thm:duistermaat-heckman}
 % \begin{equation} \label{eq:dh-formula}
@@ -2191,15 +2210,95 @@ of \autoref{thm:duistermaat-heckman}.
 % \end{equation}
 % \end{thm}
 
+\subsection{Some generalizations}
 
+The proof of \autoref{thm:duistermaat-heckman} which we have
+given naturally generalizes: we could have replaced the action $S$
+by any $Q$-invariant $S \in C^\infty(\cC)$.
+Under the identification $C^\infty(\cC) \simeq \Omega^*(M)$,
+such an $S$ would be called an \ti{equivariantly closed form}
+in the Cartan model for the $U(1)$-equivariant cohomology of $M$,
+where $Q$ becomes the \ti{equivariant differential} $\de + \cL_Y$.
+Then \autoref{thm:duistermaat-heckman} generalizes to
 
-\fixme{interpretation as a kind of integral you do with an equiariantly closed form;
-you can also do this for more general
-equivariantly closed forms: Atiyah-Bott-Berline-Vergne}
+\begin{thm}[Atiyah-Bott-Berline-Vergne localization for isolated 
+fixed points] \label{thm:abbv-isolated}
+Suppose $M$ is a compact manifold with a $\U(1)$-action, with isolated
+fixed points.
+Also suppose $\beta \in \Omega^*(M)$ is an equivariantly closed form.
+Then
+\begin{equation}
+\int_M \e^{\beta} = \left( -2\pi \I \right)^{n} \sum_{x_c} \frac{\e^{\beta^\rmbot(x_c)}}{\prod_{i=1}^n k_i(x_c)}
+\end{equation}
+where $\beta^\rmbot$ means the bottom ($0$-form) component
+of $\beta$.
+\end{thm}
 
-\fixme{exercise: do it with higher-dimensional fixed sets, then the integrand
-will be equivariant Euler class}
+\begin{exercise} Generalize the proof
+of \autoref{thm:duistermaat-heckman} to a proof of \autoref{thm:abbv-isolated}.
+\end{exercise}
 
+Finally we can consider a further generalization: let us imagine 
+trying to repeat the proof in the case where the fixed points
+are not isolated.
+In this situation, the leading term in the asymptotics
+produced by the steepest-descent method is an integral over the 
+fixed locus $F \subset M$.
+Thus the supersymmetric localization must reduce $\int_M \e^\beta$
+to an integral over $F$. The normal bundle $NF$
+has an $\SO(2n)$-structure and connection 
+induced by our choice of metric $g$ on $M$,
+and a compatible $\U(1)$-action induced by the $\U(1)$-action 
+on $M$. \fixme{worry about orientations}
+
+\begin{defn}[Equivariant Euler form] Suppose $X$ is a manifold with
+a $\U(1)$-equivariant $\SO(2n)$-bundle $E$. The \ti{equivariant 
+Euler form} of $E$ is \fixme{check factors of $2 \pi$ and $\I$}
+\begin{equation}
+  \Euler(E) = \Pf\left(F + \frac{\I Y}{2 \pi}\right) \in \Omega^*(M)
+\end{equation}
+where $Y \in \Omega^0(\fso(E))$ is the generator of the $\U(1)$ action
+and $F \in \Omega^2(\fso(E))$ is the curvature.
+\end{defn}
+Note that the bottom component of $\Euler(E)$ is just
+$\prod_{i=1}^n k_i$ where the $k_i$ are the weights of the 
+$\U(1)$-action. In particular, if no $k_i = 0$ then $\Euler(E)$
+has nowhere-vanishing bottom component. This means $\Euler(E)$
+is invertible in $\Omega^*(X)$, i.e.
+there is a form
+\begin{equation}
+  \frac{1}{\Euler(E)} \in \Omega^*(X).
+\end{equation}
+% defined using the series expansion
+% \begin{equation}
+%   \frac{1}{c + x} = \frac{1}{c} (1 - c^{-1} x + c^{-2} x^2 + \cdots)
+% \end{equation}
+% which is finite when $x$ is nilpotent.
+We use this in the statement of the next theorem:
+
+\begin{thm}[Atiyah-Bott-Berline-Vergne localization in general] \label{thm:abbv}
+Suppose $M$ is a compact manifold with a $\U(1)$-action, with fixed locus
+$F$.
+Also suppose $\beta \in \Omega^*(M)$ is an equivariantly closed form.
+Choose a $\U(1)$-invariant metric $g$ on $M$. Then
+\begin{equation}
+\int_M \e^{\beta} = \int_F \frac{\e^{\beta}}{\Euler(NF)}.
+\end{equation}
+\end{thm}
+
+\begin{exercise} Show that \autoref{thm:abbv} reduces to
+\autoref{thm:abbv-isolated} when the fixed points of the
+$\U(1)$-action are isolated.
+\end{exercise}
+
+\begin{exercise} Use \autoref{thm:abbv} to generalize
+\autoref{ex:dh-cp2} to the case
+where the $b_i$ need not be distinct.
+\end{exercise}
+
+\begin{exercise} Generalize the proof
+of \autoref{thm:abbv-isolated} to a proof of \autoref{thm:abbv}. \fixme{hard? at least needs more delicacy with the steepest descent expansion}
+\end{exercise}
 
 \appendix
 
