@@ -251,6 +251,7 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\dvol}{dvol}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
@@ -284,6 +285,7 @@
 \DeclareMathOperator{\Pf}{Pf}
 \DeclareMathOperator{\Euler}{Euler}
 \DeclareMathOperator{\Hess}{Hess}
+\DeclareMathOperator{\Map}{Map}
 
 \newcommand{\insfig}[2]{
 
@@ -2050,7 +2052,7 @@ which has (Cartan's formula)
 \end{equation}
 As before, we want to get a localization to some small subset of
 $\cC$ by making a perturbation $S \to S + Q \Psi$.
-For this we fix a $U(1)$-invariant metric $g$ on $M$ and then 
+For this we fix a $\U(1)$-invariant metric $g$ on $M$ and then 
 take the odd function
 \begin{equation}
   \Psi = g(\psi, Y) = g_{ij} \psi^i Y^j = \psi^i Y_i
@@ -2064,7 +2066,7 @@ and
 \begin{equation} \label{eq:Qpsi-closed}
   Q^2 \Psi = 0
 \end{equation}
-(using the fact that $g$ is $U(1)$-invariant).
+(using the fact that $g$ is $\U(1)$-invariant).
 \begin{exercise} Verify \eqref{eq:Qpsi-closed} by direct computation
 using the coordinate expressions of $Q$ and $\Psi$.
 \end{exercise}
@@ -2304,6 +2306,67 @@ where the $b_i$ need not be distinct.
 \begin{exercise} Generalize the proof
 of \autoref{thm:abbv-isolated} to a proof of \autoref{thm:abbv}. \fixme{hard? at least needs more delicacy with the steepest descent expansion}
 \end{exercise}
+
+
+\section{QFT in \texorpdfstring{$1$}{1} dimension}
+
+Now we move to $1$-dimensional quantum field theory.
+So we will introduce a Riemannian $1$-manifold $(X,\eta)$ (``spacetime'').
+$X$ will be one of
+\begin{equation}
+  X = \R, \quad X = I, \quad X = S^1.
+\end{equation}
+We often parameterize $X$ by $t$ which we sometimes
+think of as the ``time.''
+
+Our configuration space $\cC_X$ will now be some kind of space
+of ``functions on $X$.''
+
+
+\subsection{The \texorpdfstring{$1$}{1}-dimensional sigma model}
+
+Fix the data:
+\begin{itemize}
+  \item A Riemannian manifold $(Y,g)$,
+  \item A function $V: Y \to R$ (``potential'').
+\end{itemize}
+
+We take our field space to be \fixme{be sharper about this}
+\begin{equation}
+  \cC_X = \Map(X,Y),
+\end{equation}
+and our action
+\begin{align}
+  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi)\right) \\
+  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi)\right).
+\end{align}
+If we choose the parameter $t$ on $X$ to be the arc-length, then
+this reduces to
+\begin{equation}
+    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) \right).
+\end{equation}
+This $1$-dimensional quantum field theory is equivalent to
+the usual model of nonrelativistic \ti{quantum mechanics},
+describing a single particle propagating on $Y$.
+Then we can think of the various $\phi \in \cC_X$ as various possible
+trajectories that the particle could take.
+
+Now \ti{formally} we would like to consider the partition function,
+\begin{equation}
+  Z_{S^1} = \int_{\cC_{S^1}} \de \phi \, \e^{-S}
+\end{equation}
+or the analogue on the interval $I = [0,T]$,
+\begin{equation} \label{eq:1d-Z-interval}
+  Z_{[0,T]}(y_0, y_1) = \int_{\cC_{[0,T]}(y_0,y_1)} \de \phi \, \e^{-S}
+\end{equation}
+where we defined
+\begin{equation}
+  \cC_{[0,T]}(y_0, y_1) = \{\phi: [0,T] \to Y \, \vert \, \phi(0) = y_0, \phi(T) = y_1\}.
+\end{equation}
+Thus we can view \eqref{eq:1d-Z-interval} 
+as a sum over all possible paths
+a particle can take from $y_0$ to $y_1$.
+\insfig{qft-geometry-16}{0.8}
 
 \appendix
 
