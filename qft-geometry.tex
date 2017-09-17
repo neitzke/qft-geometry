@@ -1143,8 +1143,14 @@ Then consider the action
 \begin{equation} \label{eq:bosonic-quartic-action}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
-$M$ determines a measure $\sqrt{\det M}$ on $V$. \fixme{explain how}
-When $C = 0$ the partition function is \fixme{check}
+$M$ determines a measure $\sqrt{\det M}$ on $V$:
+\begin{exercise}
+Verify that a bilinear form $M \in \Sym^2(V^*)$ determines a measure on $V$,
+which deserves to be called $\sqrt{\det M}$ in the sense that given
+a basis $\{e^1, \dots, e^n\}$ on $V$, with $M(e^i,e^j) = M^{ij}$, 
+$\sqrt{\det M} = \sqrt{\det (M^{ij})} \abs{e^*_1 \cdots e^*_n}$.
+\end{exercise}
+When $C = 0$ the partition function is
 \begin{equation}
   Z_0 = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
 \end{equation}
@@ -2249,26 +2255,34 @@ In this situation, the leading term in the asymptotics
 produced by the steepest-descent method is an integral over the 
 fixed locus $F \subset M$.
 Thus the supersymmetric localization must reduce $\int_M \e^\beta$
-to an integral over $F$. The normal bundle $NF$
+to an integral over $F$. The integrand turns out to be determined by the
+local structure around $F$, as follows.
+
+The normal bundle $NF$
 has an $\SO(2n)$-structure and connection 
 induced by our choice of metric $g$ on $M$,
 and a compatible $\U(1)$-action induced by the $\U(1)$-action 
 on $M$. \fixme{worry about orientations}
 
-\begin{defn}[Equivariant Euler form] Suppose $X$ is a manifold with
-a $\U(1)$-equivariant $\SO(2n)$-bundle $E$. The \ti{equivariant 
-Euler form} of $E$ is \fixme{check factors of $2 \pi$ and $\I$}
+\begin{defn}[Equivariant Euler form] Suppose $X$ is a manifold, with
+a $\U(1)$-equivariant $\SO(2n)$-bundle $E$, carrying a 
+$\U(1)$-equivariant connection. 
+The \ti{equivariant Euler form} of $E$ is \fixme{check signs}
 \begin{equation}
-  \Euler(E) = \Pf\left(F + \frac{\I Y}{2 \pi}\right) \in \Omega^*(X)
+  \Euler(E) = \Pf\left(\frac{1}{2\pi} \left(Y + F\right) \right) \in \Omega^*(X)
 \end{equation}
 where $Y \in \Omega^0(\fso(E))$ is the generator of the $\U(1)$ action
-and $F \in \Omega^2(\fso(E))$ is the curvature.
+and $F \in \Omega^2(\fso(E))$ is the curvature of the 
+equivariant connection on $E$.
 \end{defn}
 So $\Euler(E)$ is a form concentrated in even degrees.
-\fixme{write first two degrees explicitly}
-
-Note that the bottom component of $\Euler(E)$ is just
-$\prod_{i=1}^n k_i$ where the $k_i$ are the weights of the 
+For example, in the case $n=1$, using the standard trivialization
+of $\fso(2)$, we have simply
+\begin{equation}
+  \Euler(E) = \frac{1}{2\pi} (\I k + F).
+\end{equation}
+More generally, the bottom component of $\Euler(E)$ is
+$\prod_{i=1}^n \frac{\I k_i}{2\pi}$ where the $k_i$ are the weights of the 
 $\U(1)$-action. In particular, if no $k_i = 0$ then $\Euler(E)$
 has nowhere-vanishing bottom component. This means $\Euler(E)$
 is invertible in $\Omega^*(X)$, i.e.
@@ -2276,6 +2290,11 @@ there is a form
 \begin{equation}
   \frac{1}{\Euler(E)} \in \Omega^*(X).
 \end{equation}
+
+\begin{exercise}
+Write the form $\frac{1}{\Euler(E)}$ explicitly in the case $n=1$.
+\end{exercise}
+
 % defined using the series expansion
 % \begin{equation}
 %   \frac{1}{c + x} = \frac{1}{c} (1 - c^{-1} x + c^{-2} x^2 + \cdots)
