@@ -340,7 +340,7 @@ or as pull requests to the source repository hosted at
 \begin{center}
 \small \url{http://github.com/neitzke/qft-geometry}
 \end{center}
-I thank Arun Debray, Behzat Ergun, Robbie Rosati 
+I thank Arun Debray, Behzat Ergun, Richard Hughes, Robbie Rosati 
 and Ivan Tulli for very helpful
 suggestions and corrections.
 
@@ -2269,7 +2269,9 @@ Thus the supersymmetric localization must reduce $\int_M \e^\beta$
 to an integral over $F$. The integrand turns out to be determined by the
 local structure around $F$, as follows.
 
-The normal bundle $NF$
+The codimension of
+$F$ is always even, say $2n$, since it has a nontrivial $\U(1)$-action.
+Then the normal bundle $NF$
 has an $\SO(2n)$-structure and connection 
 induced by our choice of metric $g$ on $M$,
 and a compatible $\U(1)$-action induced by the $\U(1)$-action 
@@ -2290,8 +2292,9 @@ So $\Euler(E)$ is a form concentrated in even degrees.
 For example, in the case $n=1$, using the standard trivialization
 of $\fso(2)$, we have simply
 \begin{equation}
-  \Euler(E) = \frac{1}{2\pi} (\I k + F).
+  \Euler(E) = \frac{1}{2\pi} (\I k + F),
 \end{equation}
+the sum of a $0$-form and a $2$-form.
 More generally, the bottom component of $\Euler(E)$ is
 $\prod_{i=1}^n \frac{\I k_i}{2\pi}$ where the $k_i$ are the weights of the 
 $\U(1)$-action. In particular, if no $k_i = 0$ then $\Euler(E)$
@@ -2476,19 +2479,21 @@ case of $Y$ compact.
 When $X$ is an interval
 it turns out that the limit is the
 \ti{heat kernel}:
-\begin{defn}[Heat kernel]
+\begin{prop}[Heat kernel]
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
-is a smooth function $k_t$ on $Y \times Y$, obeying\footnote{Our
+is a smooth function $k_t$ on $Y \times Y$, obeying the heat
+equation in the first variable,\footnote{Our
 convention is that $\Delta$ is the negative definite Laplacian,
 i.e. $\Delta = \sum \partial_i^2$ on $\R^n$.}
 \begin{equation}
   \partial_t k_t(x,y) + (-\Delta_x + V(x)) k_t(x,y) = 0
 \end{equation}
-and
+and such that as $t \to 0^+$ this solution ``concentrates'' at the point $y$,
 \begin{equation}
-  \lim_{t \to 0} k_t(x,y) = \delta(x,y). 
+  \lim_{t \to 0^+} k_t(x,y) = \delta(x,y). 
 \end{equation}
-\end{defn}
+These properties characterize $k_t$.
+\end{prop}
 \begin{exercise}
 Show that on $Y = \R^n$, when $V = 0$, the heat kernel
 is
@@ -2498,7 +2503,7 @@ is
 \end{exercise}
 
 The heat kernel is really a kernel in the sense that
-the operator $U_t$ of ``evolution for
+the operator $U_t$ of ``evolving the heat equation for
 time $t$'' is given by
 \begin{equation}
   (U_t f)(x) = \int_M \de \vol_y \, k_t(x,y) f(y). 
@@ -2541,22 +2546,23 @@ relation between the integral kernels,
   k_T(y_N, y_0) = \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1} k_{\Delta t} (y_{n+1}, y_n).
 \end{equation}
 Next we use the short time asymptotics of
-the heat kernel, as given e.g. in \fixme{BGV}:
+the heat kernel, as given e.g. in \fixme{Roe}:
 as $\Delta t \to 0$ we have
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4t} d(x,y)^2 \right).
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{R(x)}{6} \Delta t + \cdots \right)
 \end{equation}
-Substituting this above we get
+Substituting this above we get, in the limit $N \to \infty$,
 \begin{align}
-  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \\
-  &=  \int_{Y^{N-1}} \de \mu_N \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 \right)
+  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 + \frac{R(y_n)}{6} \Delta t + \cdots \right) \\
+  &\sim  \int_{Y^{N-1}} \de \mu_N \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{6} \Delta t \right).
 \end{align}
-and this last expression
-is the desired restriction of $S$ to polygonal paths.
-\fixme{except it's missing the $R$ part which maybe
-comes from first subleading term in the heat kernel asymptotics?}
+This last expression agrees with
+the restriction of $S$ to polygonal paths, up to terms which
+vanish in the limit $\Delta t \to 0$
+\fixme{up to factors of $2$ which need to be fixed}
 
-When $V \neq 0$ we can make a similar formal argument.
+When $V \neq 0$ we can make a similar formal argument to motivate
+\autoref{prop:sigma-heat}.
 One technical point is that we need to be able to separate
 the pieces involving $\Delta$ from the pieces involving $V$.
 This is done using the following, 
