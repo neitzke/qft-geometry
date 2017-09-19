@@ -238,6 +238,7 @@
 \newcommand{\abs}[1]{\lvert#1\rvert}
 \newcommand{\norm}[1]{\lVert#1\rVert}
 \newcommand{\IP}[1]{\langle#1\rangle}
+\newcommand{\ket}[1]{\lvert#1\rangle}
 \newcommand{\DIP}[1]{\langle\!\langle#1\rangle\!\rangle}
 \newcommand{\dwrt}[1]{\frac{\partial}{\partial#1}}
 \newcommand{\eps}{\epsilon}
@@ -2366,29 +2367,31 @@ which will be equivalent to
 the usual nonrelativistic \ti{quantum mechanics}
 describing a single particle propagating on $Y$.
 
-In this quantum field theory the
+In this quantum field theory, when $X = S^1$, the
 field space is the space of continuous maps
 \begin{equation}
-  \cC_X = \{ \phi: X \to Y\}.
+  \cC_{S^1} = \{ \phi: S^1 \to Y\}.
 \end{equation}
-When $X$ is the interval $[0,T]$, we fix boundary conditions at the
-two ends given by $y_0, y_1 \in Y$. 
-In this case we will use the notation $X = [0,T](y_0,y_1)$ to mean the
-interval decorated by the boundary conditions, and
-define 
+When $X$ is the interval, we will include a bit more data:
+use the notation $X = [0,T]_{y_0}^{y_1}$ to mean the
+interval decorated by boundary conditions at the two ends, and
+define
 \begin{equation}
-  \cC_{[0,T](y_0, y_1)} = \{\phi: [0,T] \to Y \, \vert \, \phi(0) = y_0, \phi(T) = y_1\}.
+  \cC_{[0,T]_{y_0}^{y_1}} = \{\phi: [0,T] \to Y \, \vert \, \phi(0) = y_0, \phi(T) = y_1\}.
 \end{equation}
 
 The action is, for differentiable $\phi$,
+\fixme{maybe should have $\frac14$ on kinetic term?}
 \begin{align}
-  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi)\right) \\
-  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi)\right).
+  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi) - \frac13 R(\phi) \right) \\
+  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac13 R(\phi)\right)
 \end{align}
+where $R: Y \to \R$ is the scalar curvature.
+
 If we choose the parameter $t$ on $X$ to be the arc-length, then
-this reduces to
+the action reduces to
 \begin{equation}
-    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) \right).
+    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac13 R(\phi) \right).
 \end{equation}
 We can think of various $\phi \in \cC_X$ as various possible
 trajectories that the particle could take on $Y$.
@@ -2399,7 +2402,7 @@ trajectories that the particle could take on $Y$.
 \end{equation}
 or the analogue on the interval,
 \begin{equation} \label{eq:1d-formal-Zinterval}
-  Z_{[0,T](y_0, y_1)} \, \text{''=''} \, \int_{\cC_{[0,T](y_0,y_1)}} \de \phi \, \e^{-S}
+  Z_{[0,T]_{y_0}^{y_1}} \, \text{''=''} \, \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \e^{-S}
 \end{equation}
 So \eqref{eq:1d-formal-ZS1} is a sum over all
 closed trajectories in $Y$, and \eqref{eq:1d-formal-Zinterval} 
@@ -2419,12 +2422,14 @@ an infinite-dimensional space,\footnote{The basic problem is that in an
 infinite-dimensional Banach space a ball of radius $1$
 contains infinitely many disjoint balls of radius $\eps$.} 
 so it is not clear what we could mean by
-$\de \phi$. Second, the function $S$ is not defined for arbitrary continuous
+$\de \phi$. Second, the action $S$ is not defined for arbitrary continuous
 paths, only for differentiable ones. For non-differentiable paths it looks
-like we should have $S(\phi) = \infty$ in some sense. 
-These difficulties actually ``cancel'' one another:
-it turns out that there \ti{is} a reasonable definition of a measure
-$\de \phi \, \e^{-S}$, \ti{Wiener measure}.
+like we should have $S(\phi) = \infty$ in some sense.
+As we will discuss momentarily,  
+these difficulties actually ``cancel'' one another
+in some sense.
+% it turns out that there \ti{is} a reasonable definition of a measure
+% $\de \phi \, \e^{-S}$, \ti{Wiener measure}.
 
 
 \subsection{Discretization}
@@ -2432,29 +2437,136 @@ $\de \phi \, \e^{-S}$, \ti{Wiener measure}.
 One natural approach to defining 
 \eqref{eq:1d-expectation-formal} 
 is to try \ti{discretization} i.e. replacing $X$ by a lattice
-of $N$ points, with spacing $\Delta t = \frac{T}{N}$; then we would have
+of $N+1$ points, with spacing $\Delta t = \frac{T}{N}$; then we would have
 a discretized field space
 \begin{equation}
-  \cC_{X;N} = Y^N
+  \cC_{X;N},
 \end{equation}
-and if we define the discretized derivative\footnote{This definition 
-depends on a choice of local coordinate system on $Y$; we could make it canonical by taking say Riemannian normal coordinates around the point $\phi(n) \in Y$.}
+the space of \ti{geodesic polygons} i.e. piecewise-smooth
+paths, with each segment the unique minimizing geodesic between its endpoints.
+\insfig{qft-geometry-17}{0.8}
+$\cC_{X;N}$ is an open dense subset\footnote{The restriction to an open dense
+subset is a technicality, brought on by the fact that some pairs of points are
+connected by more than one geodesic.} in $Y^{N+1}$.
+Restricting $S$ to these paths gives $S: \cC_{X;N} \to \R$.
+$\cC_{X;N}$ also has a natural measure induced from the volume
+measure on $Y$, up to a tricky constant:
+\begin{equation} \label{eq:discretized-1d-measures}
+ \de\mu_N = \frac{1}{(4 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^N \dvol_Y(\phi(t_n)).
+\end{equation}
+Thus we can define the discretized partition function
 \begin{equation}
-  \dot\phi^i(n) = \frac{N}{T}(\phi^i(n+1)-\phi^i(n))
+  Z_N = \int_{\cC_{X;N}} \de \mu_N \, \e^{-S}
 \end{equation}
-then we have the discretized action
-\begin{equation}
-  S_N(\phi) = \sum_{n=0}^{N-1} \frac{T}{N} \left( \half g_{ij}(\phi) \dot\phi^i(n)\dot\phi^j(n) + V(\phi(n)) \right).
-\end{equation}
-Now we can write down the integral 
-defining a discretized version
-of \eqref{eq:1d-expectation-formal}, 
-\begin{equation}
-  \IP{\cO}_{X;N} = \int_{\cC_{X;N}} \left[ \prod_{n=0}^{N-1} \dvol(\phi(n)) \right] \e^{-S_N(\phi)} 
-\end{equation}
+% Now we can write down the integral 
+% defining a discretized version
+% of \eqref{eq:1d-expectation-formal}, 
+% \begin{equation}
+%   \IP{\cO}_{X;N} = \int_{\cC_{X;N}} \left[ \prod_{n=0}^{N-1} \dvol(\phi(n)) \right] \e^{-S_N(\phi)} 
+% \end{equation}
 and then try to make sense of the \ti{limit} as $N \to \infty$.
+The limit does indeed exist, which I think has been known for a 
+long time when $Y = \R^n$, but is apparently much more recent
+for general $Y$, see \cite{MR1698956,Baer2007}.
 
-\cite{MR1698956}
+When $X$ is an interval
+it turns out that the limit is the
+\ti{heat kernel}:
+\begin{defn}[Heat kernel]
+For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
+is a smooth function $k_t$ on $Y \times Y$, obeying\footnote{Our
+convention is that $\Delta$ is the negative definite Laplacian,
+i.e. $\Delta = \sum \partial_i^2$ on $\R^n$.}
+\begin{equation}
+  \partial_t k_t(x,y) + (-\Delta_x + V(x)) k_t(x,y) = 0
+\end{equation}
+and
+\begin{equation}
+  \lim_{t \to 0} k_t(x,y) = \delta(x,y). 
+\end{equation}
+\end{defn}
+\begin{exercise}
+Show that on $Y = \R^n$, when $V = 0$, the heat kernel
+is
+\begin{equation}
+  k_t(x,y) = \left( \frac{1}{4 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{4t} \norm{x-y}^2 \right).
+\end{equation}
+\end{exercise}
+
+The heat kernel is really a kernel in the sense that
+the operator $U_t = \e^{-t (-\Delta + V)}$ of ``evolution for
+time $t$'' is given by
+\begin{equation}
+  (U_t f)(x) = \int_M \de \vol_y \, k_t(x,y) f(y). 
+\end{equation}
+
+\begin{prop}[Lattice approximations to $1$-dimensional sigma model
+converge to the heat kernel] \label{prop:sigma-heat}
+If $X = [0,T]_{y_0}^{y_1}$,
+then
+\begin{equation}
+\lim_{N \to \infty} Z_N = k_T(y_0,y_1).
+\end{equation}
+\end{prop}
+
+In the stochastic-process community this would be rephrased
+as the statement that, in the case $V = 0$, 
+$\lim_{N \to \infty} \de \mu_N \e^{-S}$ is the
+\ti{(conditional) Wiener measure}. Indeed the defining
+property of Wiener measure is its relation to the heat 
+kernel. Note that although $\de \mu_N \e^{-S}$ 
+has a well defined
+limit, the measure $\de \mu_N$ by itself does not.
+
+Here is a formal computation which gives some partial
+motivation for \autoref{prop:sigma-heat}.
+We consider the special case $V = 0$.
+First, the property $U_T = U_{\Delta t}^N$ gives a 
+relation between the integral kernels,
+\begin{equation}
+  k_T(y_N, y_0) = \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1} k_{\Delta t} (y_{n+1}, y_n).
+\end{equation}
+Next we use the short time asymptotics of
+the heat kernel, as given e.g. in \fixme{BGV}:
+as $\Delta t \to 0$ we have
+\begin{equation}
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi t} \right)^{\frac{\dim Y}{2}} a(y) \exp \left( - \frac{1}{4t} d(x,y)^2 \right),
+\end{equation}
+where $a(y)$ is some quantity built from local invariants of the metric. Substituting this above we get
+\begin{align}
+  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} a(y_n) \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \\
+  &=  \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1} \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} a(y_n) \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 \right)
+\end{align}
+\fixme{...}
+When $V \neq 0$ we can make a similar formal argument,
+using the following applied to $A = -T \Delta$, $B = T V$:
+\begin{prop}[Trotter product formula]
+\fixme{with appropriate functional analytic hypothesis}
+\begin{equation}
+  \e^{A+B} = \lim_{N \to \infty} \left(\e^{\frac{A}{N}} \e^{\frac{B}{N}}\right)^N.
+\end{equation}
+\end{prop}
+
+% We need a little more background about the heat kernel:
+% \begin{prop}[Heat kernel and Hamiltonian semigroup]
+% Writing $H = - \Delta + V$, there is a well defined
+% smoothing operator $\e^{-t H}$ acting on distributions on 
+% $Y$, and letting $\ket{x}$ denote the distribution $\delta(x)$
+% we have
+% \begin{equation}
+%   \IP{y | e^{-tH} | x} = k_t(x,y).
+% \end{equation}
+% \end{prop}
+
+
+\fixme{explain connection to determinants: no regularization
+needed if we pick the right metric?}
+
+\fixme{case of $S^1$}
+
+\fixme{local observables}
+
+\fixme{effective field theory}
 
 \appendix
 
