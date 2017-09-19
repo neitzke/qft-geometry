@@ -2124,8 +2124,8 @@ and thus the ratio comes to
 % with ratio $1 / \abs{k}$,
 % so that the two ratios differ by $\sgn k$.
 
-For an isolated fixed point we can decompose the normal bundle
-into a direct sum of $n$ 2-dimensional pieces, with $U(1)$ 
+For an isolated fixed point we can decompose $T_{x_c} M$ as a $\U(1)$ representation
+into a direct sum of $n$ 2-dimensional pieces, with $\U(1)$ 
 weights $k_1, \dots, k_n$, and put each piece in standard form as
 above.
 Thus \eqref{eq:dh-steepest-descent} becomes
@@ -2151,6 +2151,16 @@ on the normal bundle to $x_c$.
 In the case of $S^2$ which we considered above, the weights at the two fixed points
 were $k = +1$ and $k = -1$, the sign determined by whether the local orientation induced by the $U(1)$
 action agreed or disagreed with the orientation induced by $\omega$.
+
+A fancy way of interpreting the factor $\prod_{i=1}^n k_i(x_c)$ is:
+\begin{exercise} Suppose $V$ is a vector space with $\SO(2n)$-structure.
+Then define a canonical $1$-dimensional vector space $\Pf V$ (the ``Pfaffian line'')
+with the property $(\Pf V)^2 = \det V$. If $\U(1)$ acts on $V$ preserving the $\SO(2n)$-structure,
+show that the induced action on $\Pf V$ is multiplication by $\prod_{i=1}^n k_i$ where $k_i$
+are the weights of the $\U(1)$ action.
+\end{exercise}
+
+The next simplest example of \autoref{thm:duistermaat-heckman} beyond $M = S^2$ is:
 
 \begin{exercise} \label{ex:dh-cp2} Work out the concrete 
 statement of \autoref{thm:duistermaat-heckman} in the case 
@@ -2330,16 +2340,18 @@ of \autoref{thm:abbv-isolated} to a proof of \autoref{thm:abbv}. \fixme{hard? at
 \section{QFT in \texorpdfstring{$1$}{1} dimension}
 
 Now we move to $1$-dimensional quantum field theory.
-So we will introduce a Riemannian $1$-manifold $(X,\eta)$ (``spacetime'').
-$X$ will be one of
+This involves a choice of Riemannian $1$-manifold $(X,\eta)$.
+We will take $X$ to be compact: either
 \begin{equation}
-  X = \R, \quad X = I, \quad X = S^1.
+  X = [0,T] \quad \text{ or } \quad X = S^1(T)
 \end{equation}
-We often parameterize $X$ by $t$ which we sometimes
-think of as the ``time.''
+(where by $S^1(T)$ we mean the circle with circumference $T$).
+We parameterize $X$ by $t$ which we sometimes
+think of as ``time.''
 
-Our configuration space $\cC_X$ will now be some kind of space
-of ``functions on $X$.''
+Our configuration space $\cC_X$, over which we want to integrate,
+will now be some kind of space
+of ``generalized functions on $X$.''
 
 
 \subsection{The \texorpdfstring{$1$}{1}-dimensional sigma model}
@@ -2349,12 +2361,26 @@ Fix the data:
   \item A Riemannian manifold $(Y,g)$,
   \item A function $V: Y \to R$ (``potential'').
 \end{itemize}
+We are going to define a $1$-dimensional quantum field theory 
+which will be equivalent to
+the usual nonrelativistic \ti{quantum mechanics}
+describing a single particle propagating on $Y$.
 
-We take our field space to be \fixme{be sharper about this}
+In this quantum field theory the
+field space is the space of continuous maps
 \begin{equation}
-  \cC_X = \Map(X,Y),
+  \cC_X = \{ \phi: X \to Y\}.
 \end{equation}
-and our action
+When $X$ is the interval $[0,T]$, we fix boundary conditions at the
+two ends given by $y_0, y_1 \in Y$. 
+In this case we will use the notation $X = [0,T](y_0,y_1)$ to mean the
+interval decorated by the boundary conditions, and
+define 
+\begin{equation}
+  \cC_{[0,T](y_0, y_1)} = \{\phi: [0,T] \to Y \, \vert \, \phi(0) = y_0, \phi(T) = y_1\}.
+\end{equation}
+
+The action is, for differentiable $\phi$,
 \begin{align}
   S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi)\right) \\
   &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi)\right).
@@ -2364,28 +2390,71 @@ this reduces to
 \begin{equation}
     S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) \right).
 \end{equation}
-This $1$-dimensional quantum field theory is equivalent to
-the usual model of nonrelativistic \ti{quantum mechanics},
-describing a single particle propagating on $Y$.
-Then we can think of the various $\phi \in \cC_X$ as various possible
-trajectories that the particle could take.
+We can think of various $\phi \in \cC_X$ as various possible
+trajectories that the particle could take on $Y$.
 
-Now \ti{formally} we would like to consider the partition function,
-\begin{equation}
-  Z_{S^1} = \int_{\cC_{S^1}} \de \phi \, \e^{-S}
+\ti{Formally} we would like to consider the partition function on $X = S^1$,
+\begin{equation} \label{eq:1d-formal-ZS1}
+  Z_{S^1(T)} \, \text{''=''} \, \int_{\cC_{S^1(T)}} \de \phi \, \e^{-S}.
 \end{equation}
-or the analogue on the interval $I = [0,T]$,
-\begin{equation} \label{eq:1d-Z-interval}
-  Z_{[0,T]}(y_0, y_1) = \int_{\cC_{[0,T]}(y_0,y_1)} \de \phi \, \e^{-S}
+or the analogue on the interval,
+\begin{equation} \label{eq:1d-formal-Zinterval}
+  Z_{[0,T](y_0, y_1)} \, \text{''=''} \, \int_{\cC_{[0,T](y_0,y_1)}} \de \phi \, \e^{-S}
 \end{equation}
-where we defined
-\begin{equation}
-  \cC_{[0,T]}(y_0, y_1) = \{\phi: [0,T] \to Y \, \vert \, \phi(0) = y_0, \phi(T) = y_1\}.
-\end{equation}
-Thus we can view \eqref{eq:1d-Z-interval} 
-as a sum over all possible paths
+So \eqref{eq:1d-formal-ZS1} is a sum over all
+closed trajectories in $Y$, and \eqref{eq:1d-formal-Zinterval} 
+is a sum over all possible paths
 a particle can take from $y_0$ to $y_1$.
 \insfig{qft-geometry-16}{0.8}
+More generally, given any functional $\cO: \cC_X \to \R$
+we can contemplate the (unnormalized) expectation value
+\begin{equation} \label{eq:1d-expectation-formal}
+  \IP{\cO} \, \text{''=''} \, \int_{\cC_{X}} \de \phi \, \cO(\phi) \, \e^{-S}.
+\end{equation}
+
+How are we to make sense of \eqref{eq:1d-expectation-formal}?
+As it stands, it has (at least) two difficulties.
+First, there is no reasonable notion of translation-invariant Lebesgue measure on 
+an infinite-dimensional space,\footnote{The basic problem is that in an 
+infinite-dimensional Banach space a ball of radius $1$
+contains infinitely many disjoint balls of radius $\eps$.} 
+so it is not clear what we could mean by
+$\de \phi$. Second, the function $S$ is not defined for arbitrary continuous
+paths, only for differentiable ones. For non-differentiable paths it looks
+like we should have $S(\phi) = \infty$ in some sense. 
+These difficulties actually ``cancel'' one another:
+it turns out that there \ti{is} a reasonable definition of a measure
+$\de \phi \, \e^{-S}$, \ti{Wiener measure}.
+
+
+\subsection{Discretization}
+
+One natural approach to defining 
+\eqref{eq:1d-expectation-formal} 
+is to try \ti{discretization} i.e. replacing $X$ by a lattice
+of $N$ points, with spacing $\Delta t = \frac{T}{N}$; then we would have
+a discretized field space
+\begin{equation}
+  \cC_{X;N} = Y^N
+\end{equation}
+and if we define the discretized derivative\footnote{This definition 
+depends on a choice of local coordinate system on $Y$; we could make it canonical by taking say Riemannian normal coordinates around the point $\phi(n) \in Y$.}
+\begin{equation}
+  \dot\phi^i(n) = \frac{N}{T}(\phi^i(n+1)-\phi^i(n))
+\end{equation}
+then we have the discretized action
+\begin{equation}
+  S_N(\phi) = \sum_{n=0}^{N-1} \frac{T}{N} \left( \half g_{ij}(\phi) \dot\phi^i(n)\dot\phi^j(n) + V(\phi(n)) \right).
+\end{equation}
+Now we can write down the integral 
+defining a discretized version
+of \eqref{eq:1d-expectation-formal}, 
+\begin{equation}
+  \IP{\cO}_{X;N} = \int_{\cC_{X;N}} \left[ \prod_{n=0}^{N-1} \dvol(\phi(n)) \right] \e^{-S_N(\phi)} 
+\end{equation}
+and then try to make sense of the \ti{limit} as $N \to \infty$.
+
+\cite{MR1698956}
 
 \appendix
 
