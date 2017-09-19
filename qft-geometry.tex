@@ -2434,11 +2434,12 @@ in some sense.
 
 \subsection{Discretization}
 
+Let us start with the case $X = [0,T]_{y_0}^{y_1}$.
 One natural approach to defining 
-\eqref{eq:1d-expectation-formal} 
+\eqref{eq:1d-formal-Zinterval} 
 is to try \ti{discretization} i.e. replacing $X$ by a lattice
-of $N+1$ points, with spacing $\Delta t = \frac{T}{N}$; then we would have
-a discretized field space
+of $N+1$ points, with spacing $\Delta t = \frac{T}{N}$. Then we 
+define a discretized field space
 \begin{equation}
   \cC_{X;N},
 \end{equation}
@@ -2452,7 +2453,7 @@ Restricting $S$ to these paths gives $S: \cC_{X;N} \to \R$.
 $\cC_{X;N}$ also has a natural measure induced from the volume
 measure on $Y$, up to a tricky constant:
 \begin{equation} \label{eq:discretized-1d-measures}
- \de\mu_N = \frac{1}{(4 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^N \dvol_Y(\phi(t_n)).
+ \de\mu_N = \frac{1}{(4 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^{N-1} \dvol_Y(\phi(t_n)).
 \end{equation}
 Thus we can define the discretized partition function
 \begin{equation}
@@ -2465,9 +2466,12 @@ Thus we can define the discretized partition function
 %   \IP{\cO}_{X;N} = \int_{\cC_{X;N}} \left[ \prod_{n=0}^{N-1} \dvol(\phi(n)) \right] \e^{-S_N(\phi)} 
 % \end{equation}
 and then try to make sense of the \ti{limit} as $N \to \infty$.
-The limit does indeed exist, which I think has been known for a 
+The limit does indeed exist (in ``good'' situations, e.g.
+$Y$ compact or $Y = \R^n$), which I think has been known for a 
 long time when $Y = \R^n$, but is apparently much more recent
-for general $Y$, see \cite{MR1698956,Baer2007}.
+for more general 
+$Y$, e.g. see \cite{MR1698956,Baer2007} for the 
+case of $Y$ compact.
 
 When $X$ is an interval
 it turns out that the limit is the
@@ -2494,11 +2498,17 @@ is
 \end{exercise}
 
 The heat kernel is really a kernel in the sense that
-the operator $U_t = \e^{-t (-\Delta + V)}$ of ``evolution for
+the operator $U_t$ of ``evolution for
 time $t$'' is given by
 \begin{equation}
   (U_t f)(x) = \int_M \de \vol_y \, k_t(x,y) f(y). 
 \end{equation}
+Moreover $U_t$ is an extremely nice operator, with the
+``smoothing'' property: for any
+$t > 0$ it maps
+distributions to $C^\infty$ functions. In particular
+it gives a linear operator on $L^2(M)$,
+sometimes written $U_t = \e^{-t (-\Delta + V)}$.
 
 \begin{prop}[Lattice approximations to $1$-dimensional sigma model
 converge to the heat kernel] \label{prop:sigma-heat}
@@ -2509,6 +2519,10 @@ then
 \end{equation}
 \end{prop}
 
+This says, in short, that the \ti{path integral} over 
+$\cC_{[0,T]_{y_0}^{y_1}}$ (defined by discretization as we 
+have done above) is computing the heat flow for time $T$.
+
 In the stochastic-process community this would be rephrased
 as the statement that, in the case $V = 0$, 
 $\lim_{N \to \infty} \de \mu_N \e^{-S}$ is the
@@ -2518,7 +2532,7 @@ kernel. Note that although $\de \mu_N \e^{-S}$
 has a well defined
 limit, the measure $\de \mu_N$ by itself does not.
 
-Here is a formal computation which gives some partial
+Here is a formal computation which gives some
 motivation for \autoref{prop:sigma-heat}.
 We consider the special case $V = 0$.
 First, the property $U_T = U_{\Delta t}^N$ gives a 
@@ -2530,22 +2544,34 @@ Next we use the short time asymptotics of
 the heat kernel, as given e.g. in \fixme{BGV}:
 as $\Delta t \to 0$ we have
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi t} \right)^{\frac{\dim Y}{2}} a(y) \exp \left( - \frac{1}{4t} d(x,y)^2 \right),
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4t} d(x,y)^2 \right).
 \end{equation}
-where $a(y)$ is some quantity built from local invariants of the metric. Substituting this above we get
+Substituting this above we get
 \begin{align}
-  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} a(y_n) \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \\
-  &=  \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1} \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} a(y_n) \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 \right)
+  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \\
+  &=  \int_{Y^{N-1}} \de \mu_N \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 \right)
 \end{align}
-\fixme{...}
-When $V \neq 0$ we can make a similar formal argument,
-using the following applied to $A = -T \Delta$, $B = T V$:
-\begin{prop}[Trotter product formula]
+and this last expression
+is the desired restriction of $S$ to polygonal paths.
+\fixme{except it's missing the $R$ part which maybe
+comes from first subleading term in the heat kernel asymptotics?}
+
+When $V \neq 0$ we can make a similar formal argument.
+One technical point is that we need to be able to separate
+the pieces involving $\Delta$ from the pieces involving $V$.
+This is done using the following, 
+applied to $A = -T \Delta$, $B = T V$:
+\begin{prop}[Trotter product formula] \label{prop:trotter}
 \fixme{with appropriate functional analytic hypothesis}
 \begin{equation}
   \e^{A+B} = \lim_{N \to \infty} \left(\e^{\frac{A}{N}} \e^{\frac{B}{N}}\right)^N.
 \end{equation}
 \end{prop}
+
+\begin{exercise} Use \autoref{prop:trotter}
+to extend the formal argument we gave for \autoref{prop:sigma-heat}
+to the case $V \neq 0$.
+\end{exercise}
 
 % We need a little more background about the heat kernel:
 % \begin{prop}[Heat kernel and Hamiltonian semigroup]
@@ -2558,15 +2584,103 @@ using the following applied to $A = -T \Delta$, $B = T V$:
 % \end{equation}
 % \end{prop}
 
+If we take $X = S^1$ then we can make a similar 
+discretization: the only difference is that we require
+$y_0$ and $y_N$ to be equal and then we integrate over their
+common value. Thus for the partition function we get
+\begin{equation}
+Z_{S^1} = \int \dvol_Y k_t(y,y)
+\end{equation}
+This integral has another interpretation: it is the trace
+of the integral operator $U_t$ acting on $L^2$ functions.
+Stated formally,
+\begin{prop}[Lattice approximations to $1$-dimensional sigma
+model on $S^1$ converge to the trace of the heat flow]
+If $X = S^1$, then
+\begin{equation}
+  \lim_{N \to \infty} Z_N = \Tr_{L^2(Y)} \e^{-t H}.
+\end{equation}
+\end{prop}
+
+\subsection{Local observables}
+
+Finally there is a similar interpretation for the path
+integral with a ``local observable'' inserted. By this
+we mean an observable $\cO: \cC_X \to \R$ whose value 
+only depends on some finite-order jet of $\phi \in \cC_X$
+at some fixed $t$: the ``locality'' is along $X$, in the $t$ coordinate. 
+The simplest example would be to take
+some function $F: Y \to \R$ and then define
+\begin{equation}
+  \cO_F(t): \cC_X \to \R
+\end{equation}
+by
+\begin{equation}
+  (\cO_F(t)) (\phi) = F(\phi(t)).
+\end{equation}
+Then we can define correlation functions
+\begin{equation}
+  \IP{\cO_F(t)}_X \, \text{''=''} \, \int_{\cC_{X}} \de \phi \, F(\phi(t)) \, \e^{-S}
+\end{equation}
+by the same kind of discretization we discussed above
+(except that we should take subintervals of irregular
+lengths, so that $t$ can be on the boundary between two
+of them).
+The result is \fixme{ref?}
+\begin{prop} \label{prop:1d-discretization-with-insertion}
+  $\IP{\cO_F(t)}_{[0,1]^{y_1}_{y_0}}$ is the integral kernel
+  representing the operator 
+  \begin{equation}
+    \e^{-H(T-t)} F \e^{-Ht}
+  \end{equation}
+  on $L^2(Y)$, where $F$ means the operator of multiplication
+  by $F$.
+\end{prop}
+One pictures this as an instruction: 
+``propagate for time $t$, then do
+$F$, then propagate for another time $T-t$.''
+\insfig{qft-geometry-18}{1.0}
+
+\begin{exercise}Bootstrap \autoref{prop:1d-discretization-with-insertion} into a similar formula
+for $\IP{\cO_{F_1}(t_1) \cO_{F_2}(t_2) \cdots \cO_{F_k}(t_k)}$.
+\end{exercise}
+
+\begin{exercise}
+Give a heuristic proof of \autoref{prop:1d-discretization-with-insertion} along the lines of 
+what we did above for \autoref{prop:sigma-heat}.
+\end{exercise}
+
+\subsection{The simple harmonic oscillator}
+
+A fundamental example is the case
+\begin{equation}
+  Y = \R, \qquad V = \frac{12}{\omega^2 x^2}, \qquad \omega \in \R.
+\end{equation}
+Then we have
+\begin{equation}
+  H = -\half \partial_x^2 + \half x^2 \omega^2
+\end{equation}
+acting on $\cH = L^2(\R)$.
+There is a nice explicit basis of eigenfunctions \fixme{...}
+with eigenvalues
+\begin{equation}
+  H \psi_n = \left(\half + n\right) \omega.
+\end{equation}
+Thus we compute
+\begin{equation}
+  Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \e^{- \omega T(n + \half)} = \frac{1}{2 \sinh(\omega T/2)}.
+\end{equation}
+
+
+\subsection{Infinite-dimensional determinants}
 
 \fixme{explain connection to determinants: no regularization
 needed if we pick the right metric?}
 
-\fixme{case of $S^1$}
-
-\fixme{local observables}
+\subsection{Effective field theory in quantum mechanics}
 
 \fixme{effective field theory}
+
 
 \appendix
 
