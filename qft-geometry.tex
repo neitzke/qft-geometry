@@ -271,6 +271,7 @@
 \DeclareMathOperator{\ind}{ind}
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Ric}{Ric}
 \DeclareMathOperator{\Hol}{Hol}
 \DeclareMathOperator{\gr}{gr}
 \DeclareMathOperator{\Pin}{Pin}
@@ -2384,17 +2385,16 @@ define
 \end{equation}
 
 The action is, for differentiable $\phi$,
-\fixme{maybe should have $\frac14$ on kinetic term?}
 \begin{align}
-  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi) - \frac13 R(\phi) \right) \\
-  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac13 R(\phi)\right)
+  S(\phi) &= \int_X \dvol_X \left(\qtr g(\dot\phi,\dot\phi) + V(\phi) - \frac13 R(\phi) \right) \\
+  &= \int_X \de t \sqrt{\eta_{tt}} \left(\qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac13 R(\phi)\right)
 \end{align}
 where $R: Y \to \R$ is the scalar curvature.
 
 If we choose the parameter $t$ on $X$ to be the arc-length, then
 the action reduces to
 \begin{equation}
-    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac13 R(\phi) \right).
+    S(\phi) = \int_X \de t \, \left( \qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac13 R(\phi) \right).
 \end{equation}
 We can think of various $\phi \in \cC_X$ as various possible
 trajectories that the particle could take on $Y$.
@@ -2476,10 +2476,8 @@ long time when $Y = \R^n$, but is apparently much more recent
 for more general 
 $Y$, e.g. see \cite{MR1698956,Baer2007} for the 
 case of $Y$ compact.
+To describe what the limit is, we need a digression on the heat kernel:
 
-When $X$ is an interval
-it turns out that the limit is the
-\ti{heat kernel}:
 \begin{prop}[Heat kernel]
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
 is a smooth function $k_t$ on $Y \times Y$, obeying the heat
@@ -2516,18 +2514,21 @@ distributions to $C^\infty$ functions. In particular
 it gives a linear operator on $L^2(M)$,
 sometimes written $U_t = \e^{-t (-\Delta + V)}$.
 
+Now we can state the main fact about the $1$-dimensional sigma model:
+its path integral actually exists and the result is the heat kernel!
+
 \begin{prop}[Lattice approximations to $1$-dimensional sigma model
 converge to the heat kernel] \label{prop:sigma-heat}
 If $X = [0,T]_{y_0}^{y_1}$,
-then
+then the discretized path integrals converge, so we can define
 \begin{equation}
-\lim_{N \to \infty} Z_N = k_T(y_0,y_1).
+Z_{[0,T]_{y_0}^{y_1}} = \lim_{N \to \infty} Z_N.
+\end{equation}
+Moreover,
+\begin{equation}
+Z_{[0,T]_{y_0}^{y_1}} = k_T(y_0,y_1).
 \end{equation}
 \end{prop}
-
-This says, in short, that the \ti{path integral} over 
-$\cC_{[0,T]_{y_0}^{y_1}}$ (defined by discretization as we 
-have done above) is computing the heat flow for time $T$.
 
 In the stochastic-process community this would be rephrased
 as the statement that, in the case $V = 0$, 
@@ -2538,29 +2539,53 @@ kernel. Note that although $\de \mu_N \e^{-S}$
 has a well defined
 limit, the measure $\de \mu_N$ by itself does not.
 
-Here is a formal computation which gives some
+Here is a rough computation which gives some
 motivation for \autoref{prop:sigma-heat}.
+(See \cite{Baer2007} for an actual proof along these lines.)
 We consider the special case $V = 0$.
 First, the property $U_T = U_{\Delta t}^N$ gives a 
 relation between the integral kernels,
-\begin{equation}
+\begin{equation} \label{eq:kernel-chopup}
   k_T(y_N, y_0) = \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1} k_{\Delta t} (y_{n+1}, y_n).
 \end{equation}
+
 Next we use the short time asymptotics of
-the heat kernel, as given e.g. in \fixme{Roe}:
+the heat kernel. As $\Delta t \to 0$, there is a sort of complicated
+expansion described in \cite{Berline2004}. Fortunately we need only the leading behavior
+of $k_t(x,y)$ as $\Delta t \to 0$ and $x \to y$,
+plus the first-order correction in $\Delta t$, plus the first-order correction
+in $d(x,y)$; all the higher-order terms will not contribute 
+in \eqref{eq:kernel-chopup} after we take the large $N$ limit.
+
+The leading behavior as $\Delta t \to 0$ and $x \to y$ 
+is not hard to guess: it is the same as on $\R^n$, namely
+\begin{equation}
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right).
+\end{equation}
+The first-order correction in $d(x,y)$ can be extracted from \cite{Berline2004}: it is of the form
+\begin{equation}
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{1}{12} \Ric_x(x-y,x-y) + \cdots \right).
+\end{equation}
+To get the first-order correction in $\Delta t$ we can restrict to the diagonal,
+and then look in \cite{Roe1988a} which says that 
 as $\Delta t \to 0$ we have
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{R(x)}{6} \Delta t + \cdots \right)
+  k_{\Delta t}(x,x) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,x)^2 \right) \left( 1 + \frac16 R(x) \Delta t + \cdots \right)
 \end{equation}
-Substituting this above we get, in the limit $N \to \infty$,
-\begin{align}
-  k_T(y_N, y_0) &\sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 + \frac{R(y_n)}{6} \Delta t + \cdots \right) \\
-  &\sim  \int_{Y^{N-1}} \de \mu_N \exp \left( - \frac{\Delta t}{4} \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{6} \Delta t \right).
-\end{align}
-This last expression agrees with
+Substituting these in \eqref{eq:kernel-chopup} we get
+\begin{multline}
+  k_T(y_N, y_0) \sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \times \\ 
+  \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \left(1 + \frac16 R(y_n) \Delta t + \frac{1}{12} \Ric_{y_n}(y_{n+1}-y_n,y_{n+1}-y_n) + \cdots \right)
+\end{multline}
+The last term is a bit tricky to deal with, but under the integral it can be replaced
+by $\frac16 R(y_n) \Delta t$. \fixme{explain how} 
+Thus altogether we get (up to terms of order $(\Delta t)^2$ which we neglect)
+\begin{equation}
+ k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) \right].
+\end{equation}
+Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
-vanish in the limit $\Delta t \to 0$
-\fixme{up to factors of $2$ which need to be fixed}
+vanish in the limit $\Delta t \to 0$.
 
 When $V \neq 0$ we can make a similar formal argument to motivate
 \autoref{prop:sigma-heat}.
