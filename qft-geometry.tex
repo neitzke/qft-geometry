@@ -2668,12 +2668,19 @@ Then we have
   H = -\half \partial_x^2 + \half x^2 \omega^2
 \end{equation}
 acting on $\cH = L^2(\R)$.
-There is a nice explicit basis of eigenfunctions \fixme{...}
-with eigenvalues
+There is a nice explicit basis of eigenfunctions,
+\begin{align}
+  \psi_0 &= \e^{- \omega x^2/2}, \\
+  \psi_1 &= x \e^{- \omega x^2/2}, \\
+  \psi_2 &= \left (x^2 - \frac{1}{2 \omega} \right) \e^{- \omega x^2/2}, \\
+  \psi_n &= H_n(x) \e^{- \omega x^2/2}
+\end{align}
+where $H_n(x)$ is the $n$-th Hermite polynomial.
+They obey
 \begin{equation}
-  H \psi_n = \left(\half + n\right) \omega.
+  H \psi_n = \left(\half + n\right) \omega \psi_n.
 \end{equation}
-Thus we compute
+Thus the partition function on $X = S^1$ is
 \begin{equation}
   Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \e^{- \omega T(n + \half)} = \frac{1}{2 \sinh(\omega T/2)}.
 \end{equation}
