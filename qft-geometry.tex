@@ -2478,7 +2478,7 @@ $Y$, e.g. see \cite{MR1698956,Baer2007} for the
 case of $Y$ compact.
 To describe what the limit is, we need a digression on the heat kernel:
 
-\begin{prop}[Heat kernel]
+\begin{prop}[Heat kernel] \fixme{what class of $Y$, $V$?}
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
 is a smooth function $k_t$ on $Y \times Y$, obeying the heat
 equation in the first variable,\footnote{Our
@@ -2539,6 +2539,31 @@ kernel. Note that although $\de \mu_N \e^{-S}$
 has a well defined
 limit, the measure $\de \mu_N$ by itself does not.
 
+If we take $X = S^1$ then we can make a similar 
+discretization: the only difference is that we require
+$y_0$ and $y_N$ to be equal and then we integrate over their
+common value. Thus for the partition function we get
+\begin{equation}
+Z_{S^1} = \int \dvol_Y k_t(y,y)
+\end{equation}
+This integral has another interpretation: it is the trace
+of the integral operator $U_t$ acting on $L^2$ functions.
+Stated formally,
+\begin{prop}[Lattice approximations to $1$-dimensional sigma
+model on $S^1$ converge to the trace of the heat flow]
+If $X = S^1(T)$, then the discretized path integrals converge,
+\begin{equation}
+  Z_{S^1(T)} = \lim_{N \to \infty} Z_N,
+\end{equation}
+and then
+\begin{equation}
+  Z_{S^1(T)} = \Tr_{L^2(Y)} \e^{-T H}.
+\end{equation}
+\end{prop}
+
+
+\subsection{A sketchy proof}
+
 Here is a rough computation which gives some
 motivation for \autoref{prop:sigma-heat}.
 (See \cite{Baer2007} for an actual proof along these lines.)
@@ -2579,9 +2604,9 @@ Substituting these in \eqref{eq:kernel-chopup} we get
 \end{multline}
 The last term is a bit tricky to deal with, but under the integral it can be replaced
 by $\frac16 R(y_n) \Delta t$. \fixme{explain how} 
-Thus altogether we get (up to terms of order $(\Delta t)^2$ which we neglect)
+Thus altogether we get
 \begin{equation}
- k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) \right].
+ k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) + \cdots \right].
 \end{equation}
 Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
@@ -2616,27 +2641,10 @@ to the case $V \neq 0$.
 % \end{equation}
 % \end{prop}
 
-If we take $X = S^1$ then we can make a similar 
-discretization: the only difference is that we require
-$y_0$ and $y_N$ to be equal and then we integrate over their
-common value. Thus for the partition function we get
-\begin{equation}
-Z_{S^1} = \int \dvol_Y k_t(y,y)
-\end{equation}
-This integral has another interpretation: it is the trace
-of the integral operator $U_t$ acting on $L^2$ functions.
-Stated formally,
-\begin{prop}[Lattice approximations to $1$-dimensional sigma
-model on $S^1$ converge to the trace of the heat flow]
-If $X = S^1$, then
-\begin{equation}
-  \lim_{N \to \infty} Z_N = \Tr_{L^2(Y)} \e^{-t H}.
-\end{equation}
-\end{prop}
 
 \subsection{Local observables}
 
-Finally there is a similar interpretation for the path
+There is a similar interpretation for the path
 integral with a ``local observable'' inserted. By this
 we mean an observable $\cO: \cC_X \to \R$ whose value 
 only depends on some finite-order jet of $\phi \in \cC_X$
@@ -2682,6 +2690,125 @@ Give a heuristic proof of \autoref{prop:1d-discretization-with-insertion} along 
 what we did above for \autoref{prop:sigma-heat}.
 \end{exercise}
 
+\autoref{prop:1d-discretization-with-insertion} 
+says that the path integral converts the
+observable $\cO_F$ associated to the function $F: Y \to \R$ 
+into an operator on $L^2(Y)$, albeit
+a rather obvious one. This process is sometimes called
+\ti{path-integral quantization} of the function $F$.
+
+We could also consider observables depending on, say, 
+the $1$-jet of $\phi$ instead of the $0$-jet. This would 
+amount to considering a function $F: TY \to \R$, defining
+\begin{equation}
+  (\cO_F(t)) (\phi) = F(\phi'(t)),
+\end{equation}
+and constructing $\IP{\cO_F(t)}$
+again by discretization.
+Then it is an interesting question to identify 
+the corresponding operator on $L^2(Y)$.
+At least when $Y = \R$ we can answer this question:
+\begin{prop} \label{prop:quantization-p}
+When $Y = \R$, use the metric to identify $Y$ with $T^* Y$
+coordinatized by $(x,p)$. Then the function $F = p$
+induces (in the above sense) the operator $\partial_x$
+on $L^2(\R)$. \fixme{check sign}
+\end{prop}
+
+\begin{exercise} Give a heuristic proof
+of \autoref{prop:quantization-p}.
+\end{exercise}
+
+
+\subsection{Noncommutativity and discretization}
+
+Thus the path-integral quantization converts the
+functions
+$p$, $q$ on $T^* \R$ to operators $\hat{p}$, $\hat{q}$
+on $L^2(\R)$. Of course $\hat{p}$ and $\hat{q}$ do
+not commute with one another, which might at first seem
+puzzling: where does the noncommutativity come from?
+After all, naively we would have (where $\leftrightarrow$ means
+``is the heat kernel for'')
+\begin{equation}
+  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
+\end{equation}
+\begin{equation}
+  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}
+\end{equation}
+Now in the limit $t_2 \to 0$ these two path integrals 
+both formally limit to the same object,
+\begin{equation}
+\int_{\cC_{[0,T]}} \de \phi \, \phi(t_1) \phi'(t_1) \e^{-S(\phi)}
+\end{equation}
+but which operator is this the heat kernel for?
+
+To understand this issue let us think a bit more carefully
+about how we defined the path integral by discretization.
+When we discretize the interval $[0,T]$ we will put one
+of the discretization points at $t_1$, in order to have
+a clean definition of the operator $\phi(t_1)$.
+% But then we have to choose from among various 
+% possible discretizations of $\dot\phi(t_1)$: in particular
+% we might take 
+% \begin{equation}
+%   (\phi(t_1 + \Delta t) - \phi(t_1)) / \Delta t
+% \end{equation}
+% or
+% \begin{equation}
+% (\phi(t_1) - \phi(t_1 - \Delta t)) / \Delta t.
+%  \end{equation} 
+% In the absence of the additional insertion $\phi(t)$,
+% these two insertions behave the same in the 
+% $\Delta t \to 0$ limit. But with $\phi(t_1)$ inserted
+% the story is different. 
+But what do we do about $\phi'(t_1)$?
+Let us set
+\begin{equation}
+  y_1 = \phi(t_1 - \Delta t), \qquad y_2 = \phi(t_1), \qquad y_3 = \phi(t_1 + \Delta t).
+\end{equation}
+Then we might reasonably choose either 
+\begin{equation}
+  \phi'(t_1) = (y_2 - y_1) / \Delta t, \qquad \phi'(t_1) = (y_3 - y_2) / \Delta t.
+\end{equation}
+Then in the discretized path integrals with these two 
+insertions the $y_2$-dependent part is either
+\begin{equation}
+  \frac{1}{\Delta t} \int \de y_2 \, (y_2 - y_1) y_2 \, \e^{-F(y)}, \qquad
+  \frac{1}{\Delta t} \int \de y_1 \de y_2 \de y_3 \, (y_3 - y_2) y_2 \, \e^{-F(y)}
+\end{equation}
+where
+\begin{equation}
+  F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (4 \Delta t).
+\end{equation}
+Finally, these two integrals are not the same:
+by integration by parts one shows that they differ by
+\fixme{check factors}
+\begin{equation}
+  \int \de y_1 \de y_2 \de y_3 \, \e^{-F(y)}.
+\end{equation}
+Note this difference survives in the limit 
+$\Delta t \to 0$!
+
+But the latter is just what we get from an insertion
+of the operator $1$ in the path integral.
+So it is what we expected from the commutation relation
+\begin{equation}
+  [\hat p, \hat q] = 1.
+\end{equation}
+
+
+
+\subsection{Symmetries}
+
+\fixme{time translations}
+
+\fixme{isometries of $Y$}
+
+\fixme{coupling to ``background field'': connection on the
+circle}
+
+
 \subsection{The simple harmonic oscillator}
 
 A fundamental example is the case
@@ -2705,7 +2832,7 @@ They obey
 \begin{equation}
   H \psi_n = \left(\half + n\right) \omega \psi_n.
 \end{equation}
-Thus the partition function on $X = S^1$ is
+Thus the partition function on $X = S^1(T)$ is
 \begin{equation}
   Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \e^{- \omega T(n + \half)} = \frac{1}{2 \sinh(\omega T/2)}.
 \end{equation}
