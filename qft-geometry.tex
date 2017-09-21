@@ -2733,8 +2733,10 @@ $p$, $q$ on $T^* \R$ to operators $\hat{p}$, $\hat{q}$
 on $L^2(\R)$. Of course $\hat{p}$ and $\hat{q}$ do
 not commute with one another, which might at first seem
 puzzling: where does the noncommutativity come from?
-After all, naively we would have (where $\leftrightarrow$ means
-``is the heat kernel for'') \fixme{switch to a better notation}
+Consider the decorated intervals below:
+\insfig{qft-geometry-19}{0.95}
+Naively we would have (where $\leftrightarrow$ means
+``is the heat kernel for,'' and $T = t_1 + t_2 + t_3$) \fixme{switch to a better notation}
 \begin{equation}
   \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
 \end{equation}
@@ -2746,7 +2748,11 @@ both formally limit to the same object,
 \begin{equation}
 \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1) \phi'(t_1) \e^{-S(\phi)}
 \end{equation}
-but which operator is this the heat kernel for?
+but we want to say that actually the two limits are not quite the same: one is
+$ \e^{-t_3 H} \hat{p} \hat{x} \e^{-t_1 H}$
+and the other is
+$ \e^{-t_3 H} \hat{x} \hat{p} \e^{-t_1 H}$. 
+How can this be?
 
 To understand this issue let us think a bit more carefully
 about how we defined the path integral by discretization.
@@ -2844,6 +2850,8 @@ Thus the partition function on $X = S^1(T)$ is
 \end{equation}
 
 \fixme{...}
+
+\fixme{also do $Y = S^1$ with no potential, with and without insertion of shift operator}
 
 
 \subsection{Infinite-dimensional determinants}
