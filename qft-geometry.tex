@@ -2671,9 +2671,9 @@ The result is \fixme{ref?}
   $\IP{\cO_F(t)}_{[0,1]^{y_1}_{y_0}}$ is the integral kernel
   representing the operator 
   \begin{equation}
-    \e^{-H(T-t)} F \e^{-Ht}
+    \e^{-H(T-t)} \hat F \e^{-Ht}
   \end{equation}
-  on $L^2(Y)$, where $F$ means the operator of multiplication
+  on $L^2(Y)$, where $\hat F$ means the operator of multiplication
   by $F$.
 \end{prop}
 One pictures this as an instruction: 
@@ -2693,7 +2693,7 @@ what we did above for \autoref{prop:sigma-heat}.
 \autoref{prop:1d-discretization-with-insertion} 
 says that the path integral converts the
 observable $\cO_F$ associated to the function $F: Y \to \R$ 
-into an operator on $L^2(Y)$, albeit
+into an operator $\hat F$ on $L^2(Y)$, albeit
 a rather obvious one. This process is sometimes called
 \ti{path-integral quantization} of the function $F$.
 
@@ -2709,10 +2709,15 @@ Then it is an interesting question to identify
 the corresponding operator on $L^2(Y)$.
 At least when $Y = \R$ we can answer this question:
 \begin{prop} \label{prop:quantization-p}
-When $Y = \R$, use the metric to identify $Y$ with $T^* Y$
+When $Y = \R$, use the standard 
+metric to identify $TY = T\R$ with $T^* Y = T^* \R$
 coordinatized by $(x,p)$. Then the function $F = p$
-induces (in the above sense) the operator $\partial_x$
-on $L^2(\R)$. \fixme{check sign}
+induces (in the above sense) the operator
+\begin{equation}
+   \hat p = 2 \partial_x
+\end{equation} 
+on $L^2(\R)$. \fixme{check sign} \fixme{change conventions
+somehow so that this $2$ goes away}
 \end{prop}
 
 \begin{exercise} Give a heuristic proof
@@ -2729,17 +2734,17 @@ on $L^2(\R)$. Of course $\hat{p}$ and $\hat{q}$ do
 not commute with one another, which might at first seem
 puzzling: where does the noncommutativity come from?
 After all, naively we would have (where $\leftrightarrow$ means
-``is the heat kernel for'')
+``is the heat kernel for'') \fixme{switch to a better notation}
 \begin{equation}
-  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
 \end{equation}
 \begin{equation}
-  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}
 \end{equation}
-Now in the limit $t_2 \to 0$ these two path integrals 
+In the limit $t_2 \to 0$ these two path integrals 
 both formally limit to the same object,
 \begin{equation}
-\int_{\cC_{[0,T]}} \de \phi \, \phi(t_1) \phi'(t_1) \e^{-S(\phi)}
+\int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1) \phi'(t_1) \e^{-S(\phi)}
 \end{equation}
 but which operator is this the heat kernel for?
 
@@ -2772,20 +2777,19 @@ Then we might reasonably choose either
   \phi'(t_1) = (y_2 - y_1) / \Delta t, \qquad \phi'(t_1) = (y_3 - y_2) / \Delta t.
 \end{equation}
 Then in the discretized path integrals with these two 
-insertions the $y_2$-dependent part is either
+insertions the $y_2$-dependent part is respectively
 \begin{equation}
   \frac{1}{\Delta t} \int \de y_2 \, (y_2 - y_1) y_2 \, \e^{-F(y)}, \qquad
-  \frac{1}{\Delta t} \int \de y_1 \de y_2 \de y_3 \, (y_3 - y_2) y_2 \, \e^{-F(y)}
+  \frac{1}{\Delta t} \int \de y_2 \, (y_3 - y_2) y_2 \, \e^{-F(y)}
 \end{equation}
 where
 \begin{equation}
   F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (4 \Delta t).
 \end{equation}
-Finally, these two integrals are not the same:
+These two integrals are not quite the same:
 by integration by parts one shows that they differ by
-\fixme{check factors}
 \begin{equation}
-  \int \de y_1 \de y_2 \de y_3 \, \e^{-F(y)}.
+  2 \int \de y_1 \de y_2 \de y_3 \, \e^{-F(y)}.
 \end{equation}
 Note this difference survives in the limit 
 $\Delta t \to 0$!
@@ -2794,7 +2798,7 @@ But the latter is just what we get from an insertion
 of the operator $1$ in the path integral.
 So it is what we expected from the commutation relation
 \begin{equation}
-  [\hat p, \hat q] = 1.
+  [\hat p, \hat q] = 2.
 \end{equation}
 
 
