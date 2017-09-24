@@ -821,7 +821,7 @@ then jump to dimension $4$. The level of rigor will be inversely correlated with
 % \end{center}
 
 
-\section{QFT in \texorpdfstring{$0$}{0} dimensions}
+\section{QFT in \texorpdfstring{$0$}{0} dimensions} \label{sec:0d-qft}
 
 \subsection{The partition function and expectation values}
 
@@ -1153,8 +1153,8 @@ a basis $\{e^1, \dots, e^n\}$ on $V$, with $M(e^i,e^j) = M^{ij}$,
 $\sqrt{\det M} = \sqrt{\det (M^{ij})} \abs{e^*_1 \cdots e^*_n}$.
 \end{exercise}
 When $C = 0$ the partition function is
-\begin{equation}
-  Z_0 = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
+\begin{equation} \label{eq:partition-function-bosonic-gaussian}
+  Z_0 = \int_{V} \de \mu \, \e^{-\half M(x,x)} = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
 \end{equation}
 The Feynman rules assign a vector in $(V^*)^{\otimes 4}$ to each vertex
 and $V^{\otimes 2}$ to each edge, contracted in the obvious way:
@@ -2386,15 +2386,15 @@ define
 
 The action is, for differentiable $\phi$,
 \begin{align}
-  S(\phi) &= \int_X \dvol_X \left(\qtr g(\dot\phi,\dot\phi) + V(\phi) - \frac13 R(\phi) \right) \\
-  &= \int_X \de t \sqrt{\eta_{tt}} \left(\qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac13 R(\phi)\right)
+  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi) - \frac16 R(\phi) \right) \\
+  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac16 R(\phi)\right)
 \end{align}
 where $R: Y \to \R$ is the scalar curvature.
 
 If we choose the parameter $t$ on $X$ to be the arc-length, then
 the action reduces to
 \begin{equation}
-    S(\phi) = \int_X \de t \, \left( \qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac13 R(\phi) \right).
+    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac16 R(\phi) \right).
 \end{equation}
 We can think of various $\phi \in \cC_X$ as various possible
 trajectories that the particle could take on $Y$.
@@ -2457,7 +2457,7 @@ Restricting $S$ to these paths gives $S: \cC_{X;N} \to \R$.
 $\cC_{X;N}$ also has a natural measure induced from the volume
 measure on $Y$, up to a tricky constant:
 \begin{equation} \label{eq:discretized-1d-measures}
- \de\mu_N = \frac{1}{(4 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^{N-1} \dvol_Y(\phi(t_n)).
+ \de\mu_N = \frac{1}{(2 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^{N-1} \dvol_Y(\phi(t_n)).
 \end{equation}
 Thus we can define the discretized partition function
 \begin{equation}
@@ -2485,7 +2485,7 @@ equation in the first variable,\footnote{Our
 convention is that $\Delta$ is the negative definite Laplacian,
 i.e. $\Delta = \sum \partial_i^2$ on $\R^n$.}
 \begin{equation}
-  \partial_t k_t(x,y) + (-\Delta_x + V(x)) k_t(x,y) = 0
+  \partial_t k_t(x,y) + \left(-\half \Delta_x + V(x)\right) k_t(x,y) = 0
 \end{equation}
 and such that as $t \to 0^+$ this solution ``concentrates'' at the point $y$,
 \begin{equation}
@@ -2495,9 +2495,12 @@ These properties characterize $k_t$.
 \end{prop}
 \begin{exercise}
 Show that on $Y = \R^n$, when $V = 0$, the heat kernel
-is
+is\footnote{The usual formulas for the heat kernel differ from this by the
+replacement $t \to 2t$, because they omit the factor $\half$ in the
+heat equation. The same replacement is needed in comparing the formulas we write below
+on a Riemannian manifold to those in the literature, e.g. \cite{Roe1988a}.}
 \begin{equation}
-  k_t(x,y) = \left( \frac{1}{4 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{4t} \norm{x-y}^2 \right).
+  k_t(x,y) = \left( \frac{1}{2 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{2t} \norm{x-y}^2 \right).
 \end{equation}
 \end{exercise}
 
@@ -2512,7 +2515,8 @@ Moreover $U_t$ is an extremely nice operator, with the
 $t > 0$ it maps
 distributions to $C^\infty$ functions. In particular
 it gives a linear operator on $L^2(M)$,
-sometimes written $U_t = \e^{-t (-\Delta + V)}$.
+sometimes written $U_t = \e^{-tH}$
+where $H = - \half \Delta + V$.
 This is \ti{not} a unitary operator.\footnote{One could have instead considered
 the analytic continuation $t \to \I t$ which would
 have been the time evolution for the Schr\"odinger equation;
@@ -2589,28 +2593,28 @@ in \eqref{eq:kernel-chopup} after we take the large $N$ limit.
 The leading behavior as $\Delta t \to 0$ and $x \to y$ 
 is not hard to guess: it is the same as on $\R^n$, namely
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right).
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,y)^2 \right).
 \end{equation}
 The first-order correction in $d(x,y)$ can be extracted from \cite{Berline2004}: it is of the form
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{1}{12} \Ric_x(x-y,x-y) + \cdots \right).
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{1}{12} \Ric_x(x-y,x-y) + \cdots \right).
 \end{equation}
 To get the first-order correction in $\Delta t$ we can restrict to the diagonal,
 and then look in \cite{Roe1988a} which says that 
 as $\Delta t \to 0$ we have
 \begin{equation}
-  k_{\Delta t}(x,x) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,x)^2 \right) \left( 1 + \frac16 R(x) \Delta t + \cdots \right)
+  k_{\Delta t}(x,x) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,x)^2 \right) \left( 1 + \frac{1}{12} R(x) \Delta t + \cdots \right)
 \end{equation}
 Substituting these in \eqref{eq:kernel-chopup} we get
 \begin{multline}
-  k_T(y_N, y_0) \sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \times \\ 
-  \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \left(1 + \frac16 R(y_n) \Delta t + \frac{1}{12} \Ric_{y_n}(y_{n+1}-y_n,y_{n+1}-y_n) + \cdots \right)
+  k_T(y_N, y_0) \sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \times \\ 
+  \exp \left( - \frac{1}{2 \Delta t} d(y_{n+1},y_n)^2 \right) \left(1 + \frac{1}{12} R(y_n) \Delta t + \frac{1}{12} \Ric_{y_n}(y_{n+1}-y_n,y_{n+1}-y_n) + \cdots \right)
 \end{multline}
 The last term is a bit tricky to deal with, but under the integral it can be replaced
-by $\frac16 R(y_n) \Delta t$. \fixme{explain how} 
+by $\frac{1}{12} R(y_n) \Delta t$. \fixme{explain how} 
 Thus altogether we get
 \begin{equation}
- k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \sum_{n=0}^{N-1} \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) + \cdots \right].
+ k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \sum_{n=0}^{N-1} \Delta t \left( - \half \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{1}{6} R(y_n) \right) + \cdots \right].
 \end{equation}
 Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
@@ -2721,10 +2725,9 @@ metric to identify $TY = T\R$ with $T^* Y = T^* \R$
 coordinatized by $(x,p)$. Then the function $F = p$
 induces (in the above sense) the operator
 \begin{equation}
-   \hat p = 2 \partial_x
+   \hat p = \partial_x
 \end{equation} 
-on $L^2(\R)$. \fixme{check sign} \fixme{change conventions
-somehow so that this $2$ goes away}
+on $L^2(\R)$. \fixme{check sign}
 \end{prop}
 
 \begin{exercise} Give a heuristic proof
@@ -2797,20 +2800,20 @@ insertions the $y_2$-dependent part is respectively
 \end{equation}
 where
 \begin{equation}
-  F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (4 \Delta t).
+  F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (2 \Delta t).
 \end{equation}
 These two integrals are not quite the same:
 by integration by parts one shows that they differ by
 \begin{equation} \label{eq:commutator-residue}
-  2 \int \de y_2 \, \e^{-F(y)}.
+  \int \de y_2 \, \e^{-F(y)}.
 \end{equation}
 Note this difference survives in the limit 
 $\Delta t \to 0$!
 But the integral \eqref{eq:commutator-residue} is just what we get from an insertion
-of the operator $2$ in the path integral.
+of the operator $1$ in the path integral.
 So it is what we expected from the commutation relation
 \begin{equation}
-  [\hat p, \hat q] = 2.
+  [\hat p, \hat q] = 1.
 \end{equation}
 
 
@@ -2827,8 +2830,9 @@ So it is what we expected from the commutation relation
 circle}
 
 
-\subsection{The simple harmonic oscillator}
+\subsection{Simple examples} \label{sec:0d-simple-examples}
 
+\begin{example}[Harmonic oscillator] \label{exa:harmonic-oscillator}
 A fundamental example is the case
 \begin{equation}
   Y = \R, \qquad V = \frac12{\omega^2 x^2}, \qquad \omega \in \R.
@@ -2852,12 +2856,11 @@ They obey
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
 \begin{equation}
-  Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \e^{- \omega T(n + \half)} = \frac{1}{2 \sinh(\omega T/2)}.
+  Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \exp\left(- \omega T\left(n + \half\right)\right) = \frac{1}{2 \sinh(\omega T/2)}.
 \end{equation}
+\end{example}
 
-
-\subsection{The sigma model on \texorpdfstring{$S^1$}{S1}}
-
+\begin{example}[Sigma model into $S^1$] \label{exa:sigma-model-s1}
 Another basic example is
 \begin{equation}
   Y = S^1_R, \qquad V = 0.
@@ -2866,15 +2869,41 @@ Here we have
 \begin{equation}
   H = -\half \partial_x^2
 \end{equation}
-acting on $\cH = L^2(S^1)$.
+acting on $\cH = L^2(S^1_R)$. A simple basis of eigenfunctions is
+\begin{equation}
+  \psi_0(x) = 1, \qquad \psi_{2n-1}(x) = \sin\left(\frac{2 \pi n x}{R}\right), \qquad \psi_{2n}(x) = \cos\left(\frac{2 \pi n x}{R}\right)
+\end{equation}
+and so the eigenvalues are
+\begin{equation}
+  \left\{0, \frac{2 \pi^2}{R^2}, \frac{2 \pi^2}{R^2}, \frac{8 \pi^2}{R^2}, \frac{8 \pi^2}{R^2}, \dots \right\}
+\end{equation}
+Thus the partition function on $X = S^1(T)$ is
+\begin{equation}
+  Z_{S^1(T)} = \Tr \e^{-T H} = 1 + 2 \sum_{n=1}^\infty \exp\left(-\frac{2 \pi^2 n^2 T}{R^2}\right) = \sum_{n = -\infty}^\infty \exp\left(-\frac{2 \pi^2 n^2 T}{R^2}\right),
+\end{equation}
+also known as the Jacobi theta function,
+\begin{equation} \label{eq:zs1-theta-function}
+  Z_{S^1(T)} = \vartheta \left(\tau = \frac{2 \pi \I T}{R^2}, \ z = 0\right).
+\end{equation}
+\end{example}
 
-\fixme{...}
-
+\begin{exercise} For $\alpha \in \R$, let $S_\alpha: \cH \to \cH$ be the operation 
+of shifting by $\alpha$, $\psi(x) \mapsto \psi(x + \alpha)$. Compute $\Tr_{\cH} \e^{-TH} S_\alpha$.
+(You should find a theta function with the argument $z$ nonzero, generalizing \eqref{eq:zs1-theta-function}.)
+\end{exercise}
 
 \subsection{Infinite-dimensional determinants}
 
-\fixme{explain connection to determinants: no regularization
-needed if we pick the right metric?}
+In the examples of \autoref{sec:0d-simple-examples} the path integrals we are computing involve 
+only Gaussian integrals, albeit Gaussian integrals over unbounded numbers of variables.
+Now recall from \eqref{eq:partition-function-bosonic-gaussian}
+that for finite-dimensional Gaussian integrals we have
+\begin{equation} \label{eq:partition-function-bosonic-gaussian-redux}
+  \int_{V} \de \mu \, \e^{-\half M(x,x)} = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
+\end{equation}
+We would like to interpret the 
+
+
 
 
 \subsection{Effective field theory in quantum mechanics}
