@@ -2513,6 +2513,10 @@ $t > 0$ it maps
 distributions to $C^\infty$ functions. In particular
 it gives a linear operator on $L^2(M)$,
 sometimes written $U_t = \e^{-t (-\Delta + V)}$.
+This is \ti{not} a unitary operator.\footnote{One could have instead considered
+the analytic continuation $t \to \I t$ which would
+have been the time evolution for the Schr\"odinger equation;
+in that case it really would be unitary.}
 
 Now we can state the main fact about the $1$-dimensional sigma model:
 its path integral actually exists and the result is the heat kernel!
@@ -2606,7 +2610,7 @@ The last term is a bit tricky to deal with, but under the integral it can be rep
 by $\frac16 R(y_n) \Delta t$. \fixme{explain how} 
 Thus altogether we get
 \begin{equation}
- k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) + \cdots \right].
+ k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \sum_{n=0}^{N-1} \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) + \cdots \right].
 \end{equation}
 Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
@@ -2668,7 +2672,7 @@ lengths, so that $t$ can be on the boundary between two
 of them).
 The result is \fixme{ref?}
 \begin{prop} \label{prop:1d-discretization-with-insertion}
-  $\IP{\cO_F(t)}_{[0,1]^{y_1}_{y_0}}$ is the integral kernel
+  $\IP{\cO_F(t)}_{[0,T]^{y_1}_{y_0}}$ is the integral kernel
   representing the operator 
   \begin{equation}
     \e^{-H(T-t)} \hat F \e^{-Ht}
@@ -2707,7 +2711,10 @@ and constructing $\IP{\cO_F(t)}$
 again by discretization.
 Then it is an interesting question to identify 
 the corresponding operator on $L^2(Y)$.
+
 At least when $Y = \R$ we can answer this question:
+\fixme{though strictly speaking $Y = \R$ was not allowed
+in our previous discussion}
 \begin{prop} \label{prop:quantization-p}
 When $Y = \R$, use the standard 
 metric to identify $TY = T\R$ with $T^* Y = T^* \R$
@@ -2794,14 +2801,13 @@ where
 \end{equation}
 These two integrals are not quite the same:
 by integration by parts one shows that they differ by
-\begin{equation}
-  2 \int \de y_1 \de y_2 \de y_3 \, \e^{-F(y)}.
+\begin{equation} \label{eq:commutator-residue}
+  2 \int \de y_2 \, \e^{-F(y)}.
 \end{equation}
 Note this difference survives in the limit 
 $\Delta t \to 0$!
-
-But the latter is just what we get from an insertion
-of the operator $1$ in the path integral.
+But the integral \eqref{eq:commutator-residue} is just what we get from an insertion
+of the operator $2$ in the path integral.
 So it is what we expected from the commutation relation
 \begin{equation}
   [\hat p, \hat q] = 2.
