@@ -2894,14 +2894,35 @@ of shifting by $\alpha$, $\psi(x) \mapsto \psi(x + \alpha)$. Compute $\Tr_{\cH} 
 
 \subsection{Infinite-dimensional determinants}
 
-In the examples of \autoref{sec:0d-simple-examples} the path integrals we are computing involve 
+In the examples of \autoref{sec:0d-simple-examples} the discretized 
+path integrals we are computing involve 
 only Gaussian integrals, albeit Gaussian integrals over unbounded numbers of variables.
-Now recall from \eqref{eq:partition-function-bosonic-gaussian}
+Recall from \eqref{eq:partition-function-bosonic-gaussian}
 that for finite-dimensional Gaussian integrals we have
 \begin{equation} \label{eq:partition-function-bosonic-gaussian-redux}
-  \int_{V} \de \mu \, \e^{-\half M(x,x)} = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
+  (2\pi c)^{-\half \dim V} \int_{V} \de \mu \, \e^{-\half M(x,x)} = \frac{\de\mu}{\sqrt{\det (c M)}}.
 \end{equation}
-We would like to interpret the 
+The discretized versions of the path integrals in \autoref{sec:0d-simple-examples}
+have the form of the LHS, if we take $c = \Delta t = T/N$.
+Now, we have seen that the $N \to \infty$ limit of the discretized path integral exists.
+Thus the limit of the RHS also exists.
+We would like to interpret it as some kind of infinite-dimensional
+determinant.
+
+One obstacle is that in the infinite-dimensional case the measure $\de \mu$ does not exist.
+So, we need to get rid of that.
+For this note that in the finite-dimensional case, we can identify the bilinear pairing
+$M \Delta t$ with a linear operator $A$ on $V$, 
+by choosing an identification $V \simeq V^*$ coming from a metric
+on $V$. If we choose our metric on $V$ such that $\norm{\de \mu} = 1$ then we have the simple relation
+\begin{equation}
+  \frac{\de \mu}{\sqrt{\det M \Delta t}} = \frac{1}{\sqrt{\det A}}.
+\end{equation}
+
+\fixme{...}
+
+\fixme{say this also works more generally, not only for completely Gaussian models}
+
 
 
 
