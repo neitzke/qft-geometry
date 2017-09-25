@@ -2855,7 +2855,7 @@ They obey
   H \psi_n = \left(\half + n\right) \omega \psi_n.
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
-\begin{equation}
+\begin{equation} \label{eq:s1-z-harmonic-oscillator}
   Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \exp\left(- \omega T\left(n + \half\right)\right) = \frac{1}{2 \sinh(\omega T/2)}.
 \end{equation}
 \end{example}
@@ -2919,7 +2919,18 @@ on $V$. If we choose our metric on $V$ such that $\norm{\de \mu} = 1$ then we ha
   \frac{\de \mu}{\sqrt{\det M \Delta t}} = \frac{1}{\sqrt{\det A}}.
 \end{equation}
 
-\fixme{...}
+\begin{exercise} Give a formula for the $N \times N$ matrix $A$ which appears
+in the discretization of the path integral of 
+\autoref{exa:harmonic-oscillator}. Check (at least numerically) that $1 / \sqrt{\det A}$
+indeed approaches the value \eqref{eq:s1-z-harmonic-oscillator} as $N \to \infty$.
+\end{exercise}
+
+\begin{exercise}
+Do similarly for \autoref{exa:sigma-model-s1}.
+\end{exercise}
+
+Thus our job is to make sense of the limit of the operator $A$, and its determinant,
+as $N \to \infty$.
 
 \fixme{say this also works more generally, not only for completely Gaussian models}
 
