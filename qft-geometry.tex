@@ -2852,7 +2852,11 @@ There is a nice explicit basis of eigenfunctions,
 where $H_n(x)$ is the $n$-th Hermite polynomial.
 They obey
 \begin{equation}
-  H \psi_n = \left(\half + n\right) \omega \psi_n.
+  H \psi_n = \left(\half + n\right) \omega \psi_n,
+\end{equation}
+so the eigenvalues of $H$ are
+\begin{equation}
+  \left( \half + n \right) \omega \text{ for $n \ge 0$}.
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
 \begin{equation} \label{eq:s1-z-harmonic-oscillator}
@@ -2875,7 +2879,7 @@ acting on $\cH = L^2(S^1_R)$. A simple basis of eigenfunctions is
 \end{equation}
 and so the eigenvalues are
 \begin{equation}
-  \left\{0, \frac{2 \pi^2}{R^2}, \frac{2 \pi^2}{R^2}, \frac{8 \pi^2}{R^2}, \frac{8 \pi^2}{R^2}, \dots \right\}
+  0, \frac{2 \pi^2 n^2}{R^2} \text{ (with multiplicity $2$) for $1 \le n \le \frac{N}{2}-1$}
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
 \begin{equation}
@@ -2919,18 +2923,24 @@ on $V$. If we choose our metric on $V$ such that $\norm{\de \mu} = 1$ then we ha
   \frac{\de \mu}{\sqrt{\det M \Delta t}} = \frac{1}{\sqrt{\det A}}.
 \end{equation}
 
-\begin{exercise} Give a formula for the $N \times N$ matrix $A$ which appears
+\begin{exercise} Show that the $N \times N$ matrix $A$ which appears
 in the discretization of the path integral of 
-\autoref{exa:harmonic-oscillator}. Check (at least numerically) that $1 / \sqrt{\det A}$
+\autoref{exa:harmonic-oscillator} is 
+\begin{equation}
+  A_{ij} = \left(2 + \frac{\omega^2 T^2}{N^2}\right) \delta_{i,j} - \delta_{i,j-1} - \delta_{i,j+1}.
+\end{equation}
+Check (at least numerically) that $1 / \sqrt{\det A}$
 indeed approaches the value \eqref{eq:s1-z-harmonic-oscillator} as $N \to \infty$.
+(Explicitly the eigenvalues of $A$ are: $\frac{\omega^2 T^2}{N^2}$,
+$4 \sin^2(\pi n / N) + \frac{\omega^2 T^2}{N^2}$ (with multiplicity $2$) for $1 \le n \le \frac{N}{2}-1$, and $4 + \frac{\omega^2 T^2}{N^2}$ if $N$ is even.)
 \end{exercise}
 
 \begin{exercise}
 Do similarly for \autoref{exa:sigma-model-s1}.
 \end{exercise}
 
-Thus our job is to make sense of the limit of the operator $A$, and its determinant, as $N \to \infty$.
-It appears that the correct interpretation is as follows.
+We would like to make sense of the limit of the operator $A$, and its determinant, as $N \to \infty$.
+One interpretation is as follows.
 Let $V$ denote the space of 
 loops $S^1 \to \R$ for which the total energy is finite.
 This is an infinite-dimensional vector space (even a Hilbert space)
@@ -2953,7 +2963,7 @@ Then we have
 Thus the eigenvalues of the operator $A$ corresponding to the quadratic
 function $M = 2S$ are
 \begin{equation}
-  \omega^2 T^2, \qquad 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2}, 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2}, 
+  \omega^2 T^2, \qquad 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2} \text{ (with multiplicity $2$) for all $n > 0$},
 \end{equation}
 which gives\footnote{We use the product formula
 \begin{equation}
@@ -2980,9 +2990,63 @@ What is puzzling about this is that it is not clear why the norm
 
 \subsection{Supersymmetric quantum mechanics}
 
+We've seen that given a Riemannian manifold $Y$ there is a corresponding
+$1$-dimensional QFT of maps $X \to Y$, formally involving integrals
+over the path space
+\begin{equation}
+  \cC = \Map(X,Y),
+\end{equation}
+which has to do with the heat flow on $Y$.
+In particular, its partition function on $X = S^1(T)$ is
+\begin{equation}
+  Z_{S^1(T)} = \Tr \, \e^{-T \Delta}
+\end{equation}
+which contains the whole spectrum of $\Delta$. This is very far
+from being deformation invariant: morally it depends on every little
+detail of the metric on $Y$.
+
+To get something more topological we repeat the strategy we used
+in \fixme{...}: add fermions!
+Concretely, we will make a new QFT whose configuration space is formally
+\begin{equation}
+  \cC = \Pi T \Map(X,Y).
+\end{equation}
+One immediate observation is that here we will formally have a \ti{canonical}
+measure, like what we had in \S\fixme{...} before where we took $\cC = \Pi T M$.
+Thus we may expect that the constructions will be a little more canonical than
+they were in that case.
+
+A point of $\cC = \Pi T \Map(X,Y)$ concretely means a pair of:
+\begin{itemize}
+ \item $\phi: X \to Y$,
+ \item $\psi \in \Pi \Gamma(\phi^* TY)$.
+\end{itemize}
+We could also think of $(\phi, \psi)$ together as defining a map
+$X \times \R^{0 \vert 1} \to Y$.
+
+Now we write the action $S \in C^\infty(\cC)$:
+\begin{equation}
+  S(\varphi,\psi) = \int \de t \, \half(g(\dot \phi, \dot \phi) + g(\psi, \nabla_t \psi))
+\end{equation}
+where $\nabla_t$ is the pullback of the Levi-Civita connection from $Y$, acting
+on sections of $TY$.
+\fixme{remark on integration by parts}
+As before, this action is invariant under the symmetry of time translations,
+which we represent by its infinitesimal action $H$, \fixme{explain this}
+\begin{equation}
+  \delta \phi = \eps \dot\phi, \qquad \delta \psi = \eps \dot\psi.
+\end{equation}
+But now it is also invariant under an odd symmetry $Q$
+\begin{equation}
+  \delta \psi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
+\end{equation}
+These two obey
+\begin{equation}
+  \{Q,Q\} = 2H
+\end{equation}
+(which implies together they give an action of $\R^{1|1}$)
 
 \fixme{...}
-
 
 \subsection{The index theorem}
 
