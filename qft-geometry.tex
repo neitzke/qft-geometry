@@ -2895,7 +2895,7 @@ of shifting by $\alpha$, $\psi(x) \mapsto \psi(x + \alpha)$. Compute $\Tr_{\cH} 
 \subsection{Infinite-dimensional determinants}
 
 In the examples of \autoref{sec:0d-simple-examples} the discretized 
-path integrals we are computing involve 
+path integrals involve 
 only Gaussian integrals, albeit Gaussian integrals over unbounded numbers of variables.
 Recall from \eqref{eq:partition-function-bosonic-gaussian}
 that for finite-dimensional Gaussian integrals we have
@@ -2929,11 +2929,46 @@ indeed approaches the value \eqref{eq:s1-z-harmonic-oscillator} as $N \to \infty
 Do similarly for \autoref{exa:sigma-model-s1}.
 \end{exercise}
 
-Thus our job is to make sense of the limit of the operator $A$, and its determinant,
-as $N \to \infty$.
+Thus our job is to make sense of the limit of the operator $A$, and its determinant, as $N \to \infty$.
+It appears that the correct interpretation is as follows.
+Let $V$ denote the space of 
+loops $S^1 \to \R$ for which the total energy is finite.
+This is an infinite-dimensional vector space (even a Hilbert space)
+carrying the quadratic function
+\begin{equation}
+  S(\phi) = \half \int_{0}^T \de t \left( \norm{\dot \phi(t)}^2 + \omega^2 \phi(t)^2 \right).
+\end{equation}
+We expand
+\begin{equation}
+  \phi(t) = c \sqrt{T} + \sum_{n=1}^\infty \frac{\sqrt{2T}}{2 \pi n} \left(a_n \sin\left(\frac{2 \pi n}{T} t\right) + b_n \cos\left(\frac{2 \pi n}{T} t\right)\right). 
+\end{equation}
+Now, we choose the norm \fixme{why?}
+\begin{equation} \label{eq:qm-norm}
+  \norm{\phi}^2 = c^2 + \sum_n a_n^2 + b_n^2.
+\end{equation}
+Then we have
+\begin{equation}
+  S(\phi) = \half \left( \omega^2 T^2 c^2 + \sum_{n=1}^\infty \left(1 +  \frac{\omega^2 T^2}{4 \pi^2 n^2} \right) (a_n^2 + b_n^2) \right)
+\end{equation}
+Thus the eigenvalues of the operator $A$ corresponding to the quadratic
+function $M = 2S$ are
+\begin{equation}
+  \omega^2 T^2, \qquad 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2}, 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2}, 
+\end{equation}
+which gives\footnote{We use the product formula
+\begin{equation}
+  \sinh x = x \prod_{n=1}^\infty \left( 1 + \frac{x^2}{\pi^2 n^2} \right).
+\end{equation}
+}
+\begin{equation}
+  \sqrt{\det A} = (\omega T) \prod_{k=1}^\infty \left( 1 + \frac{\omega^2 T^2}{4 \pi^2 k^2} \right) = 2 \sinh (\omega T/2)  
+\end{equation}
+as desired.
 
-\fixme{say this also works more generally, not only for completely Gaussian models}
+What is puzzling about this is that it is not clear why the norm
+\eqref{eq:qm-norm} is the right one to choose.
 
+\fixme{...}
 
 
 
