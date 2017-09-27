@@ -1614,7 +1614,7 @@ On $\R^{p \vert q}$ we have the canonical element
 \end{equation}
 
 
-\subsection{A supersymmetric example}
+\subsection{A supersymmetric example} \label{sec:0d-susy-example}
 
 Let us now consider the example $\cC = \R^{1 \vert 2}$, and write an action
 of the form
@@ -1944,7 +1944,7 @@ functions $f(x)$ are not
 $Q$-invariant.
 
 
-\subsection{Localization in a zero-dimensional sigma model}
+\subsection{Localization in a zero-dimensional sigma model} \label{sec:0d-sigma-model-localization}
 
 Now we consider a less trivial and more geometric example of supersymmetric
 localization.
@@ -2190,7 +2190,8 @@ as the statement that, for this particular integral,
 
 Since there are a few tricky points here, let us explain 
 in a bit more detail how one computes the local contributions 
-in the stationary phase method.
+in the stationary phase method. (See also the very
+nice reference \cite{MR85e:58041}.)
 A key difference between the stationary phase method and
 the steepest-descent expansion is that in the stationary phase 
 method we have the
@@ -2476,16 +2477,34 @@ long time when $Y = \R^n$, but is apparently much more recent
 for more general 
 $Y$, e.g. see \cite{MR1698956,Baer2007} for the 
 case of $Y$ compact.
-To describe what the limit is, we need a digression on the heat kernel:
+To describe what the limit is, we need a digression on the heat kernel.
+
+
+\subsection{Heat kernel}
+
+We continue with a Riemannian manifold $Y$ and a function $V: Y \to \R$.
+Then we have an operator acting on $C^\infty(Y)$,
+\begin{equation}
+  H = - \half \Delta + V.
+\end{equation}
+The \ti{heat equation} defined by these data is an equation
+for functions of two variables, $f: \R \times Y \to \R$.
+We view such an $f$ as a family of functions $f_t: Y \to \R$;
+then the heat equation is
+\begin{equation} \label{eq:heat-equation}
+  \partial_t f_t(x) + H f_t(x) = 0. 
+\end{equation}
 
 \begin{prop}[Heat kernel] \fixme{what class of $Y$, $V$?}
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
 is a smooth function $k_t$ on $Y \times Y$, obeying the heat
 equation in the first variable,\footnote{Our
-convention is that $\Delta$ is the negative definite Laplacian,
-i.e. $\Delta = \sum \partial_i^2$ on $\R^n$.}
+convention is that $\Delta$ is the usual Laplacian,
+i.e. $\Delta = \sum \partial_i^2$ on $\R^n$. This has the inconvenient
+consequence that $\Delta$ is a \ti{negative} definite operator on $L^2(Y)$.
+Thus we will often find ourselves considering $- \Delta$.}
 \begin{equation}
-  \partial_t k_t(x,y) + \left(-\half \Delta_x + V(x)\right) k_t(x,y) = 0
+  \partial_t k_t(x,y) + H_x k_t(x,y) = 0
 \end{equation}
 and such that as $t \to 0^+$ this solution ``concentrates'' at the point $y$,
 \begin{equation}
@@ -2497,30 +2516,55 @@ These properties characterize $k_t$.
 Show that on $Y = \R^n$, when $V = 0$, the heat kernel
 is\footnote{The usual formulas for the heat kernel differ from this by the
 replacement $t \to 2t$, because they omit the factor $\half$ in the
-heat equation. The same replacement is needed in comparing the formulas we write below
+definition of $H$. The same replacement is needed in comparing the formulas we write below
 on a Riemannian manifold to those in the literature, e.g. \cite{Roe1988a}.}
 \begin{equation}
   k_t(x,y) = \left( \frac{1}{2 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{2t} \norm{x-y}^2 \right).
 \end{equation}
 \end{exercise}
 
-The heat kernel is really a kernel in the sense that
-the operator $U_t$ of ``evolving the heat equation for
-time $t$'' is given by
+The heat kernel is really a kernel in the following sense.
+Given a smooth function $f: Y \to \R$, one can extend it to a family of smooth 
+functions $f_t: Y \to \R$ for $t \in \R_{\ge 0}$ by solving the heat equation
+\eqref{eq:heat-equation}.
+In particular, this defines a map $U_t: C^\infty(Y) \to C^\infty(Y)$,
+taking $f \mapsto f_t$, which we might call
+``evolving the heat equation for time $t$.''
+
+A convenient notation is to write
+\begin{equation}
+ U_t = \e^{-t H}.
+\end{equation}
+The justification for this notation is that $U_t$ obeys the differential equation
+\begin{equation} \label{eq:Ut-ode}
+  \frac{\de}{\de t} U_t = -H U_t
+\end{equation}
+which is really just a rephrasing of the heat equation \eqref{eq:heat-equation},
+and $U_0 = 1$.
+
+\begin{exercise}
+Prove \eqref{eq:Ut-ode}.
+\end{exercise}
+
+\begin{prop} $k_t(x,y)$ is the integral kernel for $U_t$, in the sense that
 \begin{equation}
   (U_t f)(x) = \int_M \de \vol_y \, k_t(x,y) f(y). 
 \end{equation}
-Moreover $U_t$ is an extremely nice operator, with the
+\end{prop}
+
+$U_t$ is an extremely nice operator, with the
 ``smoothing'' property: for any
 $t > 0$ it maps
 distributions to $C^\infty$ functions. In particular
-it gives a linear operator on $L^2(M)$,
-sometimes written $U_t = \e^{-tH}$
-where $H = - \half \Delta + V$.
+it gives a linear operator on $L^2(Y)$.
 This is \ti{not} a unitary operator.\footnote{One could have instead considered
 the analytic continuation $t \to \I t$ which would
 have been the time evolution for the Schr\"odinger equation;
 in that case it really would be unitary.}
+
+
+
+\subsection{Path integral and heat kernel}
 
 Now we can state the main fact about the $1$-dimensional sigma model:
 its path integral actually exists and the result is the heat kernel!
@@ -2980,7 +3024,13 @@ What is puzzling about this is that it is not clear why the norm
 
 \fixme{...}
 
-
+\begin{exercise} Carry out a similar analysis for \autoref{exa:sigma-model-s1},
+relating the partition function $Z_{S^1(T)}$ we found there to determinants of operators 
+on infinite-dimensional spaces. (In this case the field space $\cC_{S^1(T)}$ is actually
+disconnected, because maps $S^1 \to S^1$ have a discrete invariant, the winding number.
+Nevertheless each connected component is an infinite-dimensional vector space,
+which we can analyze as above.)
+\end{exercise}
 
 
 \subsection{Effective field theory in quantum mechanics}
@@ -3011,26 +3061,36 @@ Concretely, we will make a new QFT whose configuration space is formally
 \begin{equation}
   \cC = \Pi T \Map(X,Y).
 \end{equation}
-One immediate observation is that here we will formally have a \ti{canonical}
-measure, like what we had in \S\fixme{...} before where we took $\cC = \Pi T M$.
-Thus we may expect that the constructions will be a little more canonical than
-they were in that case.
+One immediate observation is that here we have (at least formally) a \ti{canonical}
+measure of integration, like what we had in \autoref{sec:0d-sigma-model-localization} 
+where we took $\cC = \Pi T M$.
+Thus we may expect that the constructions will be more canonical than
+they were in the non-supersymmetric case, where our choice of
+measure was somewhat arbitrary.
 
 A point of $\cC = \Pi T \Map(X,Y)$ concretely means a pair of:
 \begin{itemize}
  \item $\phi: X \to Y$,
  \item $\psi \in \Pi \Gamma(\phi^* TY)$.
 \end{itemize}
-We could also think of $(\phi, \psi)$ together as defining a map
-$X \times \R^{0 \vert 1} \to Y$.
+% We could also think of $(\phi, \psi)$ together as defining a map
+% $X \times \R^{0 \vert 1} \to Y$.
 
 Now we write the action $S \in C^\infty(\cC)$:
 \begin{equation}
   S(\varphi,\psi) = \int \de t \, \half(g(\dot \phi, \dot \phi) + g(\psi, \nabla_t \psi))
 \end{equation}
 where $\nabla_t$ is the pullback of the Levi-Civita connection from $Y$, acting
-on sections of $TY$.
-\fixme{remark on integration by parts}
+on sections of $TY$.\footnote{Note that this action has a term which is of \ti{first order}
+in derivatives. We might have imagined writing a similar term for bosons, 
+like $\int \de t \phi \dot\phi$. Why didn't we consider this? The reason is that
+integration by parts shows
+ $\int \de t \phi \dot\phi = - \int \de t \dot\phi \phi = - \int \de t \phi \dot\phi$
+and so this term vanishes. But when $\psi$ is a fermion, there is a crucial extra sign:
+we have
+ $\int \de t \psi \dot\psi = - \int \de t \dot\psi \psi = \int \de t \psi \dot\psi$
+which doesn't imply any vanishing.}
+
 As before, this action is invariant under the symmetry of time translations,
 which we represent by its infinitesimal action $H$, \fixme{explain this}
 \begin{equation}
@@ -3040,11 +3100,10 @@ But now it is also invariant under an odd symmetry $Q$
 \begin{equation}
   \delta \psi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
 \end{equation}
-These two obey
+These two obey the \ti{$1$-dimensional supersymmetry algebra}
 \begin{equation}
-  \{Q,Q\} = 2H
+  [Q,Q] = 2H.
 \end{equation}
-(which implies together they give an action of $\R^{1|1}$)
 
 \fixme{...}
 
