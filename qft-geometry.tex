@@ -288,6 +288,7 @@
 \DeclareMathOperator{\Euler}{Euler}
 \DeclareMathOperator{\Hess}{Hess}
 \DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Isom}{Isom}
 
 \newcommand{\insfig}[2]{
 
@@ -2386,7 +2387,7 @@ define
 \end{equation}
 
 The action is, for differentiable $\phi$,
-\begin{align}
+\begin{align} \label{eq:1d-sigma-model-action}
   S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi) - \frac16 R(\phi) \right) \\
   &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac16 R(\phi)\right)
 \end{align}
@@ -2864,9 +2865,27 @@ So it is what we expected from the commutation relation
 
 \subsection{Symmetries}
 
-\fixme{time translations}
+Recall from the $0$-dimensional case that symmetries of $S$ --- i.e. vector fields on $\cC$
+which annihilate $S$ --- lead to constraints on correlation functions.
 
-\fixme{isometries of $Y$}
+In the $1$-dimensional theory we are considering here, with
+action \eqref{eq:1d-sigma-model-action}, we have two different sources of
+symmetries:
+\begin{itemize}
+  \item isometries of $X$,
+  \item isometries of $Y$.
+\end{itemize}
+For $X = S^1(T)$, the group of isometries of $X$ is $\Isom(X) \simeq U(1)$. 
+The immediate consequence of this $U(1)$ symmetry is that
+for any $c$ we have
+\begin{equation}
+  \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1(t_1 + c) \cO_2(t_2 + c) \cdots \cO_n(t_n + c)}_{S^1(T)}.
+\end{equation}
+Similarly for any $g \in \Isom(Y)$ we have
+\begin{equation}
+  \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1^g(t_1) \cO_2^g(t_2) \cdots \cO_n^g(t_n)}_{S^1(T)}.
+\end{equation}
+
 
 \fixme{the conserved charge}
 
@@ -2923,7 +2942,7 @@ acting on $\cH = L^2(S^1_R)$. A simple basis of eigenfunctions is
 \end{equation}
 and so the eigenvalues are
 \begin{equation}
-  0, \frac{2 \pi^2 n^2}{R^2} \text{ (with multiplicity $2$) for $1 \le n \le \frac{N}{2}-1$}
+  0, \frac{2 \pi^2 n^2}{R^2} \text{ (with multiplicity $2$) for $n > 0$}.
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
 \begin{equation}
@@ -2996,7 +3015,7 @@ We expand
 \begin{equation}
   \phi(t) = c \sqrt{T} + \sum_{n=1}^\infty \frac{\sqrt{2T}}{2 \pi n} \left(a_n \sin\left(\frac{2 \pi n}{T} t\right) + b_n \cos\left(\frac{2 \pi n}{T} t\right)\right). 
 \end{equation}
-Now, we choose the norm \fixme{why?}
+Now, we choose the norm
 \begin{equation} \label{eq:qm-norm}
   \norm{\phi}^2 = c^2 + \sum_n a_n^2 + b_n^2.
 \end{equation}
@@ -3019,17 +3038,24 @@ which gives\footnote{We use the product formula
 \end{equation}
 as desired.
 
-What is puzzling about this is that it is not clear why the norm
-\eqref{eq:qm-norm} is the right one to choose.
-
-\fixme{...}
+What is puzzling about this is that it is not clear \ti{a priori} why the norm
+\eqref{eq:qm-norm} is the right one to choose. One encouraging sign: the paper 
+\cite{Ludewig2016} proves a similar statement in the case of an 
+arbitrary Riemannian $Y$ with $V = 0$ (under some nondegeneracy conditions);
+there it says the correct norm to take is a Sobolev $H^1$ norm, which is indeed
+what we did above.
+Still I am not completely satisfied with my understanding.
 
 \begin{exercise} Carry out a similar analysis for \autoref{exa:sigma-model-s1},
 relating the partition function $Z_{S^1(T)}$ we found there to determinants of operators 
 on infinite-dimensional spaces. (In this case the field space $\cC_{S^1(T)}$ is actually
 disconnected, because maps $S^1 \to S^1$ have a discrete invariant, the winding number.
 Nevertheless each connected component is an infinite-dimensional vector space,
-which we can analyze as above.)
+which we can analyze as above. In each component you meet the \ti{same} infinite-dimensional
+determinant, multiplied by a prefactor depending on the component; so even without
+computing this determinant, you can get the answer up to a single undetermined constant.
+To see that it agrees with \eqref{eq:zs1-theta-function} you will need
+to use the Poisson summation formula, aka the modular property of the theta function.)
 \end{exercise}
 
 
