@@ -257,6 +257,7 @@
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\STr}{STr}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
@@ -342,8 +343,8 @@ or as pull requests to the source repository hosted at
 \begin{center}
 \small \url{http://github.com/neitzke/qft-geometry}
 \end{center}
-I thank Arun Debray, Behzat Ergun, Richard Hughes, Robbie Rosati 
-and Ivan Tulli for very helpful
+I thank Arun Debray, Behzat Ergun, Richard Hughes, Robbie Rosati, 
+Ivan Tulli and Val Zakharevich for very helpful
 suggestions and corrections.
 
 You can join a Slack channel for the course (needs {\tt {@math.utexas.edu}} address)
@@ -2035,7 +2036,8 @@ change of coordinates; more precisely, we have an extension
 from which it follows that $\Ber T\cC = \Ber TM \otimes \Ber \Pi TM$
 which is canonically trivial. (The existence of this measure is
 the parity-changed analogue of the fact that $T^* M$ has a canonical
-volume form.)
+volume form.) Thus, provided that $M$ itself is oriented,
+we get a canonical measure of integration on $\cC$.
 
 Since our supermanifold $\cC$ comes to us as an odd vector bundle, the
 rule for integration is a straightforward generalization of what we
@@ -2437,7 +2439,7 @@ in some sense.
 % $\de \phi \, \e^{-S}$, \ti{Wiener measure}.
 
 
-\subsection{Discretization}
+\subsection{Discretization} \label{sec:discretization}
 
 Let us start with the case $X = [0,T]_{y_0}^{y_1}$.
 One natural approach to defining 
@@ -2938,9 +2940,9 @@ There is a nice explicit basis of eigenfunctions,
   \psi_0 &= \e^{- \omega x^2/2}, \\
   \psi_1 &= x \e^{- \omega x^2/2}, \\
   \psi_2 &= \left (x^2 - \frac{1}{2 \omega} \right) \e^{- \omega x^2/2}, \\
-  \psi_n &= H_n(x) \e^{- \omega x^2/2}
+  \psi_n &= H_n(x \sqrt{\omega}) \e^{- \omega x^2/2}
 \end{align}
-where $H_n(x)$ is the $n$-th Hermite polynomial.
+where $H_n$ is the $n$-th Hermite polynomial.
 They obey
 \begin{equation}
   H \psi_n = \left(\half + n\right) \omega \psi_n,
@@ -3062,7 +3064,7 @@ which gives\footnote{We use the product formula
 \end{equation}
 }
 \begin{equation}
-  \sqrt{\det A} = (\omega T) \prod_{k=1}^\infty \left( 1 + \frac{\omega^2 T^2}{4 \pi^2 k^2} \right) = 2 \sinh (\omega T/2)  
+  \sqrt{\det A} = (\omega T) \prod_{n=1}^\infty \left( 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2} \right) = 2 \sinh (\omega T/2)  
 \end{equation}
 as desired.
 
@@ -3115,7 +3117,9 @@ Concretely, we will make a new QFT whose configuration space is formally
 \begin{equation}
   \cC = \Pi T \Map(X,Y).
 \end{equation}
-One immediate observation is that here we have (at least formally) a \ti{canonical}
+One immediate observation is that,
+provided that $\Map(X,Y)$ is orientable, 
+here we have (at least formally) a \ti{canonical}
 measure of integration, like what we had in \autoref{sec:0d-sigma-model-localization} 
 where we took $\cC = \Pi T M$.
 Thus we may expect that the constructions will be more canonical than
@@ -3154,12 +3158,143 @@ But now it is also invariant under an odd symmetry $Q$
 \begin{equation}
   \delta \psi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
 \end{equation}
-These two obey the \ti{$1$-dimensional supersymmetry algebra}
+
+\begin{exercise}
+Verify that $S$ is invariant under $Q$. (It is a good idea
+to do it first in the special case $Y = \R^n$.)
+\end{exercise}
+
+\begin{exercise}
+Verify that $Q$ and $H$ obey the \ti{$1$-dimensional supersymmetry algebra}
 \begin{equation}
-  [Q,Q] = 2H.
+  \half [Q,Q] = H.
 \end{equation}
+\end{exercise}
+
+
+\subsection{Discretization} \label{sec:susy-discretization}
+
+Now, as we did in \autoref{sec:discretization}, 
+we can try to define the partition 
+function of this theory of this theory by discretization of the
+domain $X$, replacing $\cC_X$ by finite-dimensional supermanifolds
+$\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
+
+The presence of the fermions leads to additional difficulties,
+which we can see in various ways. For example, if $Y$ is
+odd-dimensional, and we take an odd number $N$ of lattice sites,
+then the partition function will come out to be zero, just because
+the fermionic dimension of $\cC_{X;N}$ is odd. If we take an even
+number of lattice sites, the partition function is still zero, for
+a slightly more interesting reason:
+\begin{exercise} Write out the discretized action $S_N$
+for $Y = \R^n$, and show that $Z_{S^1(T);N} = 0$ 
+for any $N$ when $n$ is odd.
+\end{exercise}
+When $Y$ is even-dimensional, 
+subtler topological questions come into play.
+\begin{exercise} Write out the discretized action $S_N$
+for a general even-dimensional $Y$, and show that $Z_{S^1(T);N} = 0$ 
+for any $N$ if $w_2(Y) \neq 0$. \fixme{check! is it really correct?}
+\end{exercise}
+
+To convince ourselves that this is not just some mistake in
+how we are doing the discretization, let us consider the 
+infinite-dimensional perspective. As usual we imagine performing
+the path integral by first integrating over fermions, then over bosons.
+Thus we fix a map $\phi: S^1 \to Y$ and consider the remaining 
+fermionic integral of $\psi \in \Pi \Gamma(\phi^* TM)$. 
+Formally it should be some kind of Pfaffian of the
+skew-symmetric form $g(\psi, \nabla_t \psi)$ on $\Gamma(\phi^* TM)$. 
+Now one formally computes \cite{MR816738} 
+that the determinant of this form is (up to a $\phi$-independent constant) 
+$\det(1 - H(\phi))$ where $H(\phi)$ is the holonomy of the 
+Levi-Civita connection around the loop $\phi$. The question thus
+arises, as $\phi$ varies, is it possible to consistently define
+a square root of $\det(1 - H(\phi))$? This is possible just if
+all the holonomies 
+$H(\phi)$ can be consistently lifted from $\SO(2n)$ to $\Spin(2n)$,
+i.e. just if $Y$ admits a spin structure. \fixme{...}
+
+In any case, I believe that
+the discretized path integrals indeed converge as $N \to \infty$,
+but I do not know a reference for this statement.
 
 \fixme{...}
+
+\subsection{Supersymmetric heat kernel}
+
+Suppose that $Y$ is even-dimensional, fix a spin structure 
+over $Y$, and 
+let $S^\pm$ be the spin bundles over $Y$ as in \fixme{...}.
+We consider the Dirac operators $\dirac^\pm: S^\pm \to S^\mp$
+and the corresponding Laplace operators $\Delta: S^\pm \to S^\pm$.
+Recall that $\dirac^+$ is adjoint to $\dirac^-$.
+Then we can define a spinorial analog of the heat equation,
+just like \eqref{eq:heat-equation} except that we use
+the operator
+\begin{equation}
+  H = [\dirac^+,\dirac^-] = - \Delta
+\end{equation}
+acting on $L^2(Y, S)$ where $S = S^+ \oplus S^-$.
+
+Here, in contrast with \fixme{...}, we do \ti{not} perturb
+by a potential function $V$, nor do we add a multiple of the
+scalar curvature.
+The $H$ we choose is singled out
+by its relation to $\dirac$.
+
+The heat kernel $k_t(x,y)$ in this case is a section of
+$S \boxtimes S^*$ over $Y \times Y$: thus integrating it
+against a section of $S$ gives another section of $S$.
+
+
+\subsection{Supersymmetric path integral and heat kernel}
+
+The relation between the path integral and the heat kernel
+in the supersymmetric case is similar to the bosonic case,
+with the slight complication of the extra ``matrix indices''
+coming from the fact that the heat kernel is not just 
+a function. Thus is would not quite make sense to identify
+$Z_{[0,T]_{y_0}^{y_1}}$ with the heat kernel. Instead we 
+have:
+
+\begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
+contraction between the heat kernel $k_T(y_0,y_1)$ 
+and the map $S_{y_1} \to S_{y_0}$ given by parallel transport
+with respect to the Levi-Civita connection.
+\end{prop}
+
+\begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
+\end{prop}
+
+Here $\STr$ means the \ti{supertrace}, i.e.
+\begin{equation}
+  \STr A = \Tr_{V^0} A - \Tr_{V^1} A
+\end{equation}
+
+\fixme{explain that this is the index}
+
+The next proposition makes it a bit clearer why spinors are
+involved in the story. Fix a section $\gamma$ of $TY$. Then
+for any $t \in X$ there is a corresponding odd 
+function $\cO_\gamma(t) \in C^\infty(\cC)$
+which gives a local observable. Just as we ``quantized''
+the local observables in \fixme{...}, relating them to
+operators on $L^2(Y)$, now we can ask what is the
+quantization of these odd functions.
+The answer is that they map to operators 
+$\hat\gamma$, which just act by the 
+Clifford action of $\gamma$ on $L^2(Y, S)$:
+
+\begin{prop} 
+$\IP{\cO_{\gamma_1}(t_1) \cO_{\gamma_2}(t_2)}_{S^1(T)} = \STr (\e^{-t_1 H} \hat\gamma_1 \e^{-t_2 H} \hat\gamma_2 \e^{-(T-t_1-t_2)H})$,
+and similarly for products of more $\cO_\gamma(t)$.
+\end{prop}
+
+\fixme{give a formal discretization calculation}
+
+
 
 \subsection{The index theorem}
 
