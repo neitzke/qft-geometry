@@ -2875,16 +2875,29 @@ symmetries:
   \item isometries of $X$,
   \item isometries of $Y$.
 \end{itemize}
-For $X = S^1(T)$, the group of isometries of $X$ is $\Isom(X) \simeq U(1)$. 
+For $X = S^1(T)$, the group of isometries of $X$ is $\Isom(X) \simeq U(1)$,
+acting by shifts $t \to t+c$.
 The immediate consequence of this $U(1)$ symmetry is that
 for any $c$ we have
-\begin{equation}
+\begin{equation} \label{eq:1d-symm-1}
   \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1(t_1 + c) \cO_2(t_2 + c) \cdots \cO_n(t_n + c)}_{S^1(T)}.
 \end{equation}
-Similarly for any $g \in \Isom(Y)$ we have
-\begin{equation}
+Similarly for any $g \in G = \Isom(Y)$ we have
+\begin{equation} \label{eq:1d-symm-2}
   \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1^g(t_1) \cO_2^g(t_2) \cdots \cO_n^g(t_n)}_{S^1(T)}.
 \end{equation}
+The facts \eqref{eq:1d-symm-1}, \eqref{eq:1d-symm-2} 
+can also be understood from the Hamiltonian point of view, i.e.
+using the fact that
+\begin{equation} \label{eq:correlation-hamiltonian}
+	\IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \Tr_{\cH} \e^{-t_1 H} \hat\cO_1 \e^{-(t_2 -t_1) H} \hat\cO_2 \cdots \hat\cO_n \e^{-(T-t_n)}.
+\end{equation}
+
+\begin{exercise}
+Prove \eqref{eq:1d-symm-1} and \eqref{eq:1d-symm-2} using \eqref{eq:correlation-hamiltonian}.
+\end{exercise}
+In the proof of \eqref{eq:1d-symm-2}, we use the fact that
+$G$ acts on $\cH = L^2(Y)$, and $\hat{\cO}^g = g \hat{\cO} g^{-1}$.
 
 
 \fixme{the conserved charge}
@@ -2892,6 +2905,21 @@ Similarly for any $g \in \Isom(Y)$ we have
 \fixme{coupling to ``background field'': connection on the
 circle}
 
+Finally let us introduce a piece of notation which will be useful later. 
+Each of the symmetry groups we considered above is a connected Lie group,
+so we can describe its action on $\cC$ 
+by giving the action of the Lie algebra.
+For example, the infinitesimal shift $t \to t + \eps$ acts by
+$\phi(t) \to \phi(t) + \eps \dot\phi(t)$, which we represent
+by writing
+\begin{equation}
+	\delta \phi = \eps \dot\phi.
+\end{equation}
+Similarly an element $X \in \fg = \Lie(\Isom(Y))$
+acts by
+\begin{equation}
+	\delta \phi = \eps \fixme{...}
+\end{equation}
 
 \subsection{Simple examples} \label{sec:0d-simple-examples}
 
@@ -3082,7 +3110,7 @@ from being deformation invariant: morally it depends on every little
 detail of the metric on $Y$.
 
 To get something more topological we repeat the strategy we used
-in \fixme{...}: add fermions!
+in \autoref{sec:0d-susy-example} and \autoref{sec:0d-sigma-model-localization}: add fermions!
 Concretely, we will make a new QFT whose configuration space is formally
 \begin{equation}
   \cC = \Pi T \Map(X,Y).
