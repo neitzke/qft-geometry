@@ -205,8 +205,7 @@
 \newcommand{\LL}{{\mathcal L}}
 \newcommand{\RR}{{\mathcal R}}
 \newcommand{\V}{{\mathcal V}}
-\newcommand{\dirac}{\!\!\not\!\partial}
-\newcommand{\Dirac}{\!\!\not\!\!D}
+\newcommand{\dirac}{\slashed{\partial}}
 \newcommand{\cE}{{\mathcal E}}
 \newcommand{\vs}{\not\!v}
 \newcommand{\kahler}{K\"ahler\xspace}
@@ -3118,7 +3117,7 @@ Concretely, we will make a new QFT whose configuration space is formally
   \cC = \Pi T \Map(X,Y).
 \end{equation}
 One immediate observation is that,
-provided that $\Map(X,Y)$ is orientable, 
+provided that $\Map(X,Y)$ is oriented, 
 here we have (at least formally) a \ti{canonical}
 measure of integration, like what we had in \autoref{sec:0d-sigma-model-localization} 
 where we took $\cC = \Pi T M$.
@@ -3150,7 +3149,10 @@ we have
 which doesn't imply any vanishing.}
 
 As before, this action is invariant under the symmetry of time translations,
-which we represent by its infinitesimal action $H$, \fixme{explain this}
+which we represent by its infinitesimal action $H$,\footnote{It's possible to 
+get confused about the invariant meaning of this formula, so let's spell it out:
+it means that relative to any local coordinate system on $Y$, we have
+$\delta \phi^I(t) = \eps \dot\phi^I(t)$ and $\delta \psi^I(t) = \eps \dot \psi^I(t)$.}
 \begin{equation}
   \delta \phi = \eps \dot\phi, \qquad \delta \psi = \eps \dot\psi.
 \end{equation}
