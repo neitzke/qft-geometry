@@ -986,7 +986,7 @@ in quantum electrodynamics is only asymptotic.
 
 
 
-\subsection{Feynman diagrams}
+\subsection{Feynman diagrams} \label{sec:feynman-diagrams-0d}
 
 Now we revisit \eqref{eq:0d-perturbation-series} and rewrite it one more time, as
 \begin{equation} \label{eq:0d-series-rewritten}
@@ -1536,7 +1536,7 @@ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4
 \end{exercise}
 
 
-\subsection{Perturbation theory} \label{sec:perturbation-theory-0d}
+\subsection{Perturbation theory with fermions} \label{sec:perturbation-theory-0d}
 
 Integrals over finite-dimensional 
 odd vector spaces always give \ti{polynomials} in the couplings; 
@@ -3092,22 +3092,25 @@ to use the Poisson summation formula, aka the modular property of the theta func
 \subsection{Perturbation theory in quantum mechanics}
 
 Now how about path integrals for actions which are not quadratic but are close
-to quadratic, in the same sense as \autoref{sec:perturbation-theory-0d} above? 
+to quadratic, in the same sense as \autoref{sec:feynman-diagrams-0d} above? 
+
 For example, let's consider
 the \ti{anharmonic oscillator}, which is the case $Y = \R$, 
 \begin{equation}
   V(x) = \half \omega^2 x^2 + \frac{\lambda}{4!} x^4.
 \end{equation}
-
-Let us consider the case $X = S^1(T)$.
-Following the same pattern as \autoref{sec:perturbation-theory-0d}, 
+We will treat the case $X = S^1(T)$.
+Following the same pattern as \autoref{sec:feynman-diagrams-0d}, 
 we can write down 
-\ti{Feynman rules} for the asymptotic expansion of the 
+Feynman rules for the asymptotic expansion of the 
 partition function, or correlation functions, in 
-powers of $\lambda$. In fact they are formally exactly the same rules as before, adapted
+powers of $\lambda$. In fact 
+our action is an infinite-dimensional version
+of \eqref{eq:bosonic-quartic-action},
+and so we use exactly the same rules we used in that case, just adapted
 to the case where $\cC$ is an infinite-dimensional vector space.
 
-Thus to compute $Z/Z_0$ we sum over ``bubble'' diagrams with 
+Thus to compute $Z/Z_0$ we sum over ``bubble'' diagrams with only
 $4$-valent vertices.
 The role of $M^{-1} \in V^{\otimes 2}$ is now played by
 the \ti{Green's function} for the quadratic part of the action.
@@ -3123,7 +3126,9 @@ inverts $M$ in the sense that it obeys
 \begin{equation}
   M\left(G(t,t'), f(t)\right) = f(t').
 \end{equation}
-Then, in parallel with \fixme{...} we have
+Then, in parallel with the story of the $0$-dimensional theory
+with quartic potential in \autoref{sec:feynman-diagrams-0d},
+the Feynman diagrams with $\le 2$ vertices give
 \begin{align} \label{eq:Z-1d-pert-first}
   \log \frac{Z}{Z_0} &\sim 1 - \frac{\lambda}{8} \int \de t \, G(0)^2 + \frac{\lambda^2}{48} \int \de t \, \de t' \, G(t-t')^4 + \frac{\lambda^2}{16} \int \de t \, \de t' \, G(t-t')^2 G(0)^2 + O(\lambda^3) \\
   &= 1 - \frac{\lambda T}{32 \omega^2} \left(\coth\left(\frac{\omega T}{2}\right)\right)^2 + O(\lambda^2). \label{eq:Z-1d-pert}
@@ -3153,9 +3158,14 @@ normalized by $\IP{\psi_0, \psi_0} = 1$.
 \end{exercise}
 
 \begin{exercise} Evaluate explicitly the $O(\lambda^2)$
-terms in \eqref{eq:Z-1d-pert-first}. \fixme{hard?} Use them to compute
+terms in \eqref{eq:Z-1d-pert-first}. Use them to compute
 the $O(\lambda^2)$ correction to the ground state
 energy.
+\end{exercise}
+
+\begin{exercise} Extract from \eqref{eq:Z-1d-pert} a prediction
+for the first-order perturbation of the \ti{second}-lowest
+energy eigenvalue.
 \end{exercise}
 
 
@@ -3304,15 +3314,14 @@ Recall that $\dirac^+$ is adjoint to $\dirac^-$.
 Then we can define a spinorial analog of the heat equation,
 just like \eqref{eq:heat-equation} except that we use
 the operator
-\begin{equation}
+\begin{equation} \label{eq:h-spinorial}
   H = [\dirac^+,\dirac^-] = - \Delta
 \end{equation}
 acting on $L^2(Y, S)$ where $S = S^+ \oplus S^-$.
-
 Here, in contrast with \fixme{...}, we do \ti{not} perturb
 by a potential function $V$, nor do we add a multiple of the
 scalar curvature.
-The $H$ we choose is singled out
+The $H$ we choose in \eqref{eq:h-spinorial} is singled out
 by its relation to $\dirac$.
 
 The heat kernel $k_t(x,y)$ in this case is a section of
@@ -3326,7 +3335,8 @@ The relation between the path integral and the heat kernel
 in the supersymmetric case is similar to the bosonic case,
 with the slight complication of the extra ``matrix indices''
 coming from the fact that the heat kernel is not just 
-a function. Thus is would not quite make sense to identify
+a function. Because of these extra indices it 
+would not quite make sense to identify
 $Z_{[0,T]_{y_0}^{y_1}}$ with the heat kernel. Instead we 
 have:
 
