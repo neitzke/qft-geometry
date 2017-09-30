@@ -3332,21 +3332,19 @@ but I do not know a reference for this statement.
 
 Suppose that $Y$ is even-dimensional, fix a spin structure 
 over $Y$, and 
-let $S^\pm$ be the spin bundles over $Y$ as in \fixme{...}.
-We consider the Dirac operators $\dirac^\pm: S^\pm \to S^\mp$
-and the corresponding Laplace operators $\Delta: S^\pm \to S^\pm$.
-Recall that $\dirac^+$ is adjoint to $\dirac^-$.
-Then we can define a spinorial analog of the heat equation,
-just like \eqref{eq:heat-equation} except that we use
-the operator
+let $S = S^0 \oplus S^1$ be the spin bundles over $Y$ as in \fixme{...}.
+We consider the Dirac operator $\dirac: L^2(Y, S) \to L^2(Y, S)$;
+this is a self-adjoint operator, with corresponding Laplacian
 \begin{equation} \label{eq:h-spinorial}
-  H = [\dirac^+,\dirac^-] = - \Delta
+  \Delta = -\dirac^2.
 \end{equation}
-acting on $L^2(Y, S)$ where $S = S^+ \oplus S^-$.
+Then we define a spinorial heat equation,
+just like \eqref{eq:heat-equation} except that we use
+the operator $H = -\half \Delta$
+on $L^2(Y, S)$.
 Here, in contrast with \fixme{...}, we do \ti{not} perturb
 by a potential function $V$, nor do we add a multiple of the
-scalar curvature.
-The $H$ we choose in \eqref{eq:h-spinorial} is singled out
+scalar curvature. The $H$ we choose is singled out
 by its relation to $\dirac$.
 
 The heat kernel $k_t(x,y)$ in this case is a section of
@@ -3356,20 +3354,21 @@ against a section of $S$ gives another section of $S$.
 
 \subsection{Supersymmetric path integral and heat kernel}
 
-The relation between the path integral and the heat kernel
-in the supersymmetric case is similar to the bosonic case,
-with the slight complication of the extra ``matrix indices''
-coming from the fact that the heat kernel is not just 
-a function. Because of these extra indices it 
-would not quite make sense to identify
-$Z_{[0,T]_{y_0}^{y_1}}$ with the heat kernel. Instead we 
-have:
+% The relation between the path integral and the heat kernel
+% in the supersymmetric case is similar to the bosonic case,
+% with the slight complication of the extra ``matrix indices''
+% coming from the fact that $k_t$ is not just 
+% a function. Because of these extra indices it 
+% would not quite make sense to identify
+% $Z_{[0,T]_{y_0}^{y_1}}$ with $k_T(y_0, y_1)$. Instead we 
+% have:
 
-\begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
-contraction between the heat kernel $k_T(y_0,y_1)$ 
-and the map $S_{y_1} \to S_{y_0}$ given by parallel transport
-with respect to the Levi-Civita connection.
-\end{prop}
+% \begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
+% contraction between $k_T(y_0,y_1) \in \Hom(S_{y_0}, S_{y_1})$ 
+% and the element in $\Hom(S_{y_1}, S_{y_0})$ 
+% given by parallel transport with respect 
+% to the Levi-Civita connection in $S$. \fixme{oops, this makes no sense}
+% \end{prop}
 
 \begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
 \end{prop}
