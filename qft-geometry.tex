@@ -2890,9 +2890,9 @@ Similarly for any $g \in G = \Isom(Y)$ we have
 \end{equation}
 The facts \eqref{eq:1d-symm-1}, \eqref{eq:1d-symm-2} 
 can also be understood from the Hamiltonian point of view, i.e.
-using the fact that
+using the fact that (if $T > t_n > t_{n-1} > \cdots > t_1 > 0$)
 \begin{equation} \label{eq:correlation-hamiltonian}
-	\IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \Tr_{\cH} \e^{-t_1 H} \hat\cO_1 \e^{-(t_2 -t_1) H} \hat\cO_2 \cdots \hat\cO_n \e^{-(T-t_n) H}.
+	\IP{\cO_n(t_n) \cO_{n-1}(t_{n-1}) \cdots \cO_1(t_1)}_{S^1(T)} = \Tr_{\cH} \e^{-(T-t_n) H} \hat\cO_n \e^{-(t_n -t_{n-1}) H} \hat\cO_{n-1} \cdots \hat\cO_1 \e^{-t_1 H}.
 \end{equation}
 
 \begin{exercise}
@@ -2915,13 +2915,23 @@ For example, the infinitesimal shift $t \to t + \eps$ acts by
 $\phi(t) \to \phi(t) + \eps \dot\phi(t)$, which we represent
 by writing
 \begin{equation}
-	\delta \phi = \eps \dot\phi.
+	\delta \phi = \eps \dot\phi,
+\end{equation}
+or relative to any coordinate system on $Y$,
+\begin{equation}
+	\delta \phi^I = \eps \dot\phi^I.
 \end{equation}
 Similarly an element $X \in \fg = \Lie(\Isom(Y))$
 acts by
 \begin{equation}
-	\delta \phi = \eps \fixme{...}
+	\delta \phi = \eps X(\phi),
 \end{equation}
+or in coordinates
+\begin{equation}
+	\delta \phi^I = \eps X^I(\phi),
+\end{equation}
+where $X^I \partial_I$ is the coordinate expression of the vector field
+by which $X$ acts on $Y$.
 
 \subsection{Simple examples} \label{sec:0d-simple-examples}
 
@@ -3095,7 +3105,7 @@ Now how about path integrals for actions which are not quadratic but are close
 to quadratic, in the same sense as \autoref{sec:feynman-diagrams-0d} above? 
 
 For example, let's consider
-the \ti{anharmonic oscillator}, which is the case $Y = \R$, 
+the \ti{quartic oscillator}, which is the case $Y = \R$, 
 \begin{equation}
   V(x) = \half \omega^2 x^2 + \frac{\lambda}{4!} x^4.
 \end{equation}
@@ -3163,9 +3173,17 @@ the $O(\lambda^2)$ correction to the ground state
 energy.
 \end{exercise}
 
+\begin{exercise} Work out the prediction of first-order perturbation
+theory for the ``sextic oscillator'' with potential
+\begin{equation}
+	V(x) = \half \omega^2 x^2 + \frac{\lambda}{6!} x^6.
+\end{equation}
+\end{exercise}
+
+
 \begin{exercise} Extract from \eqref{eq:Z-1d-pert} a prediction
 for the first-order perturbation of the \ti{second}-lowest
-energy eigenvalue.
+energy eigenvalue of the quartic oscillator.
 \end{exercise}
 
 
