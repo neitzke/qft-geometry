@@ -1138,7 +1138,7 @@ like labeling species of particle which could propagate along the edges.)
 
 A basis-free description of this situation is as follows.
 Let $\cC$ be a finite-dimensional real vector space $V$, with a 
-translation invariant measure $\de \mu$, and two elements
+density $\de \mu$, and two elements
 \begin{equation}
   M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
 \end{equation}
@@ -1146,9 +1146,10 @@ Then consider the action
 \begin{equation} \label{eq:bosonic-quartic-action}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
-$M$ determines a measure $\sqrt{\det M}$ on $V$:
+$M$ determines a density $\sqrt{\det M}$ on $V$:
 \begin{exercise}
-Verify that a bilinear form $M \in \Sym^2(V^*)$ determines a measure on $V$,
+Verify that a positive definite 
+bilinear form $M \in \Sym^2(V^*)$ determines a density on $V$,
 which deserves to be called $\sqrt{\det M}$ in the sense that given
 a basis $\{e^1, \dots, e^n\}$ on $V$, with $M(e^i,e^j) = M^{ij}$, 
 $\sqrt{\det M} = \sqrt{\det (M^{ij})} \abs{e^*_1 \cdots e^*_n}$.
@@ -1535,7 +1536,7 @@ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4
 \end{exercise}
 
 
-\subsection{Perturbation theory}
+\subsection{Perturbation theory} \label{sec:perturbation-theory-0d}
 
 Integrals over finite-dimensional 
 odd vector spaces always give \ti{polynomials} in the couplings; 
@@ -3091,17 +3092,74 @@ to use the Poisson summation formula, aka the modular property of the theta func
 \subsection{Perturbation theory in quantum mechanics}
 
 Now how about path integrals for actions which are not quadratic but are close
-to quadratic, in the same sense as \fixme{...} above? For example, let's consider
+to quadratic, in the same sense as \autoref{sec:perturbation-theory-0d} above? 
+For example, let's consider
 the \ti{anharmonic oscillator}, which is the case $Y = \R$, 
 \begin{equation}
-  V(x) = \half \omega^2 x^2 + \qtr \mu x^4.
+  V(x) = \half \omega^2 x^2 + \frac{\lambda}{4!} x^4.
 \end{equation}
-Following the same pattern as \fixme{...}, we can write down \ti{Feynman rules}
-for the asymptotic expansion of the partition function, or correlation functions, in 
-powers of $\mu$. In fact they are formally exactly the same rules as before, just adapted
-to the case where $\cC$ is an infinite-dimensional space.
+
+Let us consider the case $X = S^1(T)$.
+Following the same pattern as \autoref{sec:perturbation-theory-0d}, 
+we can write down 
+\ti{Feynman rules} for the asymptotic expansion of the 
+partition function, or correlation functions, in 
+powers of $\lambda$. In fact they are formally exactly the same rules as before, adapted
+to the case where $\cC$ is an infinite-dimensional vector space.
+
+Thus to compute $Z/Z_0$ we sum over ``bubble'' diagrams with 
+$4$-valent vertices.
+The role of $M^{-1} \in V^{\otimes 2}$ is now played by
+the \ti{Green's function} for the quadratic part of the action.
+Namely, let
+\begin{equation}
+ M(x,x) = \int_0^T \de t \left(\half \norm{\dot x(t)}^2 + \half \omega^2 x(t)^2\right)  
+\end{equation}
+Then the function
+\begin{equation}
+  G(t,t') = G(t-t') = \frac{1}{2 \omega} \sum_{n \in \Z} \e^{-\omega \abs{(t-t') + n T}}
+\end{equation}
+inverts $M$ in the sense that it obeys
+\begin{equation}
+  M\left(G(t,t'), f(t)\right) = f(t').
+\end{equation}
+Then, in parallel with \fixme{...} we have
+\begin{align} \label{eq:Z-1d-pert-first}
+  \log \frac{Z}{Z_0} &\sim 1 - \frac{\lambda}{8} \int \de t \, G(0)^2 + \frac{\lambda^2}{48} \int \de t \, \de t' \, G(t-t')^4 + \frac{\lambda^2}{16} \int \de t \, \de t' \, G(t-t')^2 G(0)^2 + O(\lambda^3) \\
+  &= 1 - \frac{\lambda T}{32 \omega^2} \left(\coth\left(\frac{\omega T}{2}\right)\right)^2 + O(\lambda^2). \label{eq:Z-1d-pert}
+\end{align}
+Here is one concrete consequence of this formula.
+In the limit of large $T$, $\omega T \gg 1$, 
+we have $\log Z \sim -T E$
+where $E$ is the ground state energy, i.e. the smallest eigenvalue 
+of $H$. Then
+\eqref{eq:Z-1d-pert} gives the first-order correction
+to $E$ as 
+\begin{equation} \label{eq:energy-correction}
+  E - E_0 \sim \frac{\lambda}{32 \omega^2} + O(\lambda^2).
+\end{equation}
+More generally, \eqref{eq:Z-1d-pert} contains the 
+first-order perturbations
+of all the energy eigenvalues, not only the lowest one.
+
+\begin{exercise} Verify that \eqref{eq:energy-correction} 
+agrees with the usual
+result of first-order perturbation theory, which says that
+if we perturb the Hamiltonian by $H \to H + \delta H$, the 
+resulting perturbation of the energy is
+$\delta E = \IP{\psi_0, (\delta H) \psi_0}$, where $\psi_0$ is the
+lowest eigenstate of the unperturbed Hamiltonian $H$,
+normalized by $\IP{\psi_0, \psi_0} = 1$.
+\end{exercise}
+
+\begin{exercise} Evaluate explicitly the $O(\lambda^2)$
+terms in \eqref{eq:Z-1d-pert-first}. \fixme{hard?} Use them to compute
+the $O(\lambda^2)$ correction to the ground state
+energy.
+\end{exercise}
 
 
+\fixme{perturbation theory for heat kernel?}
 
 
 \subsection{Supersymmetric quantum mechanics}
