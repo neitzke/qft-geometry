@@ -1564,6 +1564,17 @@ combinatorial expression for the Pfaffian, namely if $\rank M = 2n$ then
   \Pf(M) = \frac{1}{2^n n!} \sum_{\sigma \in S_{2n}} (\sgn \sigma) \prod_{i=1}^n M_{\sigma(2i-1), \sigma(2i)}.
 \end{equation}
 \end{exercise}
+The coordinate-independent version of this is:
+\begin{exercise}
+  Suppose $V = V^1$ is an odd vector space with a quadratic 
+  element $M \in \Sym^2(V)$. Show that there is a canonical element
+  $\Pf(M) \in \wedge^\rmtop(\Pi (V^1)^*)$, 
+  and that if we choose an element
+  $\de \mu \in \wedge^\rmtop(\Pi V^1)$, then
+  \begin{equation}
+    \int_V \de \mu \, \e^{-M} = \de \mu \cdot \Pf(M).
+  \end{equation}
+\end{exercise}
 
 When $C \neq 0$ we compute $Z / Z_0$ by Feynman diagrams.
 The rules are just as they were in the even case, except that
@@ -1571,7 +1582,6 @@ we have to be careful about signs.
 % We fix (arbitrarily) an ordering of the half-edges of the diagram.
 % Then, in the contribution from each labeling of the half-edges,
 \fixme{...}
-
 
 \begin{exercise} Suppose again $\cC = \R^{0 \vert 4}$ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4$. Show that $Z = m^2 - \lambda$ by the Feynman diagram expansion. (There is only
 one nonempty diagram which contributes.)
@@ -3291,29 +3301,26 @@ for $Y = \R^n$, and show that $Z_{S^1(T);N} = 0$
 for any $N$ when $n$ is odd.
 \end{exercise}
 When $Y$ is even-dimensional, 
-subtler topological questions come into play.
-\begin{exercise} Write out the discretized action $S_N$
-for a general even-dimensional $Y$, and show that $Z_{S^1(T);N} = 0$ 
-for any $N$ if $w_2(Y) \neq 0$. \fixme{check! is it really correct?}
-\end{exercise}
+subtler topological questions come into play: \fixme{explain
+need for a spin structure}
 
-To convince ourselves that this is not just some mistake in
-how we are doing the discretization, let us consider the 
-infinite-dimensional perspective. As usual we imagine performing
-the path integral by first integrating over fermions, then over bosons.
-Thus we fix a map $\phi: S^1 \to Y$ and consider the remaining 
-fermionic integral of $\psi \in \Pi \Gamma(\phi^* TM)$. 
-Formally it should be some kind of Pfaffian of the
-skew-symmetric form $g(\psi, \nabla_t \psi)$ on $\Gamma(\phi^* TM)$. 
-Now one formally computes \cite{MR816738} 
-that the determinant of this form is (up to a $\phi$-independent constant) 
-$\det(1 - H(\phi))$ where $H(\phi)$ is the holonomy of the 
-Levi-Civita connection around the loop $\phi$. The question thus
-arises, as $\phi$ varies, is it possible to consistently define
-a square root of $\det(1 - H(\phi))$? This is possible just if
-all the holonomies 
-$H(\phi)$ can be consistently lifted from $\SO(2n)$ to $\Spin(2n)$,
-i.e. just if $Y$ admits a spin structure. \fixme{...}
+% To convince ourselves that this is not just some mistake in
+% how we are doing the discretization, let us consider the 
+% infinite-dimensional perspective. As usual we imagine performing
+% the path integral by first integrating over fermions, then over bosons.
+% Thus we fix a map $\phi: S^1 \to Y$ and consider the remaining 
+% fermionic integral of $\psi \in \Pi \Gamma(\phi^* TM)$. 
+% Formally it should be some kind of Pfaffian of the
+% skew-symmetric form $g(\psi, \nabla_t \psi)$ on $\Gamma(\phi^* TM)$. 
+% Now one formally computes \cite{MR816738} 
+% that the determinant of this form is (up to a $\phi$-independent constant) 
+% $\det(1 - H(\phi))$ where $H(\phi)$ is the holonomy of the 
+% Levi-Civita connection around the loop $\phi$. The question thus
+% arises, as $\phi$ varies, is it possible to consistently define
+% a square root of $\det(1 - H(\phi))$? This is possible just if
+% all the holonomies 
+% $H(\phi)$ can be consistently lifted from $\SO(2n)$ to $\Spin(2n)$,
+% i.e. just if $Y$ admits a spin structure. \fixme{...}
 
 In any case, I believe that
 the discretized path integrals indeed converge as $N \to \infty$,
@@ -3325,21 +3332,19 @@ but I do not know a reference for this statement.
 
 Suppose that $Y$ is even-dimensional, fix a spin structure 
 over $Y$, and 
-let $S^\pm$ be the spin bundles over $Y$ as in \fixme{...}.
-We consider the Dirac operators $\dirac^\pm: S^\pm \to S^\mp$
-and the corresponding Laplace operators $\Delta: S^\pm \to S^\pm$.
-Recall that $\dirac^+$ is adjoint to $\dirac^-$.
-Then we can define a spinorial analog of the heat equation,
-just like \eqref{eq:heat-equation} except that we use
-the operator
+let $S = S^0 \oplus S^1$ be the spin bundles over $Y$ as in \fixme{...}.
+We consider the Dirac operator $\dirac: L^2(Y, S) \to L^2(Y, S)$;
+this is a self-adjoint operator, with corresponding Laplacian
 \begin{equation} \label{eq:h-spinorial}
-  H = [\dirac^+,\dirac^-] = - \Delta
+  \Delta = -\dirac^2.
 \end{equation}
-acting on $L^2(Y, S)$ where $S = S^+ \oplus S^-$.
+Then we define a spinorial heat equation,
+just like \eqref{eq:heat-equation} except that we use
+the operator $H = -\half \Delta$
+on $L^2(Y, S)$.
 Here, in contrast with \fixme{...}, we do \ti{not} perturb
 by a potential function $V$, nor do we add a multiple of the
-scalar curvature.
-The $H$ we choose in \eqref{eq:h-spinorial} is singled out
+scalar curvature. The $H$ we choose is singled out
 by its relation to $\dirac$.
 
 The heat kernel $k_t(x,y)$ in this case is a section of
@@ -3349,20 +3354,21 @@ against a section of $S$ gives another section of $S$.
 
 \subsection{Supersymmetric path integral and heat kernel}
 
-The relation between the path integral and the heat kernel
-in the supersymmetric case is similar to the bosonic case,
-with the slight complication of the extra ``matrix indices''
-coming from the fact that the heat kernel is not just 
-a function. Because of these extra indices it 
-would not quite make sense to identify
-$Z_{[0,T]_{y_0}^{y_1}}$ with the heat kernel. Instead we 
-have:
+% The relation between the path integral and the heat kernel
+% in the supersymmetric case is similar to the bosonic case,
+% with the slight complication of the extra ``matrix indices''
+% coming from the fact that $k_t$ is not just 
+% a function. Because of these extra indices it 
+% would not quite make sense to identify
+% $Z_{[0,T]_{y_0}^{y_1}}$ with $k_T(y_0, y_1)$. Instead we 
+% have:
 
-\begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
-contraction between the heat kernel $k_T(y_0,y_1)$ 
-and the map $S_{y_1} \to S_{y_0}$ given by parallel transport
-with respect to the Levi-Civita connection.
-\end{prop}
+% \begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
+% contraction between $k_T(y_0,y_1) \in \Hom(S_{y_0}, S_{y_1})$ 
+% and the element in $\Hom(S_{y_1}, S_{y_0})$ 
+% given by parallel transport with respect 
+% to the Levi-Civita connection in $S$. \fixme{oops, this makes no sense}
+% \end{prop}
 
 \begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
 \end{prop}
