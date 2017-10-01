@@ -3223,10 +3223,12 @@ Concretely, we will make a new QFT whose configuration space is formally
 \begin{equation}
   \cC = \Pi T \Map(X,Y).
 \end{equation}
-One immediate observation is that,
-provided that $\Map(X,Y)$ is oriented, 
-here we have (at least formally) a \ti{canonical}
-measure of integration, like what we had in \autoref{sec:0d-sigma-model-localization} 
+
+One immediate observation is that if $\Map(X,Y)$ is oriented
+(whatever this means!)
+then we expect to have (at least formally) a \ti{canonical}
+measure of integration $\de \vec{x} \de \vec{\psi}$, 
+like what we had in \autoref{sec:0d-sigma-model-localization} 
 where we took $\cC = \Pi T M$.
 Thus we may expect that the constructions will be more canonical than
 they were in the non-supersymmetric case, where our choice of
@@ -3300,9 +3302,20 @@ a slightly more interesting reason:
 for $Y = \R^n$, and show that $Z_{S^1(T);N} = 0$ 
 for any $N$ when $n$ is odd.
 \end{exercise}
-When $Y$ is even-dimensional, 
-subtler topological questions come into play: \fixme{explain
-need for a spin structure}
+When $Y$ is even-dimensional, then there is no simple reason
+for the discretized path integral to be zero.
+Nevertheless, some subtler topological questions come into play, 
+as follows.
+To write down the
+fermion measure we need to choose a frame
+in each tangent space $T_{y_i} Y$.
+Then, we when we take the limit $N \to \infty$, we need 
+to choose these frames in such a way that they vary smoothly ---
+i.e. for each $\phi: X \to Y$ we should choose some trivialization $F_\phi$
+of $\phi^* TY$.
+Then the question arises: is the path integral $Z_{X}$ 
+independent of the limiting frame $F_\phi$?
+\fixme{..}
 
 % To convince ourselves that this is not just some mistake in
 % how we are doing the discretization, let us consider the 
@@ -3354,21 +3367,23 @@ against a section of $S$ gives another section of $S$.
 
 \subsection{Supersymmetric path integral and heat kernel}
 
-% The relation between the path integral and the heat kernel
-% in the supersymmetric case is similar to the bosonic case,
-% with the slight complication of the extra ``matrix indices''
-% coming from the fact that $k_t$ is not just 
-% a function. Because of these extra indices it 
-% would not quite make sense to identify
-% $Z_{[0,T]_{y_0}^{y_1}}$ with $k_T(y_0, y_1)$. Instead we 
-% have:
+The relation between the path integral and the heat kernel
+in the supersymmetric case is similar to the bosonic case,
+with the slight complication of the extra ``matrix indices''
+coming from the fact that $k_t$ is not just 
+a function. Because of these extra indices it 
+would not quite make sense to identify
+$Z_{[0,T]_{y_0}^{y_1}}$ with $k_T(y_0, y_1)$.
+\fixme{...}
 
-% \begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
-% contraction between $k_T(y_0,y_1) \in \Hom(S_{y_0}, S_{y_1})$ 
-% and the element in $\Hom(S_{y_1}, S_{y_0})$ 
-% given by parallel transport with respect 
-% to the Levi-Civita connection in $S$. \fixme{oops, this makes no sense}
-% \end{prop}
+
+
+\begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
+contraction between $k_T(y_0,y_1) \in \Hom(S_{y_0}, S_{y_1})$ 
+and the element in $\Hom(S_{y_1}, S_{y_0})$ 
+given by parallel transport with respect 
+to the Levi-Civita connection in $S$. \fixme{oops, this makes no sense}
+\end{prop}
 
 \begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
 \end{prop}
