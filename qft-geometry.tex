@@ -3318,12 +3318,13 @@ for any $N$ when $n$ is odd.
 When $Y$ is even-dimensional,
 say $\dim Y = 2n$, the discretized path integral
 need not be zero. Let us examine it more closely.
-To write down the fermion measure $\de \vec \psi$ 
-we need to choose an oriented frame
+To write down the fermion measure $\de \vec \psi$ and 
+the discretized action, we need to choose an oriented frame
 in each tangent space $T_{y_i} Y$.
 Then, we when we take the limit $N \to \infty$, we need 
 to choose these frames in such a way that they vary smoothly ---
-i.e. for each $\phi: X \to Y$ we should choose some trivialization $F_\phi$
+i.e. for each $\phi: X \to Y$ we should choose an oriented 
+trivialization $F_\phi$
 of $\phi^* TY$. Then the questions arise: does the $N \to \infty$ limit
 of $Z_{X;N}$ exist, and if so, is it  
 independent of the limiting frames $F_\phi$?
@@ -3336,16 +3337,42 @@ for the loop group $\cL\GL^+(2n)$. In particular, it
 divides up into connected components, which are a torsor for
 $\pi_1(\GL^+(2n))$; this group is $\Z$ for $n=1$ and $\Z / 2\Z$
 for $n>1$. Let $\tau$ denote the generator.
-Naively the fermionic integral would be independent of $F_\phi$,
+Now, for fixed $\phi$, the integral over the fermions has the 
+form
+\begin{equation}
+  W(\phi, F_\phi) = \int_{\Pi \Gamma(\phi^* TY)} \de \vec\psi \e^{- \half \int_{0}^T g(\psi, \nabla_t \psi)} 
+\end{equation}
+which as usual we define by discretization and an $N \to \infty$ limit.
+Naively $W(\phi, F_\phi)$ would be independent of $F_\phi$,
 but instead we have the following:
 
-\begin{prop} If $X = S^1(T)$, and $\phi: X \to Y$ is fixed
-along with $F_\phi$, then
-the $N \to \infty$ limit of the fermion integral exists;
-call it $Z_X(\phi, F_\phi)$.
-This limit is invariant under small deformations of $F_\phi$, but
-$Z_X(\phi, F_\phi) = - Z_X(\phi, \tau F_\phi)$.
+\begin{prop} If $X = S^1(T)$, then $W(\phi, F_\phi)$ exists.
+$W(\phi, F_\phi)$ is invariant under small deformations of $F_\phi$, but
+$W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
 \end{prop}
+
+Unfortunately I don't know whether a full proof of this exists in the literature.
+To get an idea of what's going on, though, we can look at a toy model:
+a stationary loop $\phi: S^1(T) \to \R^2$. In this case $\phi^*TY$ is just
+the trivial bundle with fiber $\R^2$, equipped with its standard metric.
+If we choose the standard trivialization, then the discretized action is
+\begin{equation}
+  \half \int_{0}^T g(\psi, \nabla_t \psi) = \half \sum_{i=1}^N g_{ab} \psi^a_i (\psi^b_{i+1} - \psi^b_i) = \half \sum_{i=1}^N \delta_{ab} \psi^a_i \psi^b_{i+1}
+\end{equation}
+However, we could also choose a different trivialization of $\phi^* TY$,
+differing from the standard one
+by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
+but changes the coordinate expression of the connection $\nabla_t$ to
+\begin{equation}
+  \nabla_t = \partial_t + A
+\end{equation}
+where $A = g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
+to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ where $R \in \fso(2)$ is the standard rotation generator
+and $k \in \Z$ is a winding number; then we get $A = \frac{2 \pi k}{T} R$, which changes the 
+discretized action to
+\begin{equation}
+  \half \sum_{i=1}^N \left( \delta_{ab} \psi^a_i \psi^b_{i+1} + \frac{2 \pi k}{N} \psi^1_i \psi^2_i \right). 
+\end{equation}
 
 \fixme{spin structure}
 
