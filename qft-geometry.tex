@@ -541,9 +541,9 @@ then $\cM$ is $H^1(X,\R) / H^1(X,\Z)$, and otherwise $\cM$ is empty.
 
 When $G$ is nonabelian, the situation is much more difficult.
 Nevertheless $\cM$ can be studied and moreover it turns out to have a 
-reasonable geometric structure.
-From now on let us specialize to the case $G = \SU(2)$.
+reasonable geometric structure, as follows.
 
+From now on let us specialize to the case $G = \SU(2)$.
 In this case $P$ is classified by the integer
 \begin{equation}
   k = \int_X c_2(P).
@@ -584,7 +584,7 @@ These invariants proved very powerful: they could detect phenomena invisible to
 the standard differential-topology methods \fixme{explain something proved using them?} 
 However, they were also very technically
 difficult to control, particularly because $\cM$ is typically
-\ti{noncompact}.
+\ti{noncompact}, so that integration over $\cM$ is a delicate operation.
 
 
 \subsection{QFT and Donaldson invariants}
@@ -3143,7 +3143,10 @@ Then the function
 \begin{equation}
   G(t,t') = G(t-t') = \frac{1}{2 \omega} \sum_{n \in \Z} \e^{-\omega \abs{(t-t') + n T}}
 \end{equation}
-inverts $M$ in the sense that it obeys
+inverts $M$ in the sense that it obeys\footnote{When $V$ is a finite-dimensional vector space, 
+for a map $M: V \otimes V \to \R$, $M^{-1}: V^* \otimes V^* \to \R$ can be characterized by the equation $M(M^{-1}(\eta, \cdot), v) = \eta(v).$
+This is an infinite-dimensional version of that equation where we take $V$ to be the space
+of all functions on $S^1$.}
 \begin{equation}
   M\left(G(t,t'), f(t)\right) = f(t').
 \end{equation}
@@ -3276,21 +3279,23 @@ of $\wedge^2(\Gamma(\phi^* TY))$, which by definition gives a function
 on $\Pi \Gamma(\phi^* TY)$ as needed.
 
 \begin{exercise} Check that $\int \de t\, g(\cdot, \nabla_t \cdot)$
-is indeed a \ti{skew-symmetric} pairing. (Thus it would vanish
+is indeed a \ti{skew-symmetric} pairing on $\Gamma(\phi^* TY)$. 
+(Thus it would vanish
 if we inserted an ordinary even field in both slots; 
 this is why we don't
 write such first-order terms in the ordinary bosonic 1-d QFT.)
 \end{exercise}
 
 As before, this action is invariant under the symmetry of time translations,
-which we represent by its infinitesimal action $H$,\footnote{It's possible to 
+which we represent by its infinitesimal action $H \in \Vect^0(\cC_X)$,\footnote{It's possible to 
 get confused about the invariant meaning of this formula, so let's spell it out:
 it means that relative to any local coordinate system on $Y$, we have
 $\delta \phi^I(t) = \eps \dot\phi^I(t)$ and $\delta \psi^I(t) = \eps \dot \psi^I(t)$.}
 \begin{equation}
   \delta \phi = \eps \dot\phi, \qquad \delta \psi = \eps \dot\psi.
 \end{equation}
-But now it is also invariant under an odd symmetry $Q$,
+But now it is also invariant under an odd symmetry $Q \in \Vect^1(\cC_X)$,
+whose infinitesimal action is
 \begin{equation}
   \delta \phi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
 \end{equation}
@@ -3320,6 +3325,7 @@ Verify that $Q$ and $H$ obey the \ti{$1$-dimensional supersymmetry algebra}
   \half [Q,Q] = H.
 \end{equation}
 \end{exercise}
+Thus, in this theory $Q$ provides a ``square root of time translations.''
 
 Moreover, variations of the metric $g$ on $Y$ are $Q$-exact:
 \begin{exercise}
@@ -3327,10 +3333,13 @@ Show that under a variation $g \to g + \delta g$,
 the action $S$ changes by $S \to S + Q \Psi$, where 
 $\Psi = \half (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
 \end{exercise}
-Thus, the same arguments we used in \fixme{...} show ---
-at least formally --- that the partition function in this theory
-should be independent of the metric on $Y$.
-This is indeed true, but there is a surprising twist:
+Thus, if we were dealing with finite-dimensional integrals, 
+\autoref{prop:Z-deformation-invariance} would show 
+that the partition function in this theory
+is independent of the metric on $Y$. In our infinite-dimensional
+setting we will see that this metric-independence still holds.
+The infinite-dimensional setting does bring a surprising twist:
+despite being metric-independent, 
 $Z_{S^1(T)}$ is not quite a topological invariant of $Y$; to define 
 it properly we need some additional discrete structure,
 namely a \ti{spin structure} on $Y$, on which $Z_{S^1(T)}$
@@ -3347,7 +3356,7 @@ $\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
 
 We take
 $\cC_{X;N}$ to be an odd vector bundle over the space of 
-piecewise-geodesic paths from \fixme{...}, with fiber
+piecewise-geodesic paths from \autoref{sec:discretization}, with fiber
 the space of piecewise-parallel sections of $\phi^* TY$.
 \fixme{is this really the best choice?}
 Then we define $S \in C^\infty(\cC_{X;N})$ to be the restriction
