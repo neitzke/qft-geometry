@@ -3219,7 +3219,7 @@ We've seen that given a Riemannian manifold $Y$ there is a corresponding
 $1$-dimensional QFT of maps $X \to Y$, formally involving integrals
 over the path space
 \begin{equation}
-  \cC = \Map(X,Y),
+  \cC_X = \Map(X,Y),
 \end{equation}
 which has to do with the heat flow on $Y$.
 In particular, its partition function on $X = S^1(T)$ is
@@ -3234,7 +3234,7 @@ To get something more topological we repeat the strategy we used
 in \autoref{sec:0d-susy-example} and \autoref{sec:0d-sigma-model-localization}: add fermions!
 Concretely, we will make a new QFT whose configuration space is formally
 \begin{equation}
-  \cC = \Pi T \Map(X,Y).
+  \cC_X = \Pi T \Map(X,Y).
 \end{equation}
 
 One immediate observation is that if $\Map(X,Y)$ is oriented
@@ -3247,7 +3247,7 @@ Thus we may expect that the constructions will be more canonical than
 they were in the non-supersymmetric case, where our choice of
 measure was somewhat arbitrary.
 
-A point of $\cC = \Pi T \Map(X,Y)$ concretely means a pair of:
+A point of $\cC_X = \Pi T \Map(X,Y)$ concretely means a pair of:
 \begin{itemize}
  \item $\phi: X \to Y$,
  \item $\psi \in \Pi \Gamma(\phi^* TY)$.
@@ -3255,20 +3255,32 @@ A point of $\cC = \Pi T \Map(X,Y)$ concretely means a pair of:
 % We could also think of $(\phi, \psi)$ together as defining a map
 % $X \times \R^{0 \vert 1} \to Y$.
 
-Now we write the action $S \in C^\infty(\cC)$:
-\begin{equation}
+Now we write the action $S \in C^\infty(\cC_X)$:
+\begin{equation} \label{eq:1d-susy-action}
   S(\varphi,\psi) = \int \de t \, \half(g(\dot \phi, \dot \phi) + g(\psi, \nabla_t \psi))
 \end{equation}
 where $\nabla_t$ is the pullback of the Levi-Civita connection from $Y$, acting
-on sections of $TY$.\footnote{Note that this action has a term which is of \ti{first order}
-in derivatives. We might have imagined writing a similar term for bosons, 
-like $\int \de t \phi \dot\phi$. Why didn't we consider this? The reason is that
-integration by parts shows
- $\int \de t \phi \dot\phi = - \int \de t \dot\phi \phi = - \int \de t \phi \dot\phi$
-and so this term vanishes. But when $\psi$ is a fermion, there is a crucial extra sign:
-we have
- $\int \de t \psi \dot\psi = - \int \de t \dot\psi \psi = \int \de t \psi \dot\psi$
-which doesn't imply any vanishing.}
+on sections of $TY$.
+% \footnote{Note that this action has a term which is of \ti{first order}
+% in derivatives. We might have imagined writing a similar term for bosons, 
+% like $\int \de t \phi \dot\phi$. Why didn't we consider this? The reason is that
+% integration by parts shows
+%  $\int \de t \phi \dot\phi = - \int \de t \dot\phi \phi = - \int \de t \phi \dot\phi$
+% and so this term vanishes. But when $\psi$ is a fermion, there is a crucial extra sign:
+% we have
+%  $\int \de t \psi \dot\psi = - \int \de t \dot\psi \psi = \int \de t \psi \dot\psi$
+% which doesn't imply any vanishing.}
+The fermion bilinear term $g(\psi, \nabla_t \psi)$ should as
+usual be understood in a purely algebraic way: it defines an element
+of $\wedge^2(\Gamma(\phi^* TY))$, which by definition gives a function
+on $\Pi \Gamma(\phi^* TY)$ as needed.
+
+\begin{exercise} Check that $\int \de t\, g(\cdot, \nabla_t \cdot)$
+is indeed a \ti{skew-symmetric} pairing. (Thus it would vanish
+if we inserted an ordinary even field in both slots; 
+this is why we don't
+write such first-order terms in the ordinary bosonic 1-d QFT.)
+\end{exercise}
 
 As before, this action is invariant under the symmetry of time translations,
 which we represent by its infinitesimal action $H$,\footnote{It's possible to 
@@ -3278,22 +3290,51 @@ $\delta \phi^I(t) = \eps \dot\phi^I(t)$ and $\delta \psi^I(t) = \eps \dot \psi^I
 \begin{equation}
   \delta \phi = \eps \dot\phi, \qquad \delta \psi = \eps \dot\psi.
 \end{equation}
-But now it is also invariant under an odd symmetry $Q$
+But now it is also invariant under an odd symmetry $Q$,
 \begin{equation}
-  \delta \psi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
+  \delta \phi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
 \end{equation}
+Let us verify this invariance in the special case $Y = \R^n$:
+then we have
+\begin{equation}
+  S = \int \de t \half (\dot\phi^I \dot\phi^I + \psi^I \dot \psi^I)
+\end{equation}
+and thus
+\begin{equation}
+  \delta S = \int \de t \, \half (2 \eps \dot\psi^I \dot\phi^I - \eps \dot\phi^I \dot\psi^I - \psi^I \eps \ddot \phi^I)
+\end{equation}
+which indeed vanishes (using integration by parts in the last term,
+and keeping track of the fact that $\eps$ and $\psi^I$ anticommute
+to get the signs right.)
 
+For a more general Riemannian manifold $Y$ the verification is
+somewhat trickier, but the outcome is the same:
 \begin{exercise}
-Verify that $S$ is invariant under $Q$. (It is a good idea
-to do it first in the special case $Y = \R^n$.)
+Verify that $S$ is invariant under $Q$.
 \end{exercise}
 
+The two symmetries $Q$ and $H$ are not unrelated:
 \begin{exercise}
 Verify that $Q$ and $H$ obey the \ti{$1$-dimensional supersymmetry algebra}
 \begin{equation}
   \half [Q,Q] = H.
 \end{equation}
 \end{exercise}
+
+Moreover, variations of the metric $g$ on $Y$ are $Q$-exact:
+\begin{exercise}
+Show that under a variation $g \to g + \delta g$,
+the action $S$ changes by $S \to S + Q \Psi$, where 
+$\Psi = \half (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
+\end{exercise}
+Thus, the same arguments we used in \fixme{...} show ---
+at least formally --- that the partition function in this theory
+should be independent of the metric on $Y$.
+This is almost like saying that the partition function
+$Z_{S^1(T)}$ is a topological
+invariant of $Y$. In fact we will see that this is not quite true:
+$Z_{S^1(T)}$ depends on some additional discrete structure,
+namely a \ti{spin structure} on $Y$.
 
 
 \subsection{Discretization} \label{sec:susy-discretization}
@@ -3304,38 +3345,48 @@ function of this theory of this theory by discretization of the
 domain $X$, replacing $\cC_X$ by finite-dimensional supermanifolds
 $\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
 
-The presence of the fermions leads to additional difficulties,
-which we can see in various ways. For example, if $Y$ is
-odd-dimensional, and we take an odd number $N$ of lattice sites,
-then the partition function will come out to be zero, just because
-the fermionic dimension of $\cC_{X;N}$ is odd. If we take an even
-number of lattice sites, the partition function is still zero, for
-a slightly more interesting reason:
-\begin{exercise} Write out the discretized action $S_N$
-for $Y = \R^n$, and show that $Z_{S^1(T);N} = 0$ 
-for any $N$ when $n$ is odd.
+We take
+$\cC_{X;N}$ to be an odd vector bundle over the space of 
+piecewise-geodesic paths from \fixme{...}, with fiber
+the space of piecewise-parallel sections of $\phi^* TY$.
+\fixme{is this really the best choice?}
+Then we define $S \in C^\infty(\cC_{X;N})$ to be the restriction
+of the full action \eqref{eq:1d-susy-action} to this space.
+% In this restriction $\nabla_t \psi$ becomes a sum of delta-functions
+% supported at the discretization points $t_i$, but the skew-symmetric
+% pairing $g(\psi_1, \nabla_t \psi_2)$ is still well defined.
+
+The presence of the fermions leads to various new phenomena.
+For example:
+\begin{exercise} Write out the discretized action $S_N$, 
+and show that $Z_{S^1(T);N} = 0$ 
+for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
 \end{exercise}
+
+\fixme{the below is still preliminary}
+
 When $Y$ is even-dimensional,
 say $\dim Y = 2n$, the discretized path integral
 need not be zero. Let us examine it more closely.
-To write down the fermion measure $\de \vec \psi$ and 
-the discretized action, we need to choose an oriented frame
+To write down the discretized action and measure concretely, 
+we need to choose an orthonormal frame
 in each tangent space $T_{y_i} Y$.
 Then, we when we take the limit $N \to \infty$, we need 
 to choose these frames in such a way that they vary smoothly ---
-i.e. for each $\phi: X \to Y$ we should choose an oriented 
+i.e. for each $\phi: X \to Y$ we should choose an orthonormal
 trivialization $F_\phi$
 of $\phi^* TY$. Then the questions arise: does the $N \to \infty$ limit
-of $Z_{X;N}$ exist, and if so, is it  
+of the discretized partition functions $Z_{X;N}$ 
+exist, and if so, is it  
 independent of the limiting frames $F_\phi$?
 The answer is \ti{almost} yes, but there is a topological subtlety
 which intervenes, as follows.
 
 First suppose $X = S^1(T)$. Then, for each fixed $\phi$, 
 the space of possible $F_\phi$ is a torsor
-for the loop group $\cL\GL^+(2n)$. In particular, it
+for the loop group $\cL\SO(2n)$. In particular, it
 divides up into connected components, which are a torsor for
-$\pi_1(\GL^+(2n))$; this group is $\Z$ for $n=1$ and $\Z / 2\Z$
+$\pi_1(\SO(2n))$; this group is $\Z$ for $n=1$ and $\Z / 2\Z$
 for $n>1$. Let $\tau$ denote the generator.
 Now, for fixed $\phi$, the integral over the fermions has the 
 form
@@ -3351,30 +3402,50 @@ $W(\phi, F_\phi)$ is invariant under small deformations of $F_\phi$, but
 $W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
 \end{prop}
 
-Unfortunately I don't know whether a full proof of this exists in the literature.
-To get an idea of what's going on, though, we can look at a toy model:
-a stationary loop $\phi: S^1(T) \to \R^2$. In this case $\phi^*TY$ is just
-the trivial bundle with fiber $\R^2$, equipped with its standard metric.
-If we choose the standard trivialization, then the discretized action is
-\begin{equation}
-  \half \int_{0}^T g(\psi, \nabla_t \psi) = \half \sum_{i=1}^N g_{ab} \psi^a_i (\psi^b_{i+1} - \psi^b_i) = \half \sum_{i=1}^N \delta_{ab} \psi^a_i \psi^b_{i+1}
-\end{equation}
-However, we could also choose a different trivialization of $\phi^* TY$,
-differing from the standard one
-by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
-but changes the coordinate expression of the connection $\nabla_t$ to
+Unfortunately I don't know whether a full proof of this exists in the literature \fixme{not even 100 percent sure it's true yet}.
+The same statement in a slightly different form appears in 
+\cite{MR816738}, where he argues that the relevant infinite-dimensional
+Pfaffian should be $\sqrt{1 - \det(H_\phi)}$ where $H_\phi$ is the
+holonomy of $\phi^* TY$, and notes that in general one cannot
+consistently choose this square root over the whole loop space.
+
+This sign ambiguity would prevent us from defining the path
+integral, at least in the ordinary sense. To get rid of the problem
+we fix a spin structure on $Y$. This picks out a restricted class
+of orthonormal trivializations $F_\phi$, namely those which lift
+to trivializations of the $\Spin(2n)$-bundle covering $\phi^* TY$.
+If we use only these trivializations in defining our discretized
+fermion path integral, then this sign ambiguity does not occur.
+
+
+\subsection{A toy model}
+
+To get an idea of what's going on, though, we can look at a toy model. Let's fix a loop $\phi: S^1(T) \to Y$, with $Y$ of dimension $2$.
+
+\fixme{...}
+Choosing a trivialization of $\phi^*TY$ we can see it as
+the trivial bundle with fiber $\R^2$, equipped with its standard metric,
+and a connection
 \begin{equation}
   \nabla_t = \partial_t + A_t
 \end{equation}
-where $A = g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
-to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ where $R \in \fso(2)$ is the standard rotation generator
-and $k \in \Z$ is a winding number; then we get $A_t = \frac{2 \pi k}{T} R$, with corresponding
-discretized action
+where $A_t = \alpha R$,
+where $R \in \fso(2)$ is the standard rotation generator.
+The corresponding discretized action is
 \begin{equation}
-  \half \sum_{i=1}^N \left( \delta_{ab} \psi^a_i \psi^b_{i+1} + \frac{2 \pi k}{N} \psi^1_i \psi^2_i \right). 
+  \half \sum_{i=1}^N \left( \delta_{ab} \psi^a_i \psi^b_{i+1} + 2 \alpha \psi^1_i \psi^2_i \right). 
 \end{equation}
 
-\fixme{spin structure}
+\fixme{claim: in $N \to \infty$ limit it gives Atiyah's formula}
+
+However, we could also choose a different trivialization of $\phi^* TY$,
+differing from the standard one
+by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
+but changes $A \to A + g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
+to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ 
+and $k \in \Z$ is a winding number; then 
+$\alpha$ is shifted by $\frac{2 \pi k}{T}$.
+\fixme{...}
 
 % To convince ourselves that this is not just some mistake in
 % how we are doing the discretization, let us consider the 
@@ -3505,7 +3576,7 @@ and the obvious $\Z$-grading.
 quadratic form $\IP{\cdot,\cdot}$. The \ti{Clifford algebra} $\Cliff(V)$ is the quotient
 of $T(V)$ by the two-sided ideal generated by the relation
 \begin{equation} \label{eq:clifford-relation}
-  v \otimes v = - \IP{v,v}, \qquad v \in V.
+  v \otimes v = -\IP{v,v}, \qquad v \in V.
 \end{equation}
 \end{defn}
 More informally we could say $\Cliff(V)$ is the free algebra on $V$
@@ -3535,11 +3606,19 @@ whose associated $\Z$-graded algebra is $\wedge^*(V)$.
 \begin{equation}
  v_1 \otimes v_2 \otimes \cdots \otimes v_n \in \Cliff(V)
 \end{equation}
-where all $v_i$ have $\norm{v_i}^2 = 1$.
+where all $v_i$ have $\IP{v_i,v_i} = 1$.
 \end{defn}
 
-\begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^+(V)$.
+\begin{exercise} Show that $\Pin(V)$ is indeed a group.
+\end{exercise}
+
+\begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^0(V)$.
 \end{defn}
+
+\begin{exercise} Show that $\Spin(V)$ acts on $V$ by conjugation,
+and that this action gives a map $\Spin(V) \to \SO(V)$ which 
+is a double cover.
+\end{exercise}
 
 As a convenient notation we let $\Cliff(n)$ mean the Clifford algebra on the
 vector space $\R^n$ with its standard positive definite quadratic form.
@@ -3549,6 +3628,14 @@ $\Cliff(n)$ is generated by odd elements $e_i$, $i = 1, \dots, n$, with
 \end{equation}
 Similarly we define $\Spin(n)$, $\Pin(n)$ etc.
 
+When $n > 2$, $\Spin(n)$ is simply connected, so the 
+double-covering map above identifies
+$\Spin(n)$ as the universal covering of $\SO(n)$. When $n=2$, both $\Spin(2)$
+and $\SO(2)$ are the circle group, and this map is just the double-covering
+map $\theta \to 2 \theta$.
+
+
+
 \begin{exercise} Show that:
 \begin{itemize}
 \item $\Cliff(1) \simeq \C$, $\Cliff^0(1) \simeq \R$, $\Spin(1) \simeq \Z / 2\Z$.
@@ -3556,20 +3643,6 @@ Similarly we define $\Spin(n)$, $\Pin(n)$ etc.
 \item $\Cliff(3) \simeq \bbH \oplus \bbH$, $\Cliff^0(3) \simeq \bbH$, $\Spin(3) \simeq \SU(2)$.
 \end{itemize}
 \end{exercise}
-
-\begin{prop}[Spin group double-covers $\SO$ group] When $\dim V \ge 2$ 
-there is a canonical double-covering map
-\begin{equation}
-  \Spin(V) \to \SO(V),
-\end{equation}
-obtained concretely from the action of $\Spin(V)$ on $V \subset \Cliff(V)$
-by conjugation.
-\end{prop}
-
-When $n > 2$, $\Spin(n)$ is simply connected, so this map identifies
-$\Spin(n)$ as the universal covering of $\SO(n)$. When $n=2$, both $\Spin(2)$
-and $\SO(2)$ are the circle group, and this map is just the double-covering
-map $\theta \to 2 \theta$.
 
 \begin{defn}[Spin structures] Fix an oriented Riemannian manifold $X$, 
 and let $P$ be its principal $\SO(n)$-bundle
@@ -3581,18 +3654,14 @@ equipped with a spin structure.
 \begin{example}[Spin structures on the circle] \fixme{...}
 \end{example}
 
-\begin{prop}[Spin representations] $\Cliff(V)$ admits a unique irreducible
-graded complex representation (up to equivalence), $S(V) = S = S^0 \oplus S^1$. 
-If $n = \dim V$ is odd, $S^0$ and $S^1$ are equivalent representations of $\Spin(V)$,
-of dimension $2^k$ where $n = 2k+1$.
-If $n = \dim V$ is even, they are inequivalent representations of $\Spin(V)$, both of dimension $2^k$
-where $n = 2k$.
-These representations do not descend to $\SO(V)$.
+\begin{prop}[Spin representations] 
+$\Cliff(2n)$ admits a $\Z/2\Z$-graded irreducible complex representation, $S = S^0 \oplus S^1$, where each of $S^0$ and $S^1$ has complex dimension $2^{n-1}$ and is a representation of $\Spin(V)$.
+Up to equivalence $S$ is the unique irreducible representation
+of $\Cliff(2n)$.
 \end{prop}
 
 \begin{example}[Spin representation in dimension $2$] The spin representation 
-$S$ of $\Cliff(2)$ is $2$-dimensional. In one concrete realization of this representation, 
-the generators $e_1$ and $e_2$ act by
+$S$ of $\Cliff(2)$ is $2$-dimensional. The generators $e_1$ and $e_2$ act by
 \begin{equation}
   e_1 \mapsto \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \quad   e_2 \mapsto \begin{pmatrix} 0 & \I \\ \I & 0 \end{pmatrix}.
 \end{equation}
@@ -3601,29 +3670,32 @@ Thus $e_1 e_2$ acts by $\begin{pmatrix} \I & 0 \\ 0 & -\I \end{pmatrix}$.
 
 \begin{defn}[Spinor bundles] Fix a spin manifold $X$. The spin structure is 
 a principal $\Spin(n)$-bundle $Q$ over $X$.
-The associated bundle $Q \times_{\Spin(n)} S$ is the \ti{spinor bundle}
-over $X$.
+The associated bundle $SX = Q \times_{\Spin(n)} S$ is the \ti{spinor bundle} over $X$.
 \end{defn}
 
-By abuse of notation we sometimes also use the notation $S$ for the
-spinor bundle. Since $Q$ has a canonical connection induced by the
-Levi-Civita connection, $S$ also has a canonical connection.
-In addition, since $S$ is a \fixme{...}
+$SX$ carries several nice structures: 
+\begin{itemize}
+\item Since $Q$ has a canonical connection induced by the
+Levi-Civita connection, $SX$ also has a canonical connection.
+\item
+Because the action of $\R^n \subset \Cliff(n)$ on $S$,
+$\rho: \R^n \to \End(S)$, is
+equivariant for the action of $\Spin(n)$ on both sides,
+it transfers to an action $\rho: TX \to \End(SX)$.
+\end{itemize}
 
-\begin{defn}[Dirac operator] Fix a spin manifold $X$
-with a spin structure.
+\begin{defn}[Dirac operator] Fix a spin manifold $X$.
 The \ti{Dirac operator} is the operator
-$\dirac: C^\infty(S) \to C^\infty(S)$
+$\dirac: C^\infty(SX) \to C^\infty(SX)$
 given by
 \begin{equation}
-  \dirac = \sum_{i=1}^n e_i \nabla_{e_i}
+  \dirac = \sum_{i=1}^n \rho(e_i) \circ \nabla_{e_i}
 \end{equation}
-where $\{e_i\}$ form an orthonormal basis for $TX$,
-and $TX$ acts on $S$ via the Clifford algebra action.
+where $\{e_i\}$ form an orthonormal basis for $TX$.
 \end{defn}
 
 \begin{example}[Dirac operator on $\R^2$]
-If $X = \R^2$, then $S$ is the $2$-dimensional complex trivial
+If $X = \R^2$, then $SX$ is the $2$-dimensional complex trivial
 bundle, and
 \begin{equation}
   \dirac = e_1 \partial_1 + e_2 \partial_2 = \begin{pmatrix} 0 & \partial_1 + \I \partial_2 \\ \partial_1 - \I \partial_2 & 0 \end{pmatrix}.
