@@ -3567,7 +3567,9 @@ by conjugation.
 \end{prop}
 
 When $n > 2$, $\Spin(n)$ is simply connected, so this map identifies
-$\Spin(n)$ as the universal covering of $\SO(n)$.
+$\Spin(n)$ as the universal covering of $\SO(n)$. When $n=2$, both $\Spin(2)$
+and $\SO(2)$ are the circle group, and this map is just the double-covering
+map $\theta \to 2 \theta$.
 
 \begin{defn}[Spin structures] Fix an oriented Riemannian manifold $X$, 
 and let $P$ be its principal $\SO(n)$-bundle
@@ -3579,17 +3581,18 @@ equipped with a spin structure.
 \begin{example}[Spin structures on the circle] \fixme{...}
 \end{example}
 
-\begin{prop}[Spin representations] $\Cliff(n)$ admits a unique irreducible
-graded complex representation (up to equivalence), $S = S^0 \oplus S^1$. 
-If $n$ is odd, $S^0$ and $S^1$ are equivalent representations of $\Spin(n)$,
+\begin{prop}[Spin representations] $\Cliff(V)$ admits a unique irreducible
+graded complex representation (up to equivalence), $S(V) = S = S^0 \oplus S^1$. 
+If $n = \dim V$ is odd, $S^0$ and $S^1$ are equivalent representations of $\Spin(V)$,
 of dimension $2^k$ where $n = 2k+1$.
-If $n$ is even, they are inequivalent representations of $\Spin(n)$, both of dimension $2^k$
+If $n = \dim V$ is even, they are inequivalent representations of $\Spin(V)$, both of dimension $2^k$
 where $n = 2k$.
-These representations do not descend to $\SO(n)$.
+These representations do not descend to $\SO(V)$.
 \end{prop}
 
 \begin{example}[Spin representation in dimension $2$] The spin representation 
-$S$ of $\Cliff(2)$ is $2$-dimensional. The generators $e_1$ and $e_2$ act by
+$S$ of $\Cliff(2)$ is $2$-dimensional. In one concrete realization of this representation, 
+the generators $e_1$ and $e_2$ act by
 \begin{equation}
   e_1 \mapsto \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \quad   e_2 \mapsto \begin{pmatrix} 0 & \I \\ \I & 0 \end{pmatrix}.
 \end{equation}
@@ -3603,15 +3606,29 @@ over $X$.
 \end{defn}
 
 By abuse of notation we sometimes also use the notation $S$ for the
-spinor bundle.
+spinor bundle. Since $Q$ has a canonical connection induced by the
+Levi-Civita connection, $S$ also has a canonical connection.
+In addition, since $S$ is a \fixme{...}
 
 \begin{defn}[Dirac operator] Fix a spin manifold $X$
 with a spin structure.
 The \ti{Dirac operator} is the operator
 $\dirac: C^\infty(S) \to C^\infty(S)$
-given by \fixme{...}
+given by
+\begin{equation}
+  \dirac = \sum_{i=1}^n e_i \nabla_{e_i}
+\end{equation}
+where $\{e_i\}$ form an orthonormal basis for $TX$,
+and $TX$ acts on $S$ via the Clifford algebra action.
 \end{defn}
 
+\begin{example}[Dirac operator on $\R^2$]
+If $X = \R^2$, then $S$ is the $2$-dimensional complex trivial
+bundle, and
+\begin{equation}
+  \dirac = e_1 \partial_1 + e_2 \partial_2 = \begin{pmatrix} 0 & \partial_1 + \I \partial_2 \\ \partial_1 - \I \partial_2 & 0 \end{pmatrix}.
+\end{equation}
+\end{example}
 
 \subsection{Hodge theory}
 
