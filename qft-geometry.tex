@@ -3330,11 +3330,11 @@ $\Psi = \half (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
 Thus, the same arguments we used in \fixme{...} show ---
 at least formally --- that the partition function in this theory
 should be independent of the metric on $Y$.
-This is almost like saying that the partition function
-$Z_{S^1(T)}$ is a topological
-invariant of $Y$. In fact we will see that this is not quite true:
-$Z_{S^1(T)}$ depends on some additional discrete structure,
-namely a \ti{spin structure} on $Y$.
+This is indeed true, but there is a surprising twist:
+$Z_{S^1(T)}$ is not quite a topological invariant of $Y$; to define 
+it properly we need some additional discrete structure,
+namely a \ti{spin structure} on $Y$, on which $Z_{S^1(T)}$
+actually depends.
 
 
 \subsection{Discretization} \label{sec:susy-discretization}
@@ -3487,8 +3487,9 @@ the operator $H = -\half \Delta$
 on $L^2(Y, S)$.
 Here, in contrast with \fixme{...}, we do \ti{not} perturb
 by a potential function $V$, nor do we add a multiple of the
-scalar curvature. The $H$ we choose is singled out
-by its relation to $\dirac$.
+scalar curvature. \fixme{watch out for tricky scalar curvature terms
+added to path integral though!} 
+The $H$ we choose is singled out by its relation to $\dirac$.
 
 The heat kernel $k_t(x,y)$ in this case is a section of
 $S \boxtimes S^*$ over $Y \times Y$: thus integrating it
@@ -3615,8 +3616,8 @@ where all $v_i$ have $\IP{v_i,v_i} = 1$.
 \begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^0(V)$.
 \end{defn}
 
-\begin{exercise} Show that $\Spin(V)$ acts on $V$ by conjugation,
-and that this action gives a map $\Spin(V) \to \SO(V)$ which 
+\begin{exercise} Show that $\Spin(V)$ acts on $V \subset \Cliff(V)$ 
+by conjugation, and that this action gives a map $\Spin(V) \to \SO(V)$ which 
 is a double cover.
 \end{exercise}
 
@@ -3651,8 +3652,20 @@ A \ti{spin manifold} is a Riemannian oriented manifold $X$
 equipped with a spin structure.
 \end{defn}
 
-\begin{example}[Spin structures on the circle] \fixme{...}
+\begin{example}[Spin structures on the circle] When $X = S^1$ with a fixed metric and orientation, 
+the bundle $P$ of oriented frames is just $X$ itself, so a spin structure is just a double cover
+of $S^1$. Up to equivalence there are two double covers of $S^1$ (one connected and one disconnected),
+thus two spin structures.
 \end{example}
+
+\begin{exercise}
+For any Riemannian oriented $X$ which admits a spin structure, 
+show that the spin structures on $X$
+up to equivalence form a \ti{torsor} for the group $H_1(X, \Z/2\Z)$.
+(Hint: $H_1(X, \Z/2\Z)$ classifies double covers of $X$ up to equivalence, and 
+given a spin structure on $X$ and a double cover of $X$, one can \ti{twist} the
+spin structure by the double cover, to get another spin structure.)
+\end{exercise}
 
 \begin{prop}[Spin representations] 
 $\Cliff(2n)$ admits a $\Z/2\Z$-graded irreducible complex representation, $S = S^0 \oplus S^1$, where each of $S^0$ and $S^1$ has complex dimension $2^{n-1}$ and is a representation of $\Spin(V)$.
