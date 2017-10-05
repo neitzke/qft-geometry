@@ -3348,6 +3348,8 @@ actually depends.
 
 \subsection{Discretization} \label{sec:susy-discretization}
 
+\fixme{the below is still preliminary}
+
 Now, as we did in \autoref{sec:discretization}, 
 we can try to define the partition 
 function of this theory of this theory by discretization of the
@@ -3357,10 +3359,9 @@ $\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
 We take
 $\cC_{X;N}$ to be an odd vector bundle over the space of 
 piecewise-geodesic paths from \autoref{sec:discretization}, with fiber
-the space of piecewise-parallel sections of $\phi^* TY$.
-\fixme{is this really the best choice?}
+\fixme{...}
 Then we define $S \in C^\infty(\cC_{X;N})$ to be the restriction
-of the full action \eqref{eq:1d-susy-action} to this space.
+of the full action \eqref{eq:1d-susy-action} \fixme{...}.
 % In this restriction $\nabla_t \psi$ becomes a sum of delta-functions
 % supported at the discretization points $t_i$, but the skew-symmetric
 % pairing $g(\psi_1, \nabla_t \psi_2)$ is still well defined.
@@ -3371,8 +3372,6 @@ For example:
 and show that $Z_{S^1(T);N} = 0$ 
 for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
 \end{exercise}
-
-\fixme{the below is still preliminary}
 
 When $Y$ is even-dimensional,
 say $\dim Y = 2n$, the discretized path integral
@@ -3412,11 +3411,11 @@ $W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
 \end{prop}
 
 Unfortunately I don't know whether a full proof of this exists in the literature \fixme{not even 100 percent sure it's true yet}.
-The same statement in a slightly different form appears in 
-\cite{MR816738}, where he argues that the relevant infinite-dimensional
-Pfaffian should be $\sqrt{1 - \det(H_\phi)}$ where $H_\phi$ is the
-holonomy of $\phi^* TY$, and notes that in general one cannot
-consistently choose this square root over the whole loop space.
+% The same statement in a slightly different form appears in 
+% \cite{MR816738}, where he argues that the relevant infinite-dimensional
+% Pfaffian should be $\sqrt{1 - \det(H_\phi)}$ where $H_\phi$ is the
+% holonomy of $\phi^* TY$, and notes that in general one cannot
+% consistently choose this square root over the whole loop space.
 
 This sign ambiguity would prevent us from defining the path
 integral, at least in the ordinary sense. To get rid of the problem
@@ -3430,8 +3429,6 @@ fermion path integral, then this sign ambiguity does not occur.
 \subsection{A toy model}
 
 To get an idea of what's going on, though, we can look at a toy model. Let's fix a loop $\phi: S^1(T) \to Y$, with $Y$ of dimension $2$.
-
-\fixme{...}
 Choosing a trivialization of $\phi^*TY$ we can see it as
 the trivial bundle with fiber $\R^2$, equipped with its standard metric,
 and a connection
@@ -3440,21 +3437,30 @@ and a connection
 \end{equation}
 where $A_t = \alpha R$,
 where $R \in \fso(2)$ is the standard rotation generator.
-The corresponding discretized action is
+The holonomy of $\phi^*TY$ around $S^1(T)$ is then a rotation
+by $\alpha T$.
+The corresponding discretized action with $N$ lattice sites is
 \begin{equation}
-  \half \sum_{i=1}^N \left( \delta_{ab} \psi^a_i \psi^b_{i+1} + 2 \alpha \psi^1_i \psi^2_i \right). 
+  S(\psi) = \half \sum_{i=1}^N \left( \psi^1_i \psi^1_{i+1} + \psi^2_i \psi^2_{i+1} + \frac{\alpha T}{N} (\psi^1_i \psi^2_{i+1} - \psi^2_i \psi^1_{i+1}) \right). 
 \end{equation}
 
-\fixme{claim: in $N \to \infty$ limit it gives Atiyah's formula}
+Now I claim that \fixme{check!}
+\begin{equation}
+  W = \int \prod_{i=1}^N \de \psi_i^1 \de \psi_i^2 \, \e^{-S(\psi)} = \re \left[ 2^{-N} \left( 1 + \frac{\I \alpha T}{2N} \right)^{N} \right]
+\end{equation}
+so that
+\begin{equation}
+  \lim_{N \to \infty} 2^N W = \re \e^{\I \alpha T / 2} = \half \sin \left(\half \alpha T\right).
+\end{equation}
 
 However, we could also choose a different trivialization of $\phi^* TY$,
 differing from the standard one
 by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
 but changes $A \to A + g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
-to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ 
-and $k \in \Z$ is a winding number; then 
-$\alpha$ is shifted by $\frac{2 \pi k}{T}$.
-\fixme{...}
+to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ with
+$k \in \Z$ (winding number); then 
+$\alpha T$ is shifted by $2 \pi k$.
+If $k$ is odd then this reverses the sign of $W$.
 
 % To convince ourselves that this is not just some mistake in
 % how we are doing the discretization, let us consider the 
@@ -3676,9 +3682,12 @@ given a spin structure on $X$ and a double cover of $X$, one can \ti{twist} the
 spin structure by the double cover, to get another spin structure.)
 \end{exercise}
 
+\fixme{explain $\C\PP^2$ has no spin structure, generally
+$w_2 \in H_2(X,\Z/2\Z)$ is the obstruction to having one}
+
 \begin{prop}[Spin representations] 
 $\Cliff(2n)$ admits a $\Z/2\Z$-graded irreducible complex representation, $S = S^0 \oplus S^1$, where each of $S^0$ and $S^1$ has complex dimension $2^{n-1}$ and is a representation of $\Spin(V)$.
-Up to equivalence $S$ is the unique irreducible representation
+Up to equivalence and reversal of grading, $S$ is the unique graded irreducible representation
 of $\Cliff(2n)$.
 \end{prop}
 
