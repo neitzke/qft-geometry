@@ -3247,7 +3247,10 @@ of $\phi^* E$.
 holonomy itself, so that $Z_X$ is not a number but a map
 $E_{y_0} \to E_{y_1}$.
 \end{itemize}
-Then \fixme{...}
+Then we have:
+\begin{prop}
+$Z_{S^1(T)} = \Tr_{L^2(E)} \e^{-T H}$.
+\end{prop}
 
 
 \subsection{Supersymmetric quantum mechanics}
@@ -3489,10 +3492,17 @@ Here $\STr$ means the \ti{supertrace}, i.e.
   \STr_S A = \Tr_{S^0} A - \Tr_{S^1} A.
 \end{equation}
 
-For example, when $n = 1$, \autoref{prop:supertrace-spin-sqrt} 
-says $(\e^{\I \theta / 2} - \e^{-\I \theta / 2})^2 = -(1 - \e^{\I \theta}) (1 - \e^{-\I \theta})$.
+\begin{pf}
+When $n = 1$, \autoref{prop:supertrace-spin-sqrt} 
+says 
+\begin{equation}
+(\e^{\I \theta / 2} - \e^{-\I \theta / 2})^2 = -(1 - \e^{\I \theta}) (1 - \e^{-\I \theta}).  
+\end{equation}
 More generally it follows easily from an explicit formula for the character of the
-spin representation: \fixme{...}
+spin representation: indeed, as a representation of $SO(2)^n \subset SO(2n)$,
+$S$ is the tensor product of $2$-dimensional representations; $S^0$ is \fixme{...}
+\end{pf}
+
 
 Motivated by \autoref{prop:regularized-det-fermion} and \autoref{prop:supertrace-spin-sqrt},
 we claim that in fact the integral over the fermions is
@@ -3592,19 +3602,20 @@ is a \ti{difference}
   Z_{S^1(T)} = Z(S^0) - Z(S^1)
 \end{equation}
 where $Z(E)$ means the partition function of the bosonic theory coupled to $E$.
-What this means is that the partition function on $S^1(T)$ is the
-\ti{supertrace} of the spinor heat kernel:
-\begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
+What this means is:
+\begin{prop}[Partition function of supersymmetric quantum mechanics
+is the supertrace of spinor heat flow] $Z_{S^1(T)} = \STr \e^{-TH}$.
 \end{prop}
 
 This function is remarkably simple to analyze:
-\begin{prop}[Supertrace is the index]
+\begin{prop}[Supertrace of spinor heat flow is the index]
 $\STr \e^{-T H} = \ind \dirac$.
 \end{prop}
 \begin{pf}
 This just uses the fact that
-$\cH = L^2(Y,SY)$ is a unitary representation of
-the algebra spanned by $\dirac$ and $\Delta$.
+$\cH = L^2(Y,SY)$ is a unitary graded representation of
+the $1|1$-dimensional superalgebra spanned by $\dirac$ and $\Delta$, with $\dirac^\dagger = \dirac$
+and $\Delta^\dagger = \Delta$.
 
 First we show that $\ker \Delta = \ker \dirac$.
 Indeed, obviously $\ker \dirac \subset \ker \Delta$. Conversely, 
@@ -3616,8 +3627,8 @@ and thus $\psi \in \ker \dirac$.
 
 \fixme{this is a little informal}
 Since $[\dirac, \Delta] = 0$, $\Delta$ is central, and thus
-it acts as a multiple of the identity in each irreducible
-representation. So, consider an irreducible representation
+it acts as a multiple of the identity in each graded irreducible
+representation. So, consider a graded irreducible representation
 $V$ in which $-\Delta = E$.
 Then it is straightforward to see there are only three
 possibilities:
