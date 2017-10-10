@@ -3214,6 +3214,40 @@ energy eigenvalue of the quartic oscillator.
 %   S(\psi) = \int \de t \, \half g(\psi, \nabla_t \psi).
 % \end{equation}
 
+\subsection{Quantum mechanics coupled to a vector bundle}
+
+Suppose $Y$ is a Riemannian manifold, carrying a metric vector bundle $E$
+with connection $\nabla$, 
+and a Laplace-type operator $\Delta: C^\infty(Y,E) \to C^\infty(Y,E)$,
+\begin{equation}
+  \Delta = \nabla^* \nabla + V
+\end{equation}
+Then we can define a heat equation coupled to $E$,
+just like \eqref{eq:heat-equation} except that we use
+the operator $H = -\half \Delta$
+on $L^2(Y, E)$.
+The heat kernel $k_t(x,y)$ in this case is a section of
+$E \boxtimes E^*$ over $Y \times Y$: thus integrating it
+against a section of $E$ gives another section of $E$.
+
+Much like \fixme{...},
+this heat kernel arises from a $1$-dimensional quantum field theory,
+with one new coupling added giving the \ti{parallel transport} in $E$.
+Namely we write path integrals in the form
+\begin{equation}
+ Z_X =  \int \de \phi \, \Hol_{\phi} \e^{-S(\phi)}
+\end{equation}
+where 
+\begin{itemize}
+\item $S(\phi)$ is defined just as in \fixme{...}.
+\item
+In case $X = S^1$, $\Hol_\phi$ means the \ti{trace} of the holonomy
+of $\phi^* E$. 
+\item In case $X = [0,1]_{y_0}^{y_1}$, $\Hol_\phi$ means the
+holonomy itself, so that $Z_X$ is not a number but a map
+$E_{y_0} \to E_{y_1}$.
+\end{itemize}
+Then \fixme{...}
 
 
 \subsection{Supersymmetric quantum mechanics}
@@ -3227,9 +3261,9 @@ over the path space
 which has to do with the heat flow on $Y$.
 In particular, its partition function on $X = S^1(T)$ is
 \begin{equation}
-  Z_{S^1(T)} = \Tr \, \e^{-T \Delta}
+  Z_{S^1(T)} = \Tr \, \e^{-H T}
 \end{equation}
-which contains the whole spectrum of $\Delta$. This is very far
+which contains the whole spectrum of $H = -\Delta$. This is very far
 from being deformation invariant: morally it depends on every little
 detail of the metric on $Y$.
 
@@ -3346,22 +3380,25 @@ namely a \ti{spin structure} on $Y$, on which $Z_{S^1(T)}$
 actually depends.
 
 
-\subsection{Discretization} \label{sec:susy-discretization}
+\subsection{Integrating out fermions} \label{sec:susy-discretization}
 
 \fixme{the below is still preliminary}
 
-Now, as we did in \autoref{sec:discretization}, 
-we can try to define the partition 
-function of this theory of this theory by discretization of the
-domain $X$, replacing $\cC_X$ by finite-dimensional supermanifolds
-$\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
+\fixme{warning, doing this by discretization seems to be subtle, because
+of fermion doubling problem! need to give some explicit way of understanding
+the result here}
 
-We take
-$\cC_{X;N}$ to be an odd vector bundle over the space of 
-piecewise-geodesic paths from \autoref{sec:discretization}, with fiber
-\fixme{...}
-Then we define $S \in C^\infty(\cC_{X;N})$ to be the restriction
-of the full action \eqref{eq:1d-susy-action} \fixme{...}.
+% Now, as we did in \autoref{sec:discretization}, 
+% we can try to define the partition 
+% function of this theory of this theory by discretization of the
+% domain $X$, replacing $\cC_X$ by finite-dimensional supermanifolds
+% $\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
+
+% We take
+% $\cC_{X;N}$ to be an odd vector bundle over the space of 
+% piecewise-geodesic paths from \autoref{sec:discretization}, with fiber
+% $\prod_i T_{y_i} Y$.
+% Then we define $S \in C^\infty(\cC_{X;N})$ to be \fixme{...}.
 % In this restriction $\nabla_t \psi$ becomes a sum of delta-functions
 % supported at the discretization points $t_i$, but the skew-symmetric
 % pairing $g(\psi_1, \nabla_t \psi_2)$ is still well defined.
@@ -3410,13 +3447,6 @@ $W(\phi, F_\phi)$ is invariant under small deformations of $F_\phi$, but
 $W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
 \end{prop}
 
-Unfortunately I don't know whether a full proof of this exists in the literature \fixme{not even 100 percent sure it's true yet}.
-% The same statement in a slightly different form appears in 
-% \cite{MR816738}, where he argues that the relevant infinite-dimensional
-% Pfaffian should be $\sqrt{1 - \det(H_\phi)}$ where $H_\phi$ is the
-% holonomy of $\phi^* TY$, and notes that in general one cannot
-% consistently choose this square root over the whole loop space.
-
 This sign ambiguity would prevent us from defining the path
 integral, at least in the ordinary sense. To get rid of the problem
 we fix a spin structure on $Y$. This picks out a restricted class
@@ -3425,42 +3455,88 @@ to trivializations of the $\Spin(2n)$-bundle covering $\phi^* TY$.
 If we use only these trivializations in defining our discretized
 fermion path integral, then this sign ambiguity does not occur.
 
+Moreover we can \ti{calculate} $W(\phi,F_\phi)$.
+This is done for example in
+\cite{MR816738}:
 
-\subsection{A toy model}
+\begin{prop} \label{prop:regularized-det-fermion}
+With some regularization \fixme{explain this}
+the determinant of the skew pairing $\IP{\psi, \nabla_t \psi}$
+is $\det(1 - \Hol_\phi)$, where $\Hol_\phi$ is the
+holonomy of $\phi^* TY$.
+\end{prop}
 
-To get an idea of what's going on, though, we can look at a toy model. Let's fix a loop $\phi: S^1(T) \to Y$, with $Y$ of dimension $2$.
-Choosing a trivialization of $\phi^*TY$ we can see it as
-the trivial bundle with fiber $\R^2$, equipped with its standard metric,
-and a connection
+\begin{pf} The eigenvalues of the operator $\nabla_t$ are
+$\frac{2 \pi \I}{T}(k \pm \frac{\alpha_i}{2\pi})$, $k \in \Z$, where $\e^{\pm \I \alpha_i}$ are the eigenvalues
+of $\Hol_\phi$. Thus formally we want to compute the infinite product of these eigenvalues.
+After regularization this infinite product is replaced by a function with the same zeroes,
+$\prod_{i=1}^n (\sin \pi \alpha_i)^2$. \fixme{spell this out a bit more}
+By direct computation this agrees with $\det(1 - \Hol_\phi)$.
+\end{pf}
+
+The Pfaffian we are after is then a square root of $\det(1 - \Hol_\phi)$.
+There is a natural such square root available:
+\begin{prop} \label{prop:supertrace-spin-sqrt}
+If $A \in \Spin(2n)$ then 
 \begin{equation}
-  \nabla_t = \partial_t + A_t
+(\STr_S A)^2 = (-1)^n \det_V (1 - A),
 \end{equation}
-where $A_t = \alpha R$,
-where $R \in \fso(2)$ is the standard rotation generator.
-The holonomy of $\phi^*TY$ around $S^1(T)$ is then a rotation
-by $\alpha T$.
-The corresponding discretized action with $N$ lattice sites is
+where $V$ denotes
+the vector representation.
+\end{prop}
+Here $\STr$ means the \ti{supertrace}, i.e.
 \begin{equation}
-  S(\psi) = \half \sum_{i=1}^N \left( \psi^1_i \psi^1_{i+1} + \psi^2_i \psi^2_{i+1} + \frac{\alpha T}{N} (\psi^1_i \psi^2_{i+1} - \psi^2_i \psi^1_{i+1}) \right). 
+  \STr_S A = \Tr_{S^0} A - \Tr_{S^1} A.
 \end{equation}
 
-Now I claim that \fixme{check!}
-\begin{equation}
-  W = \int \prod_{i=1}^N \de \psi_i^1 \de \psi_i^2 \, \e^{-S(\psi)} = \re \left[ 2^{-N} \left( 1 + \frac{\I \alpha T}{2N} \right)^{N} \right]
-\end{equation}
-so that
-\begin{equation}
-  \lim_{N \to \infty} 2^N W = \re \e^{\I \alpha T / 2} = \half \sin \left(\half \alpha T\right).
-\end{equation}
+For example, when $n = 1$, \autoref{prop:supertrace-spin-sqrt} 
+says $(\e^{\I \theta / 2} - \e^{-\I \theta / 2})^2 = -(1 - \e^{\I \theta}) (1 - \e^{-\I \theta})$.
+More generally it follows easily from an explicit formula for the character of the
+spin representation: \fixme{...}
 
-However, we could also choose a different trivialization of $\phi^* TY$,
-differing from the standard one
-by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
-but changes $A \to A + g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
-to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ with
-$k \in \Z$ (winding number); then 
-$\alpha T$ is shifted by $2 \pi k$.
-If $k$ is odd then this reverses the sign of $W$.
+Motivated by \autoref{prop:regularized-det-fermion} and \autoref{prop:supertrace-spin-sqrt},
+we claim that in fact the integral over the fermions is
+\begin{equation}
+  W(\phi, F_\phi) = \STr_S \Hol_\phi.
+\end{equation}
+(Though strictly speaking all we have really shown is that this is a very natural square
+root to pick.)
+
+% \subsection{A toy model}
+
+% To get an idea of what's going on, though, we can look at a toy model. Let's fix a loop $\phi: S^1(T) \to Y$, with $Y$ of dimension $2$.
+% Choosing a trivialization of $\phi^*TY$ we can see it as
+% the trivial bundle with fiber $\R^2$, equipped with its standard metric,
+% and a connection
+% \begin{equation}
+%   \nabla_t = \partial_t + A_t
+% \end{equation}
+% where $A_t = \alpha R$,
+% where $R \in \fso(2)$ is the standard rotation generator.
+% The holonomy of $\phi^*TY$ around $S^1(T)$ is then a rotation
+% by $\alpha T$.
+% The corresponding discretized action with $N$ lattice sites is
+% \begin{equation}
+%   S(\psi) = \half \sum_{i=1}^N \left( \psi^1_i \psi^1_{i+1} + \psi^2_i \psi^2_{i+1} + \frac{\alpha T}{N} (\psi^1_i \psi^2_{i+1} - \psi^2_i \psi^1_{i+1}) \right). 
+% \end{equation}
+
+% Now I claim that \fixme{check!}
+% \begin{equation}
+%   W = \int \prod_{i=1}^N \de \psi_i^1 \de \psi_i^2 \, \e^{-S(\psi)} = \re \left[ 2^{-N} \left( 1 + \frac{\I \alpha T}{2N} \right)^{N} \right]
+% \end{equation}
+% so that
+% \begin{equation}
+%   \lim_{N \to \infty} 2^N W = \re \e^{\I \alpha T / 2} = \half \sin \left(\half \alpha T\right).
+% \end{equation}
+
+% However, we could also choose a different trivialization of $\phi^* TY$,
+% differing from the standard one
+% by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
+% but changes $A \to A + g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
+% to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ with
+% $k \in \Z$ (winding number); then 
+% $\alpha T$ is shifted by $2 \pi k$.
+% If $k$ is odd then this reverses the sign of $W$.
 
 % To convince ourselves that this is not just some mistake in
 % how we are doing the discretization, let us consider the 
@@ -3486,58 +3562,76 @@ If $k$ is odd then this reverses the sign of $W$.
 
 % \fixme{...}
 
-\subsection{Supersymmetric heat kernel}
 
-Suppose that $Y$ is even-dimensional, fix a spin structure 
-over $Y$, and 
-let $S = S^0 \oplus S^1$ be the spin bundle over $Y$ as in \fixme{...}.
-We consider the Dirac operator $\dirac: L^2(Y, S) \to L^2(Y, S)$;
-this is a self-adjoint operator, with corresponding Laplacian
-\begin{equation} \label{eq:h-spinorial}
-  \Delta = -\dirac^2.
-\end{equation}
-Then we define a spinorial heat equation,
-just like \eqref{eq:heat-equation} except that we use
-the operator $H = -\half \Delta$
-on $L^2(Y, S)$.
-Here, in contrast with \fixme{...}, we do \ti{not} perturb
-by a potential function $V$, nor do we add a multiple of the
-scalar curvature. \fixme{watch out for tricky scalar curvature terms
-added to path integral though!} 
-The $H$ we choose is singled out by its relation to $\dirac$.
+% \subsection{Supersymmetric heat kernel}
 
-The heat kernel $k_t(x,y)$ in this case is a section of
-$S \boxtimes S^*$ over $Y \times Y$: thus integrating it
-against a section of $S$ gives another section of $S$.
+% Suppose that $Y$ is even-dimensional, fix a spin structure 
+% over $Y$, and 
+% let $SY = S^0 Y \oplus S^1 Y$ be the spin bundle over $Y$ as in \autoref{app:spinors}.
+% Then we define a spinorial heat equation,
+% just like \eqref{eq:heat-equation} except that we use
+% the operator $H = -\half \Delta$
+% on $L^2(Y, SY)$.
+% Here, in contrast with \fixme{...}, we do \ti{not} perturb
+% by a potential function $V$, nor do we add a multiple of the
+% scalar curvature. \fixme{watch out for tricky scalar curvature terms
+% added to path integral though!} 
+% The $H$ we choose is singled out by its relation to $\dirac$.
+
 
 
 \subsection{Supersymmetric path integral and heat kernel}
 
-The relation between the path integral and the heat kernel
-in the supersymmetric case is similar to the bosonic case,
-with the slight complication of the extra ``matrix indices''
-coming from the fact that $k_t$ is not just 
-a function. Because of these extra indices it 
-would not quite make sense to identify
-$Z_{[0,T]_{y_0}^{y_1}}$ with $k_T(y_0, y_1)$.
-\fixme{...}
-
-% \begin{prop} $Z_{[0,T]_{y_0}^{y_1}}$ is the
-% contraction between $k_T(y_0,y_1) \in \Hom(S_{y_0}, S_{y_1})$ 
-% and the element in $\Hom(S_{y_1}, S_{y_0})$ 
-% given by parallel transport with respect 
-% to the Levi-Civita connection in $S$. \fixme{oops, this makes no sense}
-% \end{prop}
-
+What we have just seen is that integrating out the fermions in our supersymmetric
+quantum mechanics has the effect of creating an insertion of $\STr_S \Hol_\phi$.
+This means that the effective theory we get is an ordinary bosonic quantum mechanics,
+but one coupled to the vector bundle $S = S^0 \oplus S^1$, with an unconventional
+sign rule; said differently, the partition function of the supersymmetric theory
+is a \ti{difference}
+\begin{equation}
+  Z_{S^1(T)} = Z(S^0) - Z(S^1)
+\end{equation}
+where $Z(E)$ means the partition function of the bosonic theory coupled to $E$.
+What this means is that the partition function on $S^1(T)$ is the
+\ti{supertrace} of the spinor heat kernel:
 \begin{prop} $Z_{S^1(T)} = \STr \e^{-TH}$.
 \end{prop}
 
-Here $\STr$ means the \ti{supertrace}, i.e.
-\begin{equation}
-  \STr A = \Tr_{V^0} A - \Tr_{V^1} A
-\end{equation}
+This function is remarkably simple to analyze:
+\begin{prop}[Supertrace is the index]
+$\STr \e^{-T H} = \ind \dirac$.
+\end{prop}
+\begin{pf}
+This just uses the fact that
+$\cH = L^2(Y,SY)$ is a unitary representation of
+the algebra spanned by $\dirac$ and $\Delta$.
 
-\fixme{explain that this is the index}
+First we show that $\ker \Delta = \ker \dirac$.
+Indeed, obviously $\ker \dirac \subset \ker \Delta$. Conversely, 
+if $\psi \in \ker \Delta$ then we have
+\begin{equation}
+  \norm{\dirac \psi}^2 = \IP{\dirac \psi, \dirac \psi} = \IP{\psi, \dirac^2 \psi} = \IP{\psi, -\Delta \psi} = 0
+\end{equation}
+and thus $\psi \in \ker \dirac$.
+
+\fixme{this is a little informal}
+Since $[\dirac, \Delta] = 0$, $\Delta$ is central, and thus
+it acts as a multiple of the identity in each irreducible
+representation. So, consider an irreducible representation
+$V$ in which $-\Delta = E$.
+Then it is straightforward to see there are only three
+possibilities:
+\begin{itemize}
+  \item $\dim V = 1 \vert 1$, $E > 0$,
+  \item $\dim V = 1 \vert 0$, $E = 0$,
+  \item $\dim V = 0 \vert 1$, $E = 0$.
+\end{itemize}
+Each representation of dimension $1 \vert 1$ contributes
+$\e^{-TE} - \e^{-TE} = 0$ to $\STr_\cH \e^{-TH}$.
+The representations of dimension $1 \vert 0$ contribute
+in total $\dim \ker \dirac^0$, and those of dimension $0 \vert 1$
+give $- \dim \ker \dirac^1$.
+\end{pf}
 
 The next proposition makes it a bit clearer why spinors are
 involved in the story. Fix a section $\gamma$ of $TY$. Then
@@ -3559,10 +3653,23 @@ and similarly for products of more $\cO_\gamma(t)$.
 \fixme{give a formal discretization calculation}
 
 
+\subsection{Localization and the index theorem}
 
-\subsection{The index theorem}
-
-\fixme{...}
+Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
+similar to what we did in \fixme{...}.
+Indeed, at least formally, the path integral we want to do is an infinite-dimensional
+version of the one given there, so we can try to apply the ABBV formula
+\fixme{...}.
+In this analogy the bosonic part of the action plays the role of $H$,
+the fermionic part is $\omega$, $M$ is the loop space $M = \cL Y$,
+and the $U(1)$ action on $M$ is by
+rotation of the loops. 
+The fixed points of this $U(1)$ action are thus the \ti{constant} loops,
+which make up a copy of $Y$ inside $M$.
+Formally applying \fixme{...} would thus lead to
+\begin{equation}
+  Z_{S^1(T)} = \int_M \fixme{...}
+\end{equation}
 
 
 \appendix
@@ -3571,7 +3678,7 @@ and similarly for products of more $\cO_\gamma(t)$.
 
 Here I collect a little background material for convenience.
 
-\subsection{Spinors}
+\subsection{Spinors} \label{app:spinors}
 
 Good references for this are \cite{MR1031992,MR1367507}.
 
@@ -3634,7 +3741,13 @@ where all $v_i$ have $\IP{v_i,v_i} = 1$.
 \begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^0(V)$.
 \end{defn}
 
-\begin{exercise} Show that $\Spin(V)$ acts on $V \subset \Cliff(V)$ 
+Now any $v \in V \subset \Pin(V)$ acts on $V \subset \Cliff(V)$
+by conjugation:
+\begin{exercise}
+Show that this action is just the reflection in $v$.
+\end{exercise}
+More generally,
+\begin{exercise} Show that $\Pin(V)$ acts on $V \subset \Cliff(V)$ 
 by conjugation, and that this action gives a map $\Spin(V) \to \SO(V)$ which 
 is a double cover.
 \end{exercise}
@@ -3652,8 +3765,6 @@ double-covering map above identifies
 $\Spin(n)$ as the universal covering of $\SO(n)$. When $n=2$, both $\Spin(2)$
 and $\SO(2)$ are the circle group, and this map is just the double-covering
 map $\theta \to 2 \theta$.
-
-
 
 \begin{exercise} Show that:
 \begin{itemize}
@@ -3694,6 +3805,9 @@ spin structure by the double cover, to get another spin structure.)
 \end{prop}
 \begin{pf} \fixme{because it has an $S^2$ with normal bundle $\cO(1) \oplus \cO(2)$}
 \end{pf}
+
+From now on we specialize to even dimensions, since this is what we will use in
+the main text.
 
 \begin{prop}[Spin representations] 
 $\Cliff(2n)$ admits a $\Z/2\Z$-graded irreducible complex representation, $S = S^0 \oplus S^1$. 
@@ -3768,8 +3882,8 @@ $\Delta: C^\infty(SX) \to C^\infty(SX)$ given by
 Note that on $X = \R^2$, relative to the trivialization of $SX$ we gave above, 
 $\Delta$ is just the identity matrix times the usual Laplacian on $C^\infty(\R^2)$.
 What is interesting is that $\dirac$ provides a \ti{square root} of $-\Delta$. 
-This is one of the
-nice features of spinors: for ordinary functions, the square root of $-\Delta$
+This is one of the nice features of spinors: in contrast, 
+for ordinary functions, the square root of $-\Delta$
 cannot be realized as a local differential operator.
 
 
@@ -3845,7 +3959,6 @@ is the characteristic class of $TX$ associated to the symmetric function
 \begin{equation}
   \prod_i \frac{y_i/2}{\sinh(y_i/2)} = \prod_i \left( 1 - \frac{y_i^2}{24} + \frac{7 y_i^4}{5760} + \cdots \right)
 \end{equation}
-in formal variables $y_i$.
 \end{defn}
 So $\hat A(X)$ is a sum of forms in degrees $4k$.
 We can expand $\hat A(X)$ in terms of Pontryagin classes:
@@ -3861,7 +3974,8 @@ We have
 \end{thm}
 This implies in particular that $\int_X \hat A(X)$ is actually an integer, so
 e.g. for a spinnable $4$-manifold, $\int_X p_1(X)$ is a multiple of $24$.
-(In fact, for a manifold of dimension $8n+4$, $\ind \dirac_0$ is an \ti{even} integer,
+(Even more is true: if $X$ is a spinnable
+manifold of dimension $8n+4$, $\int_X \hat A(X)$ is an \ti{even} integer,
 because \fixme{...})
 
 
