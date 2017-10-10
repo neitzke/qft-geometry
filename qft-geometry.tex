@@ -3569,8 +3569,7 @@ and similarly for products of more $\cO_\gamma(t)$.
 
 \section{Background}
 
-Here I collect a little background material for convenience; I will probably
-not lecture on this material.
+Here I collect a little background material for convenience.
 
 \subsection{Spinors}
 
@@ -3766,12 +3765,13 @@ $\Delta: C^\infty(SX) \to C^\infty(SX)$ given by
 \end{equation}
 \end{defn}
 
-In short, $\dirac$ gives a \ti{square root} of $-\Delta$. This is one of the
+Note that on $X = \R^2$, relative to the trivialization of $SX$ we gave above, 
+$\Delta$ is just the identity matrix times the usual Laplacian on $C^\infty(\R^2)$.
+What is interesting is that $\dirac$ provides a \ti{square root} of $-\Delta$. 
+This is one of the
 nice features of spinors: for ordinary functions, the square root of $-\Delta$
 cannot be realized as a local differential operator.
 
-Note that on $X = \R^2$, relative to the trivialization of $SX$ we gave above, 
-$\Delta$ is just the identity matrix times the usual Laplacian on $C^\infty(\R^2)$.
 
 
 \subsection{Index of the Dirac operator}
@@ -3795,10 +3795,10 @@ Now we consider the \ti{index}
 We are going to give a formula for $\ind \dirac^0$ in terms of characteristic
 classes.
 Recall that given a symmetric function $C(\{y_i\})$ where the $y_i$ are formal variables, 
-we can define a corresponding characteristic class of $\SO(2n)$-bundles over $X$: 
+we can define a corresponding characteristic class of $\SO(n)$-bundles over $X$: 
 to construct it, we locally block-diagonalize the curvature 
-$F = \bigoplus_i \begin{pmatrix} 0 & F_i \\ -F_i & 0 \end{pmatrix} \in \fso(2n)$
-and then take the form $C(\{\frac{F_i}{2\pi}\}) \in \Omega^*(X)$.\footnote{We 
+$F = \bigoplus_i \begin{pmatrix} 0 & F_i \\ -F_i & 0 \end{pmatrix} \in \fso(n)$
+and then take the form $C(\{\frac{F_i}{2\pi\I}\}) \in \Omega^*(X)$.\footnote{We 
 will only use functions invariant under $y_i \to -y_i$, so we actually 
 get characteristic classes of ${\mathrm O}(n)$-bundles.}
 
@@ -3812,8 +3812,17 @@ It is a sum
   p(X) = 1 + p_1(X) + p_2(X) + \cdots, \qquad p_k(X) \in \Omega^{4k}(X).
 \end{equation}
 \end{defn}
+
+\begin{example}
+We have $p_1(X) = -\frac{1}{4\pi^2} \Tr F \wedge F$, where
+$F \in \Omega^2(\fso(n))$, and $\Tr$ denotes
+the usual trace, thinking of elements of $\fso(n)$ as $n \times n$ matrices.
+\end{example}
+
 The forms $p_k(X)$ are actually de Rham representatives of classes in $H^{4k}(X,\Z)$;
-thus integrating appropriate combinations of them gives integers.
+thus integrating them, or their products, gives integers.
+But as we will see momentarily, they have considerably stronger 
+divisibility properties than mere integrality!
 
 \begin{example} The first nontrivial examples of Pontryagin classes arise in
 dimension $4$, where we have:
@@ -3822,12 +3831,13 @@ dimension $4$, where we have:
 \end{equation}
 \end{example}
 These integers have a simple interpretation:
-\begin{prop} If $X$ is a $4$-manifold then $\int_X p_1(X) = 3 \, {\mathrm{sign}}(X)$.
-\end{prop}
+\begin{thm} If $X$ is a $4$-manifold then $\int_X p_1(X) = 3 \, {\mathrm{sign}}(X)$.
+\end{thm}
 
 \begin{exercise} Use \eqref{eq:pontr-examples} to
-show that there is no orientation-preserving diffeomorphism of $\C\PP^2$ or $K3$:
-these manifolds are, in some essential way, \ti{chiral}.
+show that there is no orientation-reversing diffeomorphism of $\C\PP^2$ or $K3$:
+these manifolds are, in some essential way, \ti{chiral} --- in contrast to $S^4$
+for which the antipodal map is orientation-reversing.
 \end{exercise}
 
 \begin{defn} If $X$ is a compact Riemannian manifold, $\hat A(X) \in \Omega^*(X)$
@@ -3849,6 +3859,10 @@ We have
   \ind \dirac_0 = \int_X \hat A(X).
 \end{equation}
 \end{thm}
+This implies in particular that $\int_X \hat A(X)$ is actually an integer, so
+e.g. for a spinnable $4$-manifold, $\int_X p_1(X)$ is a multiple of $24$.
+(In fact, for a manifold of dimension $8n+4$, $\ind \dirac_0$ is an \ti{even} integer,
+because \fixme{...})
 
 
 \subsection{Hodge theory}
