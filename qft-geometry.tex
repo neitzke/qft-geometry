@@ -3010,7 +3010,7 @@ of shifting by $\alpha$, $\psi(x) \mapsto \psi(x + \alpha)$. Compute $\Tr_{\cH} 
 (You should find a theta function with the argument $z$ nonzero, generalizing \eqref{eq:zs1-theta-function}.)
 \end{exercise}
 
-\subsection{Infinite-dimensional determinants}
+\subsection{Infinite-dimensional determinants} \label{sec:infinite-dets}
 
 In the examples of \autoref{sec:0d-simple-examples} the discretized 
 path integrals involve 
@@ -3080,7 +3080,7 @@ function $M = 2S$ are
   \omega^2 T^2, \qquad 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2} \text{ (with multiplicity $2$) for all $n > 0$},
 \end{equation}
 which gives\footnote{We use the product formula
-\begin{equation}
+\begin{equation} \label{eq:sinh-formula}
   \sinh x = x \prod_{n=1}^\infty \left( 1 + \frac{x^2}{\pi^2 n^2} \right).
 \end{equation}
 }
@@ -3095,7 +3095,8 @@ What is puzzling about this is that it is not clear \ti{a priori} why the norm
 arbitrary Riemannian $Y$ with $V = 0$ (under some nondegeneracy conditions);
 there it says the correct norm to take is a Sobolev $H^1$ norm, which is indeed
 what we did above.
-Still I am not completely satisfied with my understanding.
+\fixme{we can verify more directly that the two correspond by making the 
+appropriate rescalings in the discretization}
 
 \begin{exercise} Carry out a similar analysis for \autoref{exa:sigma-model-s1},
 relating the partition function $Z_{S^1(T)}$ we found there to determinants of operators 
@@ -3454,13 +3455,21 @@ fermion path integral, then the troubling
 sign ambiguity does not occur.
 
 Now let us see how to study $W(\phi,F_\phi)$ explicitly,
-following a calculation given in
-\cite{MR87i:81237,MR816738}:
+roughly following a calculation given in
+\cite{MR87i:81237,MR816738}.
+
+Recall the discussion in \autoref{sec:infinite-dets}: given a bilinear 
+pairing
+and a metric on a vector space $V$, we can extract a number, which
+in finite dimensions is naturally the result of a Gaussian integral,
+and which we use to \ti{define} Gaussian integrals in infinite
+dimensions.
 
 \begin{prop} \label{prop:regularized-det-fermion}
-Relative to some choice of metric in $\Gamma(\phi^* TY)$,
-the determinant of the skew pairing $\IP{\psi, \nabla_t \psi}$
-is $\det(1 - \Hol_\phi)$, where $\Hol_\phi$ is the
+Relative to the Sobolev $H^1$ norm in $\Gamma(\phi^* TY)$,
+the determinant of the skew bilinear pairing $\IP{\psi, \nabla_t \psi}$
+is (up to an overall constant)
+$\det(1 - \Hol_\phi)$, where $\Hol_\phi$ is the
 holonomy of $\phi^* TY$.
 \end{prop}
 
@@ -3470,13 +3479,25 @@ of $\Hol_\phi$.
 (To see this just diagonalize $\nabla_t$ acting on complex sections:
 then its diagonal entries look like $\partial_t \pm \I \alpha_i / T$, with eigenfunctions
 $\e^{2 \pi \I k t / T}$.)
-Thus formally we want to compute the infinite product
+Thus formally the determinant of this operator would be the infinite product
 \begin{equation}
-  \prod_{k \in \Z} \prod_{i=1}^n \frac{2 \pi \I}{T} \left( k + \frac{\alpha_i}{2\pi} \right)\left( k - \frac{\alpha_i}{2\pi} \right).
+  \prod_{k \in \Z} \prod_{i=1}^n - \frac{4 \pi^2}{T^2} \left( k + \frac{\alpha_i}{2\pi} \right)\left( k - \frac{\alpha_i}{2\pi} \right).
 \end{equation}
 This infinite product has a double zero at $\alpha_i = 2 \pi k$, for any $k$.
-After regularization \fixme{choice of metric enters here} 
-it is replaced by a function with the same zeroes,
+
+Now, we take the 
+Sobolev $H^1$ norm in $\Gamma(\phi^* TY)$; then the eigenfunctions are orthogonal
+but not orthonormal: for large $k$,
+the $k$-th eigenfunction has squared-norm $\sim k^2 T^2$. 
+Thus the determinant relative to this norm will be a product of factors which
+for large $k$ go like
+\begin{equation}
+  \prod_{k} \prod_{i=1}^n \left( 1 + \frac{\alpha_i}{2\pi k} \right)\left( 1 - \frac{\alpha_i}{2\pi k} \right).
+\end{equation}
+In particular it is now convergent, and must converge to an honest function of 
+the $\alpha_i$, with zeroes at $\alpha_i = 2 \pi k$, which moreover is periodic 
+as $\alpha_i \to \alpha_i + 2 \pi$. This determines it
+up to a constant as
 $\prod_{i=1}^n (2 \sin \frac{\alpha_i}{2})^2$. The next lemma then finishes the proof.
 \end{pf}
 
@@ -3486,6 +3507,8 @@ If $A \in \SO(2n)$ has eigenvalues $\e^{\pm \I \alpha_i}$ then
   \det(1 - A) = \prod_{i=1}^n \left( 2 \sin \frac{\alpha_i}{2} \right)^2.
 \end{equation}
 \end{lem}
+
+\fixme{comment on zeta reg?}
 
 What we are really after is the Pfaffian of the pairing $\IP{\psi, \nabla_t \psi}$, 
 not the determinant; so we need to take a square root of $\det(1 - \Hol_\phi)$.
@@ -3630,7 +3653,9 @@ is the supertrace of spinor heat flow]
 \begin{equation}
 Z_{S^1(T)} = \STr_{\cH} \e^{-TH},
 \end{equation}
-where $H = -\half \Delta$ acting on $\cH = L^2(Y, SY)$.
+where $H = -\half \Delta$ acting on $\cH = L^2(Y, SY)$. \fixme{should be careful
+about which Laplacian we use here: scalar curvature terms could intervene, but somehow
+they don't}
 \end{prop}
 
 This function is remarkably simple to analyze:
