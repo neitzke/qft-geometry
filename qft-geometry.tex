@@ -3754,9 +3754,13 @@ From this we compute the equivariant Euler form, formally:
 This product has zeroes at all $R_i = \pm k$. It formally 
 regulates to (up to an overall constant):
 \begin{equation}
-  \Euler(NF) = \prod_{i=1}^n \frac{\sin \pi R_i}{\pi R_i} = \hat A(Y)^{-1}
+  \Euler(NF) = \prod_{i=1}^n \frac{\sin \pi R_i}{\pi R_i}
 \end{equation}
-where $\hat A(Y)$ was defined in \autoref{def:ahat}.
+This almost matches $\hat A(Y)^{-1}$ defined in \autoref{def:ahat}, 
+but not quite: its $k$-form part 
+differs by a rescaling by $(4 \pi^2)^k$.
+\fixme{but up to a constant we're OK; can we fix the constant?}
+
 Thus the formal \eqref{eq:zs1-abbv-formal} becomes
 \begin{equation}
   Z_{S^1(T)} = \int_Y \hat A(Y),
