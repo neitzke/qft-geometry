@@ -3214,13 +3214,13 @@ energy eigenvalue of the quartic oscillator.
 %   S(\psi) = \int \de t \, \half g(\psi, \nabla_t \psi).
 % \end{equation}
 
-\subsection{Quantum mechanics coupled to a vector bundle}
+\subsection{Quantum mechanics coupled to a vector bundle} \label{sec:1d-qft-with-bundle}
 
 Suppose $Y$ is a Riemannian manifold, carrying a metric vector bundle $E$
 with connection $\nabla$, 
 and a Laplace-type operator $\Delta: C^\infty(Y,E) \to C^\infty(Y,E)$,
 \begin{equation}
-  \Delta = \nabla^* \nabla + V
+  \Delta = \nabla^* \nabla + V.
 \end{equation}
 Then we can define a heat equation coupled to $E$,
 just like \eqref{eq:heat-equation} except that we use
@@ -3248,7 +3248,7 @@ holonomy itself, so that $Z_X$ is not a number but a map
 $E_{y_0} \to E_{y_1}$.
 \end{itemize}
 Then we have:
-\begin{prop}
+\begin{prop}[Partition function of $1$-d QFT coupled to a vector bundle on the target] \label{prop:trace-coupled}
 $Z_{S^1(T)} = \Tr_{L^2(E)} \e^{-T H}$.
 \end{prop}
 
@@ -3460,7 +3460,7 @@ fermion path integral, then this sign ambiguity does not occur.
 
 Moreover we can \ti{calculate} $W(\phi,F_\phi)$.
 This is done for example in
-\cite{MR816738}:
+\cite{MR87i:81237,MR816738}:
 
 \begin{prop} \label{prop:regularized-det-fermion}
 With some regularization \fixme{explain this}
@@ -3499,10 +3499,11 @@ says
 (\e^{\I \theta / 2} - \e^{-\I \theta / 2})^2 = -(1 - \e^{\I \theta}) (1 - \e^{-\I \theta}).  
 \end{equation}
 More generally it follows easily from an explicit formula for the character of the
-spin representation: indeed, as a representation of $SO(2)^n \subset SO(2n)$,
-$S$ is the tensor product of $2$-dimensional representations; $S^0$ is \fixme{...}
+spin representation: as a representation of $SO(2)^n \subset SO(2n)$,
+$S$ is the tensor product of $2$-dimensional representations. Moreover, the subrepresentations
+$S^0$ and $S^1$ are distinguished by the action of the diagonal $SO(2) \subset SO(2)^n$:
+\fixme{...}
 \end{pf}
-
 
 Motivated by \autoref{prop:regularized-det-fermion} and \autoref{prop:supertrace-spin-sqrt},
 we claim that in fact the integral over the fermions is
@@ -3599,12 +3600,18 @@ but one coupled to the vector bundle $S = S^0 \oplus S^1$, with an unconventiona
 sign rule; said differently, the partition function of the supersymmetric theory
 is a \ti{difference}
 \begin{equation}
-  Z_{S^1(T)} = Z(S^0) - Z(S^1)
+  Z_{S^1(T)} = Z_{S^1(T);S^0} - Z_{S^1(T);S^1}
 \end{equation}
-where $Z(E)$ means the partition function of the bosonic theory coupled to $E$.
-What this means is:
+where $Z_{S^1(T);E}$ means the partition function of the bosonic theory coupled to
+the vector bundle $E$,
+in the sense of \autoref{sec:1d-qft-with-bundle}.
+Using \autoref{prop:trace-coupled}, we then have
 \begin{prop}[Partition function of supersymmetric quantum mechanics
-is the supertrace of spinor heat flow] $Z_{S^1(T)} = \STr \e^{-TH}$.
+is the supertrace of spinor heat flow] 
+\begin{equation}
+Z_{S^1(T)} = \STr \e^{-TH},
+\end{equation}
+where $H$ is the operator $-\half \Delta$ acting on $L^2(Y, SY)$.
 \end{prop}
 
 This function is remarkably simple to analyze:
@@ -3667,21 +3674,36 @@ and similarly for products of more $\cO_\gamma(t)$.
 \subsection{Localization and the index theorem}
 
 Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
-similar to what we did in \fixme{...}.
-Indeed, at least formally, the path integral we want to do is an infinite-dimensional
-version of the one given there, so we can try to apply the ABBV formula
-\fixme{...}.
-In this analogy the bosonic part of the action plays the role of $H$,
-the fermionic part is $\omega$, $M$ is the loop space $M = \cL Y$,
-and the $U(1)$ action on $M$ is by
-rotation of the loops. 
-The fixed points of this $U(1)$ action are thus the \ti{constant} loops,
-which make up a copy of $Y$ inside $M$.
-Formally applying \fixme{...} would thus lead to
-\begin{equation}
-  Z_{S^1(T)} = \int_M \fixme{...}
-\end{equation}
+similar to what we did in \autoref{sec:0d-sigma-model-localization}.
+Indeed, the path integral we want to do is an infinite-dimensional
+version of the one given there, where:
+\begin{itemize} 
+\item $M$ is the loop space $M = \cL Y$,
+\item the $U(1)$ action on $M$ is by rotation of the loops,
+\item $H$ is the bosonic part of the action \eqref{eq:1d-susy-action}, $\half \int g(\dot\phi,\dot\phi)$,
+\item $\omega$ is the fermionic part of \eqref{eq:1d-susy-action}, $\half \int g(\psi, \nabla_t \psi)$.
+\end{itemize}
 
+\begin{exercise} Verify that $H$ is indeed a generating function for the $U(1)$ action, i.e.
+that $\iota_Y \omega = \de H$. \fixme{watch out for factor of 2 here}
+\end{exercise}
+
+\begin{exercise} Verify that the odd symmetry $Q$ corresponds to $\de + \iota_Y$.
+\end{exercise}
+\fixme{notation problem: used $Y$ for the vector field earlier, now using it for target}
+
+We are as usual free to choose any $U(1)$-invariant metric on $M$; we choose the
+one induced from the metric on $Y$.
+
+Now, formally applying \autoref{thm:abbv} would lead to
+\begin{equation} \label{eq:zs1-abbv-formal}
+  Z_{S^1(T)} = \int_F \frac{\e^{H + \omega}}{\Euler(NF)}
+\end{equation}
+where $F \subset \cL Y$ is the fixed locus of the $U(1)$ action.
+But this is just the space of \ti{constant} loops,
+which make up a copy of $Y$ inside $\cL Y$.
+Restricted to these loops we have $H = \omega = 0$. It still remains to evaluate
+the form $\Euler(NF)$.
 
 \appendix
 
