@@ -3385,8 +3385,6 @@ actually depends.
 
 \subsection{Integrating out fermions} \label{sec:susy-discretization}
 
-\fixme{the below is still preliminary}
-
 \fixme{warning, doing this by discretization seems to be subtle, because
 of fermion doubling problem! need to give some explicit way of understanding
 the result here}
@@ -3406,64 +3404,61 @@ the result here}
 % supported at the discretization points $t_i$, but the skew-symmetric
 % pairing $g(\psi_1, \nabla_t \psi_2)$ is still well defined.
 
-The presence of the fermions leads to various new phenomena.
-For example:
-\begin{exercise} Write out the discretized action $S_N$, 
-and show that $Z_{S^1(T);N} = 0$ 
-for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
-\end{exercise}
+% The presence of the fermions leads to various new phenomena.
+% For example:
+% \begin{exercise} Write out the discretized action $S_N$, 
+% and show that $Z_{S^1(T);N} = 0$ 
+% for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
+% \end{exercise}
 
 When $Y$ is even-dimensional,
-say $\dim Y = 2n$, the discretized path integral
-need not be zero. Let us examine it more closely.
-To write down the discretized action and measure concretely, 
-we need to choose an orthonormal frame
-in each tangent space $T_{y_i} Y$.
-Then, we when we take the limit $N \to \infty$, we need 
-to choose these frames in such a way that they vary smoothly ---
-i.e. for each $\phi: X \to Y$ we should choose an orthonormal
-trivialization $F_\phi$
-of $\phi^* TY$. Then the questions arise: does the $N \to \infty$ limit
-of the discretized partition functions $Z_{X;N}$ 
-exist, and if so, is it  
-independent of the limiting frames $F_\phi$?
-The answer is \ti{almost} yes, but there is a topological subtlety
-which intervenes, as follows.
+say $\dim Y = 2n$, the path integral of our
+supersymmetric theory
+need not be zero. Let us examine it more closely,
+supposing that $X = S^1(T)$.
 
-First suppose $X = S^1(T)$. Then, for each fixed $\phi$, 
+For fixed $\phi: S^1(T) \to Y$, the integral over the fermions is formally
+\begin{equation}
+  W(\phi) = \int_{\Pi \Gamma(\phi^* TY)} \de \vec\psi \, \e^{- \half \int_{0}^T g(\psi, \nabla_t \psi)} 
+\end{equation}
+We claim that
+here an important topological subtlety appears: in order to regulate
+the theory, i.e. to actually define this integral, 
+we will need to fix an orthonormal
+trivialization $F_\phi$ of $\phi^* TY$,
+and the path integral $W(\phi)$ will actually depend on this choice
+(so it is more accurately written $W(\phi, F_\phi)$.)
+For each fixed $\phi$, 
 the space of possible $F_\phi$ is a torsor
 for the loop group $\cL\SO(2n)$. In particular, it
 divides up into connected components, which are a torsor for
 $\pi_1(\SO(2n))$; this group is $\Z$ for $n=1$ and $\Z / 2\Z$
 for $n>1$. Let $\tau$ denote the generator.
-Now, for fixed $\phi$, the integral over the fermions has the 
-form
-\begin{equation}
-  W(\phi, F_\phi) = \int_{\Pi \Gamma(\phi^* TY)} \de \vec\psi \e^{- \half \int_{0}^T g(\psi, \nabla_t \psi)} 
-\end{equation}
-which as usual we define by discretization and an $N \to \infty$ limit.
 Naively $W(\phi, F_\phi)$ would be independent of $F_\phi$,
 but instead we have the following:
 
-\begin{prop} If $X = S^1(T)$, then $W(\phi, F_\phi)$ exists.
+\begin{prop}
 $W(\phi, F_\phi)$ is invariant under small deformations of $F_\phi$, but
 $W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
 \end{prop}
 
-This sign ambiguity would prevent us from defining the path
+For general $Y$
+this sign ambiguity would prevent us from defining the path
 integral, at least in the ordinary sense. To get rid of the problem
-we fix a spin structure on $Y$. This picks out a restricted class
+we assume $Y$ is spinnable, and then 
+fix a spin structure on $Y$. This picks out a restricted class
 of orthonormal trivializations $F_\phi$, namely those which lift
 to trivializations of the $\Spin(2n)$-bundle covering $\phi^* TY$.
 If we use only these trivializations in defining our discretized
-fermion path integral, then this sign ambiguity does not occur.
+fermion path integral, then the troubling 
+sign ambiguity does not occur.
 
-Moreover we can \ti{calculate} $W(\phi,F_\phi)$.
-This is done for example in
+Now let us see how to study $W(\phi,F_\phi)$ explicitly,
+following a calculation given in
 \cite{MR87i:81237,MR816738}:
 
 \begin{prop} \label{prop:regularized-det-fermion}
-With some regularization \fixme{explain this}
+Relative to some choice of metric in $\Gamma(\phi^* TY)$,
 the determinant of the skew pairing $\IP{\psi, \nabla_t \psi}$
 is $\det(1 - \Hol_\phi)$, where $\Hol_\phi$ is the
 holonomy of $\phi^* TY$.
@@ -3471,18 +3466,46 @@ holonomy of $\phi^* TY$.
 
 \begin{pf} The eigenvalues of the operator $\nabla_t$ are
 $\frac{2 \pi \I}{T}(k \pm \frac{\alpha_i}{2\pi})$, $k \in \Z$, where $\e^{\pm \I \alpha_i}$ are the eigenvalues
-of $\Hol_\phi$. Thus formally we want to compute the infinite product of these eigenvalues.
-After regularization this infinite product is replaced by a function with the same zeroes,
-$\prod_{i=1}^n (\sin \pi \alpha_i)^2$. \fixme{spell this out a bit more}
-By direct computation this agrees with $\det(1 - \Hol_\phi)$.
+of $\Hol_\phi$. 
+(To see this just diagonalize $\nabla_t$ acting on complex sections:
+then its diagonal entries look like $\partial_t \pm \I \alpha_i / T$, with eigenfunctions
+$\e^{2 \pi \I k t / T}$.)
+Thus formally we want to compute the infinite product
+\begin{equation}
+  \prod_{k \in \Z} \prod_{i=1}^n \frac{2 \pi \I}{T} \left( k + \frac{\alpha_i}{2\pi} \right)\left( k - \frac{\alpha_i}{2\pi} \right).
+\end{equation}
+This infinite product has a double zero at $\alpha_i = 2 \pi k$, for any $k$.
+After regularization \fixme{choice of metric enters here} 
+it is replaced by a function with the same zeroes,
+$\prod_{i=1}^n (2 \sin \frac{\alpha_i}{2})^2$. The next lemma then finishes the proof.
 \end{pf}
 
-The Pfaffian we are after is then a square root of $\det(1 - \Hol_\phi)$.
-There is a natural such square root available:
+\begin{lem}
+If $A \in \SO(2n)$ has eigenvalues $\e^{\pm \I \alpha_i}$ then
+\begin{equation} \label{eq:detminus}
+  \det(1 - A) = \prod_{i=1}^n \left( 2 \sin \frac{\alpha_i}{2} \right)^2.
+\end{equation}
+\end{lem}
+
+What we are really after is the Pfaffian of the pairing $\IP{\psi, \nabla_t \psi}$, 
+not the determinant; so we need to take a square root of $\det(1 - \Hol_\phi)$.
+Since \eqref{eq:detminus} represents this quantity as a square, it 
+gives a natural-looking choice of square root, namely
+$\prod (2 \sin \frac{\alpha_i}{2})$. We claim that this is
+indeed the correct square root to take. Note that this
+requires us to lift $\Hol_\phi$ to $\Spin(2n)$, since it 
+changes by a sign under $\alpha_i \to \alpha_i + 2 \pi$.\footnote{We might
+also have decided to just always take the \ti{positive} square root.
+Then there would be no sign ambiguity, but some lack of smoothness as a
+function of $\phi$; it's not clear that this is fatal, but it does seem
+a little off-putting, at least.}
+
+For later purposes it will be convenient to have another interpretation
+of this answer which brings in the spin representation:
 \begin{prop} \label{prop:supertrace-spin-sqrt}
 If $A \in \Spin(2n)$ then 
-\begin{equation}
-(\STr_S A)^2 = (-1)^n \det_V (1 - A),
+\begin{equation} \label{eq:str-sqrt}
+\det\nolimits_V (1 - A) = (-1)^n (\STr_S A)^2,
 \end{equation}
 where $V$ denotes
 the vector representation.
@@ -3493,25 +3516,21 @@ Here $\STr$ means the \ti{supertrace}, i.e.
 \end{equation}
 
 \begin{pf}
-When $n = 1$, \autoref{prop:supertrace-spin-sqrt} 
-says 
-\begin{equation}
-(\e^{\I \theta / 2} - \e^{-\I \theta / 2})^2 = -(1 - \e^{\I \theta}) (1 - \e^{-\I \theta}).  
-\end{equation}
-More generally it follows easily from an explicit formula for the character of the
-spin representation: as a representation of $SO(2)^n \subset SO(2n)$,
-$S$ is the tensor product of $2$-dimensional representations. Moreover, the subrepresentations
-$S^0$ and $S^1$ are distinguished by the action of the diagonal $SO(2) \subset SO(2)^n$:
-\fixme{...}
+When $n = 1$, from our description of $S$ in \autoref{app:spinors}, we
+see immediately that $\STr_S A$ is simply $(\e^{\I \alpha / 2} - \e^{-\I \alpha / 2}) = 2 \I \sin \frac{\alpha}{2}$.
+More generally we can block-diagonalize to reduce to the 
+case where $A \in \SO(2)^n \subset \SO(2n)$
+and use the fact that, as a representation of $\SO(2)^n \subset \SO(2n)$,
+$S$ is the tensor product of $2$-dimensional representations,
+and the grading on $S$ is the induced grading.
 \end{pf}
 
 Motivated by \autoref{prop:regularized-det-fermion} and \autoref{prop:supertrace-spin-sqrt},
-we claim that in fact the integral over the fermions is
+we propose that the integral over the fermions should be interpreted as
+\fixme{watch the $(-1)^n$}
 \begin{equation}
   W(\phi, F_\phi) = \STr_S \Hol_\phi.
 \end{equation}
-(Though strictly speaking all we have really shown is that this is a very natural square
-root to pick.)
 
 % \subsection{A toy model}
 
@@ -3609,14 +3628,14 @@ Using \autoref{prop:trace-coupled}, we then have
 \begin{prop}[Partition function of supersymmetric quantum mechanics
 is the supertrace of spinor heat flow] 
 \begin{equation}
-Z_{S^1(T)} = \STr \e^{-TH},
+Z_{S^1(T)} = \STr_{\cH} \e^{-TH},
 \end{equation}
-where $H$ is the operator $-\half \Delta$ acting on $L^2(Y, SY)$.
+where $H = -\half \Delta$ acting on $\cH = L^2(Y, SY)$.
 \end{prop}
 
 This function is remarkably simple to analyze:
 \begin{prop}[Supertrace of spinor heat flow is the index]
-$\STr \e^{-T H} = \ind \dirac$.
+$\STr \e^{-T H} = \ind \dirac^0$.
 \end{prop}
 \begin{pf}
 This just uses the fact that
@@ -3632,7 +3651,6 @@ if $\psi \in \ker \Delta$ then we have
 \end{equation}
 and thus $\psi \in \ker \dirac$.
 
-\fixme{this is a little informal}
 Since $[\dirac, \Delta] = 0$, $\Delta$ is central, and thus
 it acts as a multiple of the identity in each graded irreducible
 representation. So, consider a graded irreducible representation
@@ -3651,6 +3669,15 @@ in total $\dim \ker \dirac^0$, and those of dimension $0 \vert 1$
 give $- \dim \ker \dirac^1$.
 \end{pf}
 
+The upshot of this section is that supersymmetric quantum mechanics
+computes the index of the Dirac operator:
+\begin{equation}
+  Z_{S^1(T)} = \ind \dirac^0.
+\end{equation}
+
+
+\subsection{Quantization of local operators}
+
 The next proposition makes it a bit clearer why spinors are
 involved in the story. Fix a section $\gamma$ of $TY$. Then
 for any $t \in X$ there is a corresponding odd 
@@ -3668,7 +3695,9 @@ $\IP{\cO_{\gamma_1}(t_1) \cO_{\gamma_2}(t_2)}_{S^1(T)} = \STr (\e^{-t_1 H} \hat\
 and similarly for products of more $\cO_\gamma(t)$.
 \end{prop}
 
-\fixme{give a formal discretization calculation}
+\fixme{give some sketch proof? discretization?}
+
+\fixme{supercurrent which maps to the Dirac operator}
 
 
 \subsection{Localization and the index theorem}
@@ -3701,9 +3730,49 @@ Now, formally applying \autoref{thm:abbv} would lead to
 \end{equation}
 where $F \subset \cL Y$ is the fixed locus of the $U(1)$ action.
 But this is just the space of \ti{constant} loops,
-which make up a copy of $Y$ inside $\cL Y$.
-Restricted to these loops we have $H = \omega = 0$. It still remains to evaluate
-the form $\Euler(NF)$.
+which make up a copy of $Y$ inside $\cL Y$, i.e. $F \simeq Y$.
+Restricted to $F$, we have $H = \omega = 0$. It just 
+remains to evaluate the form $\Euler(NF)$. 
+
+First, what is $NF$?
+A tangent vector to the constant loop $\phi(t) = y$
+is just a map $S^1 \to T_y Y$. 
+Fourier expanding, the space of these maps is
+$T_y Y \oplus \bigoplus_{k > 0} (T_y Y \otimes \R^2)$; using our metric
+on $\cL Y$ to project off the tangent bundle $TF$, 
+we get $NF = \bigoplus_{k > 0} (T_y Y \otimes \R^2)$.
+The $U(1)$ action on $NF$ acts with weight $k$ 
+on the $k$-th summand $TY \oplus TY$.
+The induced metric on $NF$ is orthogonal and, in each summand,
+restricts to that of $TY$; in particular its curvature in each summand
+is $R \oplus R$, with $R \in \fso(TY)$ the Riemann curvature $2$-form,
+which itself we locally block-diagonalize with weight $2$-forms $R_i$.
+From this we compute the equivariant Euler form, formally:
+\begin{equation}
+  \Euler(NF) = \prod_{i=1}^n \prod_{k > 0} (k + R_i) (k - R_i).
+\end{equation}
+This product has zeroes at all $R_i = \pm k$. It formally 
+regulates to (up to an overall constant):
+\begin{equation}
+  \Euler(NF) = \prod_{i=1}^n \frac{\sin \pi R_i}{\pi R_i} = \hat A(Y)^{-1}
+\end{equation}
+where $\hat A(Y)$ was defined in \autoref{def:ahat}.
+Thus the formal \eqref{eq:zs1-abbv-formal} becomes
+\begin{equation}
+  Z_{S^1(T)} = \int_Y \hat A(Y),
+\end{equation}
+and combining this with \fixme{...}
+we obtain the index theorem \autoref{thm:atiyah-singer}.
+
+
+\fixme{twisted case: couple the SUSY QM to another bundle $E$,
+then get $\omega = F$}
+
+\fixme{this gives Gauss-Bonnet if $E = S$, or signature theorem}
+
+\fixme{refs: Witten, Alvarez-Gaume, Friedan-Windey for twisted case}
+
+\fixme{next try going to 2-d sigma model: loop space of loop space!}
 
 \appendix
 
@@ -3961,8 +4030,8 @@ It is a sum
 \end{defn}
 
 \begin{example}
-We have $p_1(X) = -\frac{1}{4\pi^2} \Tr F \wedge F$, where
-$F \in \Omega^2(\fso(n))$, and $\Tr$ denotes
+We have $p_1(X) = -\frac{1}{4\pi^2} \Tr R \wedge R$, where
+$R \in \Omega^2(\fso(TX))$ is the Riemann curvature, and $\Tr$ denotes
 the usual trace, thinking of elements of $\fso(n)$ as $n \times n$ matrices.
 \end{example}
 
@@ -3987,7 +4056,8 @@ these manifolds are, in some essential way, \ti{chiral} --- in contrast to $S^4$
 for which the antipodal map is orientation-reversing.
 \end{exercise}
 
-\begin{defn} If $X$ is a compact Riemannian manifold, $\hat A(X) \in \Omega^*(X)$
+\begin{defn} \label{def:ahat} 
+If $X$ is a compact Riemannian manifold, $\hat A(X) \in \Omega^*(X)$
 is the characteristic class of $TX$ associated to the symmetric function
 \begin{equation}
   \prod_i \frac{y_i/2}{\sinh(y_i/2)} = \prod_i \left( 1 - \frac{y_i^2}{24} + \frac{7 y_i^4}{5760} + \cdots \right)
@@ -4000,9 +4070,10 @@ We can expand $\hat A(X)$ in terms of Pontryagin classes:
 \end{equation}
 
 \begin{thm}[Atiyah-Singer index theorem for the Dirac operator on complex spinors]
+\label{thm:atiyah-singer}
 We have
 \begin{equation}
-  \ind \dirac_0 = \int_X \hat A(X).
+  \ind \dirac^0 = \int_X \hat A(X).
 \end{equation}
 \end{thm}
 This implies in particular that $\int_X \hat A(X)$ is actually an integer, so
