@@ -3934,7 +3934,22 @@ spin structure by the double cover, to get another spin structure.)
 
 \begin{prop} $\C\PP^2$ is not spinnable.
 \end{prop}
-\begin{pf} \fixme{because it has an $S^2$ with normal bundle $\cO(1) \oplus \cO(2)$}
+\begin{pf}
+Let $H$ denote a hyperplane in $\C\PP^2$, i.e.\ an embedded $\C\PP^1$. Then, $T\C\PP^2$, restricted to $H$, is
+$\cO(1)\oplus\cO(2)$: $\cO(2)$ is $T\C\PP^1$ and $\cO(1)$ is the normal bundle.\footnote{A generic section of the
+normal bundle intersects itself at one point, which is the reason why the normal bundle is $\cO(1)$; a similar
+argument gets you $\cO(2)$ for the tangent bundle.}
+
+$\C\PP^1$ has two charts, so we can explicitly write down transition functions for $\cO(1)\oplus\cO(2)$, which are
+maps $S^1\to\U(1)\times\U(1)\subset\SO(4)$. Explicitly, let $R_\theta\in\SO(2)$ denote the matrix which acts
+through rotation by $\theta$; then one of the transition functions is
+\begin{equation}
+\label{eq:CPn-transition-function}
+\theta\mapsto\begin{pmatrix} R_\theta\\& R_{2\theta}\end{pmatrix}.
+\end{equation}
+A spin structure is a lift of this map to $\Spin(4)$, the universal cover of $\SO(4)$. But the loop defined
+by~\eqref{eq:CPn-transition-function} is the nontrivial element of $\pi_1(\SO(4))$, and therefore this map cannot
+lift to $\Spin(4)$.
 \end{pf}
 
 From now on we specialize to even dimensions, since this is what we will use in
