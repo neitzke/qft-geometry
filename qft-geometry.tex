@@ -22,7 +22,7 @@
 \usepackage[missing=]{gitinfo2}
 \usepackage{fancyhdr}
 \usepackage{slashed}
-
+\usepackage[utf8]{inputenc} % get rid of Biber warning messages
 \definecolor{darkblue}{rgb}{0.1,0.1,0.7}
 \definecolor{darkred}{rgb}{0.5,0.1,0.1}
 \definecolor{darkgreen}{rgb}{0.0,0.42,0.06}
@@ -354,7 +354,7 @@ at
 \end{center}
 }
 
-% \tableofcontents
+\tableofcontents
 % \renewcommand{\listtheoremname}{Quick reference}
 % \listoftheorems[onlynamed]
 
@@ -2408,7 +2408,7 @@ where $R: Y \to \R$ is the scalar curvature.
 
 If we choose the parameter $t$ on $X$ to be the arc-length, then
 the action reduces to
-\begin{equation}
+\begin{equation} \label{eq:1d-sigma-model-action-arc-length}
     S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac16 R(\phi) \right).
 \end{equation}
 We can think of various $\phi \in \cC_X$ as various possible
@@ -2532,7 +2532,7 @@ is\footnote{The usual formulas for the heat kernel differ from this by the
 replacement $t \to 2t$, because they omit the factor $\half$ in the
 definition of $H$. The same replacement is needed in comparing the formulas we write below
 on a Riemannian manifold to those in the literature, e.g. \cite{Roe1988a}.}
-\begin{equation}
+\begin{equation}\label{eq:heat-kernel}
   k_t(x,y) = \left( \frac{1}{2 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{2t} \norm{x-y}^2 \right).
 \end{equation}
 \end{exercise}
@@ -3231,7 +3231,7 @@ The heat kernel $k_t(x,y)$ in this case is a section of
 $E \boxtimes E^*$ over $Y \times Y$: thus integrating it
 against a section of $E$ gives another section of $E$.
 
-Much like \fixme{...},
+Much like~\eqref{eq:heat-kernel},
 this heat kernel arises from a $1$-dimensional quantum field theory,
 with one new coupling added giving the \ti{parallel transport} in $E$.
 Namely we write path integrals in the form
@@ -3240,7 +3240,7 @@ Namely we write path integrals in the form
 \end{equation}
 where 
 \begin{itemize}
-\item $S(\phi)$ is defined just as in \fixme{...}.
+\item $S(\phi)$ is defined just as in~\eqref{eq:1d-sigma-model-action-arc-length}.
 \item
 In case $X = S^1$, $\Hol_\phi$ means the \ti{trace} of the holonomy
 of $\phi^* E$. 
