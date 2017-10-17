@@ -251,6 +251,7 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\ch}{ch}
 \DeclareMathOperator{\dvol}{dvol}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\im}{Im}
@@ -3801,6 +3802,7 @@ but not quite: its $k$-form part
 differs by a rescaling by $(4 \pi^2)^k$.
 A more precise treatment of the regularization should allow us to
 fix this constant (in particular I think zeta function regularization works).
+Alternatively we could fix it by computing one example in each dimension.
 
 Thus the formal \eqref{eq:zs1-abbv-formal} becomes
 \begin{equation}
@@ -3808,6 +3810,8 @@ Thus the formal \eqref{eq:zs1-abbv-formal} becomes
 \end{equation}
 and combining this with \eqref{eq:ZS1-index}
 we obtain the index theorem \autoref{thm:atiyah-singer}.
+Needless to say, this is not a rigorous proof of \autoref{thm:atiyah-singer}
+as it stands!
 
 \fixme{refs: Witten, Alvarez-Gaume, Atiyah}
 
@@ -3831,7 +3835,7 @@ where now $\dirac^0_E$ is the Dirac operator coupled to $E$ \fixme{...}
 The localization computation in this case goes just as before
 except that now on the fixed locus we have $\omega = F$, with $F$ the curvature
 of the connection in $E$. Thus in the localization formula we obtain
-an extra factor of $\e^F$. The result is
+an extra factor of $\e^F$. The result is the index theorem
 \fixme{...}
 
 The index theorem for the Dirac operator is part of a much broader
@@ -4174,6 +4178,32 @@ because in these dimensions $\dirac$ commutes with an additional
 conjugate-linear symmetry $j: SX \to SX$ with $j^2 = -1$, 
 i.e. $\dirac$ is $\bbH$-linear rather than merely
 $\C$-linear.}
+
+
+\subsection{Dirac operator coupled to a vector bundle}
+
+\fixme{characteristic classes for $U(n)$-bundles}
+
+\begin{defn}[Chern character] $\ch(E)$ is the characteristic class of a
+$U(n)$-bundle $E$ associated to the function \fixme{check factors}
+\begin{equation}
+  \sum_i \e^{z_i}.
+\end{equation}
+\end{defn}
+It is concentrated in even degrees, expanding as
+\begin{equation}
+  \ch(E) = \rank(E) + c_1(E) + \half(c_1(E)^2 - 2 c_2(E)) + \cdots
+\end{equation}
+
+\fixme{twisted Dirac operator}
+
+\begin{thm}[Atiyah-Singer index theorem for twisted Dirac operator on complex spinors]
+\label{thm:atiyah-singer}
+We have
+\begin{equation}
+  \ind \dirac^0_E = \int_X \hat A(X) \ch(E).
+\end{equation}
+\end{thm}
 
 
 \subsection{Hodge theory}
