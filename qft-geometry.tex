@@ -2509,7 +2509,8 @@ then the heat equation is
   \partial_t f_t(x) + H f_t(x) = 0. 
 \end{equation}
 
-\begin{prop}[Heat kernel] \fixme{what class of $Y$, $V$?}
+\begin{prop}[Heat kernel] Suppose $Y$ is compact or $Y = \R$.\footnote{I don't know the
+precise class of manifolds where the heat kernel is known to exist.}
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
 is a smooth function $k_t$ on $Y \times Y$, obeying the heat
 equation in the first variable,\footnote{Our
@@ -2605,15 +2606,15 @@ kernel. Note that although $\de \mu_N \e^{-S}$
 has a well defined
 limit, the measure $\de \mu_N$ by itself does not.
 
-If we take $X = S^1$ then we can make a similar 
-discretization: the only difference is that we require
+If we take $X = S^1(T)$ then we can make a similar 
+discretization of the path integral: the only difference is that we require
 $y_0$ and $y_N$ to be equal and then we integrate over their
 common value. Thus for the partition function we get
 \begin{equation}
-Z_{S^1} = \int \dvol_Y k_t(y,y)
+Z_{S^1(T)} = \int_Y \dvol_Y k_t(y,y).
 \end{equation}
 This integral has another interpretation: it is the trace
-of the integral operator $U_t$ acting on $L^2$ functions.
+of the integral operator $U_T$ acting on $L^2(Y)$.
 Stated formally,
 \begin{prop}[Lattice approximations to $1$-dimensional sigma
 model on $S^1$ converge to the trace of the heat flow]
@@ -2628,7 +2629,7 @@ and then
 \end{prop}
 
 
-\subsection{A sketchy proof}
+\subsection{A discretization computation}
 
 Here is a rough computation which gives some
 motivation for \autoref{prop:sigma-heat}.
@@ -2677,6 +2678,8 @@ Thus altogether we get
 Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
 vanish in the limit $\Delta t \to 0$.
+This completes our formal ``proof'' of \autoref{prop:sigma-heat}
+when $V = 0$.
 
 When $V \neq 0$ we can make a similar formal argument to motivate
 \autoref{prop:sigma-heat}.
@@ -2685,7 +2688,7 @@ the pieces involving $\Delta$ from the pieces involving $V$.
 This is done using the following, 
 applied to $A = -\half T \Delta$, $B = T V$:
 \begin{prop}[Trotter product formula] \label{prop:trotter}
-\fixme{with appropriate functional analytic hypothesis}
+For operators $A$, $B$ obeying appropriate functional-analytic hypotheses,
 \begin{equation}
   \e^{A+B} = \lim_{N \to \infty} \left(\e^{\frac{A}{N}} \e^{\frac{B}{N}}\right)^N.
 \end{equation}
@@ -2783,9 +2786,9 @@ metric to identify $TY = T\R$ with $T^* Y = T^* \R$
 coordinatized by $(x,p)$. Then the function $F = p$
 induces (in the above sense) the operator
 \begin{equation}
-   \hat p = \partial_x
+   \hat p = -\partial_x
 \end{equation} 
-on $L^2(\R)$. \fixme{check sign}
+on $L^2(\R)$.
 \end{prop}
 
 \begin{exercise} Give a heuristic proof
@@ -2804,12 +2807,12 @@ puzzling: where does the noncommutativity come from?
 Consider the decorated intervals below:
 \insfig{qft-geometry-19}{0.95}
 Naively we would have (where $\leftrightarrow$ means
-``is the heat kernel for,'' and $T = t_1 + t_2 + t_3$) \fixme{switch to a better notation}
+``is the heat kernel for,'' and $T = t_1 + t_2 + t_3$)
 \begin{equation}
-  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)},
 \end{equation}
 \begin{equation}
-  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}.
 \end{equation}
 In the limit $t_2 \to 0$ these two path integrals 
 both formally limit to the same object,
@@ -2846,32 +2849,32 @@ Let us set
 \begin{equation}
   y_1 = \phi(t_1 - \Delta t), \qquad y_2 = \phi(t_1), \qquad y_3 = \phi(t_1 + \Delta t).
 \end{equation}
-Then we might reasonably choose either 
+The two limits we are considering would lead to the two definitions
 \begin{equation}
-  \phi'(t_1) = (y_2 - y_1) / \Delta t, \qquad \phi'(t_1) = (y_3 - y_2) / \Delta t.
+  \phi'(t_1) = (x_2 - x_1) / \Delta t, \qquad \phi'(t_1) = (x_3 - x_2) / \Delta t.
 \end{equation}
-Then in the discretized path integrals with these two 
-insertions the $y_2$-dependent part is respectively
+In the discretized path integrals with these two 
+insertions the $x_2$-dependent part is respectively
 \begin{equation}
-  \frac{1}{\Delta t} \int \de y_2 \, (y_2 - y_1) y_2 \, \e^{-F(y)}, \qquad
-  \frac{1}{\Delta t} \int \de y_2 \, (y_3 - y_2) y_2 \, \e^{-F(y)}
+  \frac{1}{\Delta t} \int \de x_2 \, (x_2 - x_1) x_2 \, \e^{-F(x)}, \qquad
+  \frac{1}{\Delta t} \int \de x_2 \, (x_3 - x_2) x_2 \, \e^{-F(x)}
 \end{equation}
 where
 \begin{equation}
-  F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (2 \Delta t).
+  F(x) = [(x_1 - x_2)^2 + (x_3 - x_2)^2] / (2 \Delta t).
 \end{equation}
-These two integrals are not quite the same:
-by integration by parts one shows that they differ by
+These two integrals are not quite the same: indeed, since $\int \de x_2 \, \partial_{x_2} (x_2 \e^{-F(x)}) = 0$ we get for their difference
 \begin{equation} \label{eq:commutator-residue}
-  \int \de y_2 \, \e^{-F(y)}.
+  \frac{1}{\Delta t} \int \de x_2 \, x_2 ((x_2 - x_1) - (x_3 - x_2))  \, \e^{-F(x)}
+=  -\int \de x_2 \, \e^{-F(x)}.
 \end{equation}
 Note this difference survives in the limit 
 $\Delta t \to 0$!
-But the integral \eqref{eq:commutator-residue} is just what we get from an insertion
-of the operator $1$ in the path integral.
-So it is what we expected from the commutation relation
+Now, \eqref{eq:commutator-residue} says the difference $\hat x \hat p - \hat p \hat x$
+behaves the same in the path integral as the operator $-1$.
+Thus it is what we expected from the commutation relation
 \begin{equation}
-  [\hat p, \hat q] = 1.
+  [\hat p, \hat x] = -1.
 \end{equation}
 
 
