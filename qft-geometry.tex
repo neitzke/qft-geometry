@@ -221,7 +221,7 @@
 \newcommand{\J}{{\mathrm j}}
 \newcommand{\K}{{\mathrm k}}
 \newcommand{\e}{{\mathrm e}}
-\newcommand\bid{{\mathbf 1}}
+\newcommand{\bid}{{\mathbf 1}}
 \newcommand{\de}{\mathrm{d}}
 \newcommand{\ab}{\mathrm{ab}}
 \newcommand{\vol}{\mathrm{vol}}
@@ -251,6 +251,7 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\ch}{ch}
 \DeclareMathOperator{\dvol}{dvol}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\im}{Im}
@@ -3699,7 +3700,7 @@ give $- \dim \ker \dirac^1$.
 
 The upshot of this section is that supersymmetric quantum mechanics
 computes the index of the Dirac operator:
-\begin{equation}
+\begin{equation} \label{eq:ZS1-index}
   Z_{S^1(T)} = \ind \dirac^0.
 \end{equation}
 
@@ -3769,42 +3770,92 @@ Fourier expanding, the space of these maps is
 $T_y Y \oplus \bigoplus_{k > 0} (T_y Y \otimes \R^2)$; using our metric
 on $\cL Y$ to project off the tangent bundle $TF$, 
 we get $NF = \bigoplus_{k > 0} (T_y Y \otimes \R^2)$.
-The $U(1)$ action on $NF$ acts with weight $k$ 
-on the $k$-th summand $TY \oplus TY$.
 The induced metric on $NF$ is orthogonal and, in each summand,
-restricts to that of $TY$; in particular its curvature in each summand
-is $R \oplus R$, with $R \in \fso(TY)$ the Riemann curvature $2$-form,
-which itself we locally block-diagonalize with weight $2$-forms $R_i$.
-From this we compute the equivariant Euler form, formally:
+restricts to that of $TY$; in particular its curvature is $R \otimes \bid$, 
+with $R \in \fso(TY)$ the Riemann curvature $2$-form,
+which we block-diagonalize with weight $2$-forms $R_i$,
+$R = \bigoplus_{i=1}^n R_i \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
+Meanwhile the $U(1)$ generator acts as
+$\bid \otimes \bigoplus_{k>0} k \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
+So altogether
+\begin{equation}
+  \Euler(NF) = \Pf \left( \left[ \bid \otimes \bigoplus_{k>0} k \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right] +  \left[ \bigoplus_{i=1}^n R_i \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \otimes \bid \right] \right).
+\end{equation}
+
+Now, we have
+\begin{exercise}
+Show that $\Pf \left( a \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \otimes \bid + b \bid \otimes \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right) = a^2 - b^2$.  \fixme{check signs}
+\end{exercise}
+
+From this we compute the equivariant Euler form, formally, as an infinite product:
 \begin{equation}
   \Euler(NF) = \prod_{i=1}^n \prod_{k > 0} (k + R_i) (k - R_i).
-\end{equation}
-This product has zeroes at all $R_i = \pm k$. It formally 
-regulates to (up to an overall constant):
+\end{equation} 
+
+Our arguments have been too heuristic to determine how this product is to be regulated:
+in principle such a prescription should be part of the infinite-dimensional 
+version of \autoref{thm:abbv}.
+Still, we notice that this product is just the same as one we encountered earlier \fixme{...}
+so we try regulating it the same way:
 \begin{equation}
   \Euler(NF) = \prod_{i=1}^n \frac{\sin \pi R_i}{\pi R_i}
 \end{equation}
 This almost matches $\hat A(Y)^{-1}$ defined in \autoref{def:ahat}, 
 but not quite: its $k$-form part 
 differs by a rescaling by $(4 \pi^2)^k$.
-\fixme{but up to a constant we're OK; can we fix the constant?}
+A more precise treatment of the regularization should allow us to
+fix this constant (in particular I think zeta function regularization works).
+Alternatively we could fix it by computing one example in each dimension.
 
 Thus the formal \eqref{eq:zs1-abbv-formal} becomes
 \begin{equation}
   Z_{S^1(T)} = \int_Y \hat A(Y),
 \end{equation}
-and combining this with \fixme{...}
+and combining this with \eqref{eq:ZS1-index}
 we obtain the index theorem \autoref{thm:atiyah-singer}.
+Needless to say, this is not a rigorous proof of \autoref{thm:atiyah-singer}
+as it stands!
+
+\fixme{refs: Witten, Alvarez-Gaume, Atiyah}
+
+\subsection{The twisted case}
+
+\fixme{ref: Friedan-Windey}
+
+One extension of this story is worth mentioning.
+Suppose we fix a vector bundle $E$ over $Y$
+with metric and compatible connection.\footnote{$E$ can even be a super vector bundle
+\fixme{...}}
+Then we can define a variant of our 1-d supersymmetric QFT:
+\fixme{...}
+After integrating out the fermions we now obtain the
+bosonic theory coupled to the bundle $S \otimes E$, and
+in parallel to \eqref{eq:ZS1-index} we get
+\begin{equation}
+  Z_{S^1(T)} = \int \dirac^0_E
+\end{equation}
+where now $\dirac^0_E$ is the Dirac operator coupled to $E$ \fixme{...}
+The localization computation in this case goes just as before
+except that now on the fixed locus we have $\omega = F$, with $F$ the curvature
+of the connection in $E$. Thus in the localization formula we obtain
+an extra factor of $\e^F$. The result is the index theorem
+\fixme{...}
+
+The index theorem for the Dirac operator is part of a much broader
+story. I do not know how much of this story can be understood in the
+supersymmetric-quantum-mechanics framework we consider here
+(For example what should we say about the \ti{families index theorem}?
+Can we think of it as a formula for the Berry connection which one normally has 
+on the space of ground states of a family of quantum-mechanical systems?
+\fixme{Alvarez-Windey})
 
 
-\fixme{twisted case: couple the SUSY QM to another bundle $E$,
-then get $\omega = F$}
+\fixme{remark: this gives Gauss-Bonnet if $E = S$, or signature theorem}
 
-\fixme{this gives Gauss-Bonnet if $E = S$, or signature theorem}
 
-\fixme{refs: Witten, Alvarez-Gaume, Friedan-Windey for twisted case}
+\section{QFT in 2 dimensions}
 
-\fixme{next try going to 2-d sigma model: loop space of loop space!}
+\subsection{The free theory}
 
 \appendix
 
@@ -4130,6 +4181,32 @@ because in these dimensions $\dirac$ commutes with an additional
 conjugate-linear symmetry $j: SX \to SX$ with $j^2 = -1$, 
 i.e. $\dirac$ is $\bbH$-linear rather than merely
 $\C$-linear.}
+
+
+\subsection{Dirac operator coupled to a vector bundle}
+
+\fixme{characteristic classes for $U(n)$-bundles}
+
+\begin{defn}[Chern character] $\ch(E)$ is the characteristic class of a
+$U(n)$-bundle $E$ associated to the function \fixme{check factors}
+\begin{equation}
+  \sum_i \e^{z_i}.
+\end{equation}
+\end{defn}
+It is concentrated in even degrees, expanding as
+\begin{equation}
+  \ch(E) = \rank(E) + c_1(E) + \half(c_1(E)^2 - 2 c_2(E)) + \cdots
+\end{equation}
+
+\fixme{twisted Dirac operator}
+
+\begin{thm}[Atiyah-Singer index theorem for twisted Dirac operator on complex spinors]
+\label{thm:atiyah-singer}
+We have
+\begin{equation}
+  \ind \dirac^0_E = \int_X \hat A(X) \ch(E).
+\end{equation}
+\end{thm}
 
 
 \subsection{Hodge theory}
