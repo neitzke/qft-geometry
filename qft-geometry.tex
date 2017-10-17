@@ -3826,8 +3826,16 @@ One extension of this story is worth mentioning.
 Suppose we fix a vector bundle $E$ over $Y$
 with metric and compatible connection.\footnote{$E$ can even be a super vector bundle
 \fixme{...}}
-Then we can define a variant of our 1-d supersymmetric QFT:
-\fixme{...}
+Then we can define a variant of our 1-d supersymmetric QFT,
+similar to what we did in the bosonic version in \autoref{sec:1d-qft-with-bundle}:
+we define path integrals in the form
+\begin{equation}
+  Z_X = \int \de \phi \de \psi \, \widetilde{\Hol}_\phi \, \e^{-S(\phi,\psi)}
+\end{equation}
+One important caveat is that in order for the full theory to be $Q$-invariant
+we need to use a ``supersymmetrized'' holonomy $\widetilde{\Hol_\phi}$, which includes
+some dependence on the fermions \fixme{...}
+
 After integrating out the fermions we now obtain the
 bosonic theory coupled to the bundle $S \otimes E$, and
 in parallel to \eqref{eq:ZS1-index} we get
@@ -3835,11 +3843,15 @@ in parallel to \eqref{eq:ZS1-index} we get
   Z_{S^1(T)} = \int \dirac^0_E
 \end{equation}
 where now $\dirac^0_E$ is the Dirac operator coupled to $E$ \fixme{...}
+
+Let us discuss first the case where $E$ is a complex \ti{line} bundle.
 The localization computation in this case goes just as before
 except that now on the fixed locus we have $\omega = F$, with $F$ the curvature
 of the connection in $E$. Thus in the localization formula we obtain
 an extra factor of $\e^F$. The result is the index theorem
 \fixme{...}
+
+\fixme{case of higher rank $E$}
 
 The index theorem for the Dirac operator is part of a much broader
 story. I do not know how much of this story can be understood in the
