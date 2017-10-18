@@ -3729,7 +3729,7 @@ and similarly for products of more $\cO_\gamma(t)$.
 \fixme{supercurrent which maps to the Dirac operator}
 
 
-\subsection{Localization and the index theorem}
+\subsection{Localization and the index theorem} \label{sec:localization-index}
 
 Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
 similar to what we did in \autoref{sec:0d-sigma-model-localization}.
@@ -3834,20 +3834,38 @@ we define path integrals in the form
 \end{equation}
 One important caveat is that in order for the full theory to be $Q$-invariant
 we need to use a ``supersymmetrized'' holonomy $\widetilde{\Hol_\phi}$, which includes
-some dependence on the fermions \fixme{...}
+some dependence on the fermions and is engineered to have $Q (\widetilde{\Hol_\phi}) = 0$.
 
-After integrating out the fermions we now obtain the
+Let us specialize to the case where $E$ has rank $1$ and $X = S^1(T)$.
+Then it is easy enough to write the supersymmetrized
+holonomy explicitly: in components, it is
+\begin{equation} \label{eq:super-hol}
+  \widetilde{\Hol}_\phi = \exp \oint_{S^1(T)} A^I(\phi) \dot \phi_I + \half F^{IJ}(\phi) \psi_I \psi_J
+\end{equation}
+where $F$ is the curvature of the connection in $E$.
+
+\begin{exercise}
+Verify that \eqref{eq:super-hol} is $Q$-invariant.
+\end{exercise}
+
+\begin{exercise}
+Describe the generalization of \eqref{eq:super-hol} to bundles $E$ of higher rank. \fixme{hard?}
+\end{exercise}
+
+After integrating out the fermions we obtain the
 bosonic theory coupled to the bundle $S \otimes E$, and
 in parallel to \eqref{eq:ZS1-index} we get
 \begin{equation}
-  Z_{S^1(T)} = \int \dirac^0_E
+  Z_{S^1(T)} = \ind \dirac^0_E
 \end{equation}
-where now $\dirac^0_E$ is the Dirac operator coupled to $E$ \fixme{...}
+where now $\dirac^0_E$ is the Dirac operator coupled to $E$ as
+in \autoref{sec:dirac-coupled}.
 
-Let us discuss first the case where $E$ is a complex \ti{line} bundle.
-The localization computation in this case goes just as before
-except that now on the fixed locus we have $\omega = F$, with $F$ the curvature
-of the connection in $E$. Thus in the localization formula we obtain
+The localization computation of $Z_{S^1(T)}$ in this case goes just as in
+\autoref{sec:localization-index},
+except that now on the fixed locus we no longer have $\omega = 0$; rather,
+because of the fermionic part in \eqref{eq:super-hol}, we get $\omega = F$, 
+with $F$ the curvature of the connection in $E$. Thus in the localization formula we obtain
 an extra factor of $\e^F$. The result is the index theorem
 \fixme{...}
 
@@ -4195,7 +4213,7 @@ i.e. $\dirac$ is $\bbH$-linear rather than merely
 $\C$-linear.}
 
 
-\subsection{Dirac operator coupled to a vector bundle}
+\subsection{Dirac operator coupled to a vector bundle} \label{sec:dirac-coupled}
 
 \fixme{characteristic classes for $U(n)$-bundles}
 
@@ -4210,15 +4228,35 @@ It is concentrated in even degrees, expanding as
   \ch(E) = \rank(E) + c_1(E) + \half(c_1(E)^2 - 2 c_2(E)) + \cdots
 \end{equation}
 
-\fixme{twisted Dirac operator}
+\begin{defn}[Twisted Dirac operator] The \ti{Dirac operator twisted by $E$} is 
+the operator $\dirac_E: C^\infty(SX \otimes E) \to C^\infty(SX \otimes E)$
+given by
+\begin{equation}
+  \dirac_E = \sum_{i=1}^n \rho(e_i) \circ \nabla_{e_i}
+\end{equation}
+where $\{e_i\}$ form an orthonormal basis for $TX$, and $\nabla$ denotes the induced
+connection on $SX \otimes E$.
+\end{defn}
 
 \begin{thm}[Atiyah-Singer index theorem for twisted Dirac operator on complex spinors]
-\label{thm:atiyah-singer}
+\label{thm:atiyah-singer-twisted}
 We have
 \begin{equation}
   \ind \dirac^0_E = \int_X \hat A(X) \ch(E).
 \end{equation}
 \end{thm}
+
+The simplest example of \autoref{thm:atiyah-singer-twisted} arises 
+when $\dim X = 2$. In this case the theorem becomes
+\begin{equation}
+  \ind \dirac^0_E = \int_X c_1(E) = \deg E.
+\end{equation}
+If we choose $E$ to be $V \otimes (\C \oplus T^* X)$
+\fixme{... explain relation to Riemann-Roch}
+% On the other hand \fixme{check} in this case 
+% $\dirac^0_E$ is the $\bar\partial$ operator on sections of $E$,
+% where the complex structure on $X$ is induced by the conformal structure,
+% and the holomorphic structure on $E$ is induced by its connection $\nabla$.
 
 
 \subsection{Hodge theory}
