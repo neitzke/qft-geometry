@@ -3373,7 +3373,7 @@ Moreover, variations of the metric $g$ on $Y$ are $Q$-exact:
 \begin{exercise}
 Show that under a variation $g \to g + \delta g$,
 the action $S$ changes by $S \to S + Q \Psi$, where 
-$\Psi = \half (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
+$\Psi = -\half \int_0^T \de t \, (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
 \end{exercise}
 Thus, if we were dealing with finite-dimensional integrals, 
 \autoref{prop:Z-deformation-invariance} would show 
@@ -3500,7 +3500,8 @@ for large $k$ go like
 \end{equation}
 In particular it is now convergent, and must converge to an honest function of 
 the $\alpha_i$, with zeroes at $\alpha_i = 2 \pi k$, which moreover is periodic 
-as $\alpha_i \to \alpha_i + 2 \pi$. This determines it
+as $\alpha_i \to \alpha_i + 2 \pi$. This \fixme{plus some condition on asymptotic
+growth} determines it
 up to a constant as
 $\prod_{i=1}^n (2 \sin \frac{\alpha_i}{2})^2$. The next lemma then finishes the proof.
 \end{pf}
