@@ -3928,7 +3928,20 @@ Alternatively, writing $a_n(t) = b_n(t) + \I c_n(t)$ with $b_n(t)$ and $c_n(t)$ 
 \begin{equation}
   S(\phi) =  \sum_{n > 0} \left[ \int_{0}^T \de t \, \frac{2 \pi^2 n^2}{L^2} (b_n(t)^2 + c_n(t)^2) + \half (\dot{b}_n(t)^2 + \dot{c}_n(t)^2) \right] + \qtr \int_0^T \de t \, \dot a_0(t)^2.
 \end{equation}
-\fixme{..}
+Thus the action is a sum of terms, each involving just one of the fields 
+$a_0(t), b_n(t), c_n(t)$. Each of the $b_n(t)$ and $c_n(t)$ has an action 
+like the field $x(t)$ of \autoref{exa:harmonic-oscillator}, with the 
+frequency
+\begin{equation}
+  \omega_n = 2 \pi \frac{n}{L}.
+\end{equation}
+Thus formally these fields contribute to the partition function a factor
+\begin{equation}
+  \prod_{n=1}^\infty \frac{1}{4 \sinh(\pi n T/L)^2}
+\end{equation}
+\fixme{regularization...}
+
+We also have the extra $a_0(t)$, which has to be treated differently.
 
 As in the 1-dimensional case, the partition function will again be expressed
 in the form
