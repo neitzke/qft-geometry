@@ -3380,13 +3380,10 @@ Thus, if we were dealing with finite-dimensional integrals,
 that the partition function in this theory
 is independent of the metric on $Y$. In our infinite-dimensional
 setting we will see that this metric-independence still holds.
-The infinite-dimensional setting does bring a surprising twist:
-despite being metric-independent, 
-$Z_{S^1(T)}$ is not quite a topological invariant of $Y$; to define 
-it properly we need some additional discrete structure,
-namely a \ti{spin structure} on $Y$, on which $Z_{S^1(T)}$
-actually depends.
-
+The infinite-dimensional setting does bring a surprising twist,
+discussed in \autoref{sec:susy-discretization}:
+in order for $Z_{S^1(T)}$ to be well defined, $Y$ needs to be 
+a \ti{spinnable} manifold.
 
 \subsection{Integrating out fermions} \label{sec:susy-discretization}
 
@@ -3416,11 +3413,7 @@ the result here}
 % for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
 % \end{exercise}
 
-When $Y$ is even-dimensional,
-say $\dim Y = 2n$, the path integral of our
-supersymmetric theory
-need not be zero. Let us examine it more closely,
-supposing that $X = S^1(T)$.
+Suppose $Y$ is even-dimensional, say $\dim Y = 2n$.
 
 For fixed $\phi: S^1(T) \to Y$, the integral over the fermions is formally
 \begin{equation}
@@ -3884,9 +3877,48 @@ on the space of ground states of a family of quantum-mechanical systems?
 \fixme{remark: this gives Gauss-Bonnet if $E = S$, or signature theorem}
 
 
+\section{Some QFT generalities}
+
+\fixme{Hilbert spaces associated to spatial slices}
+\fixme{canonical quantization}
+
+
 \section{QFT in 2 dimensions}
 
-\subsection{The free theory}
+Now we move on to two-dimensional theories, i.e. theories defined
+on a Riemannian $2$-manifold $X$.
+
+
+\subsection{The free boson}
+
+A simple case to start with is the theory of a single 
+scalar field. This theory has
+\begin{equation}
+  \cC_X = \Map(X,\R)
+\end{equation}
+and the action
+\begin{equation}
+  S(\phi) = \half \int_X \norm{\de \phi}^2 \de \vol_X = \half \int_X \de \phi \wedge \star \de \phi.
+\end{equation}
+
+\begin{exercise}
+Verify that $S$ is \ti{conformally invariant}, i.e. it depends only on the conformal
+class of the metric on $X$.
+\end{exercise}
+
+In principle this theory should be defined by some kind of discretization, cutoff
+or the like. For a while, let us try to work formally, without being careful about
+precisely how the theory is defined.
+
+We consider the special case $X = S^1(T) \times S^1(L)$.
+As in the 1-dimensional case, the partition function will again be expressed
+in the form
+\begin{equation}
+  Z_{X} = \Tr_\cH \e^{-TH}
+\end{equation}
+where now $\cH$ is a Hilbert space associated to the $1$-manifold $S^1(L)$.
+
+
 
 \appendix
 
