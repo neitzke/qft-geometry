@@ -3897,12 +3897,12 @@ scalar field. This theory has
   \cC_X = \Map(X,\R)
 \end{equation}
 and the action
-\begin{equation}
+\begin{equation} \label{eq:action-2d-free-boson}
   S(\phi) = \half \int_X \norm{\de \phi}^2 \de \vol_X = \half \int_X \de \phi \wedge \star \de \phi.
 \end{equation}
 
 \begin{exercise}
-Verify that $S$ is \ti{conformally invariant}, i.e. it depends only on the conformal
+Verify that $S(\phi)$ is \ti{conformally invariant}, i.e. it depends only on the conformal
 class of the metric on $X$.
 \end{exercise}
 
@@ -3911,6 +3911,25 @@ or the like. For a while, let us try to work formally, without being careful abo
 precisely how the theory is defined.
 
 We consider the special case $X = S^1(T) \times S^1(L)$.
+In this case we will see that the theory essentially decomposes into an infinite
+number of copies of the $1$-dimensional ``harmonic oscillator'' we considered in
+\autoref{exa:harmonic-oscillator}. Indeed, we can decompose
+the field\footnote{We use $x$ as the coordinate on ``space'' $S^1(L)$
+and $t$ on ``time'' $S^1(T)$.}
+\begin{equation}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L}
+\end{equation}
+where $a_n(t) = \overline{a_{-n}(t)}$,
+and then the action \eqref{eq:action-2d-free-boson} is
+\begin{equation}
+  S(\phi) = \qtr \sum_{n \in \Z} \int_{0}^T \de t \, \frac{4 \pi^2 n^2}{L^2} \abs{a_n(t)}^2 + \abs{\dot{a}_n(t)}^2.
+\end{equation}
+Alternatively, writing $a_n(t) = b_n(t) + \I c_n(t)$ with $b_n(t)$ and $c_n(t)$ real, this is
+\begin{equation}
+  S(\phi) =  \sum_{n > 0} \left[ \int_{0}^T \de t \, \frac{2 \pi^2 n^2}{L^2} (b_n(t)^2 + c_n(t)^2) + \half (\dot{b}_n(t)^2 + \dot{c}_n(t)^2) \right] + \qtr \int_0^T \de t \, \dot a_0(t)^2.
+\end{equation}
+\fixme{..}
+
 As in the 1-dimensional case, the partition function will again be expressed
 in the form
 \begin{equation}
