@@ -3935,20 +3935,27 @@ frequency
 \begin{equation}
   \omega_n = 2 \pi \frac{n}{L}.
 \end{equation}
-Thus formally these fields contribute to the partition function a factor
-\begin{equation}
-  \prod_{n=1}^\infty \frac{1}{4 \sinh(\pi n T/L)^2}
+We have already computed the contribution to the partition function from such a
+field: it is given by \eqref{eq:s1-z-harmonic-oscillator}.
+Thus formally the fields $b_n(t)$ and $c_n(t)$ contribute to the partition function a factor
+\begin{equation} \label{eq:formal-contribution-bc}
+  \prod_{n=1}^\infty \frac{1}{(2 \sinh(\pi n T/L))^2} =  \prod_{n=1}^\infty \left( \frac{q^{n/2}}{1 - q^{n}} \right)^2, \qquad q = \e^{-2 \pi T / L}.
 \end{equation}
-\fixme{regularization...}
+As it stands, this product diverges to $0$ for any $q$, because of the factor
+$\prod_{n=1}^\infty q^n$.
+So our strategy of working formally
+has not worked out well. On the other hand,
+if we define the path integral by discretization, the situation should be
+better. Indeed, suppose that we regulate \fixme{...}
 
-We also have the extra $a_0(t)$, which has to be treated differently.
-
-As in the 1-dimensional case, the partition function will again be expressed
-in the form
+So the regulated version of \eqref{eq:formal-contribution-bc} is
 \begin{equation}
-  Z_{X} = \Tr_\cH \e^{-TH}
+ q^{-1/12} \prod_{n=1}^\infty \frac{1}{(1-q^n)^2} = \eta(q)^{-2}
 \end{equation}
-where now $\cH$ is a Hilbert space associated to the $1$-manifold $S^1(L)$.
+Here $\eta(q)$ is the Dedekind eta function.
+
+We also have the remaining field $a_0(t)$, which has to be treated differently.
+\fixme{it's an IR divergence}
 
 
 
