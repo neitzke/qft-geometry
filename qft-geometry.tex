@@ -3725,6 +3725,13 @@ and similarly for products of more $\cO_\gamma(t)$.
 
 \subsection{Localization and the index theorem} \label{sec:localization-index}
 
+In this section we are going to ``prove'' the index theorem,
+\autoref{thm:atiyah-singer}, using our supersymmetric quantum mechanics.
+Of course, because we have been rather cavalier about infinite-dimensional
+determinants, this is not a rigorous proof as it stands.
+The original references for this proof are 
+\cite{Alvarez-Gaume1983b,MR816738,MR87i:81237}.
+
 Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
 similar to what we did in \autoref{sec:0d-sigma-model-localization}.
 Indeed, the path integral we want to do is an infinite-dimensional
@@ -3810,13 +3817,12 @@ we obtain the index theorem \autoref{thm:atiyah-singer}.
 Needless to say, this is not a rigorous proof of \autoref{thm:atiyah-singer}
 as it stands!
 
-\fixme{refs: Witten, Alvarez-Gaume, Atiyah}
 
 \subsection{The twisted case}
 
-\fixme{ref: Friedan-Windey}
+One extension of the physical proof of the index theorem 
+is worth mentioning. It was given first in \cite{Friedan1984}.
 
-One extension of this story is worth mentioning.
 Suppose we fix a vector bundle $E$ over $Y$
 with metric and compatible connection.\footnote{$E$ can even be a super vector bundle
 \fixme{...}}
@@ -3861,20 +3867,17 @@ except that now on the fixed locus we no longer have $\omega = 0$; rather,
 because of the fermionic part in \eqref{eq:super-hol}, we get $\omega = F$, 
 with $F$ the curvature of the connection in $E$. Thus in the localization formula we obtain
 an extra factor of $\e^F$. The result is the index theorem
-\fixme{...}
+for twisted Dirac operators, \autoref{thm:atiyah-singer-twisted}.
 
 \fixme{case of higher rank $E$}
 
 The index theorem for the Dirac operator is part of a much broader
 story. I do not know how much of this story can be understood in the
-supersymmetric-quantum-mechanics framework we consider here
-(For example what should we say about the \ti{families index theorem}?
+supersymmetric-quantum-mechanics framework we consider here.
+(For example, what should we say about the \ti{families index theorem}?
 Can we think of it as a formula for the Berry connection which one normally has 
 on the space of ground states of a family of quantum-mechanical systems?
-\fixme{Alvarez-Windey})
-
-
-\fixme{remark: this gives Gauss-Bonnet if $E = S$, or signature theorem}
+One relevant reference here appears to be \cite{Alvarez2009}.)
 
 
 \section{Some QFT generalities}
