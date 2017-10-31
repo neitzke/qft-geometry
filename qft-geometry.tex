@@ -3373,20 +3373,17 @@ Moreover, variations of the metric $g$ on $Y$ are $Q$-exact:
 \begin{exercise}
 Show that under a variation $g \to g + \delta g$,
 the action $S$ changes by $S \to S + Q \Psi$, where 
-$\Psi = \half (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
+$\Psi = -\half \int_0^T \de t \, (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
 \end{exercise}
 Thus, if we were dealing with finite-dimensional integrals, 
 \autoref{prop:Z-deformation-invariance} would show 
 that the partition function in this theory
 is independent of the metric on $Y$. In our infinite-dimensional
 setting we will see that this metric-independence still holds.
-The infinite-dimensional setting does bring a surprising twist:
-despite being metric-independent, 
-$Z_{S^1(T)}$ is not quite a topological invariant of $Y$; to define 
-it properly we need some additional discrete structure,
-namely a \ti{spin structure} on $Y$, on which $Z_{S^1(T)}$
-actually depends.
-
+The infinite-dimensional setting does bring a surprising twist,
+discussed in \autoref{sec:susy-discretization}:
+in order for $Z_{S^1(T)}$ to be well defined, $Y$ needs to be 
+a \ti{spinnable} manifold.
 
 \subsection{Integrating out fermions} \label{sec:susy-discretization}
 
@@ -3416,11 +3413,7 @@ the result here}
 % for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
 % \end{exercise}
 
-When $Y$ is even-dimensional,
-say $\dim Y = 2n$, the path integral of our
-supersymmetric theory
-need not be zero. Let us examine it more closely,
-supposing that $X = S^1(T)$.
+Suppose $Y$ is even-dimensional, say $\dim Y = 2n$.
 
 For fixed $\phi: S^1(T) \to Y$, the integral over the fermions is formally
 \begin{equation}
@@ -3500,7 +3493,8 @@ for large $k$ go like
 \end{equation}
 In particular it is now convergent, and must converge to an honest function of 
 the $\alpha_i$, with zeroes at $\alpha_i = 2 \pi k$, which moreover is periodic 
-as $\alpha_i \to \alpha_i + 2 \pi$. This determines it
+as $\alpha_i \to \alpha_i + 2 \pi$. This \fixme{plus some condition on asymptotic
+growth} determines it
 up to a constant as
 $\prod_{i=1}^n (2 \sin \frac{\alpha_i}{2})^2$. The next lemma then finishes the proof.
 \end{pf}
@@ -3731,6 +3725,13 @@ and similarly for products of more $\cO_\gamma(t)$.
 
 \subsection{Localization and the index theorem} \label{sec:localization-index}
 
+In this section we are going to ``prove'' the index theorem,
+\autoref{thm:atiyah-singer}, using our supersymmetric quantum mechanics.
+Of course, because we have been rather cavalier about infinite-dimensional
+determinants, this is not a rigorous proof as it stands.
+The original references for this proof are 
+\cite{Alvarez-Gaume1983b,MR816738,MR87i:81237}.
+
 Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
 similar to what we did in \autoref{sec:0d-sigma-model-localization}.
 Indeed, the path integral we want to do is an infinite-dimensional
@@ -3816,13 +3817,12 @@ we obtain the index theorem \autoref{thm:atiyah-singer}.
 Needless to say, this is not a rigorous proof of \autoref{thm:atiyah-singer}
 as it stands!
 
-\fixme{refs: Witten, Alvarez-Gaume, Atiyah}
 
 \subsection{The twisted case}
 
-\fixme{ref: Friedan-Windey}
+One extension of the physical proof of the index theorem 
+is worth mentioning. It was given first in \cite{Friedan1984}.
 
-One extension of this story is worth mentioning.
 Suppose we fix a vector bundle $E$ over $Y$
 with metric and compatible connection.\footnote{$E$ can even be a super vector bundle
 \fixme{...}}
@@ -3867,25 +3867,132 @@ except that now on the fixed locus we no longer have $\omega = 0$; rather,
 because of the fermionic part in \eqref{eq:super-hol}, we get $\omega = F$, 
 with $F$ the curvature of the connection in $E$. Thus in the localization formula we obtain
 an extra factor of $\e^F$. The result is the index theorem
-\fixme{...}
+for twisted Dirac operators, \autoref{thm:atiyah-singer-twisted}.
 
 \fixme{case of higher rank $E$}
 
 The index theorem for the Dirac operator is part of a much broader
 story. I do not know how much of this story can be understood in the
-supersymmetric-quantum-mechanics framework we consider here
-(For example what should we say about the \ti{families index theorem}?
+supersymmetric-quantum-mechanics framework we consider here.
+(For example, what should we say about the \ti{families index theorem}?
 Can we think of it as a formula for the Berry connection which one normally has 
 on the space of ground states of a family of quantum-mechanical systems?
-\fixme{Alvarez-Windey})
+One relevant reference here appears to be \cite{Alvarez2009}.)
 
 
-\fixme{remark: this gives Gauss-Bonnet if $E = S$, or signature theorem}
+\section{Some QFT generalities}
+
+\fixme{Hilbert spaces associated to spatial slices}
+\fixme{canonical quantization}
 
 
 \section{QFT in 2 dimensions}
 
-\subsection{The free theory}
+Now we move on to two-dimensional theories, i.e. theories defined
+on a Riemannian $2$-manifold $X$.
+
+
+\subsection{The free boson}
+
+A simple case to start with is the theory of a single 
+scalar field. This theory has
+\begin{equation}
+  \cC_X = \Map(X,\R)
+\end{equation}
+and the action
+\begin{equation} \label{eq:action-2d-free-boson}
+  S(\phi) = \half \int_X \norm{\de \phi}^2 \de \vol_X = \half \int_X \de \phi \wedge \star \de \phi.
+\end{equation}
+
+\begin{exercise}
+Verify that $S(\phi)$ is \ti{conformally invariant}, i.e. it depends only on the conformal
+class of the metric on $X$.
+\end{exercise}
+
+In principle this theory should be defined by some kind of discretization, cutoff
+or the like. For a while, let us try to work formally, without being careful about
+precisely how the theory is defined.
+
+We consider the special case $X = S^1(T) \times S^1(L)$.
+In this case we will see that the theory essentially decomposes into an infinite
+number of copies of the $1$-dimensional ``harmonic oscillator'' we considered in
+\autoref{exa:harmonic-oscillator}. Indeed, we can decompose
+the field\footnote{We use $x$ as the coordinate on ``space'' $S^1(L)$
+and $t$ on ``time'' $S^1(T)$.}
+\begin{equation} \label{eq:fourier-expansion-2d}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L}
+\end{equation}
+where $a_n(t) = \overline{a_{-n}(t)}$,
+and then the action \eqref{eq:action-2d-free-boson} is
+\begin{equation}
+  S(\phi) = \qtr \sum_{n \in \Z} \int_{0}^T \de t \, \frac{4 \pi^2 n^2}{L^2} \abs{a_n(t)}^2 + \abs{\dot{a}_n(t)}^2.
+\end{equation}
+Alternatively, writing $a_n(t) = b_n(t) + \I c_n(t)$ with $b_n(t)$ and $c_n(t)$ real, this is
+\begin{equation}
+  S(\phi) =  \sum_{n > 0} \left[ \int_{0}^T \de t \, \frac{2 \pi^2 n^2}{L^2} (b_n(t)^2 + c_n(t)^2) + \half (\dot{b}_n(t)^2 + \dot{c}_n(t)^2) \right] + \qtr \int_0^T \de t \, \dot a_0(t)^2.
+\end{equation}
+Thus the action is a sum of terms, each involving just one of the fields 
+$a_0(t), b_n(t), c_n(t)$. Each of the $b_n(t)$ and $c_n(t)$ has an action 
+like the field $x(t)$ of \autoref{exa:harmonic-oscillator}, with the 
+frequency
+\begin{equation}
+  \omega_n = 2 \pi \frac{n}{L}.
+\end{equation}
+We have already computed the contribution to the partition function from such a
+field: it is given by \eqref{eq:s1-z-harmonic-oscillator}.
+Thus formally the fields $b_n(t)$ and $c_n(t)$ contribute to the partition function a factor
+\begin{equation} \label{eq:formal-contribution-bc}
+  \prod_{n=1}^\infty \frac{1}{(2 \sinh(\pi n T/L))^2} =  \prod_{n=1}^\infty \left( \frac{q^{n/2}}{1 - q^{n}} \right)^2, \qquad q = \e^{-2 \pi T / L}.
+\end{equation}
+As it stands, this product diverges to $0$ for any $q$, because of the factor
+$\prod_{n=1}^\infty q^n$.
+So our strategy of working formally
+has not worked out well. On the other hand,
+if we define the path integral by discretization, the situation should be
+better. \fixme{explain regulation of the zero point energy}
+So the regulated version of \eqref{eq:formal-contribution-bc} is
+\begin{equation}
+ q^{-1/12} \prod_{n=1}^\infty \frac{1}{(1-q^n)^2}
+\end{equation}
+This function has another name: it is $\eta(q)^{-2}$, where
+$\eta(q) = q^{1/24} \prod_{n=1}^\infty (1-q^n)$ is the Dedekind eta function.
+
+We also have the remaining field $a_0(t)$, which has to be treated differently.
+\fixme{it's an IR divergence, regulate it}
+Finally we get
+\begin{equation}
+  Z_X = \frac{V}{2 \pi \sqrt{T/L}} \eta(q)^{-2}
+\end{equation}
+
+More generally, if we consider a \ti{tilted} torus
+$X = \C / (\Z \oplus \Z \tau)$ with $\tau$ in the upper
+half-plane, then we get
+\begin{equation} \label{eq:zx-tilted-torus}
+  Z_X = \frac{V}{2 \pi \sqrt{\im \tau}} \abs{\eta(\tau)}^{-2}.
+\end{equation}
+
+\begin{exercise} Check directly that $Z_X$ given in 
+\autoref{eq:zx-tilted-torus} is 
+modular invariant, i.e. invariant under $\tau \to \tau + 1$
+and $\tau \to -1/\tau$. \fixme{comment on this}
+\end{exercise}
+
+\subsection{Compactified free boson}
+
+Now let us generalize slightly: instead of the target $\R$
+let us take $Y = S^1(R)$, with the same action \eqref{eq:action-2d-free-boson}.
+The previous analysis now has to be modified in two ways.
+First, the expansion \eqref{eq:fourier-expansion-2d} gets replaced by
+\begin{equation}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L} + w x R / L
+\end{equation}
+where $w \in \Z$ is an integer, the \ti{winding number}.
+Second, the field $a_0(t)$ appearing here is now a 
+map to $S^1(R)$ rather than to $\R$. (All the other fields $a_n(t)$ are
+still maps to $\R$.)
+
+The spectrum is correspondingly modified. First, the
+winding term contributes \fixme{...}
 
 \appendix
 
