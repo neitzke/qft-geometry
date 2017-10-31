@@ -3919,7 +3919,7 @@ number of copies of the $1$-dimensional ``harmonic oscillator'' we considered in
 \autoref{exa:harmonic-oscillator}. Indeed, we can decompose
 the field\footnote{We use $x$ as the coordinate on ``space'' $S^1(L)$
 and $t$ on ``time'' $S^1(T)$.}
-\begin{equation}
+\begin{equation} \label{eq:fourier-expansion-2d}
   \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L}
 \end{equation}
 where $a_n(t) = \overline{a_{-n}(t)}$,
@@ -3938,21 +3938,61 @@ frequency
 \begin{equation}
   \omega_n = 2 \pi \frac{n}{L}.
 \end{equation}
-Thus formally these fields contribute to the partition function a factor
-\begin{equation}
-  \prod_{n=1}^\infty \frac{1}{4 \sinh(\pi n T/L)^2}
+We have already computed the contribution to the partition function from such a
+field: it is given by \eqref{eq:s1-z-harmonic-oscillator}.
+Thus formally the fields $b_n(t)$ and $c_n(t)$ contribute to the partition function a factor
+\begin{equation} \label{eq:formal-contribution-bc}
+  \prod_{n=1}^\infty \frac{1}{(2 \sinh(\pi n T/L))^2} =  \prod_{n=1}^\infty \left( \frac{q^{n/2}}{1 - q^{n}} \right)^2, \qquad q = \e^{-2 \pi T / L}.
 \end{equation}
-\fixme{regularization...}
-
-We also have the extra $a_0(t)$, which has to be treated differently.
-
-As in the 1-dimensional case, the partition function will again be expressed
-in the form
+As it stands, this product diverges to $0$ for any $q$, because of the factor
+$\prod_{n=1}^\infty q^n$.
+So our strategy of working formally
+has not worked out well. On the other hand,
+if we define the path integral by discretization, the situation should be
+better. \fixme{explain regulation of the zero point energy}
+So the regulated version of \eqref{eq:formal-contribution-bc} is
 \begin{equation}
-  Z_{X} = \Tr_\cH \e^{-TH}
+ q^{-1/12} \prod_{n=1}^\infty \frac{1}{(1-q^n)^2}
 \end{equation}
-where now $\cH$ is a Hilbert space associated to the $1$-manifold $S^1(L)$.
+This function has another name: it is $\eta(q)^{-2}$, where
+$\eta(q) = q^{1/24} \prod_{n=1}^\infty (1-q^n)$ is the Dedekind eta function.
 
+We also have the remaining field $a_0(t)$, which has to be treated differently.
+\fixme{it's an IR divergence, regulate it}
+Finally we get
+\begin{equation}
+  Z_X = \frac{V}{2 \pi \sqrt{T/L}} \eta(q)^{-2}
+\end{equation}
+
+More generally, if we consider a \ti{tilted} torus
+$X = \C / (\Z \oplus \Z \tau)$ with $\tau$ in the upper
+half-plane, then we get
+\begin{equation} \label{eq:zx-tilted-torus}
+  Z_X = \frac{V}{2 \pi \sqrt{\im \tau}} \abs{\eta(\tau)}^{-2}.
+\end{equation}
+
+\begin{exercise} Check directly that $Z_X$ given in 
+\autoref{eq:zx-tilted-torus} is 
+modular invariant, i.e. invariant under $\tau \to \tau + 1$
+and $\tau \to -1/\tau$. \fixme{comment on this}
+\end{exercise}
+
+\subsection{Compactified free boson}
+
+Now let us generalize slightly: instead of the target $\R$
+let us take $Y = S^1(R)$, with the same action \eqref{eq:action-2d-free-boson}.
+The previous analysis now has to be modified in two ways.
+First, the expansion \eqref{eq:fourier-expansion-2d} gets replaced by
+\begin{equation}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L} + w x R / L
+\end{equation}
+where $w \in \Z$ is an integer, the \ti{winding number}.
+Second, the field $a_0(t)$ appearing here is now a 
+map to $S^1(R)$ rather than to $\R$. (All the other fields $a_n(t)$ are
+still maps to $\R$.)
+
+The spectrum is correspondingly modified. First, the
+winding term contributes \fixme{...}
 
 
 \appendix
