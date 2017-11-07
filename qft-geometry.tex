@@ -330,8 +330,9 @@ Andrew Neitzke \\
 {These are the notes for a Fall 2017
 course at UT Austin, \ti{in progress}.
 They are extremely incomplete, unreliable, full
-of mistakes and omissions.
-The latest PDF can always be found
+of mistakes and omissions. \ti{Moreover, they have 
+fallen behind the actual course.}
+The current PDF can always be found
 at
 \begin{center}
 \small \url{http://ma.utexas.edu/users/neitzke/teaching/392C-qft-geometry/qft-geometry.pdf}
@@ -3994,6 +3995,109 @@ still maps to $\R$.)
 The spectrum is correspondingly modified. First, the
 winding term contributes \fixme{...}
 
+\fixme{$T$-duality}
+
+
+\section{Four-dimensional field theory}
+
+\subsection{Abelian gauge theory}
+
+\fixme{abelian gauge theory}
+
+\fixme{summing over bundles}
+
+\fixme{electric/magnetic duality}
+
+\fixme{exercise: modular property of partition function on a Riemannian manifold, ref Witten}
+
+\fixme{coupling to background currents: Wilson line}
+
+\fixme{coupling to dynamical currents}
+
+\fixme{nonperturbative sectors}
+
+\subsection{Interactions}
+
+Now we come to an important point. The action \fixme{...} is not 
+purely quadratic: it involves cubic and quartic interaction terms.
+Thus, for any computation we do in this theory, we will need to
+deal with the interactions.
+We have done a few such computations before, in $0$-dimensional
+and $1$-dimensional theories \fixme{...}, without any major difficulties arising.
+
+Now let's consider an analogous computation in a $4$-dimensional theory:
+we take a scalar field theory,
+\begin{equation}
+  \cC_X = \Map(X, \R),
+\end{equation}
+with the action
+\begin{equation}
+  S = \int_X \half \norm{\de \phi}^2 + \frac{m^2}{2} \phi^2 + \frac{\lambda}{4!} \phi^4
+\end{equation}
+This is completely 
+parallel to the anharmonic oscillator which we considered in \fixme{...},
+except for the crucial difference that $X$ has dimension $4$
+instead of $1$.
+
+Suppose we try to compute the simplest nontrivial observable in this theory,
+the $2$-point function. Following the rules of perturbation theory as we have developed
+them to this point, we would get the formal expression
+\begin{equation} \label{eq:pert-formal-interacting-scalar}
+  \frac{\IP{\phi(x_1) \phi(x_2)}}{Z} = D(x_1, x_2) + \frac{\lambda}{2} \int_{X} \de x' \, D(x_1,x') D(x_2,x') D(x',x') + \cdots
+\end{equation}
+where $D(x,y)$ is the Green's function for the deformed Laplace operator, obeying
+\begin{equation}
+  (-\Delta_{x} + m^2) D(x, y) = \delta(x, y).
+\end{equation}
+Recall \fixme{...} that for $X = \R$ and $m=0$ this would be $D(x,y) = \half \abs{x-y}$.
+For $X = \R^4$ and $m=0$ on the other hand it is $D(x,y) = \frac{1}{\norm{x-y}^2}$.
+In particular, there is an evident difficulty with \eqref{eq:pert-formal-interacting-scalar}:
+the quantity $D(x',x')$ appearing there is infinite.
+
+This infinity might seem like a disaster, but it isn't: it is just another symptom of the 
+fact that we have not been particularly careful about how the theory is really defined.
+Were we more careful, we might 
+try to define the theory by first defining a lattice version of
+it and then taking the lattice spacing to zero. One important effect of such a discretization is
+to provide a ``UV cutoff'':
+the Fourier transform $\hat\phi$ cannot be supported at values
+larger than the inverse lattice spacing.\footnote{The lattice
+also provides an ``IR cutoff,'' by discretizing the possible values of
+$\hat\phi$. This effect is not needed in our present discussion: we
+will compute quantities that depend only weakly on the IR cutoff,
+and thus we won't include such a cutoff explicitly.
+In particular, the field space we will consider
+is still infinite-dimensional, while in the lattice theory it would
+actually be finite-dimensional.}
+In the case $X = \R^4$, 
+we can model this effect by defining a new field space
+\begin{equation}
+  \cC_\Lambda = \{ \phi: \R^4 \to \R, \quad \hat\phi(p) = 0 \text{ for } \norm{p} > \Lambda\}
+\end{equation}
+So, suppose that we perform our path integrals using this cutoff version of the
+field space.
+Repeating the formal development of perturbation theory, we would find that the
+only change \fixme{check} is that $D(x,y)$ gets replaced by a cutoff version
+$D_\Lambda(x,y)$,
+defined as follows.
+
+Recall that the original $D(x,y)$ can be written conveniently in Fourier
+space, as
+\begin{equation}
+  D(x,y) = \int_{(\R^4)^*} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}.
+\end{equation}
+In particular this gives
+\begin{equation}
+  D(x,x) = \int_{(\R^4)^*} \de p \frac{1}{\norm{p}^2 + m^2}
+\end{equation}
+which makes it obvious that it 
+indeed diverges, with the divergence coming from the region of 
+large $\norm{p}$, i.e. from the high-frequency modes of the field $\phi$. 
+In the cutoff theory we get instead
+\begin{equation}
+  D_\Lambda(x,y) = \int_{\norm{p} < \Lambda} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}
+\end{equation}
+and in particular $D_\Lambda(x,x)$ is now finite.
 
 \appendix
 
