@@ -4051,38 +4051,49 @@ them to this point, we would get the formal expression
 \end{equation}
 where $D(x,y)$ is the Green's function for the deformed Laplace operator, obeying
 \begin{equation}
-  (-\Delta_{x} + m^2) D(x, y) = \delta(x, y).
+  (-\Delta_{x} + m^2) D(x, y) = \delta(x, y)
 \end{equation}
+and $D(x,y) \to 0$ as $\norm{x-y} \to \infty$.
 Recall \fixme{...} that for $X = \R$ and $m=0$ this would be $D(x,y) = \half \abs{x-y}$.
-For $X = \R^4$ and $m=0$ on the other hand it is $D(x,y) = \frac{1}{\norm{x-y}^2}$.
+For $X = \R^4$ and $m=0$ on the other hand it is $D(x,y) = \frac{1}{\norm{x-y}^2}$. \fixme{constant?}
 In particular, there is an evident difficulty with \eqref{eq:pert-formal-interacting-scalar}:
 the quantity $D(x',x')$ appearing there is infinite.
 
-This infinity might seem like a disaster, but it isn't: it is just another symptom of the 
+This infinity might seem like a disaster, but it isn't: it is just a
+symptom of the 
 fact that we have not been particularly careful about how the theory is really defined.
 Were we more careful, we might 
 try to define the theory by first defining a lattice version of
-it and then taking the lattice spacing to zero. One important effect of such a discretization is
-to provide a ``UV cutoff'':
+it and then taking the lattice spacing to zero, as 
+we did in \fixme{...}. One important effect of such a discretization is
+to provide a ``UV cutoff'': roughly speaking,
 the Fourier transform $\hat\phi$ cannot be supported at values
 larger than the inverse lattice spacing.
 In the case $X = \R^4$, 
-we can model this effect by defining a new field space
+we can model this effect by defining a new field space,
 \begin{equation}
-  \cC_\Lambda = \{ \phi: \R^4 \to \R, \quad \hat\phi(p) = 0 \text{ for } \norm{p} > \Lambda\}
+  \cC_\Lambda = \{ \phi: \R^4 \to \R, \quad \hat\phi(p) = 0 \text{ for } \norm{p} > \Lambda\}.
 \end{equation}
-So, suppose that we perform our path integrals using this cutoff version of the
-field space.
+Now, suppose that we perform our path integrals over the cutoff
+field space $\cC_\Lambda$
+instead of the original $\cC_{\R^4}$.
 Repeating the formal development of perturbation theory, we would find that the
 only change \fixme{check} is that $D(x,y)$ gets replaced by a cutoff version
 $D_\Lambda(x,y)$,
 defined as follows.
 
 Recall that the original $D(x,y)$ can be written conveniently in Fourier
-space, as
-\begin{equation}
+space, as \fixme{factors of $2\pi$?}
+\begin{equation} \label{eq:propagator-fourier}
   D(x,y) = \int_{(\R^4)^*} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}.
 \end{equation}
+
+\begin{exercise} Check \eqref{eq:propagator-fourier}. (Hint: the
+Fourier transform of $-\Delta + m^2$ is the operator of multiplication
+by $\norm{p}^2 + m^2$, and the Fourier transform of the delta-function 
+$\delta(0)$ is a constant function.)
+\end{exercise}
+
 In particular this gives
 \begin{equation}
   D(x,x) = \int_{(\R^4)^*} \de p \frac{1}{\norm{p}^2 + m^2}
@@ -4095,8 +4106,25 @@ In the cutoff theory we get instead
   D_\Lambda(x,y) = \int_{\norm{p} < \Lambda} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}
 \end{equation}
 and in particular $D_\Lambda(x,x)$ is now finite.
-
-So, by introducing the cutoff, we have 
+So, by introducing the cutoff, we have at least made the
+individual terms in our perturbation 
+expansion \eqref{eq:pert-formal-interacting-scalar}
+well defined. However, as a practical tool, this
+expansion still suffers from some drawbacks. In particular,
+let us consider the behavior for large 
+$\Lambda$. Then we can expand \fixme{fix the constants}
+\begin{equation}
+  D_\Lambda(x,y) \sim \begin{cases} \Lambda^2 + \cdots & \text{ if } x = y, \\
+  \frac{1}{\norm{x - y}^2} + \cdots & \text{ if } x \neq y \end{cases}
+\end{equation}
+Using this expansion we can study the large $\Lambda$ behavior of the
+individual terms in the expansion \eqref{eq:pert-formal-interacting-scalar}.
+The leading term behaves as
+$\norm{x_1-x_2}^{-2}$ while the next term behaves as
+$\lambda \Lambda^2$.
+In particular, if $\Lambda \gg \norm{x_1-x_2}^{-1}$, then
+this expansion seems to be rather ill behaved.
+\fixme{...}
 
 \appendix
 
