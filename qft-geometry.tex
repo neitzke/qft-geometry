@@ -3978,6 +3978,10 @@ modular invariant, i.e. invariant under $\tau \to \tau + 1$
 and $\tau \to -1/\tau$. \fixme{comment on this}
 \end{exercise}
 
+\fixme{comment on Polyakov formula: if we transform the metric
+from $\rho_1 \abs{\de z}^2$ to $\rho_2 \abs{\de z}^2$,
+$\det \Delta$ changes by $\exp \left[ \frac{1}{3 \pi} \int_X \log \frac{\rho_2}{\rho_1} \partial^2_{z \bar{z}} \log(\rho_2 \rho_1) \abs{\de z} \right]$ (cite Fay)}
+
 \subsection{Compactified free boson}
 
 Now let us generalize slightly: instead of the target $\R$
@@ -4061,14 +4065,7 @@ try to define the theory by first defining a lattice version of
 it and then taking the lattice spacing to zero. One important effect of such a discretization is
 to provide a ``UV cutoff'':
 the Fourier transform $\hat\phi$ cannot be supported at values
-larger than the inverse lattice spacing.\footnote{The lattice
-also provides an ``IR cutoff,'' by discretizing the possible values of
-$\hat\phi$. This effect is not needed in our present discussion: we
-will compute quantities that depend only weakly on the IR cutoff,
-and thus we won't include such a cutoff explicitly.
-In particular, the field space we will consider
-is still infinite-dimensional, while in the lattice theory it would
-actually be finite-dimensional.}
+larger than the inverse lattice spacing.
 In the case $X = \R^4$, 
 we can model this effect by defining a new field space
 \begin{equation}
@@ -4098,6 +4095,8 @@ In the cutoff theory we get instead
   D_\Lambda(x,y) = \int_{\norm{p} < \Lambda} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}
 \end{equation}
 and in particular $D_\Lambda(x,x)$ is now finite.
+
+So, by introducing the cutoff, we have 
 
 \appendix
 
