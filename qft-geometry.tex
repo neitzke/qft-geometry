@@ -22,7 +22,7 @@
 \usepackage[missing=]{gitinfo2}
 \usepackage{fancyhdr}
 \usepackage{slashed}
-
+\usepackage[utf8]{inputenc} % get rid of Biber warning messages
 \definecolor{darkblue}{rgb}{0.1,0.1,0.7}
 \definecolor{darkred}{rgb}{0.5,0.1,0.1}
 \definecolor{darkgreen}{rgb}{0.0,0.42,0.06}
@@ -205,8 +205,7 @@
 \newcommand{\LL}{{\mathcal L}}
 \newcommand{\RR}{{\mathcal R}}
 \newcommand{\V}{{\mathcal V}}
-\newcommand{\dirac}{\!\!\not\!\partial}
-\newcommand{\Dirac}{\!\!\not\!\!D}
+\newcommand{\dirac}{\slashed{\partial}}
 \newcommand{\cE}{{\mathcal E}}
 \newcommand{\vs}{\not\!v}
 \newcommand{\kahler}{K\"ahler\xspace}
@@ -222,7 +221,7 @@
 \newcommand{\J}{{\mathrm j}}
 \newcommand{\K}{{\mathrm k}}
 \newcommand{\e}{{\mathrm e}}
-\newcommand\bid{{\mathbf 1}}
+\newcommand{\bid}{{\mathbf 1}}
 \newcommand{\de}{\mathrm{d}}
 \newcommand{\ab}{\mathrm{ab}}
 \newcommand{\vol}{\mathrm{vol}}
@@ -252,11 +251,13 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 
 \DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\ch}{ch}
 \DeclareMathOperator{\dvol}{dvol}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\im}{Im}
 \DeclareMathOperator{\re}{Re}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\STr}{STr}
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Aut}{Aut}
@@ -278,6 +279,7 @@
 \DeclareMathOperator{\Spin}{Spin}
 \DeclareMathOperator{\SO}{SO}
 \DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\U}{U}
 \DeclareMathOperator{\Cliff}{Cliff}
 \DeclareMathOperator{\vertices}{vertices}
@@ -288,6 +290,7 @@
 \DeclareMathOperator{\Euler}{Euler}
 \DeclareMathOperator{\Hess}{Hess}
 \DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Isom}{Isom}
 
 \newcommand{\insfig}[2]{
 
@@ -345,12 +348,12 @@ or as pull requests to the source repository hosted at
 \begin{center}
 \small \url{http://github.com/neitzke/qft-geometry}
 \end{center}
-I thank Arun Debray, Behzat Ergun, Richard Hughes, Robbie Rosati 
-and Ivan Tulli for very helpful
-suggestions and corrections.
+I thank Arun Debray, Behzat Ergun, Richard Hughes, Robbie Rosati, 
+Ivan Tulli and Val Zakharevich for very helpful
+suggestions, corrections and additions.
 }
 
-% \tableofcontents
+\tableofcontents
 % \renewcommand{\listtheoremname}{Quick reference}
 % \listoftheorems[onlynamed]
 
@@ -537,9 +540,9 @@ then $\cM$ is $H^1(X,\R) / H^1(X,\Z)$, and otherwise $\cM$ is empty.
 
 When $G$ is nonabelian, the situation is much more difficult.
 Nevertheless $\cM$ can be studied and moreover it turns out to have a 
-reasonable geometric structure.
-From now on let us specialize to the case $G = \SU(2)$.
+reasonable geometric structure, as follows.
 
+From now on let us specialize to the case $G = \SU(2)$.
 In this case $P$ is classified by the integer
 \begin{equation}
   k = \int_X c_2(P).
@@ -580,7 +583,7 @@ These invariants proved very powerful: they could detect phenomena invisible to
 the standard differential-topology methods \fixme{explain something proved using them?} 
 However, they were also very technically
 difficult to control, particularly because $\cM$ is typically
-\ti{noncompact}.
+\ti{noncompact}, so that integration over $\cM$ is a delicate operation.
 
 
 \subsection{QFT and Donaldson invariants}
@@ -819,7 +822,7 @@ then jump to dimension $4$. The level of rigor will be inversely correlated with
 % \end{center}
 
 
-\section{QFT in \texorpdfstring{$0$}{0} dimensions}
+\section{QFT in \texorpdfstring{$0$}{0} dimensions} \label{sec:0d-qft}
 
 \subsection{The partition function and expectation values}
 
@@ -983,7 +986,7 @@ in quantum electrodynamics is only asymptotic.
 
 
 
-\subsection{Feynman diagrams}
+\subsection{Feynman diagrams} \label{sec:feynman-diagrams-0d}
 
 Now we revisit \eqref{eq:0d-perturbation-series} and rewrite it one more time, as
 \begin{equation} \label{eq:0d-series-rewritten}
@@ -1135,7 +1138,7 @@ like labeling species of particle which could propagate along the edges.)
 
 A basis-free description of this situation is as follows.
 Let $\cC$ be a finite-dimensional real vector space $V$, with a 
-translation invariant measure $\de \mu$, and two elements
+density $\de \mu$, and two elements
 \begin{equation}
   M \in \Sym^2(V^*), \qquad C \in \Sym^4(V^*).
 \end{equation}
@@ -1143,16 +1146,17 @@ Then consider the action
 \begin{equation} \label{eq:bosonic-quartic-action}
   S(x) = \half M(x,x) + \frac{1}{4!} C(x,x,x,x).
 \end{equation}
-$M$ determines a measure $\sqrt{\det M}$ on $V$:
+$M$ determines a density $\sqrt{\det M}$ on $V$:
 \begin{exercise}
-Verify that a bilinear form $M \in \Sym^2(V^*)$ determines a measure on $V$,
+Verify that a positive definite 
+bilinear form $M \in \Sym^2(V^*)$ determines a density on $V$,
 which deserves to be called $\sqrt{\det M}$ in the sense that given
 a basis $\{e^1, \dots, e^n\}$ on $V$, with $M(e^i,e^j) = M^{ij}$, 
 $\sqrt{\det M} = \sqrt{\det (M^{ij})} \abs{e^*_1 \cdots e^*_n}$.
 \end{exercise}
 When $C = 0$ the partition function is
-\begin{equation}
-  Z_0 = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
+\begin{equation} \label{eq:partition-function-bosonic-gaussian}
+  Z_0 = \int_{V} \de \mu \, \e^{-\half M(x,x)} = (2\pi)^{\half \dim V} \frac{\de\mu}{\sqrt{\det M}}.
 \end{equation}
 The Feynman rules assign a vector in $(V^*)^{\otimes 4}$ to each vertex
 and $V^{\otimes 2}$ to each edge, contracted in the obvious way:
@@ -1532,7 +1536,7 @@ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4
 \end{exercise}
 
 
-\subsection{Perturbation theory}
+\subsection{Perturbation theory with fermions} \label{sec:perturbation-theory-0d}
 
 Integrals over finite-dimensional 
 odd vector spaces always give \ti{polynomials} in the couplings; 
@@ -1560,6 +1564,17 @@ combinatorial expression for the Pfaffian, namely if $\rank M = 2n$ then
   \Pf(M) = \frac{1}{2^n n!} \sum_{\sigma \in S_{2n}} (\sgn \sigma) \prod_{i=1}^n M_{\sigma(2i-1), \sigma(2i)}.
 \end{equation}
 \end{exercise}
+The coordinate-independent version of this is:
+\begin{exercise}
+  Suppose $V = V^1$ is an odd vector space with a quadratic 
+  element $M \in \Sym^2(V)$. Show that there is a canonical element
+  $\Pf(M) \in \wedge^\rmtop(\Pi (V^1)^*)$, 
+  and that if we choose an element
+  $\de \mu \in \wedge^\rmtop(\Pi V^1)$, then
+  \begin{equation}
+    \int_V \de \mu \, \e^{-M} = \de \mu \cdot \Pf(M).
+  \end{equation}
+\end{exercise}
 
 When $C \neq 0$ we compute $Z / Z_0$ by Feynman diagrams.
 The rules are just as they were in the even case, except that
@@ -1567,7 +1582,6 @@ we have to be careful about signs.
 % We fix (arbitrarily) an ordering of the half-edges of the diagram.
 % Then, in the contribution from each labeling of the half-edges,
 \fixme{...}
-
 
 \begin{exercise} Suppose again $\cC = \R^{0 \vert 4}$ and $S = m \psi^1 \psi^2 + m \psi^3 \psi^4 + \lambda \psi^1 \psi^2 \psi^3 \psi^4$. Show that $Z = m^2 - \lambda$ by the Feynman diagram expansion. (There is only
 one nonempty diagram which contributes.)
@@ -1612,7 +1626,7 @@ On $\R^{p \vert q}$ we have the canonical element
 \end{equation}
 
 
-\subsection{A supersymmetric example}
+\subsection{A supersymmetric example} \label{sec:0d-susy-example}
 
 Let us now consider the example $\cC = \R^{1 \vert 2}$, and write an action
 of the form
@@ -1942,7 +1956,7 @@ functions $f(x)$ are not
 $Q$-invariant.
 
 
-\subsection{Localization in a zero-dimensional sigma model}
+\subsection{Localization in a zero-dimensional sigma model} \label{sec:0d-sigma-model-localization}
 
 Now we consider a less trivial and more geometric example of supersymmetric
 localization.
@@ -2032,7 +2046,8 @@ change of coordinates; more precisely, we have an extension
 from which it follows that $\Ber T\cC = \Ber TM \otimes \Ber \Pi TM$
 which is canonically trivial. (The existence of this measure is
 the parity-changed analogue of the fact that $T^* M$ has a canonical
-volume form.)
+volume form.) Thus, provided that $M$ itself is oriented,
+we get a canonical measure of integration on $\cC$.
 
 Since our supermanifold $\cC$ comes to us as an odd vector bundle, the
 rule for integration is a straightforward generalization of what we
@@ -2188,7 +2203,8 @@ as the statement that, for this particular integral,
 
 Since there are a few tricky points here, let us explain 
 in a bit more detail how one computes the local contributions 
-in the stationary phase method.
+in the stationary phase method. (See also the very
+nice reference \cite{MR85e:58041}.)
 A key difference between the stationary phase method and
 the steepest-descent expansion is that in the stationary phase 
 method we have the
@@ -2383,16 +2399,16 @@ define
 \end{equation}
 
 The action is, for differentiable $\phi$,
-\begin{align}
-  S(\phi) &= \int_X \dvol_X \left(\qtr g(\dot\phi,\dot\phi) + V(\phi) - \frac13 R(\phi) \right) \\
-  &= \int_X \de t \sqrt{\eta_{tt}} \left(\qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac13 R(\phi)\right)
+\begin{align} \label{eq:1d-sigma-model-action}
+  S(\phi) &= \int_X \dvol_X \left(\half g(\dot\phi,\dot\phi) + V(\phi) - \frac16 R(\phi) \right) \\
+  &= \int_X \de t \sqrt{\eta_{tt}} \left(\half g_{ij}(\phi) \dot\phi^i \dot\phi^j \eta^{tt} + V(\phi) - \frac16 R(\phi)\right)
 \end{align}
 where $R: Y \to \R$ is the scalar curvature.
 
 If we choose the parameter $t$ on $X$ to be the arc-length, then
 the action reduces to
-\begin{equation}
-    S(\phi) = \int_X \de t \, \left( \qtr g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac13 R(\phi) \right).
+\begin{equation} \label{eq:1d-sigma-model-action-arc-length}
+    S(\phi) = \int_X \de t \, \left( \half g_{ij}(\phi) \dot\phi^i \dot\phi^j + V(\phi) - \frac16 R(\phi) \right).
 \end{equation}
 We can think of various $\phi \in \cC_X$ as various possible
 trajectories that the particle could take on $Y$.
@@ -2433,7 +2449,7 @@ in some sense.
 % $\de \phi \, \e^{-S}$, \ti{Wiener measure}.
 
 
-\subsection{Discretization}
+\subsection{Discretization} \label{sec:discretization}
 
 Let us start with the case $X = [0,T]_{y_0}^{y_1}$.
 One natural approach to defining 
@@ -2455,7 +2471,7 @@ Restricting $S$ to these paths gives $S: \cC_{X;N} \to \R$.
 $\cC_{X;N}$ also has a natural measure induced from the volume
 measure on $Y$, up to a tricky constant:
 \begin{equation} \label{eq:discretized-1d-measures}
- \de\mu_N = \frac{1}{(4 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^{N-1} \dvol_Y(\phi(t_n)).
+ \de\mu_N = \frac{1}{(2 \pi \Delta t)^{\frac{\dim Y}{2} \times N}} \prod_{n=1}^{N-1} \dvol_Y(\phi(t_n)).
 \end{equation}
 Thus we can define the discretized partition function
 \begin{equation}
@@ -2474,16 +2490,35 @@ long time when $Y = \R^n$, but is apparently much more recent
 for more general 
 $Y$, e.g. see \cite{MR1698956,Baer2007} for the 
 case of $Y$ compact.
-To describe what the limit is, we need a digression on the heat kernel:
+To describe what the limit is, we need a digression on the heat kernel.
 
-\begin{prop}[Heat kernel] \fixme{what class of $Y$, $V$?}
+
+\subsection{Heat kernel}
+
+We continue with a Riemannian manifold $Y$ and a function $V: Y \to \R$.
+Then we have an operator acting on $C^\infty(Y)$,
+\begin{equation}
+  H = - \half \Delta + V.
+\end{equation}
+The \ti{heat equation} defined by these data is an equation
+for functions of two variables, $f: \R \times Y \to \R$.
+We view such an $f$ as a family of functions $f_t: Y \to \R$;
+then the heat equation is
+\begin{equation} \label{eq:heat-equation}
+  \partial_t f_t(x) + H f_t(x) = 0. 
+\end{equation}
+
+\begin{prop}[Heat kernel] Suppose $Y$ is compact or $Y = \R$.\footnote{I don't know the
+precise class of manifolds where the heat kernel is known to exist.}
 For any $t \in \R_+$, the \ti{heat kernel} (deformed by $V$) 
 is a smooth function $k_t$ on $Y \times Y$, obeying the heat
 equation in the first variable,\footnote{Our
-convention is that $\Delta$ is the negative definite Laplacian,
-i.e. $\Delta = \sum \partial_i^2$ on $\R^n$.}
+convention is that $\Delta$ is the usual Laplacian,
+i.e. $\Delta = \sum \partial_i^2$ on $\R^n$. This has the inconvenient
+consequence that $\Delta$ is a \ti{negative} definite operator on $L^2(Y)$.
+Thus we will often find ourselves considering $- \Delta$.}
 \begin{equation}
-  \partial_t k_t(x,y) + (-\Delta_x + V(x)) k_t(x,y) = 0
+  \partial_t k_t(x,y) + H_x k_t(x,y) = 0
 \end{equation}
 and such that as $t \to 0^+$ this solution ``concentrates'' at the point $y$,
 \begin{equation}
@@ -2493,24 +2528,57 @@ These properties characterize $k_t$.
 \end{prop}
 \begin{exercise}
 Show that on $Y = \R^n$, when $V = 0$, the heat kernel
-is
-\begin{equation}
-  k_t(x,y) = \left( \frac{1}{4 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{4t} \norm{x-y}^2 \right).
+is\footnote{The usual formulas for the heat kernel differ from this by the
+replacement $t \to 2t$, because they omit the factor $\half$ in the
+definition of $H$. The same replacement is needed in comparing the formulas we write below
+on a Riemannian manifold to those in the literature, e.g. \cite{Roe1988a}.}
+\begin{equation}\label{eq:heat-kernel}
+  k_t(x,y) = \left( \frac{1}{2 \pi t} \right)^{\frac{n}{2}} \exp \left( - \frac{1}{2t} \norm{x-y}^2 \right).
 \end{equation}
 \end{exercise}
 
-The heat kernel is really a kernel in the sense that
-the operator $U_t$ of ``evolving the heat equation for
-time $t$'' is given by
+The heat kernel is really a kernel in the following sense.
+Given a smooth function $f: Y \to \R$, one can extend it to a family of smooth 
+functions $f_t: Y \to \R$ for $t \in \R_{\ge 0}$ by solving the heat equation
+\eqref{eq:heat-equation}.
+In particular, this defines a map $U_t: C^\infty(Y) \to C^\infty(Y)$,
+taking $f \mapsto f_t$, which we might call
+``evolving the heat equation for time $t$.''
+
+A convenient notation is to write
+\begin{equation}
+ U_t = \e^{-t H}.
+\end{equation}
+The justification for this notation is that $U_t$ obeys the differential equation
+\begin{equation} \label{eq:Ut-ode}
+  \frac{\de}{\de t} U_t = -H U_t
+\end{equation}
+which is really just a rephrasing of the heat equation \eqref{eq:heat-equation},
+and $U_0 = 1$.
+
+\begin{exercise}
+Prove \eqref{eq:Ut-ode}.
+\end{exercise}
+
+\begin{prop} $k_t(x,y)$ is the integral kernel for $U_t$, in the sense that
 \begin{equation}
   (U_t f)(x) = \int_M \de \vol_y \, k_t(x,y) f(y). 
 \end{equation}
-Moreover $U_t$ is an extremely nice operator, with the
+\end{prop}
+
+$U_t$ is an extremely nice operator, with the
 ``smoothing'' property: for any
 $t > 0$ it maps
 distributions to $C^\infty$ functions. In particular
-it gives a linear operator on $L^2(M)$,
-sometimes written $U_t = \e^{-t (-\Delta + V)}$.
+it gives a linear operator on $L^2(Y)$.
+This is \ti{not} a unitary operator.\footnote{One could have instead considered
+the analytic continuation $t \to \I t$ which would
+have been the time evolution for the Schr\"odinger equation;
+in that case it really would be unitary.}
+
+
+
+\subsection{Path integral and heat kernel}
 
 Now we can state the main fact about the $1$-dimensional sigma model:
 its path integral actually exists and the result is the heat kernel!
@@ -2537,15 +2605,15 @@ kernel. Note that although $\de \mu_N \e^{-S}$
 has a well defined
 limit, the measure $\de \mu_N$ by itself does not.
 
-If we take $X = S^1$ then we can make a similar 
-discretization: the only difference is that we require
+If we take $X = S^1(T)$ then we can make a similar 
+discretization of the path integral: the only difference is that we require
 $y_0$ and $y_N$ to be equal and then we integrate over their
 common value. Thus for the partition function we get
 \begin{equation}
-Z_{S^1} = \int \dvol_Y k_t(y,y)
+Z_{S^1(T)} = \int_Y \dvol_Y k_t(y,y).
 \end{equation}
 This integral has another interpretation: it is the trace
-of the integral operator $U_t$ acting on $L^2$ functions.
+of the integral operator $U_T$ acting on $L^2(Y)$.
 Stated formally,
 \begin{prop}[Lattice approximations to $1$-dimensional sigma
 model on $S^1$ converge to the trace of the heat flow]
@@ -2560,7 +2628,7 @@ and then
 \end{prop}
 
 
-\subsection{A sketchy proof}
+\subsection{A discretization computation}
 
 Here is a rough computation which gives some
 motivation for \autoref{prop:sigma-heat}.
@@ -2583,41 +2651,43 @@ in \eqref{eq:kernel-chopup} after we take the large $N$ limit.
 The leading behavior as $\Delta t \to 0$ and $x \to y$ 
 is not hard to guess: it is the same as on $\R^n$, namely
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right).
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,y)^2 \right).
 \end{equation}
 The first-order correction in $d(x,y)$ can be extracted from \cite{Berline2004}: it is of the form
 \begin{equation}
-  k_{\Delta t}(x,y) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{1}{12} \Ric_x(x-y,x-y) + \cdots \right).
+  k_{\Delta t}(x,y) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,y)^2 \right) \left( 1 + \frac{1}{12} \Ric_x(x-y,x-y) + \cdots \right).
 \end{equation}
 To get the first-order correction in $\Delta t$ we can restrict to the diagonal,
 and then look in \cite{Roe1988a} which says that 
 as $\Delta t \to 0$ we have
 \begin{equation}
-  k_{\Delta t}(x,x) \sim \left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{4 \Delta t} d(x,x)^2 \right) \left( 1 + \frac16 R(x) \Delta t + \cdots \right)
+  k_{\Delta t}(x,x) \sim \left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \exp \left( - \frac{1}{2 \Delta t} d(x,x)^2 \right) \left( 1 + \frac{1}{12} R(x) \Delta t + \cdots \right)
 \end{equation}
 Substituting these in \eqref{eq:kernel-chopup} we get
 \begin{multline}
-  k_T(y_N, y_0) \sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{4 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \times \\ 
-  \exp \left( - \frac{1}{4 \Delta t} d(y_{n+1},y_n)^2 \right) \left(1 + \frac16 R(y_n) \Delta t + \frac{1}{12} \Ric_{y_n}(y_{n+1}-y_n,y_{n+1}-y_n) + \cdots \right)
+  k_T(y_N, y_0) \sim \int_{Y^{N-1}} \prod_{n=1}^{N-1} \dvol_{y_n} \prod_{n=0}^{N-1}\left( \frac{1}{2 \pi \Delta t} \right)^{\frac{\dim Y}{2}} \times \\ 
+  \exp \left( - \frac{1}{2 \Delta t} d(y_{n+1},y_n)^2 \right) \left(1 + \frac{1}{12} R(y_n) \Delta t + \frac{1}{12} \Ric_{y_n}(y_{n+1}-y_n,y_{n+1}-y_n) + \cdots \right)
 \end{multline}
 The last term is a bit tricky to deal with, but under the integral it can be replaced
-by $\frac16 R(y_n) \Delta t$. \fixme{explain how} 
+by $\frac{1}{12} R(y_n) \Delta t$. \fixme{explain how} 
 Thus altogether we get
 \begin{equation}
- k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \Delta t \left( - \qtr \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{R(y_n)}{3} \right) + \cdots \right].
+ k_T(y_N, y_0)  \sim  \int_{Y^{N-1}} \de \mu_N \exp \left[ \sum_{n=0}^{N-1} \Delta t \left( - \half \left(\frac{d(y_{n+1},y_n)}{\Delta t}\right)^2 + \frac{1}{6} R(y_n) \right) + \cdots \right].
 \end{equation}
 Finally, this last expression agrees with
 the restriction of $S$ to polygonal paths, up to terms which
 vanish in the limit $\Delta t \to 0$.
+This completes our formal ``proof'' of \autoref{prop:sigma-heat}
+when $V = 0$.
 
 When $V \neq 0$ we can make a similar formal argument to motivate
 \autoref{prop:sigma-heat}.
 One technical point is that we need to be able to separate
 the pieces involving $\Delta$ from the pieces involving $V$.
 This is done using the following, 
-applied to $A = -T \Delta$, $B = T V$:
+applied to $A = -\half T \Delta$, $B = T V$:
 \begin{prop}[Trotter product formula] \label{prop:trotter}
-\fixme{with appropriate functional analytic hypothesis}
+For operators $A$, $B$ obeying appropriate functional-analytic hypotheses,
 \begin{equation}
   \e^{A+B} = \lim_{N \to \infty} \left(\e^{\frac{A}{N}} \e^{\frac{B}{N}}\right)^N.
 \end{equation}
@@ -2666,7 +2736,7 @@ lengths, so that $t$ can be on the boundary between two
 of them).
 The result is \fixme{ref?}
 \begin{prop} \label{prop:1d-discretization-with-insertion}
-  $\IP{\cO_F(t)}_{[0,1]^{y_1}_{y_0}}$ is the integral kernel
+  $\IP{\cO_F(t)}_{[0,T]^{y_1}_{y_0}}$ is the integral kernel
   representing the operator 
   \begin{equation}
     \e^{-H(T-t)} \hat F \e^{-Ht}
@@ -2705,17 +2775,19 @@ and constructing $\IP{\cO_F(t)}$
 again by discretization.
 Then it is an interesting question to identify 
 the corresponding operator on $L^2(Y)$.
+
 At least when $Y = \R$ we can answer this question:
+\fixme{though strictly speaking $Y = \R$ was not allowed
+in our previous discussion}
 \begin{prop} \label{prop:quantization-p}
 When $Y = \R$, use the standard 
 metric to identify $TY = T\R$ with $T^* Y = T^* \R$
 coordinatized by $(x,p)$. Then the function $F = p$
 induces (in the above sense) the operator
 \begin{equation}
-   \hat p = 2 \partial_x
+   \hat p = -\partial_x
 \end{equation} 
-on $L^2(\R)$. \fixme{check sign} \fixme{change conventions
-somehow so that this $2$ goes away}
+on $L^2(\R)$.
 \end{prop}
 
 \begin{exercise} Give a heuristic proof
@@ -2731,20 +2803,26 @@ $p$, $q$ on $T^* \R$ to operators $\hat{p}$, $\hat{q}$
 on $L^2(\R)$. Of course $\hat{p}$ and $\hat{q}$ do
 not commute with one another, which might at first seem
 puzzling: where does the noncommutativity come from?
-After all, naively we would have (where $\leftrightarrow$ means
-``is the heat kernel for'') \fixme{switch to a better notation}
+Consider the decorated intervals below:
+\insfig{qft-geometry-19}{0.95}
+Naively we would have (where $\leftrightarrow$ means
+``is the heat kernel for,'' and $T = t_1 + t_2 + t_3$)
 \begin{equation}
-  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{p} \e^{-t_2 H} \hat{x} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi'(t_1 + t_2) \phi(t_1) \e^{-S(\phi)},
 \end{equation}
 \begin{equation}
-  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}
+  \e^{-t_3 H} \hat{x} \e^{-t_2 H} \hat{p} \e^{-t_1 H} \leftrightarrow \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1 + t_2) \phi'(t_1) \e^{-S(\phi)}.
 \end{equation}
 In the limit $t_2 \to 0$ these two path integrals 
 both formally limit to the same object,
 \begin{equation}
 \int_{\cC_{[0,T]_{y_0}^{y_1}}} \de \phi \, \phi(t_1) \phi'(t_1) \e^{-S(\phi)}
 \end{equation}
-but which operator is this the heat kernel for?
+but we want to say that actually the two limits are not quite the same: one is
+$ \e^{-t_3 H} \hat{p} \hat{x} \e^{-t_1 H}$
+and the other is
+$ \e^{-t_3 H} \hat{x} \hat{p} \e^{-t_1 H}$. 
+How can this be?
 
 To understand this issue let us think a bit more carefully
 about how we defined the path integral by discretization.
@@ -2770,51 +2848,107 @@ Let us set
 \begin{equation}
   y_1 = \phi(t_1 - \Delta t), \qquad y_2 = \phi(t_1), \qquad y_3 = \phi(t_1 + \Delta t).
 \end{equation}
-Then we might reasonably choose either 
+The two limits we are considering would lead to the two definitions
 \begin{equation}
-  \phi'(t_1) = (y_2 - y_1) / \Delta t, \qquad \phi'(t_1) = (y_3 - y_2) / \Delta t.
+  \phi'(t_1) = (x_2 - x_1) / \Delta t, \qquad \phi'(t_1) = (x_3 - x_2) / \Delta t.
 \end{equation}
-Then in the discretized path integrals with these two 
-insertions the $y_2$-dependent part is respectively
+In the discretized path integrals with these two 
+insertions the $x_2$-dependent part is respectively
 \begin{equation}
-  \frac{1}{\Delta t} \int \de y_2 \, (y_2 - y_1) y_2 \, \e^{-F(y)}, \qquad
-  \frac{1}{\Delta t} \int \de y_2 \, (y_3 - y_2) y_2 \, \e^{-F(y)}
+  \frac{1}{\Delta t} \int \de x_2 \, (x_2 - x_1) x_2 \, \e^{-F(x)}, \qquad
+  \frac{1}{\Delta t} \int \de x_2 \, (x_3 - x_2) x_2 \, \e^{-F(x)}
 \end{equation}
 where
 \begin{equation}
-  F(y) = [(y_1 - y_2)^2 + (y_3 - y_2)^2] / (4 \Delta t).
+  F(x) = [(x_1 - x_2)^2 + (x_3 - x_2)^2] / (2 \Delta t).
 \end{equation}
-These two integrals are not quite the same:
-by integration by parts one shows that they differ by
-\begin{equation}
-  2 \int \de y_1 \de y_2 \de y_3 \, \e^{-F(y)}.
+These two integrals are not quite the same: indeed, since $\int \de x_2 \, \partial_{x_2} (x_2 \e^{-F(x)}) = 0$ we get for their difference
+\begin{equation} \label{eq:commutator-residue}
+  \frac{1}{\Delta t} \int \de x_2 \, x_2 ((x_2 - x_1) - (x_3 - x_2))  \, \e^{-F(x)}
+=  -\int \de x_2 \, \e^{-F(x)}.
 \end{equation}
 Note this difference survives in the limit 
 $\Delta t \to 0$!
-
-But the latter is just what we get from an insertion
-of the operator $1$ in the path integral.
-So it is what we expected from the commutation relation
+Now, \eqref{eq:commutator-residue} says the difference $\hat x \hat p - \hat p \hat x$
+behaves the same in the path integral as the operator $-1$.
+Thus it is what we expected from the commutation relation
 \begin{equation}
-  [\hat p, \hat q] = 2.
+  [\hat p, \hat x] = -1.
 \end{equation}
 
 
 
 \subsection{Symmetries}
 
-\fixme{time translations}
+Recall from the $0$-dimensional case that symmetries of $S$ --- i.e. vector fields on $\cC$
+which annihilate $S$ --- lead to constraints on correlation functions.
 
-\fixme{isometries of $Y$}
+In the $1$-dimensional theory we are considering here, with
+action \eqref{eq:1d-sigma-model-action}, we have two different sources of
+symmetries:
+\begin{itemize}
+  \item isometries of $X$,
+  \item isometries of $Y$.
+\end{itemize}
+For $X = S^1(T)$, the group of isometries of $X$ is $\Isom(X) \simeq U(1)$,
+acting by shifts $t \to t+c$.
+The immediate consequence of this $U(1)$ symmetry is that
+for any $c$ we have
+\begin{equation} \label{eq:1d-symm-1}
+  \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1(t_1 + c) \cO_2(t_2 + c) \cdots \cO_n(t_n + c)}_{S^1(T)}.
+\end{equation}
+Similarly for any $g \in G = \Isom(Y)$ we have
+\begin{equation} \label{eq:1d-symm-2}
+  \IP{\cO_1(t_1) \cO_2(t_2) \cdots \cO_n(t_n)}_{S^1(T)} = \IP{\cO_1^g(t_1) \cO_2^g(t_2) \cdots \cO_n^g(t_n)}_{S^1(T)}.
+\end{equation}
+The facts \eqref{eq:1d-symm-1}, \eqref{eq:1d-symm-2} 
+can also be understood from the Hamiltonian point of view, i.e.
+using the fact that (if $T > t_n > t_{n-1} > \cdots > t_1 > 0$)
+\begin{equation} \label{eq:correlation-hamiltonian}
+	\IP{\cO_n(t_n) \cO_{n-1}(t_{n-1}) \cdots \cO_1(t_1)}_{S^1(T)} = \Tr_{\cH} \e^{-(T-t_n) H} \hat\cO_n \e^{-(t_n -t_{n-1}) H} \hat\cO_{n-1} \cdots \hat\cO_1 \e^{-t_1 H}.
+\end{equation}
+
+\begin{exercise}
+Prove \eqref{eq:1d-symm-1} and \eqref{eq:1d-symm-2} using \eqref{eq:correlation-hamiltonian}.
+\end{exercise}
+In the proof of \eqref{eq:1d-symm-2}, we use the fact that
+$G$ acts on $\cH = L^2(Y)$, and $\hat{\cO}^g = g \hat{\cO} g^{-1}$.
+
 
 \fixme{the conserved charge}
 
 \fixme{coupling to ``background field'': connection on the
 circle}
 
+Finally let us introduce a piece of notation which will be useful later. 
+Each of the symmetry groups we considered above is a connected Lie group,
+so we can describe its action on $\cC$ 
+by giving the action of the Lie algebra.
+For example, the infinitesimal shift $t \to t + \eps$ acts by
+$\phi(t) \to \phi(t) + \eps \dot\phi(t)$, which we represent
+by writing
+\begin{equation}
+	\delta \phi = \eps \dot\phi,
+\end{equation}
+or relative to any coordinate system on $Y$,
+\begin{equation}
+	\delta \phi^I = \eps \dot\phi^I.
+\end{equation}
+Similarly an element $X \in \fg = \Lie(\Isom(Y))$
+acts by
+\begin{equation}
+	\delta \phi = \eps X(\phi),
+\end{equation}
+or in coordinates
+\begin{equation}
+	\delta \phi^I = \eps X^I(\phi),
+\end{equation}
+where $X^I \partial_I$ is the coordinate expression of the vector field
+by which $X$ acts on $Y$.
 
-\subsection{The simple harmonic oscillator}
+\subsection{Simple examples} \label{sec:0d-simple-examples}
 
+\begin{example}[Harmonic oscillator] \label{exa:harmonic-oscillator}
 A fundamental example is the case
 \begin{equation}
   Y = \R, \qquad V = \frac12{\omega^2 x^2}, \qquad \omega \in \R.
@@ -2829,51 +2963,1173 @@ There is a nice explicit basis of eigenfunctions,
   \psi_0 &= \e^{- \omega x^2/2}, \\
   \psi_1 &= x \e^{- \omega x^2/2}, \\
   \psi_2 &= \left (x^2 - \frac{1}{2 \omega} \right) \e^{- \omega x^2/2}, \\
-  \psi_n &= H_n(x) \e^{- \omega x^2/2}
+  \psi_n &= H_n(x \sqrt{\omega}) \e^{- \omega x^2/2}
 \end{align}
-where $H_n(x)$ is the $n$-th Hermite polynomial.
+where $H_n$ is the $n$-th Hermite polynomial.
 They obey
 \begin{equation}
-  H \psi_n = \left(\half + n\right) \omega \psi_n.
+  H \psi_n = \left(\half + n\right) \omega \psi_n,
+\end{equation}
+so the eigenvalues of $H$ are
+\begin{equation}
+  \left( \half + n \right) \omega \text{ for $n \ge 0$}.
+\end{equation}
+Thus the partition function on $X = S^1(T)$ is
+\begin{equation} \label{eq:s1-z-harmonic-oscillator}
+  Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \exp\left(- \omega T\left(n + \half\right)\right) = \frac{1}{2 \sinh(\omega T/2)}.
+\end{equation}
+\end{example}
+
+\begin{example}[Sigma model into $S^1$] \label{exa:sigma-model-s1}
+Another basic example is
+\begin{equation}
+  Y = S^1_R, \qquad V = 0.
+\end{equation}
+Here we have
+\begin{equation}
+  H = -\half \partial_x^2
+\end{equation}
+acting on $\cH = L^2(S^1_R)$. A simple basis of eigenfunctions is
+\begin{equation}
+  \psi_0(x) = 1, \qquad \psi_{2n-1}(x) = \sin\left(\frac{2 \pi n x}{R}\right), \qquad \psi_{2n}(x) = \cos\left(\frac{2 \pi n x}{R}\right)
+\end{equation}
+and so the eigenvalues are
+\begin{equation}
+  0, \frac{2 \pi^2 n^2}{R^2} \text{ (with multiplicity $2$) for $n > 0$}.
 \end{equation}
 Thus the partition function on $X = S^1(T)$ is
 \begin{equation}
-  Z_{S^1(T)} = \Tr \e^{-T H} = \sum_{n=0}^\infty \e^{- \omega T(n + \half)} = \frac{1}{2 \sinh(\omega T/2)}.
+  Z_{S^1(T)} = \Tr \e^{-T H} = 1 + 2 \sum_{n=1}^\infty \exp\left(-\frac{2 \pi^2 n^2 T}{R^2}\right) = \sum_{n = -\infty}^\infty \exp\left(-\frac{2 \pi^2 n^2 T}{R^2}\right),
+\end{equation}
+also known as the Jacobi theta function,
+\begin{equation} \label{eq:zs1-theta-function}
+  Z_{S^1(T)} = \vartheta \left(\tau = \frac{2 \pi \I T}{R^2}, \ z = 0\right).
+\end{equation}
+\end{example}
+
+\begin{exercise} For $\alpha \in \R$, let $S_\alpha: \cH \to \cH$ be the operation 
+of shifting by $\alpha$, $\psi(x) \mapsto \psi(x + \alpha)$. Compute $\Tr_{\cH} \e^{-TH} S_\alpha$.
+(You should find a theta function with the argument $z$ nonzero, generalizing \eqref{eq:zs1-theta-function}.)
+\end{exercise}
+
+\subsection{Infinite-dimensional determinants} \label{sec:infinite-dets}
+
+In the examples of \autoref{sec:0d-simple-examples} the discretized 
+path integrals involve 
+only Gaussian integrals, albeit Gaussian integrals over unbounded numbers of variables.
+Recall from \eqref{eq:partition-function-bosonic-gaussian}
+that for finite-dimensional Gaussian integrals we have
+\begin{equation} \label{eq:partition-function-bosonic-gaussian-redux}
+  (2\pi c)^{-\half \dim V} \int_{V} \de \mu \, \e^{-\half M(x,x)} = \frac{\de\mu}{\sqrt{\det (c M)}}.
+\end{equation}
+The discretized versions of the path integrals in \autoref{sec:0d-simple-examples}
+have the form of the LHS, if we take $c = \Delta t = T/N$.
+Now, we have seen that the $N \to \infty$ limit of the discretized path integral exists.
+Thus the limit of the RHS also exists.
+We would like to interpret it as some kind of infinite-dimensional
+determinant.
+
+One obstacle is that in the infinite-dimensional case the measure $\de \mu$ does not exist.
+So, we need to get rid of that.
+For this note that in the finite-dimensional case, we can identify the bilinear pairing
+$M \Delta t$ with a linear operator $A$ on $V$, 
+by choosing an identification $V \simeq V^*$ coming from a metric
+on $V$. If we choose our metric on $V$ such that $\norm{\de \mu} = 1$ then we have the simple relation
+\begin{equation}
+  \frac{\de \mu}{\sqrt{\det M \Delta t}} = \frac{1}{\sqrt{\det A}}.
 \end{equation}
 
-\fixme{...}
+\begin{exercise} Show that the $N \times N$ matrix $A$ which appears
+in the discretization of the path integral of 
+\autoref{exa:harmonic-oscillator} is 
+\begin{equation}
+  A_{ij} = \left(2 + \frac{\omega^2 T^2}{N^2}\right) \delta_{i,j} - \delta_{i,j-1} - \delta_{i,j+1}.
+\end{equation}
+Check (at least numerically) that $1 / \sqrt{\det A}$
+indeed approaches the value \eqref{eq:s1-z-harmonic-oscillator} as $N \to \infty$.
+(Explicitly the eigenvalues of $A$ are: $\frac{\omega^2 T^2}{N^2}$,
+$4 \sin^2(\pi n / N) + \frac{\omega^2 T^2}{N^2}$ (with multiplicity $2$) for $1 \le n \le \frac{N}{2}-1$, and $4 + \frac{\omega^2 T^2}{N^2}$ if $N$ is even.)
+\end{exercise}
+
+\begin{exercise}
+Do similarly for \autoref{exa:sigma-model-s1}.
+\end{exercise}
+
+We would like to make sense of the limit of the operator $A$, and its determinant, as $N \to \infty$.
+One interpretation is as follows.
+Let $V$ denote the space of 
+loops $S^1 \to \R$ for which the total energy is finite.
+This is an infinite-dimensional vector space (even a Hilbert space)
+carrying the quadratic function
+\begin{equation}
+  S(\phi) = \half \int_{0}^T \de t \left( \norm{\dot \phi(t)}^2 + \omega^2 \phi(t)^2 \right).
+\end{equation}
+We expand
+\begin{equation}
+  \phi(t) = c \sqrt{T} + \sum_{n=1}^\infty \frac{\sqrt{2T}}{2 \pi n} \left(a_n \sin\left(\frac{2 \pi n}{T} t\right) + b_n \cos\left(\frac{2 \pi n}{T} t\right)\right). 
+\end{equation}
+Now, we choose the norm
+\begin{equation} \label{eq:qm-norm}
+  \norm{\phi}^2 = c^2 + \sum_n a_n^2 + b_n^2.
+\end{equation}
+Then we have
+\begin{equation}
+  S(\phi) = \half \left( \omega^2 T^2 c^2 + \sum_{n=1}^\infty \left(1 +  \frac{\omega^2 T^2}{4 \pi^2 n^2} \right) (a_n^2 + b_n^2) \right)
+\end{equation}
+Thus the eigenvalues of the operator $A$ corresponding to the quadratic
+function $M = 2S$ are
+\begin{equation}
+  \omega^2 T^2, \qquad 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2} \text{ (with multiplicity $2$) for all $n > 0$},
+\end{equation}
+which gives\footnote{We use the product formula
+\begin{equation} \label{eq:sinh-formula}
+  \sinh x = x \prod_{n=1}^\infty \left( 1 + \frac{x^2}{\pi^2 n^2} \right).
+\end{equation}
+}
+\begin{equation}
+  \sqrt{\det A} = (\omega T) \prod_{n=1}^\infty \left( 1 + \frac{\omega^2 T^2}{4 \pi^2 n^2} \right) = 2 \sinh (\omega T/2)  
+\end{equation}
+as desired.
+
+What is puzzling about this is that it is not clear \ti{a priori} why the norm
+\eqref{eq:qm-norm} is the right one to choose. One encouraging sign: the paper 
+\cite{Ludewig2016} proves a similar statement in the case of an 
+arbitrary Riemannian $Y$ with $V = 0$ (under some nondegeneracy conditions);
+there it says the correct norm to take is a Sobolev $H^1$ norm, which is indeed
+what we did above.
+\fixme{we can verify more directly that the two correspond by making the 
+appropriate rescalings in the discretization}
+
+\begin{exercise} Carry out a similar analysis for \autoref{exa:sigma-model-s1},
+relating the partition function $Z_{S^1(T)}$ we found there to determinants of operators 
+on infinite-dimensional spaces. (In this case the field space $\cC_{S^1(T)}$ is actually
+disconnected, because maps $S^1 \to S^1$ have a discrete invariant, the winding number.
+Nevertheless each connected component is an infinite-dimensional vector space,
+which we can analyze as above. In each component you meet the \ti{same} infinite-dimensional
+determinant, multiplied by a prefactor depending on the component; so even without
+computing this determinant, you can get the answer up to a single undetermined constant.
+To see that it agrees with \eqref{eq:zs1-theta-function} you will need
+to use the Poisson summation formula, aka the modular property of the theta function.)
+\end{exercise}
 
 
-\subsection{Infinite-dimensional determinants}
+\subsection{Perturbation theory in quantum mechanics}
 
-\fixme{explain connection to determinants: no regularization
-needed if we pick the right metric?}
+Now how about path integrals for actions which are not quadratic but are close
+to quadratic, in the same sense as \autoref{sec:feynman-diagrams-0d} above? 
+
+For example, let's consider
+the \ti{quartic oscillator}, which is the case $Y = \R$, 
+\begin{equation}
+  V(x) = \half \omega^2 x^2 + \frac{\lambda}{4!} x^4.
+\end{equation}
+We will treat the case $X = S^1(T)$.
+Following the same pattern as \autoref{sec:feynman-diagrams-0d}, 
+we can write down 
+Feynman rules for the asymptotic expansion of the 
+partition function, or correlation functions, in 
+powers of $\lambda$. In fact 
+our action is an infinite-dimensional version
+of \eqref{eq:bosonic-quartic-action},
+and so we use exactly the same rules we used in that case, just adapted
+to the case where $\cC$ is an infinite-dimensional vector space.
+
+Thus to compute $Z/Z_0$ we sum over ``bubble'' diagrams with only
+$4$-valent vertices.
+The role of $M^{-1} \in V^{\otimes 2}$ is now played by
+the \ti{Green's function} for the quadratic part of the action.
+Namely, let
+\begin{equation}
+ M(x,x) = \int_0^T \de t \left(\half \norm{\dot x(t)}^2 + \half \omega^2 x(t)^2\right)  
+\end{equation}
+Then the function
+\begin{equation}
+  G(t,t') = G(t-t') = \frac{1}{2 \omega} \sum_{n \in \Z} \e^{-\omega \abs{(t-t') + n T}}
+\end{equation}
+inverts $M$ in the sense that it obeys\footnote{When $V$ is a finite-dimensional vector space, 
+for a map $M: V \otimes V \to \R$, $M^{-1}: V^* \otimes V^* \to \R$ can be characterized by the equation $M(M^{-1}(\eta, \cdot), v) = \eta(v).$
+\eqref{eq:M-G-inverse} is an infinite-dimensional version of that equation, 
+where we take $V$ to be the space of functions on $S^1$.}
+\begin{equation} \label{eq:M-G-inverse}
+  M\left(G(t,t'), f(t)\right) = f(t').
+\end{equation}
+Then, in parallel with the story of the $0$-dimensional theory
+with quartic potential in \autoref{sec:feynman-diagrams-0d},
+the Feynman diagrams with $\le 2$ vertices give
+\begin{align} \label{eq:Z-1d-pert-first}
+  \log \frac{Z}{Z_0} &\sim - \frac{\lambda}{8} \int \de t \, G(0)^2 + \frac{\lambda^2}{48} \int \de t \, \de t' \, G(t-t')^4 + \frac{\lambda^2}{16} \int \de t \, \de t' \, G(t-t')^2 G(0)^2 + O(\lambda^3) \\
+  &= - \frac{\lambda T}{32 \omega^2} \left(\coth\left(\frac{\omega T}{2}\right)\right)^2 + O(\lambda^2). \label{eq:Z-1d-pert}
+\end{align}
+Here is one concrete consequence of this formula.
+In the limit of large $T$, $\omega T \gg 1$, 
+we have $\log Z \sim -T E$
+where $E$ is the ground state energy, i.e. the smallest eigenvalue 
+of $H$. Then
+\eqref{eq:Z-1d-pert} gives the first-order correction
+to $E$ as 
+\begin{equation} \label{eq:energy-correction}
+  E - E_0 \sim \frac{\lambda}{32 \omega^2} + O(\lambda^2).
+\end{equation}
+More generally, \eqref{eq:Z-1d-pert} contains the 
+first-order perturbations
+of all the energy eigenvalues, not only the lowest one.
+
+\begin{exercise} Verify that \eqref{eq:energy-correction} 
+agrees with the usual
+result of first-order perturbation theory, which says that
+if we perturb the Hamiltonian by $H \to H + \delta H$, the 
+resulting perturbation of the energy is
+$\delta E = \IP{\psi_0, (\delta H) \psi_0}$, where $\psi_0$ is the
+lowest eigenstate of the unperturbed Hamiltonian $H$,
+normalized by $\IP{\psi_0, \psi_0} = 1$.
+\end{exercise}
+
+\begin{exercise} Evaluate explicitly the $O(\lambda^2)$
+terms in \eqref{eq:Z-1d-pert-first}. Use them to compute
+the $O(\lambda^2)$ correction to the ground state
+energy.
+\end{exercise}
+
+\begin{exercise} Work out the prediction of first-order perturbation
+theory for the ``sextic oscillator'' with potential
+\begin{equation}
+	V(x) = \half \omega^2 x^2 + \frac{\lambda}{6!} x^6.
+\end{equation}
+\end{exercise}
 
 
-\subsection{Effective field theory in quantum mechanics}
+\begin{exercise} Extract from \eqref{eq:Z-1d-pert} a prediction
+for the first-order perturbation of the \ti{second}-lowest
+energy eigenvalue of the quartic oscillator.
+\end{exercise}
 
-\fixme{effective field theory in a coupled system}
+
+\fixme{perturbation theory for heat kernel?}
+
+
+% \subsection{Fermionic path integrals}
+
+% Suppose $E$ is an oriented rank $2n$ vector bundle over $S^1$, 
+% with a metric $g$ and compatible connection $\nabla$.
+% Then we can try to define a purely fermionic quantum field theory
+% with $\cC = \Pi \Gamma(E)$ and
+% \begin{equation}
+%   S(\psi) = \int \de t \, \half g(\psi, \nabla_t \psi).
+% \end{equation}
+
+\subsection{Quantum mechanics coupled to a vector bundle} \label{sec:1d-qft-with-bundle}
+
+Suppose $Y$ is a Riemannian manifold, carrying a metric vector bundle $E$
+with connection $\nabla$, 
+and a Laplace-type operator $\Delta: C^\infty(Y,E) \to C^\infty(Y,E)$,
+\begin{equation}
+  \Delta = \nabla^* \nabla + V.
+\end{equation}
+Then we can define a heat equation coupled to $E$,
+just like \eqref{eq:heat-equation} except that we use
+the operator $H = -\half \Delta$
+on $L^2(Y, E)$.
+The heat kernel $k_t(x,y)$ in this case is a section of
+$E \boxtimes E^*$ over $Y \times Y$: thus integrating it
+against a section of $E$ gives another section of $E$.
+
+Much like~\eqref{eq:heat-kernel},
+this heat kernel arises from a $1$-dimensional quantum field theory,
+with one new coupling added giving the \ti{parallel transport} in $E$.
+Namely we write path integrals in the form
+\begin{equation}
+ Z_X =  \int \de \phi \, \Hol_{\phi} \e^{-S(\phi)}
+\end{equation}
+where 
+\begin{itemize}
+\item $S(\phi)$ is defined just as in~\eqref{eq:1d-sigma-model-action-arc-length}.
+\item
+In case $X = S^1$, $\Hol_\phi$ means the \ti{trace} of the holonomy
+of $\phi^* E$. 
+\item In case $X = [0,1]_{y_0}^{y_1}$, $\Hol_\phi$ means the
+holonomy itself, so that $Z_X$ is not a number but a map
+$E_{y_0} \to E_{y_1}$.
+\end{itemize}
+Then we have:
+\begin{prop}[Partition function of $1$-d QFT coupled to a vector bundle on the target] \label{prop:trace-coupled}
+$Z_{S^1(T)} = \Tr_{L^2(E)} \e^{-T H}$.
+\end{prop}
 
 
 \subsection{Supersymmetric quantum mechanics}
 
+We've seen that given a Riemannian manifold $Y$ there is a corresponding
+$1$-dimensional QFT of maps $X \to Y$, formally involving integrals
+over the path space
+\begin{equation}
+  \cC_X = \Map(X,Y),
+\end{equation}
+which has to do with the heat flow on $Y$.
+In particular, its partition function on $X = S^1(T)$ is
+\begin{equation}
+  Z_{S^1(T)} = \Tr \, \e^{-H T}
+\end{equation}
+which contains the whole spectrum of $H = -\Delta$. This is very far
+from being deformation invariant: morally it depends on every little
+detail of the metric on $Y$.
 
+To get something more topological we repeat the strategy we used
+in \autoref{sec:0d-susy-example} and \autoref{sec:0d-sigma-model-localization}: add fermions!
+Concretely, we will make a new QFT whose configuration space is formally
+\begin{equation}
+  \cC_X = \Pi T \Map(X,Y).
+\end{equation}
+
+One immediate observation is that if $\Map(X,Y)$ is oriented
+(whatever this means!)
+then we expect to have (at least formally) a \ti{canonical}
+measure of integration $\de \vec{x} \de \vec{\psi}$, 
+like what we had in \autoref{sec:0d-sigma-model-localization} 
+where we took $\cC = \Pi T M$.
+Thus we may expect that the constructions will be more canonical than
+they were in the non-supersymmetric case, where our choice of
+measure was somewhat arbitrary.
+
+A point of $\cC_X = \Pi T \Map(X,Y)$ concretely means a pair of:
+\begin{itemize}
+ \item $\phi: X \to Y$,
+ \item $\psi \in \Pi \Gamma(\phi^* TY)$.
+\end{itemize}
+% We could also think of $(\phi, \psi)$ together as defining a map
+% $X \times \R^{0 \vert 1} \to Y$.
+
+Now we write the action $S \in C^\infty(\cC_X)$:
+\begin{equation} \label{eq:1d-susy-action}
+  S(\varphi,\psi) = \int \de t \, \half(g(\dot \phi, \dot \phi) + g(\psi, \nabla_t \psi))
+\end{equation}
+where $\nabla_t$ is the pullback of the Levi-Civita connection from $Y$, acting
+on sections of $TY$.
+% \footnote{Note that this action has a term which is of \ti{first order}
+% in derivatives. We might have imagined writing a similar term for bosons, 
+% like $\int \de t \phi \dot\phi$. Why didn't we consider this? The reason is that
+% integration by parts shows
+%  $\int \de t \phi \dot\phi = - \int \de t \dot\phi \phi = - \int \de t \phi \dot\phi$
+% and so this term vanishes. But when $\psi$ is a fermion, there is a crucial extra sign:
+% we have
+%  $\int \de t \psi \dot\psi = - \int \de t \dot\psi \psi = \int \de t \psi \dot\psi$
+% which doesn't imply any vanishing.}
+The fermion bilinear term $g(\psi, \nabla_t \psi)$ should as
+usual be understood in a purely algebraic way: it defines an element
+of $\wedge^2(\Gamma(\phi^* TY))$, which by definition gives a function
+on $\Pi \Gamma(\phi^* TY)$ as needed.
+
+\begin{exercise} Check that $\int \de t\, g(\cdot, \nabla_t \cdot)$
+is indeed a \ti{skew-symmetric} pairing on $\Gamma(\phi^* TY)$. 
+(Thus it would vanish
+if we inserted an ordinary even field in both slots; 
+this is why we don't
+write such first-order terms in the ordinary bosonic 1-d QFT.)
+\end{exercise}
+
+As before, this action is invariant under the symmetry of time translations,
+which we represent by its infinitesimal action $H \in \Vect^0(\cC_X)$,\footnote{It's possible to 
+get confused about the invariant meaning of this formula, so let's spell it out:
+it means that relative to any local coordinate system on $Y$, we have
+$\delta \phi^I(t) = \eps \dot\phi^I(t)$ and $\delta \psi^I(t) = \eps \dot \psi^I(t)$.}
+\begin{equation}
+  \delta \phi = \eps \dot\phi, \qquad \delta \psi = \eps \dot\psi.
+\end{equation}
+But now it is also invariant under an odd symmetry $Q \in \Vect^1(\cC_X)$,
+whose infinitesimal action is
+\begin{equation}
+  \delta \phi = \eps \psi, \qquad \delta \psi = - \eps \dot\phi.
+\end{equation}
+Let us verify this invariance in the special case $Y = \R^n$:
+then we have
+\begin{equation}
+  S = \int \de t \half (\dot\phi^I \dot\phi^I + \psi^I \dot \psi^I)
+\end{equation}
+and thus
+\begin{equation}
+  \delta S = \int \de t \, \half (2 \eps \dot\psi^I \dot\phi^I - \eps \dot\phi^I \dot\psi^I - \psi^I \eps \ddot \phi^I)
+\end{equation}
+which indeed vanishes (using integration by parts in the last term,
+and keeping track of the fact that $\eps$ and $\psi^I$ anticommute
+to get the signs right.)
+
+For a more general Riemannian manifold $Y$ the verification is
+somewhat trickier, but the outcome is the same:
+\begin{exercise}
+Verify that $S$ is invariant under $Q$.
+\end{exercise}
+
+The two symmetries $Q$ and $H$ are not unrelated:
+\begin{exercise}
+Verify that $Q$ and $H$ obey the \ti{$1$-dimensional supersymmetry algebra}
+\begin{equation}
+  \half [Q,Q] = -H.
+\end{equation}
+\end{exercise}
+Thus, in this theory $Q$ provides a ``square root of time translations.''
+
+Moreover, variations of the metric $g$ on $Y$ are $Q$-exact:
+\begin{exercise}
+Show that under a variation $g \to g + \delta g$,
+the action $S$ changes by $S \to S + Q \Psi$, where 
+$\Psi = -\half \int_0^T \de t \, (\delta g)_{IJ} \dot \phi^I \psi^J$. \fixme{check}
+\end{exercise}
+Thus, if we were dealing with finite-dimensional integrals, 
+\autoref{prop:Z-deformation-invariance} would show 
+that the partition function in this theory
+is independent of the metric on $Y$. In our infinite-dimensional
+setting we will see that this metric-independence still holds.
+The infinite-dimensional setting does bring a surprising twist,
+discussed in \autoref{sec:susy-discretization}:
+in order for $Z_{S^1(T)}$ to be well defined, $Y$ needs to be 
+a \ti{spinnable} manifold.
+
+\subsection{Integrating out fermions} \label{sec:susy-discretization}
+
+\fixme{warning, doing this by discretization seems to be subtle, because
+of fermion doubling problem! need to give some explicit way of understanding
+the result here}
+
+% Now, as we did in \autoref{sec:discretization}, 
+% we can try to define the partition 
+% function of this theory of this theory by discretization of the
+% domain $X$, replacing $\cC_X$ by finite-dimensional supermanifolds
+% $\cC_{X;N}$ to compute discretized partition functions $Z_{X;N}$.
+
+% We take
+% $\cC_{X;N}$ to be an odd vector bundle over the space of 
+% piecewise-geodesic paths from \autoref{sec:discretization}, with fiber
+% $\prod_i T_{y_i} Y$.
+% Then we define $S \in C^\infty(\cC_{X;N})$ to be \fixme{...}.
+% In this restriction $\nabla_t \psi$ becomes a sum of delta-functions
+% supported at the discretization points $t_i$, but the skew-symmetric
+% pairing $g(\psi_1, \nabla_t \psi_2)$ is still well defined.
+
+% The presence of the fermions leads to various new phenomena.
+% For example:
+% \begin{exercise} Write out the discretized action $S_N$, 
+% and show that $Z_{S^1(T);N} = 0$ 
+% for any $N$ when $\dim Y$ is odd. (This is easy when $N$ is odd, slightly more interesting when $N$ is even.)
+% \end{exercise}
+
+Suppose $Y$ is even-dimensional, say $\dim Y = 2n$.
+
+For fixed $\phi: S^1(T) \to Y$, the integral over the fermions is formally
+\begin{equation}
+  W(\phi) = \int_{\Pi \Gamma(\phi^* TY)} \de \vec\psi \, \e^{- \half \int_{0}^T g(\psi, \nabla_t \psi)} 
+\end{equation}
+We claim that
+here an important topological subtlety appears: in order to regulate
+the theory, i.e. to actually define this integral, 
+we will need to fix an orthonormal
+trivialization $F_\phi$ of $\phi^* TY$,
+and the path integral $W(\phi)$ will actually depend on this choice
+(so it is more accurately written $W(\phi, F_\phi)$.)
+For each fixed $\phi$, 
+the space of possible $F_\phi$ is a torsor
+for the loop group $\cL\SO(2n)$. In particular, it
+divides up into connected components, which are a torsor for
+$\pi_1(\SO(2n))$; this group is $\Z$ for $n=1$ and $\Z / 2\Z$
+for $n>1$. Let $\tau$ denote the generator.
+Naively $W(\phi, F_\phi)$ would be independent of $F_\phi$,
+but instead we have the following:
+
+\begin{prop}
+$W(\phi, F_\phi)$ is invariant under small deformations of $F_\phi$, but
+$W(\phi, F_\phi) = - W(\phi, \tau F_\phi)$.
+\end{prop}
+
+For general $Y$
+this sign ambiguity would prevent us from defining the path
+integral, at least in the ordinary sense. To get rid of the problem
+we assume $Y$ is spinnable, and then 
+fix a spin structure on $Y$. This picks out a restricted class
+of orthonormal trivializations $F_\phi$, namely those which lift
+to trivializations of the $\Spin(2n)$-bundle covering $\phi^* TY$.
+If we use only these trivializations in defining our discretized
+fermion path integral, then the troubling 
+sign ambiguity does not occur.
+
+Now let us see how to study $W(\phi,F_\phi)$ explicitly,
+roughly following a calculation given in
+\cite{MR87i:81237,MR816738}.
+
+Recall the discussion in \autoref{sec:infinite-dets}: given a bilinear 
+pairing
+and a metric on a vector space $V$, we can extract a number, which
+in finite dimensions is naturally the result of a Gaussian integral,
+and which we use to \ti{define} Gaussian integrals in infinite
+dimensions.
+
+\begin{prop} \label{prop:regularized-det-fermion}
+Relative to the Sobolev $H^1$ norm in $\Gamma(\phi^* TY)$,
+the determinant of the skew bilinear pairing $\IP{\psi, \nabla_t \psi}$
+is (up to an overall constant)
+$\det(1 - \Hol_\phi)$, where $\Hol_\phi$ is the
+holonomy of $\phi^* TY$.
+\end{prop}
+
+\begin{pf} The eigenvalues of the operator $\nabla_t$ are
+$\frac{2 \pi \I}{T}(k \pm \frac{\alpha_i}{2\pi})$, $k \in \Z$, where $\e^{\pm \I \alpha_i}$ are the eigenvalues
+of $\Hol_\phi$. 
+(To see this just diagonalize $\nabla_t$ acting on complex sections:
+then its diagonal entries look like $\partial_t \pm \I \alpha_i / T$, with eigenfunctions
+$\e^{2 \pi \I k t / T}$.)
+Thus formally the determinant of this operator would be the infinite product
+\begin{equation}
+  \prod_{k \in \Z} \prod_{i=1}^n - \frac{4 \pi^2}{T^2} \left( k + \frac{\alpha_i}{2\pi} \right)\left( k - \frac{\alpha_i}{2\pi} \right).
+\end{equation}
+This infinite product has a double zero at $\alpha_i = 2 \pi k$, for any $k$.
+
+Now, we take the 
+Sobolev $H^1$ norm in $\Gamma(\phi^* TY)$; then the eigenfunctions are orthogonal
+but not orthonormal: for large $k$,
+the $k$-th eigenfunction has squared-norm $\sim k^2 T^2$. 
+Thus the determinant relative to this norm will be a product of factors which
+for large $k$ go like
+\begin{equation}
+  \prod_{k} \prod_{i=1}^n \left( 1 + \frac{\alpha_i}{2\pi k} \right)\left( 1 - \frac{\alpha_i}{2\pi k} \right).
+\end{equation}
+In particular it is now convergent, and must converge to an honest function of 
+the $\alpha_i$, with zeroes at $\alpha_i = 2 \pi k$, which moreover is periodic 
+as $\alpha_i \to \alpha_i + 2 \pi$. This \fixme{plus some condition on asymptotic
+growth} determines it
+up to a constant as
+$\prod_{i=1}^n (2 \sin \frac{\alpha_i}{2})^2$. The next lemma then finishes the proof.
+\end{pf}
+
+\begin{lem}
+If $A \in \SO(2n)$ has eigenvalues $\e^{\pm \I \alpha_i}$ then
+\begin{equation} \label{eq:detminus}
+  \det(1 - A) = \prod_{i=1}^n \left( 2 \sin \frac{\alpha_i}{2} \right)^2.
+\end{equation}
+\end{lem}
+
+\fixme{comment on zeta reg?}
+
+What we are really after is the Pfaffian of the pairing $\IP{\psi, \nabla_t \psi}$, 
+not the determinant; so we need to take a square root of $\det(1 - \Hol_\phi)$.
+Since \eqref{eq:detminus} represents this quantity as a square, it 
+gives a natural-looking choice of square root, namely
+$\prod (2 \sin \frac{\alpha_i}{2})$. We claim that this is
+indeed the correct square root to take. Note that this
+requires us to lift $\Hol_\phi$ to $\Spin(2n)$, since it 
+changes by a sign under $\alpha_i \to \alpha_i + 2 \pi$.\footnote{We might
+also have decided to just always take the \ti{positive} square root.
+Then there would be no sign ambiguity, but some lack of smoothness as a
+function of $\phi$; it's not clear that this is fatal, but it does seem
+a little off-putting, at least.}
+
+For later purposes it will be convenient to have another interpretation
+of this answer which brings in the spin representation:
+\begin{prop} \label{prop:supertrace-spin-sqrt}
+If $A \in \Spin(2n)$ then 
+\begin{equation} \label{eq:str-sqrt}
+\det\nolimits_V (1 - A) = (-1)^n (\STr_S A)^2,
+\end{equation}
+where $V$ denotes
+the vector representation.
+\end{prop}
+Here $\STr$ means the \ti{supertrace}, i.e.
+\begin{equation}
+  \STr_S A = \Tr_{S^0} A - \Tr_{S^1} A.
+\end{equation}
+
+\begin{pf}
+When $n = 1$, from our description of $S$ in \autoref{app:spinors}, we
+see immediately that $\STr_S A$ is simply $(\e^{\I \alpha / 2} - \e^{-\I \alpha / 2}) = 2 \I \sin \frac{\alpha}{2}$.
+More generally we can block-diagonalize to reduce to the 
+case where $A \in \SO(2)^n \subset \SO(2n)$
+and use the fact that, as a representation of $\SO(2)^n \subset \SO(2n)$,
+$S$ is the tensor product of $2$-dimensional representations,
+and the grading on $S$ is the induced grading.
+\end{pf}
+
+Motivated by \autoref{prop:regularized-det-fermion} and \autoref{prop:supertrace-spin-sqrt},
+we propose that the integral over the fermions should be interpreted as
+\fixme{watch the $(-1)^n$}
+\begin{equation}
+  W(\phi, F_\phi) = \STr_S \Hol_\phi.
+\end{equation}
+
+% \subsection{A toy model}
+
+% To get an idea of what's going on, though, we can look at a toy model. Let's fix a loop $\phi: S^1(T) \to Y$, with $Y$ of dimension $2$.
+% Choosing a trivialization of $\phi^*TY$ we can see it as
+% the trivial bundle with fiber $\R^2$, equipped with its standard metric,
+% and a connection
+% \begin{equation}
+%   \nabla_t = \partial_t + A_t
+% \end{equation}
+% where $A_t = \alpha R$,
+% where $R \in \fso(2)$ is the standard rotation generator.
+% The holonomy of $\phi^*TY$ around $S^1(T)$ is then a rotation
+% by $\alpha T$.
+% The corresponding discretized action with $N$ lattice sites is
+% \begin{equation}
+%   S(\psi) = \half \sum_{i=1}^N \left( \psi^1_i \psi^1_{i+1} + \psi^2_i \psi^2_{i+1} + \frac{\alpha T}{N} (\psi^1_i \psi^2_{i+1} - \psi^2_i \psi^1_{i+1}) \right). 
+% \end{equation}
+
+% Now I claim that \fixme{check!}
+% \begin{equation}
+%   W = \int \prod_{i=1}^N \de \psi_i^1 \de \psi_i^2 \, \e^{-S(\psi)} = \re \left[ 2^{-N} \left( 1 + \frac{\I \alpha T}{2N} \right)^{N} \right]
+% \end{equation}
+% so that
+% \begin{equation}
+%   \lim_{N \to \infty} 2^N W = \re \e^{\I \alpha T / 2} = \half \sin \left(\half \alpha T\right).
+% \end{equation}
+
+% However, we could also choose a different trivialization of $\phi^* TY$,
+% differing from the standard one
+% by a map $g: S^1(T) \to \SO(2)$. Such a change does not affect the fermion measure
+% but changes $A \to A + g^{-1} \de g \in \Omega^1(S^1(T), \fso(2))$. The simplest choice would be
+% to take $g(t) = \exp(2 \pi k \frac{t}{T} R)$ with
+% $k \in \Z$ (winding number); then 
+% $\alpha T$ is shifted by $2 \pi k$.
+% If $k$ is odd then this reverses the sign of $W$.
+
+% To convince ourselves that this is not just some mistake in
+% how we are doing the discretization, let us consider the 
+% infinite-dimensional perspective. As usual we imagine performing
+% the path integral by first integrating over fermions, then over bosons.
+% Thus we fix a map $\phi: S^1 \to Y$ and consider the remaining 
+% fermionic integral of $\psi \in \Pi \Gamma(\phi^* TM)$. 
+% Formally it should be some kind of Pfaffian of the
+% skew-symmetric form $g(\psi, \nabla_t \psi)$ on $\Gamma(\phi^* TM)$. 
+% Now one formally computes \cite{MR816738} 
+% that the determinant of this form is (up to a $\phi$-independent constant) 
+% $\det(1 - H(\phi))$ where $H(\phi)$ is the holonomy of the 
+% Levi-Civita connection around the loop $\phi$. The question thus
+% arises, as $\phi$ varies, is it possible to consistently define
+% a square root of $\det(1 - H(\phi))$? This is possible just if
+% all the holonomies 
+% $H(\phi)$ can be consistently lifted from $\SO(2n)$ to $\Spin(2n)$,
+% i.e. just if $Y$ admits a spin structure. \fixme{...}
+
+% In any case, I believe that
+% the discretized path integrals indeed converge as $N \to \infty$,
+% but I do not know a reference for this statement.
+
+% \fixme{...}
+
+
+% \subsection{Supersymmetric heat kernel}
+
+% Suppose that $Y$ is even-dimensional, fix a spin structure 
+% over $Y$, and 
+% let $SY = S^0 Y \oplus S^1 Y$ be the spin bundle over $Y$ as in \autoref{app:spinors}.
+% Then we define a spinorial heat equation,
+% just like \eqref{eq:heat-equation} except that we use
+% the operator $H = -\half \Delta$
+% on $L^2(Y, SY)$.
+% Here, in contrast with \fixme{...}, we do \ti{not} perturb
+% by a potential function $V$, nor do we add a multiple of the
+% scalar curvature. \fixme{watch out for tricky scalar curvature terms
+% added to path integral though!} 
+% The $H$ we choose is singled out by its relation to $\dirac$.
+
+
+
+\subsection{Supersymmetric path integral and heat kernel}
+
+What we have just seen is that integrating out the fermions in our supersymmetric
+quantum mechanics has the effect of creating an insertion of $\STr_S \Hol_\phi$.
+This means that the effective theory we get is an ordinary bosonic quantum mechanics,
+but one coupled to the vector bundle $S = S^0 \oplus S^1$, with an unconventional
+sign rule; said differently, the partition function of the supersymmetric theory
+is a \ti{difference}
+\begin{equation}
+  Z_{S^1(T)} = Z_{S^1(T);S^0} - Z_{S^1(T);S^1}
+\end{equation}
+where $Z_{S^1(T);E}$ means the partition function of the bosonic theory coupled to
+the vector bundle $E$,
+in the sense of \autoref{sec:1d-qft-with-bundle}.
+Using \autoref{prop:trace-coupled}, we then have
+\begin{prop}[Partition function of supersymmetric quantum mechanics
+is the supertrace of spinor heat flow] 
+\begin{equation}
+Z_{S^1(T)} = \STr_{\cH} \e^{-TH},
+\end{equation}
+where $H = -\half \Delta$ acting on $\cH = L^2(Y, SY)$. \fixme{should be careful
+about which Laplacian we use here: scalar curvature terms could intervene, but somehow
+they don't}
+\end{prop}
+
+This function is remarkably simple to analyze:
+\begin{prop}[Supertrace of spinor heat flow is the index]
+$\STr \e^{-T H} = \ind \dirac^0$.
+\end{prop}
+\begin{pf}
+This just uses the fact that
+$\cH = L^2(Y,SY)$ is a unitary graded representation of
+the $1|1$-dimensional superalgebra spanned by $\dirac$ and $\Delta$, with $\dirac^\dagger = \dirac$
+and $\Delta^\dagger = \Delta$.
+
+First we show that $\ker \Delta = \ker \dirac$.
+Indeed, obviously $\ker \dirac \subset \ker \Delta$. Conversely, 
+if $\psi \in \ker \Delta$ then we have
+\begin{equation}
+  \norm{\dirac \psi}^2 = \IP{\dirac \psi, \dirac \psi} = \IP{\psi, \dirac^2 \psi} = \IP{\psi, -\Delta \psi} = 0
+\end{equation}
+and thus $\psi \in \ker \dirac$.
+
+Since $[\dirac, \Delta] = 0$, $\Delta$ is central, and thus
+it acts as a multiple of the identity in each graded irreducible
+representation. So, consider a graded irreducible representation
+$V$ in which $-\Delta = E$.
+Then it is straightforward to see there are only three
+possibilities:
+\begin{itemize}
+  \item $\dim V = 1 \vert 1$, $E > 0$,
+  \item $\dim V = 1 \vert 0$, $E = 0$,
+  \item $\dim V = 0 \vert 1$, $E = 0$.
+\end{itemize}
+Each representation of dimension $1 \vert 1$ contributes
+$\e^{-TE} - \e^{-TE} = 0$ to $\STr_\cH \e^{-TH}$.
+The representations of dimension $1 \vert 0$ contribute
+in total $\dim \ker \dirac^0$, and those of dimension $0 \vert 1$
+give $- \dim \ker \dirac^1$.
+\end{pf}
+
+The upshot of this section is that supersymmetric quantum mechanics
+computes the index of the Dirac operator:
+\begin{equation} \label{eq:ZS1-index}
+  Z_{S^1(T)} = \ind \dirac^0.
+\end{equation}
+
+
+\subsection{Quantization of local operators}
+
+The next proposition makes it a bit clearer why spinors are
+involved in the story. Fix a section $\gamma$ of $TY$. Then
+for any $t \in X$ there is a corresponding odd 
+function $\cO_\gamma(t) \in C^\infty(\cC)$
+which gives a local observable. Just as we ``quantized''
+the local observables in \fixme{...}, relating them to
+operators on $L^2(Y)$, now we can ask what is the
+quantization of these odd functions.
+The answer is that they map to operators 
+$\hat\gamma$, which just act by the 
+Clifford action of $\gamma$ on $L^2(Y, S)$:
+
+\begin{prop} 
+$\IP{\cO_{\gamma_1}(t_1) \cO_{\gamma_2}(t_2)}_{S^1(T)} = \STr (\e^{-t_1 H} \hat\gamma_1 \e^{-t_2 H} \hat\gamma_2 \e^{-(T-t_1-t_2)H})$,
+and similarly for products of more $\cO_\gamma(t)$.
+\end{prop}
+
+\fixme{give some sketch proof? discretization?}
+
+\fixme{supercurrent which maps to the Dirac operator}
+
+
+\subsection{Localization and the index theorem} \label{sec:localization-index}
+
+In this section we are going to ``prove'' the index theorem,
+\autoref{thm:atiyah-singer}, using our supersymmetric quantum mechanics.
+Of course, because we have been rather cavalier about infinite-dimensional
+determinants, this is not a rigorous proof as it stands.
+The original references for this proof are 
+\cite{Alvarez-Gaume1983b,MR816738,MR87i:81237}.
+
+Now we want to compute the partition function $Z_{S^1(T)}$ by localization,
+similar to what we did in \autoref{sec:0d-sigma-model-localization}.
+Indeed, the path integral we want to do is an infinite-dimensional
+version of the one given there, where:
+\begin{itemize} 
+\item $M$ is the loop space $M = \cL Y$,
+\item the $U(1)$ action on $M$ is by rotation of the loops,
+\item $H$ is the bosonic part of the action \eqref{eq:1d-susy-action}, $\half \int g(\dot\phi,\dot\phi)$,
+\item $\omega$ is the fermionic part of \eqref{eq:1d-susy-action}, $\half \int g(\psi, \nabla_t \psi)$.
+\end{itemize}
+
+\begin{exercise} Verify that $H$ is indeed a generating function for the $U(1)$ action, i.e.
+that $\iota_Y \omega = \de H$. \fixme{watch out for factor of 2 here}
+\end{exercise}
+
+\begin{exercise} Verify that the odd symmetry $Q$ corresponds to $\de + \iota_Y$.
+\end{exercise}
+\fixme{notation problem: used $Y$ for the vector field earlier, now using it for target}
+
+We are as usual free to choose any $U(1)$-invariant metric on $M$; we choose the
+one induced from the metric on $Y$.
+
+Now, formally applying \autoref{thm:abbv} would lead to
+\begin{equation} \label{eq:zs1-abbv-formal}
+  Z_{S^1(T)} = \int_F \frac{\e^{H + \omega}}{\Euler(NF)}
+\end{equation}
+where $F \subset \cL Y$ is the fixed locus of the $U(1)$ action.
+But this is just the space of \ti{constant} loops,
+which make up a copy of $Y$ inside $\cL Y$, i.e. $F \simeq Y$.
+Restricted to $F$, we have $H = \omega = 0$. It just 
+remains to evaluate the form $\Euler(NF)$. 
+
+First, what is $NF$?
+A tangent vector to the constant loop $\phi(t) = y$
+is just a map $S^1 \to T_y Y$. 
+Fourier expanding, the space of these maps is
+$T_y Y \oplus \bigoplus_{k > 0} (T_y Y \otimes \R^2)$; using our metric
+on $\cL Y$ to project off the tangent bundle $TF$, 
+we get $NF = \bigoplus_{k > 0} (T_y Y \otimes \R^2)$.
+The induced metric on $NF$ is orthogonal and, in each summand,
+restricts to that of $TY$; in particular its curvature is $R \otimes \bid$, 
+with $R \in \fso(TY)$ the Riemann curvature $2$-form,
+which we block-diagonalize with weight $2$-forms $R_i$,
+$R = \bigoplus_{i=1}^n R_i \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
+Meanwhile the $U(1)$ generator acts as
+$\bid \otimes \bigoplus_{k>0} k \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
+So altogether
+\begin{equation}
+  \Euler(NF) = \Pf \left( \left[ \bid \otimes \bigoplus_{k>0} k \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right] +  \left[ \bigoplus_{i=1}^n R_i \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \otimes \bid \right] \right).
+\end{equation}
+
+Now, we have
+\begin{exercise}
+Show that $\Pf \left( a \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \otimes \bid + b \bid \otimes \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} \right) = a^2 - b^2$.  \fixme{check signs}
+\end{exercise}
+
+From this we compute the equivariant Euler form, formally, as an infinite product:
+\begin{equation}
+  \Euler(NF) = \prod_{i=1}^n \prod_{k > 0} (k + R_i) (k - R_i).
+\end{equation} 
+
+Our arguments have been too heuristic to determine how this product is to be regulated:
+in principle such a prescription should be part of the infinite-dimensional 
+version of \autoref{thm:abbv}.
+Still, we notice that this product is just the same as one we encountered earlier \fixme{...}
+so we try regulating it the same way:
+\begin{equation}
+  \Euler(NF) = \prod_{i=1}^n \frac{\sin \pi R_i}{\pi R_i}
+\end{equation}
+This almost matches $\hat A(Y)^{-1}$ defined in \autoref{def:ahat}, 
+but not quite: its $k$-form part 
+differs by a rescaling by $(4 \pi^2)^k$.
+A more precise treatment of the regularization should allow us to
+fix this constant (in particular I think zeta function regularization works).
+Alternatively we could fix it by computing one example in each dimension.
+
+Thus the formal \eqref{eq:zs1-abbv-formal} becomes
+\begin{equation}
+  Z_{S^1(T)} = \int_Y \hat A(Y),
+\end{equation}
+and combining this with \eqref{eq:ZS1-index}
+we obtain the index theorem \autoref{thm:atiyah-singer}.
+Needless to say, this is not a rigorous proof of \autoref{thm:atiyah-singer}
+as it stands!
+
+
+\subsection{The twisted case}
+
+One extension of the physical proof of the index theorem 
+is worth mentioning. It was given first in \cite{Friedan1984}.
+
+Suppose we fix a vector bundle $E$ over $Y$
+with metric and compatible connection.\footnote{$E$ can even be a super vector bundle
+\fixme{...}}
+Then we can define a variant of our 1-d supersymmetric QFT,
+similar to what we did in the bosonic version in \autoref{sec:1d-qft-with-bundle}:
+we define path integrals in the form
+\begin{equation}
+  Z_X = \int \de \phi \de \psi \, \widetilde{\Hol}_\phi \, \e^{-S(\phi,\psi)}
+\end{equation}
+One important caveat is that in order for the full theory to be $Q$-invariant
+we need to use a ``supersymmetrized'' holonomy $\widetilde{\Hol_\phi}$, which includes
+some dependence on the fermions and is engineered to have $Q (\widetilde{\Hol_\phi}) = 0$.
+
+Let us specialize to the case where $E$ has rank $1$ and $X = S^1(T)$.
+Then it is easy enough to write the supersymmetrized
+holonomy explicitly: in components, it is
+\begin{equation} \label{eq:super-hol}
+  \widetilde{\Hol}_\phi = \exp \oint_{S^1(T)} A^I(\phi) \dot \phi_I + \half F^{IJ}(\phi) \psi_I \psi_J
+\end{equation}
+where $F$ is the curvature of the connection in $E$.
+
+\begin{exercise}
+Verify that \eqref{eq:super-hol} is $Q$-invariant.
+\end{exercise}
+
+\begin{exercise}
+Describe the generalization of \eqref{eq:super-hol} to bundles $E$ of higher rank. \fixme{hard?}
+\end{exercise}
+
+After integrating out the fermions we obtain the
+bosonic theory coupled to the bundle $S \otimes E$, and
+in parallel to \eqref{eq:ZS1-index} we get
+\begin{equation}
+  Z_{S^1(T)} = \ind \dirac^0_E
+\end{equation}
+where now $\dirac^0_E$ is the Dirac operator coupled to $E$ as
+in \autoref{sec:dirac-coupled}.
+
+The localization computation of $Z_{S^1(T)}$ in this case goes just as in
+\autoref{sec:localization-index},
+except that now on the fixed locus we no longer have $\omega = 0$; rather,
+because of the fermionic part in \eqref{eq:super-hol}, we get $\omega = F$, 
+with $F$ the curvature of the connection in $E$. Thus in the localization formula we obtain
+an extra factor of $\e^F$. The result is the index theorem
+for twisted Dirac operators, \autoref{thm:atiyah-singer-twisted}.
+
+\fixme{case of higher rank $E$}
+
+The index theorem for the Dirac operator is part of a much broader
+story. I do not know how much of this story can be understood in the
+supersymmetric-quantum-mechanics framework we consider here.
+(For example, what should we say about the \ti{families index theorem}?
+Can we think of it as a formula for the Berry connection which one normally has 
+on the space of ground states of a family of quantum-mechanical systems?
+One relevant reference here appears to be \cite{Alvarez2009}.)
+
+
+\section{Some QFT generalities}
+
+\fixme{Hilbert spaces associated to spatial slices}
+\fixme{canonical quantization}
+
+
+\section{QFT in 2 dimensions}
+
+Now we move on to two-dimensional theories, i.e. theories defined
+on a Riemannian $2$-manifold $X$.
+
+
+\subsection{The free boson}
+
+A simple case to start with is the theory of a single 
+scalar field. This theory has
+\begin{equation}
+  \cC_X = \Map(X,\R)
+\end{equation}
+and the action
+\begin{equation} \label{eq:action-2d-free-boson}
+  S(\phi) = \half \int_X \norm{\de \phi}^2 \de \vol_X = \half \int_X \de \phi \wedge \star \de \phi.
+\end{equation}
+
+\begin{exercise}
+Verify that $S(\phi)$ is \ti{conformally invariant}, i.e. it depends only on the conformal
+class of the metric on $X$.
+\end{exercise}
+
+In principle this theory should be defined by some kind of discretization, cutoff
+or the like. For a while, let us try to work formally, without being careful about
+precisely how the theory is defined.
+
+We consider the special case $X = S^1(T) \times S^1(L)$.
+In this case we will see that the theory essentially decomposes into an infinite
+number of copies of the $1$-dimensional ``harmonic oscillator'' we considered in
+\autoref{exa:harmonic-oscillator}. Indeed, we can decompose
+the field\footnote{We use $x$ as the coordinate on ``space'' $S^1(L)$
+and $t$ on ``time'' $S^1(T)$.}
+\begin{equation} \label{eq:fourier-expansion-2d}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L}
+\end{equation}
+where $a_n(t) = \overline{a_{-n}(t)}$,
+and then the action \eqref{eq:action-2d-free-boson} is
+\begin{equation}
+  S(\phi) = \qtr \sum_{n \in \Z} \int_{0}^T \de t \, \frac{4 \pi^2 n^2}{L^2} \abs{a_n(t)}^2 + \abs{\dot{a}_n(t)}^2.
+\end{equation}
+Alternatively, writing $a_n(t) = b_n(t) + \I c_n(t)$ with $b_n(t)$ and $c_n(t)$ real, this is
+\begin{equation}
+  S(\phi) =  \sum_{n > 0} \left[ \int_{0}^T \de t \, \frac{2 \pi^2 n^2}{L^2} (b_n(t)^2 + c_n(t)^2) + \half (\dot{b}_n(t)^2 + \dot{c}_n(t)^2) \right] + \qtr \int_0^T \de t \, \dot a_0(t)^2.
+\end{equation}
+Thus the action is a sum of terms, each involving just one of the fields 
+$a_0(t), b_n(t), c_n(t)$. Each of the $b_n(t)$ and $c_n(t)$ has an action 
+like the field $x(t)$ of \autoref{exa:harmonic-oscillator}, with the 
+frequency
+\begin{equation}
+  \omega_n = 2 \pi \frac{n}{L}.
+\end{equation}
+We have already computed the contribution to the partition function from such a
+field: it is given by \eqref{eq:s1-z-harmonic-oscillator}.
+Thus formally the fields $b_n(t)$ and $c_n(t)$ contribute to the partition function a factor
+\begin{equation} \label{eq:formal-contribution-bc}
+  \prod_{n=1}^\infty \frac{1}{(2 \sinh(\pi n T/L))^2} =  \prod_{n=1}^\infty \left( \frac{q^{n/2}}{1 - q^{n}} \right)^2, \qquad q = \e^{-2 \pi T / L}.
+\end{equation}
+As it stands, this product diverges to $0$ for any $q$, because of the factor
+$\prod_{n=1}^\infty q^n$.
+So our strategy of working formally
+has not worked out well. On the other hand,
+if we define the path integral by discretization, the situation should be
+better. \fixme{explain regulation of the zero point energy}
+So the regulated version of \eqref{eq:formal-contribution-bc} is
+\begin{equation}
+ q^{-1/12} \prod_{n=1}^\infty \frac{1}{(1-q^n)^2}
+\end{equation}
+This function has another name: it is $\eta(q)^{-2}$, where
+$\eta(q) = q^{1/24} \prod_{n=1}^\infty (1-q^n)$ is the Dedekind eta function.
+
+We also have the remaining field $a_0(t)$, which has to be treated differently.
+\fixme{it's an IR divergence, regulate it}
+Finally we get
+\begin{equation}
+  Z_X = \frac{V}{2 \pi \sqrt{T/L}} \eta(q)^{-2}
+\end{equation}
+
+More generally, if we consider a \ti{tilted} torus
+$X = \C / (\Z \oplus \Z \tau)$ with $\tau$ in the upper
+half-plane, then we get
+\begin{equation} \label{eq:zx-tilted-torus}
+  Z_X = \frac{V}{2 \pi \sqrt{\im \tau}} \abs{\eta(\tau)}^{-2}.
+\end{equation}
+
+\begin{exercise} Check directly that $Z_X$ given in 
+\autoref{eq:zx-tilted-torus} is 
+modular invariant, i.e. invariant under $\tau \to \tau + 1$
+and $\tau \to -1/\tau$. \fixme{comment on this}
+\end{exercise}
+
+\fixme{comment on Polyakov formula: if we transform the metric
+from $\rho_1 \abs{\de z}^2$ to $\rho_2 \abs{\de z}^2$,
+$\det \Delta$ changes by $\exp \left[ \frac{1}{3 \pi} \int_X \log \frac{\rho_2}{\rho_1} \partial^2_{z \bar{z}} \log(\rho_2 \rho_1) \abs{\de z} \right]$ (cite Fay)}
+
+\subsection{Compactified free boson}
+
+Now let us generalize slightly: instead of the target $\R$
+let us take $Y = S^1(R)$, with the same action \eqref{eq:action-2d-free-boson}.
+The previous analysis now has to be modified in two ways.
+First, the expansion \eqref{eq:fourier-expansion-2d} gets replaced by
+\begin{equation}
+  \phi(x,t) = \frac{1}{\sqrt{2L}} \sum_n a_n(t) \e^{2 \pi \I n x / L} + w x R / L
+\end{equation}
+where $w \in \Z$ is an integer, the \ti{winding number}.
+Second, the field $a_0(t)$ appearing here is now a 
+map to $S^1(R)$ rather than to $\R$. (All the other fields $a_n(t)$ are
+still maps to $\R$.)
+
+The spectrum is correspondingly modified. First, the
+winding term contributes \fixme{...}
+
+\fixme{$T$-duality}
+
+
+\section{Four-dimensional field theory}
+
+\subsection{Abelian gauge theory}
+
+\fixme{abelian gauge theory}
+
+\fixme{summing over bundles}
+
+\fixme{electric/magnetic duality}
+
+\fixme{exercise: modular property of partition function on a Riemannian manifold, ref Witten}
+
+\fixme{coupling to background currents: Wilson line}
+
+\fixme{coupling to dynamical currents}
+
+\fixme{nonperturbative sectors}
+
+\subsection{Interactions}
+
+Now we come to an important point. The action \fixme{...} is not 
+purely quadratic: it involves cubic and quartic interaction terms.
+Thus, for any computation we do in this theory, we will need to
+deal with the interactions.
+We have done a few such computations before, in $0$-dimensional
+and $1$-dimensional theories \fixme{...}, without any major difficulties arising.
+
+Now let's consider an analogous computation in a $4$-dimensional theory:
+we take a scalar field theory,
+\begin{equation}
+  \cC_X = \Map(X, \R),
+\end{equation}
+with the action
+\begin{equation}
+  S = \int_X \half \norm{\de \phi}^2 + \frac{m^2}{2} \phi^2 + \frac{\lambda}{4!} \phi^4
+\end{equation}
+This is completely 
+parallel to the anharmonic oscillator which we considered in \fixme{...},
+except for the crucial difference that $X$ has dimension $4$
+instead of $1$.
+
+Suppose we try to compute the simplest nontrivial observable in this theory,
+the $2$-point function. Following the rules of perturbation theory as we have developed
+them to this point, we would get the formal expression
+\begin{equation} \label{eq:pert-formal-interacting-scalar}
+  \frac{\IP{\phi(x_1) \phi(x_2)}}{Z} = D(x_1, x_2) + \frac{\lambda}{2} \int_{X} \de x' \, D(x_1,x') D(x_2,x') D(x',x') + \cdots
+\end{equation}
+where $D(x,y)$ is the Green's function for the deformed Laplace operator, obeying
+\begin{equation}
+  (-\Delta_{x} + m^2) D(x, y) = \delta(x, y)
+\end{equation}
+and $D(x,y) \to 0$ as $\norm{x-y} \to \infty$.
+Recall \fixme{...} that for $X = \R$ and $m=0$ this would be $D(x,y) = \half \abs{x-y}$.
+For $X = \R^4$ and $m=0$ on the other hand it is $D(x,y) = \frac{1}{\norm{x-y}^2}$. \fixme{constant?}
+In particular, there is an evident difficulty with \eqref{eq:pert-formal-interacting-scalar}:
+the quantity $D(x',x')$ appearing there is infinite.
+
+This infinity might seem like a disaster, but it isn't: it is just a
+symptom of the 
+fact that we have not been particularly careful about how the theory is really defined.
+Were we more careful, we might 
+try to define the theory by first defining a lattice version of
+it and then taking the lattice spacing to zero, as 
+we did in \fixme{...}. One important effect of such a discretization is
+to provide a ``UV cutoff'': roughly speaking,
+the Fourier transform $\hat\phi$ cannot be supported at values
+larger than the inverse lattice spacing.
+In the case $X = \R^4$, 
+we can model this effect by defining a new field space,
+\begin{equation}
+  \cC_\Lambda = \{ \phi: \R^4 \to \R, \quad \hat\phi(p) = 0 \text{ for } \norm{p} > \Lambda\}.
+\end{equation}
+Now, suppose that we perform our path integrals over the cutoff
+field space $\cC_\Lambda$
+instead of the original $\cC_{\R^4}$.
+Repeating the formal development of perturbation theory, we would find that the
+only change \fixme{check} is that $D(x,y)$ gets replaced by a cutoff version
+$D_\Lambda(x,y)$,
+defined as follows.
+
+Recall that the original $D(x,y)$ can be written conveniently in Fourier
+space, as \fixme{factors of $2\pi$?}
+\begin{equation} \label{eq:propagator-fourier}
+  D(x,y) = \int_{(\R^4)^*} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}.
+\end{equation}
+
+\begin{exercise} Check \eqref{eq:propagator-fourier}. (Hint: the
+Fourier transform of $-\Delta + m^2$ is the operator of multiplication
+by $\norm{p}^2 + m^2$, and the Fourier transform of the delta-function 
+$\delta(0)$ is a constant function.)
+\end{exercise}
+
+In particular this gives
+\begin{equation}
+  D(x,x) = \int_{(\R^4)^*} \de p \frac{1}{\norm{p}^2 + m^2}
+\end{equation}
+which makes it obvious that it 
+indeed diverges, with the divergence coming from the region of 
+large $\norm{p}$, i.e. from the high-frequency modes of the field $\phi$. 
+In the cutoff theory we get instead
+\begin{equation}
+  D_\Lambda(x,y) = \int_{\norm{p} < \Lambda} \de p \frac{\e^{\I p \cdot (x-y)}}{\norm{p}^2 + m^2}
+\end{equation}
+and in particular $D_\Lambda(x,x)$ is now finite.
+So, by introducing the cutoff, we have at least made the
+individual terms in our perturbation 
+expansion \eqref{eq:pert-formal-interacting-scalar}
+well defined. However, as a practical tool, this
+expansion still suffers from some drawbacks. In particular,
+let us consider the behavior for large 
+$\Lambda$. Then we can expand \fixme{fix the constants}
+\begin{equation}
+  D_\Lambda(x,y) \sim \begin{cases} \Lambda^2 + \cdots & \text{ if } x = y, \\
+  \frac{1}{\norm{x - y}^2} + \cdots & \text{ if } x \neq y \end{cases}
+\end{equation}
+Using this expansion we can study the large $\Lambda$ behavior of the
+individual terms in the expansion \eqref{eq:pert-formal-interacting-scalar}.
+The leading term behaves as
+$\norm{x_1-x_2}^{-2}$ while the next term behaves as
+$\lambda \Lambda^2$.
+In particular, if $\Lambda \gg \norm{x_1-x_2}^{-1}$, then
+this expansion seems to be rather ill behaved.
 \fixme{...}
-
-
-\subsection{The index theorem}
-
-\fixme{...}
-
 
 \appendix
 
 \section{Background}
 
-Here I collect a little background material for convenience; I will probably
-not lecture on this material.
+Here I collect a little background material for convenience.
 
-\subsection{Spinors}
+\subsection{Spinors} \label{app:spinors}
 
 Good references for this are \cite{MR1031992,MR1367507}.
 
@@ -2901,7 +4157,11 @@ subject to the single relation \eqref{eq:clifford-relation}.
 This relation violates the $\Z$-grading but preserves a residual $\Z/2\Z$.
 Thus $\Cliff(V)$ is a $\Z/2\Z$-graded algebra:
 \begin{equation}
-  \Cliff(V) = \Cliff^+(V) \oplus \Cliff^-(V).
+  \Cliff(V) = \Cliff^0(V) \oplus \Cliff^1(V).
+\end{equation}
+By polarization \eqref{eq:clifford-relation} implies that for any $v, w \in V$ we have
+\begin{equation}
+  [v,w] = v w - w v = -2 \IP{v,w}.
 \end{equation}
 
 % In \eqref{eq:clifford-relation} we introduced a notation which we will use
@@ -2923,54 +4183,317 @@ whose associated $\Z$-graded algebra is $\wedge^*(V)$.
 \begin{equation}
  v_1 \otimes v_2 \otimes \cdots \otimes v_n \in \Cliff(V)
 \end{equation}
-where all $v_i$ have $\norm{v_i}^2 = 1$.
+where all $v_i$ have $\IP{v_i,v_i} = 1$.
 \end{defn}
 
-\begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^+(V)$.
+\begin{exercise} Show that $\Pin(V)$ is indeed a group.
+\end{exercise}
+
+\begin{defn}[Spin group] $\Spin(V) = \Pin(V) \cap \Cliff^0(V)$.
 \end{defn}
+
+Now any $v \in V \subset \Pin(V)$ acts on $V \subset \Cliff(V)$
+by conjugation:
+\begin{exercise}
+Show that this action is just the reflection in $v$.
+\end{exercise}
+More generally,
+\begin{exercise} Show that $\Pin(V)$ acts on $V \subset \Cliff(V)$ 
+by conjugation, and that this action gives a map $\Spin(V) \to \SO(V)$ which 
+is a double cover.
+\end{exercise}
 
 As a convenient notation we let $\Cliff(n)$ mean the Clifford algebra on the
-vector space $\R^n$ with its standard positive definite quadratic form,
-and similarly $\Spin(n)$, $\Pin(n)$ etc.
+vector space $\R^n$ with its standard positive definite quadratic form.
+$\Cliff(n)$ is generated by odd elements $e_i$, $i = 1, \dots, n$, with 
+\begin{equation}
+  \half [e_i, e_j] = -\delta_{ij}.
+\end{equation}
+Similarly we define $\Spin(n)$, $\Pin(n)$ etc.
+
+When $n > 2$, $\Spin(n)$ is simply connected, and the 
+double-covering map above identifies
+$\Spin(n)$ as the universal covering of $\SO(n)$. When $n=2$, both $\Spin(2)$
+and $\SO(2)$ are the circle group, and this map is just the double-covering
+map $\theta \to 2 \theta$.
 
 \begin{exercise} Show that:
 \begin{itemize}
-\item $\Cliff(1) \simeq \C$, $\Cliff^+(1) \simeq \R$, $\Spin(1) \simeq \Z / 2\Z$.
-\item $\Cliff(2) \simeq \bbH$, $\Cliff^+(2) \simeq \C$, $\Spin(2) \simeq \U(1)$.
-\item $\Cliff(3) \simeq \bbH \oplus \bbH$, $\Cliff^+(3) \simeq \bbH$, $\Spin(3) \simeq \SU(2)$.
+\item $\Cliff(1) \simeq \C$, $\Cliff^0(1) \simeq \R$, $\Spin(1) \simeq \Z / 2\Z$.
+\item $\Cliff(2) \simeq \bbH$, $\Cliff^0(2) \simeq \C$, $\Spin(2) \simeq \U(1)$.
+\item $\Cliff(3) \simeq \bbH \oplus \bbH$, $\Cliff^0(3) \simeq \bbH$, $\Spin(3) \simeq \SU(2)$.
 \end{itemize}
 \end{exercise}
 
-\begin{prop}[Spin group double-covers $\SO$ group] When $\dim V \ge 2$ 
-there is a canonical double-covering map
+\begin{defn}[Spin structures] Fix an oriented Riemannian manifold $X$, 
+and let $P$ be its principal $\SO(n)$-bundle
+of orthonormal frames. A \ti{spin structure on $X$} is a lift of $P$ to a $\Spin(n)$-bundle.
+A \ti{spinnable manifold} is a Riemannian oriented manifold $X$ which
+admits a spin structure.
+A \ti{spin manifold} is a Riemannian oriented manifold $X$ 
+equipped with a choice of spin structure.
+\end{defn}
+
+\begin{example}[Spin structures on the circle] When $X = S^1$ with a fixed metric and orientation, 
+the bundle $P$ of oriented frames is just $X$ itself, so a spin structure is just a double cover
+of $S^1$. Up to equivalence there are two double covers of $S^1$ (one connected and one disconnected),
+thus two spin structures.
+\end{example}
+
+\begin{exercise}
+For any Riemannian oriented $X$ which admits a spin structure, 
+show that the spin structures on $X$
+up to equivalence form a \ti{torsor} for the group $H^1(X, \Z/2\Z)$.
+(Hint: $H^1(X, \Z/2\Z)$ classifies double covers of $X$ up to equivalence, and 
+given a spin structure on $X$ and a double cover of $X$, one can \ti{twist} the
+spin structure by the double cover, to get another spin structure.)
+\end{exercise}
+
+\begin{prop} Every manifold of dimension $1$, $2$ or $3$ is spinnable.
+\end{prop}
+
+\begin{prop} $\C\PP^2$ is not spinnable.
+\end{prop}
+\begin{pf}
+Let $H$ denote a hyperplane in $\C\PP^2$, i.e.\ an embedded $\C\PP^1$. Then, $T\C\PP^2$, restricted to $H$, is
+$\cO(1)\oplus\cO(2)$: $\cO(2)$ is $T\C\PP^1$ and $\cO(1)$ is the normal bundle.\footnote{A generic section of the
+normal bundle intersects itself at one point, which is the reason why the normal bundle is $\cO(1)$; a similar
+argument gets you $\cO(2)$ for the tangent bundle.}
+
+$\C\PP^1$ has two charts, so we can explicitly write down transition functions for $\cO(1)\oplus\cO(2)$, which are
+maps $S^1\to\U(1)\times\U(1)\subset\SO(4)$. Explicitly, let $R_\theta\in\SO(2)$ denote the matrix which acts
+through rotation by $\theta$; then one of the transition functions is
 \begin{equation}
-  \Spin(V) \to \SO(V).
+\label{eq:CPn-transition-function}
+\theta\mapsto\begin{pmatrix} R_\theta\\& R_{2\theta}\end{pmatrix}.
+\end{equation}
+A spin structure is a lift of this map to $\Spin(4)$, the universal cover of $\SO(4)$. But the loop defined
+by~\eqref{eq:CPn-transition-function} is the nontrivial element of $\pi_1(\SO(4))$, and therefore this map cannot
+lift to $\Spin(4)$.
+\end{pf}
+
+From now on we specialize to even dimensions, since this is what we will use in
+the main text.
+
+\begin{prop}[Spin representations] 
+$\Cliff(2n)$ admits a $\Z/2\Z$-graded irreducible complex representation, $S = S^0 \oplus S^1$. 
+Each of $S^0$ and $S^1$ has complex dimension $2^{n-1}$. $S$ carries a natural Hermitian 
+metric, with respect to which $S^0$ and $S^1$ are orthogonal, $V$ 
+acts by skew-adjoint endomorphisms, 
+and $\Spin(V)$ acts unitarily.
+Up to equivalence and reversal of grading, $S$ is the unique graded irreducible representation
+of $\Cliff(2n)$.
+\end{prop}
+
+\begin{example}[Spin representation in dimension $2$] The spin representation 
+$S$ of $\Cliff(2)$ is $2$-dimensional. The generators $e_1$ and $e_2$ act by
+\begin{equation}
+  e_1 \mapsto \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \quad   e_2 \mapsto \begin{pmatrix} 0 & \I \\ \I & 0 \end{pmatrix}.
+\end{equation}
+Thus $e_1 e_2$ acts by $\begin{pmatrix} \I & 0 \\ 0 & -\I \end{pmatrix}$.
+\end{example}
+
+\begin{defn}[Complex spinor bundles] Fix a spin manifold $X$. The spin structure is 
+a principal $\Spin(n)$-bundle $Q$ over $X$.
+The associated bundle $SX = Q \times_{\Spin(n)} S$ is the \ti{complex spinor bundle} over $X$.
+\end{defn}
+
+$SX$ carries several nice structures: 
+\begin{itemize}
+\item Since $Q$ has a canonical connection induced by the
+Levi-Civita connection, $SX$ also has a canonical connection.
+\item
+Because the action of $\R^n \subset \Cliff(n)$ on $S$,
+$\rho: \R^n \to \End(S)$, is
+equivariant for the action of $\Spin(n)$ on both sides,
+it transfers to an action $\rho: TX \to \End(SX)$.
+\end{itemize}
+
+
+\subsection{Dirac operator}
+
+\begin{defn}[Dirac operator] Fix a spin manifold $X$.
+The \ti{Dirac operator} is the operator
+$\dirac: C^\infty(SX) \to C^\infty(SX)$
+given by
+\begin{equation}
+  \dirac = \sum_{i=1}^n \rho(e_i) \circ \nabla_{e_i}
+\end{equation}
+where $\{e_i\}$ form an orthonormal basis for $TX$.
+\end{defn}
+
+\begin{example}[Dirac operator on $\R^2$]
+If $X = \R^2$, then $SX$ is the $2$-dimensional complex trivial
+bundle, and
+\begin{equation}
+  \dirac = e_1 \partial_1 + e_2 \partial_2 = \begin{pmatrix} 0 & \partial_1 + \I \partial_2 \\ - \partial_1 + \I \partial_2 & 0 \end{pmatrix}.
+\end{equation}
+\end{example}
+
+\begin{prop} $\dirac$ is a symmetric operator with respect to the Hermitian $L^2$
+pairing on $SX$, i.e.
+\begin{equation}
+  \IP{\psi, \dirac \psi'} = \IP{\dirac \psi, \psi'}
 \end{equation}
 \end{prop}
 
-When $n > 2$, $\Spin(n)$ is simply connected, so this map identifies
-$\Spin(n)$ as the universal covering of $\SO(n)$.
-
-\begin{defn}[Spin structures] Fix an oriented manifold $X$, and let $P$ be its principal $\SO(n)$-bundle
-of oriented frames. A \ti{spin structure on $X$} is a lift of $P$ to a $\Spin(n)$-bundle.
+\begin{defn}[Spinor Laplacian] The \ti{spinor Laplacian}
+is the operator
+$\Delta: C^\infty(SX) \to C^\infty(SX)$ given by
+\begin{equation}
+  \Delta = - \dirac^2.
+\end{equation}
 \end{defn}
 
-\begin{defn}[$\Spin^c$ structures] \fixme{...}
-\end{defn}
+Note that on $X = \R^2$, relative to the trivialization of $SX$ we gave above, 
+$\Delta$ is just the identity matrix times the usual Laplacian on $C^\infty(\R^2)$.
+What is interesting is that $\dirac$ provides a \ti{square root} of $-\Delta$. 
+This is one of the nice features of spinors: in contrast, 
+for ordinary functions, the square root of $-\Delta$
+cannot be realized as a local differential operator.
 
-\begin{prop}[Spin representations] If $n$ is odd, $\Spin(n)$ admits a unique
-irreducible complex representation (up to equivalence) with the property that it 
-extends to a representation of $\Cliff(n)$; call this representation $S$; it has
-$\dim_\C S = 2^{k}$ where $n = 2k+1$.
-If $n$ is even, then $\Spin(n)$ admits two such representations (up to equivalence); call them $S^\pm$;
-both have $\dim_\C S^{\pm} = 2^k$ where $n = 2k$.
+
+
+\subsection{Index of the Dirac operator}
+
+\begin{prop} If $X$ is a compact spin manifold, then $\dirac: C^\infty(SX) \to C^\infty(SX)$ 
+is an elliptic operator. 
 \end{prop}
 
-\begin{defn}[Spinor bundles] \fixme{...}
+In particular, if we decompose $\dirac$ with respect to the grading of $S$,
+\begin{equation}
+  \dirac = \begin{pmatrix} 0 & \dirac^1 \\ \dirac^0 & 0 \end{pmatrix},
+\end{equation}
+then each of $\dirac^0$, $\dirac^1$ is also elliptic.
+Since $\dirac$ is symmetric, these two elliptic operators are formally 
+adjoint to one another.
+Now we consider the \ti{index}
+\begin{equation}
+  \ind \dirac^0 = \dim \ker \dirac^0 - \dim \coker \dirac^0 = \dim \ker \dirac^0 - \dim \ker \dirac^1.
+\end{equation}
+
+We are going to give a formula for $\ind \dirac^0$ in terms of characteristic
+classes.
+Recall that given a symmetric function $C(\{y_i\})$ where the $y_i$ are formal variables, 
+we can define a corresponding characteristic class of $\SO(n)$-bundles over $X$: 
+to construct it, we locally block-diagonalize the curvature 
+$F = \bigoplus_i \begin{pmatrix} 0 & F_i \\ -F_i & 0 \end{pmatrix} \in \fso(n)$
+and then take the form $C(\{\frac{F_i}{2\pi\I}\}) \in \Omega^*(X)$.\footnote{We 
+will only use functions invariant under $y_i \to -y_i$, so we actually 
+get characteristic classes of ${\mathrm O}(n)$-bundles.}
+
+\begin{defn} If $X$ is a compact Riemannian manifold, $p(X) \in \Omega^*(X)$
+is the characteristic class of $TX$ associated to the symmetric function
+\begin{equation}
+  \prod_i (1 + y_i^2).
+\end{equation}
+It is a sum
+\begin{equation}
+  p(X) = 1 + p_1(X) + p_2(X) + \cdots, \qquad p_k(X) \in \Omega^{4k}(X).
+\end{equation}
 \end{defn}
 
-\begin{defn}[Dirac operator] \fixme{...}
+\begin{example}
+We have $p_1(X) = -\frac{1}{4\pi^2} \Tr R \wedge R$, where
+$R \in \Omega^2(\fso(TX))$ is the Riemann curvature, and $\Tr$ denotes
+the usual trace, thinking of elements of $\fso(n)$ as $n \times n$ matrices.
+\end{example}
+
+The forms $p_k(X)$ are actually de Rham representatives of classes in $H^{4k}(X,\Z)$;
+thus integrating them, or their products, gives integers.
+But as we will see momentarily, they have considerably stronger 
+divisibility properties than mere integrality!
+
+\begin{example} The first nontrivial examples of Pontryagin classes arise in
+dimension $4$, where we have:
+\begin{equation} \label{eq:pontr-examples}
+\int_{S^4} p_1(S^4) = 0, \qquad \int_{\C\PP^2} p_1(\C\PP^2) = 3, \qquad \int_{K3} p_1(K3) = -48.
+\end{equation}
+\end{example}
+These integers have a simple interpretation:
+\begin{thm} If $X$ is a $4$-manifold then $\int_X p_1(X) = 3 \, {\mathrm{sign}}(X)$.
+\end{thm}
+
+\begin{exercise} Use \eqref{eq:pontr-examples} to
+show that there is no orientation-reversing diffeomorphism of $\C\PP^2$ or $K3$:
+these manifolds are, in some essential way, \ti{chiral} --- in contrast to $S^4$
+for which the antipodal map is orientation-reversing.
+\end{exercise}
+
+\begin{defn} \label{def:ahat} 
+If $X$ is a compact Riemannian manifold, $\hat A(X) \in \Omega^*(X)$
+is the characteristic class of $TX$ associated to the symmetric function
+\begin{equation}
+  \prod_i \frac{y_i/2}{\sinh(y_i/2)} = \prod_i \left( 1 - \frac{y_i^2}{24} + \frac{7 y_i^4}{5760} + \cdots \right)
+\end{equation}
 \end{defn}
+So $\hat A(X)$ is a sum of forms in degrees $4k$.
+We can expand $\hat A(X)$ in terms of Pontryagin classes:
+\begin{equation}
+  \hat A(X) = 1 - \frac{1}{24} p_1(X) + \frac{7 p_1(X)^2 - 4 p_2(X)}{5760} + \cdots
+\end{equation}
+
+\begin{thm}[Atiyah-Singer index theorem for the Dirac operator on complex spinors]
+\label{thm:atiyah-singer}
+We have
+\begin{equation}
+  \ind \dirac^0 = \int_X \hat A(X).
+\end{equation}
+\end{thm}
+This implies in particular that $\int_X \hat A(X)$ is actually an integer, so
+e.g. for a spinnable $4$-manifold, $\int_X p_1(X)$ is a multiple of $24$.\footnote{Even more is true: if $X$ is a spinnable
+manifold of dimension $8n+4$, $\int_X \hat A(X)$ is an \ti{even} integer,
+because in these dimensions $\dirac$ commutes with an additional
+conjugate-linear symmetry $j: SX \to SX$ with $j^2 = -1$, 
+i.e. $\dirac$ is $\bbH$-linear rather than merely
+$\C$-linear.}
+
+
+\subsection{Dirac operator coupled to a vector bundle} \label{sec:dirac-coupled}
+
+\fixme{characteristic classes for $U(n)$-bundles}
+
+\begin{defn}[Chern character] $\ch(E)$ is the characteristic class of a
+$U(n)$-bundle $E$ associated to the function \fixme{check factors}
+\begin{equation}
+  \sum_i \e^{z_i}.
+\end{equation}
+\end{defn}
+It is concentrated in even degrees, expanding as
+\begin{equation}
+  \ch(E) = \rank(E) + c_1(E) + \half(c_1(E)^2 - 2 c_2(E)) + \cdots
+\end{equation}
+
+\begin{defn}[Twisted Dirac operator] The \ti{Dirac operator twisted by $E$} is 
+the operator $\dirac_E: C^\infty(SX \otimes E) \to C^\infty(SX \otimes E)$
+given by
+\begin{equation}
+  \dirac_E = \sum_{i=1}^n \rho(e_i) \circ \nabla_{e_i}
+\end{equation}
+where $\{e_i\}$ form an orthonormal basis for $TX$, and $\nabla$ denotes the induced
+connection on $SX \otimes E$.
+\end{defn}
+
+\begin{thm}[Atiyah-Singer index theorem for twisted Dirac operator on complex spinors]
+\label{thm:atiyah-singer-twisted}
+We have
+\begin{equation}
+  \ind \dirac^0_E = \int_X \hat A(X) \ch(E).
+\end{equation}
+\end{thm}
+
+The simplest example of \autoref{thm:atiyah-singer-twisted} arises 
+when $\dim X = 2$. In this case the theorem becomes
+\begin{equation}
+  \ind \dirac^0_E = \int_X c_1(E) = \deg E.
+\end{equation}
+If we choose $E$ to be $V \otimes (\C \oplus T^* X)$
+\fixme{... explain relation to Riemann-Roch}
+% On the other hand \fixme{check} in this case 
+% $\dirac^0_E$ is the $\bar\partial$ operator on sections of $E$,
+% where the complex structure on $X$ is induced by the conformal structure,
+% and the holomorphic structure on $E$ is induced by its connection $\nabla$.
+
 
 \subsection{Hodge theory}
 
