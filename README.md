@@ -7,4 +7,4 @@ expository improvements, solutions to exercises) are very
 welcome, in any form.
 
 The PDF built from the master branch is hosted at
-http://www.ma.utexas.edu/users/neitzke/teaching/392C-qft-geometry/qft-geometry.pdf
+https://gauss.math.yale.edu/~an592/exports/qft-geometry.pdf
