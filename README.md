@@ -6,5 +6,5 @@ Contributions (corrections, typo fixes,
 expository improvements, solutions to exercises) are very 
 welcome, in any form.
 
-The PDF built from the master branch is hosted at
-https://gauss.math.yale.edu/~an592/exports/qft-geometry.pdf
+A PDF compiled from the master branch is hosted at
+https://www.dropbox.com/s/lcb1mcn2qymolye/qft-geometry.pdf?dl=0

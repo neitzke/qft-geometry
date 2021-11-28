@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: compile qft-geometry notes
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # check out repository under $GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compile
+        uses: xu-cheng/latex-action@v2
+        with:
+          args: "-f"
+          working_directory: 
+          root_file: qft-geometry.tex
+          extra_system_packages: "inkscape git"
+        continue-on-error: true
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          name: id_rsa
+
+      - name: Deploy with scp
+        run: scp -v -P ${{ secrets.SSH_PORT }}  qft-geometry.pdf  pi@${{ secrets.SSH_HOST }}:public_html
+
+      - name: Deploy to Dropbox
+        uses: neitzke/action-dropbox@HEAD
+        with:
+          accessToken: ${{ secrets.DROPBOX_TOKEN }}
+          destination: /
+          file: qft-geometry.pdf
