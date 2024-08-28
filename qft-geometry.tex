@@ -30,7 +30,7 @@
 \definecolor{shadecolor}{rgb}{0.85,0.85,0.85}
 
 % Bibliography formatting
-\usepackage[bibstyle=authoryear-comp,labeldate=false,defernumbers=true,maxnames=20,uniquename=init,dashed=false,backend=biber,sorting=none]{biblatex}
+\usepackage[bibstyle=numeric,defernumbers=true,maxnames=20,uniquename=init,backend=biber,sorting=none,bibencoding=utf8,casechanger=latex2e,backref=true]{biblatex}
 
 \DeclareNameAlias{sortname}{first-last}
 
@@ -520,7 +520,7 @@ Write out the action of $\fG$ on connections
 explicitly in components, when $G = \U(1)$ or $G = \SU(2)$.
 (It may be convenient to consider the case where $g$ is given as
 the exponential of a Lie algebra element, e.g. for $G = \U(1)$
-the formulas will be simplest if you write $g = \exp(\chi T)$ with $\chi$
+the formulas will be simplest if you write $g = \exp(\chi T)$ with $T$
 the generator of ${\mathfrak u}(1)$, and $\chi: U \to \R$ an ordinary function.)
 \end{exercise}
 
